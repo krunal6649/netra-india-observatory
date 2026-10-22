@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.1.1 — 2026-10-23 (bug fix)
+- Tool tabs no longer hide the last tab on laptop screens: they wrap on wide screens and scroll with a fade hint on phones
+- 'Method & sources' tab shortened to 'Method'
+- No data changes. v0.1.0-pilot remains the frozen reference.
+
 ## v0.1.0-pilot — 2026-10-22 (frozen)
 First public pilot. Kept unchanged as the reference version.
 
