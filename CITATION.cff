@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+title: "NETRA India AI Risk Observatory"
+version: "0.1.0-pilot"
+date-released: "2026-10-22"
+message: "If you use this data or software, please cite it as below."
+type: dataset
+authors:
+  - given-names: "Krunal"
+abstract: "Pilot observatory of AI risks, incidents, laws and mitigations in India, coded to the MIT AI Risk Initiative taxonomies and traced through the NETRA evidence and accountability pipeline. All codings unreviewed."
+license: CC-BY-4.0
+keywords: [AI governance, AI incidents, India, AI risk, evidence law, NETRA]

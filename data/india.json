@@ -1,0 +1,2573 @@
+{
+  "meta": {
+    "title": "NETRA India AI Risk Observatory",
+    "version": "0.1.0",
+    "created": "2026-10-22",
+    "checked": "2026-10-22",
+    "maintainer": "Krunal, Advocate (Bar Council of Gujarat), AI governance researcher",
+    "status": "Pilot seed. All codings were drafted with AI assistance and are unreviewed unless marked otherwise.",
+    "disclaimer": "Research and decision-support material. Not legal advice. No record accuses any person of an offence; incidents are described as reported by the cited sources."
+  },
+  "review_statuses": {
+    "unreviewed": "Unreviewed",
+    "source_checked": "Source-checked",
+    "human_reviewed": "Human-reviewed",
+    "published": "Published"
+  },
+  "frameworks": [
+    {
+      "id": "F-AIGG",
+      "title": "India AI Governance Guidelines: Enabling Safe and Trusted AI Innovation",
+      "issuer": "MeitY / IndiaAI Mission",
+      "date": "2025-11-05",
+      "url": "https://static.pib.gov.in/WriteReadData/specificdocs/documents/2025/nov/doc2025115685601.pdf",
+      "how_read": "Full text PDF read via web fetch on 2026-10-22; quotes are short extracts, located by section."
+    },
+    {
+      "id": "F-NITI1",
+      "title": "Responsible AI #AIForAll – Approach Document for India, Part 1: Principles for Responsible AI",
+      "issuer": "NITI Aayog",
+      "date": "2021-02",
+      "url": "https://www.niti.gov.in/sites/default/files/2021-02/Responsible-AI-22022021.pdf",
+      "how_read": "Full text PDF read via web fetch on 2026-10-22; page numbers from the document’s contents."
+    },
+    {
+      "id": "F-RBI",
+      "title": "Report of the Committee on Framework for Responsible and Ethical Enablement of AI (FREE-AI) in the Financial Sector",
+      "issuer": "Reserve Bank of India (Committee chaired by Dr. Pushpak Bhattacharyya, IIT Bombay)",
+      "date": "2025-08-13",
+      "url": "https://www.rbi.org.in/Scripts/PublicationReportDetails.aspx?UrlPage=&ID=1306",
+      "how_read": "Report web page read via web fetch on 2026-10-22; recommendations 1–14 seen; later recommendations not read."
+    }
+  ],
+  "risks": [
+    {
+      "id": "IR-01",
+      "framework": "F-AIGG",
+      "locator": "Section 2.4 (Risk Assessment)",
+      "quote": "Malicious uses, for example misinformation involving the distribution of harmful AI",
+      "title": "Malicious use, including AI-spread misinformation",
+      "domain": [
+        "4.1",
+        "3.1"
+      ],
+      "entity": "Human",
+      "intent": "Intentional",
+      "timing": "Post-deployment"
+    },
+    {
+      "id": "IR-02",
+      "framework": "F-AIGG",
+      "locator": "Section 2.4",
+      "quote": "Bias and discrimination, such as the use of inaccurate data to make a decision about future employment",
+      "title": "Bias and discrimination in consequential decisions",
+      "domain": [
+        "1.1"
+      ],
+      "entity": "AI",
+      "intent": "Unintentional",
+      "timing": "Post-deployment"
+    },
+    {
+      "id": "IR-03",
+      "framework": "F-AIGG",
+      "locator": "Section 2.4",
+      "quote": "Transparency failures from the lack of adequate disclosures",
+      "title": "Transparency failures",
+      "domain": [
+        "7.4"
+      ],
+      "entity": "Human",
+      "intent": "Other",
+      "timing": "Other"
+    },
+    {
+      "id": "IR-04",
+      "framework": "F-AIGG",
+      "locator": "Section 2.4",
+      "quote": "Systemic risks, including disruptions in the AI value chain due to market concentration",
+      "title": "Systemic risk from market concentration",
+      "domain": [
+        "6.1"
+      ],
+      "entity": "Human",
+      "intent": "Other",
+      "timing": "Other"
+    },
+    {
+      "id": "IR-05",
+      "framework": "F-AIGG",
+      "locator": "Section 2.4",
+      "quote": "Loss of control over AI systems, which could disrupt public order and safety.",
+      "title": "Loss of control over AI systems",
+      "domain": [
+        "7.1"
+      ],
+      "entity": "AI",
+      "intent": "Other",
+      "timing": "Post-deployment"
+    },
+    {
+      "id": "IR-06",
+      "framework": "F-AIGG",
+      "locator": "Section 2.4",
+      "quote": "National security, for example AI-facilitated disinformation campaigns, cyberattacks",
+      "title": "National security threats",
+      "domain": [
+        "4.1",
+        "4.2"
+      ],
+      "entity": "Human",
+      "intent": "Intentional",
+      "timing": "Post-deployment"
+    },
+    {
+      "id": "IR-07",
+      "framework": "F-AIGG",
+      "locator": "Section 2.4",
+      "quote": "women face the brunt of AI-generated deepfakes, sometimes referred to as 'revenge porn'",
+      "title": "Non-consensual deepfakes targeting women",
+      "domain": [
+        "4.3",
+        "1.2"
+      ],
+      "entity": "Human",
+      "intent": "Intentional",
+      "timing": "Post-deployment"
+    },
+    {
+      "id": "IR-08",
+      "framework": "F-AIGG",
+      "locator": "Section 2.4",
+      "quote": "Children face risks from AI recommendation engines not just through exposure to harmful",
+      "title": "Risks to children from recommendation engines",
+      "domain": [
+        "1.2",
+        "5.2"
+      ],
+      "entity": "AI",
+      "intent": "Unintentional",
+      "timing": "Post-deployment"
+    },
+    {
+      "id": "IR-09",
+      "framework": "F-NITI1",
+      "locator": "p. 12",
+      "quote": "Understanding the AI system's functioning for safe and reliable deployment",
+      "title": "Opaque functioning undermines safe deployment",
+      "domain": [
+        "7.4",
+        "7.3"
+      ],
+      "entity": "AI",
+      "intent": "Unintentional",
+      "timing": "Pre-deployment"
+    },
+    {
+      "id": "IR-10",
+      "framework": "F-NITI1",
+      "locator": "p. 13",
+      "quote": "can the relevant stakeholders of the AI system understand why a specific decision was made?",
+      "title": "Unexplained individual decisions",
+      "domain": [
+        "7.4"
+      ],
+      "entity": "AI",
+      "intent": "Unintentional",
+      "timing": "Post-deployment"
+    },
+    {
+      "id": "IR-11",
+      "framework": "F-NITI1",
+      "locator": "p. 15",
+      "quote": "inconsistent output across a diverse demography who are otherwise similarly placed",
+      "title": "Inconsistent outcomes across demographic groups",
+      "domain": [
+        "1.3"
+      ],
+      "entity": "AI",
+      "intent": "Unintentional",
+      "timing": "Post-deployment"
+    },
+    {
+      "id": "IR-12",
+      "framework": "F-NITI1",
+      "locator": "p. 16",
+      "quote": "an incorrect decision could lead to exclusion of services and benefits guaranteed by the State",
+      "title": "Wrongful exclusion from state services and benefits",
+      "domain": [
+        "1.1",
+        "7.3"
+      ],
+      "entity": "AI",
+      "intent": "Unintentional",
+      "timing": "Post-deployment"
+    },
+    {
+      "id": "IR-13",
+      "framework": "F-NITI1",
+      "locator": "p. 18",
+      "quote": "'many hands problem', associated with complex computer systems, complicates the issue of assigning responsibility",
+      "title": "Diffuse accountability (the many-hands problem)",
+      "domain": [
+        "6.5"
+      ],
+      "entity": "Human",
+      "intent": "Other",
+      "timing": "Other"
+    },
+    {
+      "id": "IR-14",
+      "framework": "F-NITI1",
+      "locator": "p. 21",
+      "quote": "Lack of adequate privacy safeguards may permit technology to wholly record and analyse an individual's personal life",
+      "title": "Pervasive privacy intrusion",
+      "domain": [
+        "2.1"
+      ],
+      "entity": "Human",
+      "intent": "Other",
+      "timing": "Post-deployment"
+    },
+    {
+      "id": "IR-15",
+      "framework": "F-NITI1",
+      "locator": "p. 23",
+      "quote": "Security risks in AI systems arise from its reliance on data and from its design and deployment environment.",
+      "title": "Security risks from data and deployment environment",
+      "domain": [
+        "2.2"
+      ],
+      "entity": "Other",
+      "intent": "Other",
+      "timing": "Other"
+    },
+    {
+      "id": "IR-16",
+      "framework": "F-NITI1",
+      "locator": "p. 27",
+      "quote": "The rapid rise of AI has led to the automation of a number of routine jobs.",
+      "title": "Automation of routine jobs",
+      "domain": [
+        "6.2"
+      ],
+      "entity": "Human",
+      "intent": "Intentional",
+      "timing": "Post-deployment"
+    },
+    {
+      "id": "IR-17",
+      "framework": "F-NITI1",
+      "locator": "p. 27",
+      "quote": "It also highlighted the role of AI in enabling profiling and ease of spreading targeted messages.",
+      "title": "Psychological profiling and targeted messaging",
+      "domain": [
+        "4.1"
+      ],
+      "entity": "Human",
+      "intent": "Intentional",
+      "timing": "Post-deployment"
+    },
+    {
+      "id": "IR-18",
+      "framework": "F-NITI1",
+      "locator": "p. 8 (approx.)",
+      "quote": "The usage of AI for malicious intent for e.g. deep fakes to create misinformation",
+      "title": "Deepfakes used to create misinformation",
+      "domain": [
+        "3.1",
+        "4.1"
+      ],
+      "entity": "Human",
+      "intent": "Intentional",
+      "timing": "Post-deployment"
+    }
+  ],
+  "instruments": [
+    {
+      "id": "G-ITA",
+      "title": "Information Technology Act, 2000",
+      "issuer": "Parliament (MeitY administers)",
+      "type": "Statute",
+      "force": "Hard law",
+      "date": "2000-10-17",
+      "status": "In force",
+      "sectors": [
+        "Internet platforms & telecom",
+        "Policing & security"
+      ],
+      "lifecycle": [
+        "Deploy",
+        "Operate & monitor"
+      ],
+      "actors": [
+        "Intermediaries",
+        "Body corporates",
+        "Users"
+      ],
+      "domains": [
+        "2.1",
+        "2.2",
+        "4.2",
+        "4.3",
+        "1.2"
+      ],
+      "provisions": "ss.43, 43A, 66, 66C, 66D, 66E, 67, 67A, 69A, 75, 79",
+      "summary": "Core cyber law. Computer misuse, identity theft and personation offences, privacy violation, obscene content, blocking powers and intermediary safe harbour. No AI-specific provisions.",
+      "url": "https://www.indiacode.nic.in/handle/123456789/13683",
+      "verified": "partial",
+      "note": "Enforcement date from India Code. Section contents summarised from researcher knowledge; re-read bare text."
+    },
+    {
+      "id": "G-ITR21",
+      "title": "IT (Intermediary Guidelines and Digital Media Ethics Code) Rules, 2021",
+      "issuer": "MeitY",
+      "type": "Rules",
+      "force": "Hard law",
+      "date": "2021-02-25",
+      "status": "In force (amended 2022, 2023, 2025, 2026)",
+      "sectors": [
+        "Internet platforms & telecom",
+        "Media, entertainment & creators"
+      ],
+      "lifecycle": [
+        "Deploy",
+        "Operate & monitor"
+      ],
+      "actors": [
+        "Intermediaries",
+        "Significant social media intermediaries"
+      ],
+      "domains": [
+        "3.1",
+        "1.2",
+        "4.3"
+      ],
+      "provisions": "Rule 3(1)(b) due diligence",
+      "summary": "Due-diligence duties for intermediaries, including not hosting listed unlawful or knowingly false content. Invoked by MeitY against an AI chatbot answer in Feb 2024.",
+      "url": "https://www.meity.gov.in/",
+      "verified": "partial",
+      "note": "Notification date from researcher knowledge; amendment years per S.S. Rana summary. Official Gazette link not located; URL is MeitY home page."
+    },
+    {
+      "id": "G-ITR26",
+      "title": "IT (Intermediary Guidelines and Digital Media Ethics Code) Amendment Rules, 2026",
+      "issuer": "MeitY",
+      "type": "Rules",
+      "force": "Hard law",
+      "date": "2026-02-10",
+      "status": "In force from 2026-02-20",
+      "sectors": [
+        "Internet platforms & telecom",
+        "Media, entertainment & creators",
+        "Elections & democracy"
+      ],
+      "lifecycle": [
+        "Deploy",
+        "Operate & monitor"
+      ],
+      "actors": [
+        "Intermediaries",
+        "Significant social media intermediaries",
+        "Users"
+      ],
+      "domains": [
+        "3.1",
+        "4.1",
+        "4.3"
+      ],
+      "provisions": "Rule 2(1)(wa) 'synthetically generated information'; Rule 3(3)",
+      "summary": "Defines synthetically generated audio-visual information. Requires user declarations, prominent labels and provenance metadata, and cuts some takedown windows from 36 hours to 3 hours. Text-only AI output is outside the definition.",
+      "url": "https://www.dsci.in/resource/content/it-amendment-rules-2026",
+      "verified": "partial",
+      "note": "Dates and scope agree across DSCI, Mondaq, IFF and iPleaders summaries; Gazette text not opened."
+    },
+    {
+      "id": "G-ADV-DEC23",
+      "title": "MeitY advisory to intermediaries on prohibited content and deepfakes (23 Dec 2023)",
+      "issuer": "MeitY",
+      "type": "Advisory",
+      "force": "Soft law (binding effect disputed)",
+      "date": "2023-12-23",
+      "status": "Issued; not withdrawn by the March 2024 revision",
+      "sectors": [
+        "Internet platforms & telecom"
+      ],
+      "lifecycle": [
+        "Operate & monitor"
+      ],
+      "actors": [
+        "Intermediaries"
+      ],
+      "domains": [
+        "3.1",
+        "4.3"
+      ],
+      "provisions": "Reiterates IT Rules 2021 duties",
+      "summary": "Asked platforms to communicate prohibited content clearly to users, following public concern over deepfakes.",
+      "url": "https://www.jurist.org/news/2023/12/india-government-issues-advisory-to-combat-deepfakes-on-social-media-platforms/",
+      "verified": "partial",
+      "note": "Date confirmed by JSA summary of the March 2024 advisory. Content per secondary reporting."
+    },
+    {
+      "id": "G-ADV-MAR24",
+      "title": "MeitY advisory on AI models and platforms (1 Mar 2024, revised 15 Mar 2024)",
+      "issuer": "MeitY",
+      "type": "Advisory",
+      "force": "Soft law (binding effect disputed)",
+      "date": "2024-03-15",
+      "status": "Revised version replaces 1 March version",
+      "sectors": [
+        "AI development",
+        "Internet platforms & telecom",
+        "Elections & democracy"
+      ],
+      "lifecycle": [
+        "Deploy"
+      ],
+      "actors": [
+        "Intermediaries",
+        "Platforms offering AI models"
+      ],
+      "domains": [
+        "3.1",
+        "7.3",
+        "4.1"
+      ],
+      "provisions": "Cites IT Act 2000 and IT Rules 2021",
+      "summary": "Revised version dropped prior government permission. Under-tested or unreliable models may be offered only after users are told of unreliability (e.g. consent pop-up). Synthetic content to carry labels, metadata or unique identifiers.",
+      "url": "https://www.jsalaw.com/newsletters-and-updates/revised-meity-advisory-on-deployment-of-ai-models/",
+      "verified": "partial",
+      "note": "JSA notes the legal basis is ambiguous and enforceability unclear."
+    },
+    {
+      "id": "G-CERTIN",
+      "title": "CERT-In Directions under s.70B(6) IT Act (No. 20(3)/2022-CERT-In)",
+      "issuer": "CERT-In (MeitY)",
+      "type": "Direction",
+      "force": "Hard law",
+      "date": "2022-04-28",
+      "status": "In force (effective 2022-06-27)",
+      "sectors": [
+        "Internet platforms & telecom",
+        "Finance & banking",
+        "AI development",
+        "Policing & security"
+      ],
+      "lifecycle": [
+        "Operate & monitor"
+      ],
+      "actors": [
+        "Service providers",
+        "Intermediaries",
+        "Data centres",
+        "Body corporates",
+        "Government organisations"
+      ],
+      "domains": [
+        "2.2",
+        "4.2"
+      ],
+      "provisions": "Mandatory reporting of listed cyber incidents within 6 hours; ICT log retention for 180 days",
+      "summary": "Applies to cyber incidents whatever their cause, including incidents involving AI systems. No AI-specific category.",
+      "url": "https://www.cert-in.org.in/PDF/CERT-In_Directions_70B_28.04.2022.pdf",
+      "verified": "partial",
+      "note": "Official PDF URL from multiple secondary sources; PDF not opened."
+    },
+    {
+      "id": "G-DPDP",
+      "title": "Digital Personal Data Protection Act, 2023",
+      "issuer": "Parliament (MeitY administers)",
+      "type": "Statute",
+      "force": "Hard law",
+      "date": "2023-08-11",
+      "status": "Partly in force since 2025-11-13; core duties from about 2027-05-13",
+      "sectors": [
+        "Finance & banking",
+        "Healthcare",
+        "Internet platforms & telecom",
+        "AI development",
+        "Welfare & public services"
+      ],
+      "lifecycle": [
+        "Data collection",
+        "Build & train",
+        "Deploy",
+        "Operate & monitor"
+      ],
+      "actors": [
+        "Data fiduciaries",
+        "Data processors",
+        "Significant data fiduciaries"
+      ],
+      "domains": [
+        "2.1",
+        "2.2"
+      ],
+      "provisions": "ss.3, 4–10 (duties), 8(5)–8(6) security and breach intimation; s.44(2) omits IT Act s.43A",
+      "summary": "General data protection law. Applies to personal data used to train or run AI systems. Most obligations commence 18 months after the November 2025 notification.",
+      "url": "https://www.indiacode.nic.in/bitstream/123456789/22037/2/a2023-22.pdf",
+      "verified": "partial",
+      "note": "Commencement split per secondary summaries of G.S.R. 843(E); Gazette not opened."
+    },
+    {
+      "id": "G-DPDPR",
+      "title": "Digital Personal Data Protection Rules, 2025",
+      "issuer": "MeitY",
+      "type": "Rules",
+      "force": "Hard law",
+      "date": "2025-11-13",
+      "status": "Rules 1, 2, 17–21 in force; Rule 4 after one year; Rules 3, 5–16, 22–23 after 18 months",
+      "sectors": [
+        "Finance & banking",
+        "Healthcare",
+        "Internet platforms & telecom",
+        "AI development"
+      ],
+      "lifecycle": [
+        "Data collection",
+        "Operate & monitor"
+      ],
+      "actors": [
+        "Data fiduciaries",
+        "Consent managers"
+      ],
+      "domains": [
+        "2.1"
+      ],
+      "provisions": "Notice, consent, breach intimation, children’s data, cross-border transfer",
+      "summary": "Operational rules under the DPDP Act, commenced in three phases.",
+      "url": "https://www.azbpartners.com/bank/update-indias-digital-personal-data-protection-framework-comes-into-effect/",
+      "verified": "partial",
+      "note": "Phasing per Mondaq, AZB and Konfirmity summaries. Official Gazette link not located."
+    },
+    {
+      "id": "G-BSA",
+      "title": "Bharatiya Sakshya Adhiniyam, 2023",
+      "issuer": "Parliament (MHA)",
+      "type": "Statute",
+      "force": "Hard law",
+      "date": "2024-07-01",
+      "status": "In force",
+      "sectors": [
+        "Justice & legal",
+        "Policing & security"
+      ],
+      "lifecycle": [
+        "Operate & monitor"
+      ],
+      "actors": [
+        "Courts",
+        "Parties",
+        "Investigators"
+      ],
+      "domains": [
+        "6.5",
+        "7.4"
+      ],
+      "provisions": "ss.61, 63 (electronic records; certificate with hash value signed by person in charge and an expert)",
+      "summary": "Evidence law that governs whether AI logs, deepfake files and chatbot transcripts can be proved in court.",
+      "url": "https://blog.ipleaders.in/electronic-evidence-under-the-bsa-2023/",
+      "verified": "partial",
+      "note": "Secondary sources only; official India Code copy not located."
+    },
+    {
+      "id": "G-BNS",
+      "title": "Bharatiya Nyaya Sanhita, 2023",
+      "issuer": "Parliament (MHA)",
+      "type": "Statute",
+      "force": "Hard law",
+      "date": "2024-07-01",
+      "status": "In force",
+      "sectors": [
+        "Policing & security",
+        "Finance & banking"
+      ],
+      "lifecycle": [
+        "Operate & monitor"
+      ],
+      "actors": [
+        "Any person"
+      ],
+      "domains": [
+        "4.3",
+        "4.1"
+      ],
+      "provisions": "Cheating, cheating by personation, forgery, defamation (section numbers to verify)",
+      "summary": "General criminal code that replaced the IPC. Relevant to deepfake fraud and impersonation where the human user is the offender.",
+      "url": "https://www.indiacode.nic.in/",
+      "verified": "no",
+      "note": "Researcher knowledge only. Section numbers not verified in this session."
+    },
+    {
+      "id": "G-CPA",
+      "title": "Consumer Protection Act, 2019",
+      "issuer": "Parliament (Department of Consumer Affairs)",
+      "type": "Statute",
+      "force": "Hard law",
+      "date": "2019-08-09",
+      "status": "In force",
+      "sectors": [
+        "Finance & banking",
+        "Internet platforms & telecom",
+        "Healthcare"
+      ],
+      "lifecycle": [
+        "Deploy",
+        "Operate & monitor"
+      ],
+      "actors": [
+        "Manufacturers",
+        "Service providers",
+        "Sellers",
+        "Endorsers"
+      ],
+      "domains": [
+        "4.3",
+        "7.3"
+      ],
+      "provisions": "Product liability; unfair trade practices; misleading advertisements",
+      "summary": "Possible route for consumers harmed by defective AI products or misleading AI claims, including deepfake endorsements.",
+      "url": "https://www.indiacode.nic.in/",
+      "verified": "no",
+      "note": "Researcher knowledge only."
+    },
+    {
+      "id": "G-CCPA-DP",
+      "title": "Guidelines for Prevention and Regulation of Dark Patterns, 2023",
+      "issuer": "Central Consumer Protection Authority",
+      "type": "Guidelines (under CPA 2019)",
+      "force": "Hard law",
+      "date": "2023-11-30",
+      "status": "In force",
+      "sectors": [
+        "Internet platforms & telecom",
+        "Finance & banking"
+      ],
+      "lifecycle": [
+        "Deploy",
+        "Operate & monitor"
+      ],
+      "actors": [
+        "Platforms",
+        "Advertisers",
+        "Sellers"
+      ],
+      "domains": [
+        "5.2",
+        "4.3"
+      ],
+      "provisions": "Specified dark patterns in the annexure",
+      "summary": "Bans listed manipulative interface designs. Applies whether or not AI personalises them.",
+      "url": "https://www.jsalaw.com/newsletters-and-updates/ccpa-issues-guidelines-for-prevention-and-regulation-of-dark-patterns-2023/",
+      "verified": "partial",
+      "note": "Date from Mondaq headline ('effective 30 November 2023'); text not opened."
+    },
+    {
+      "id": "G-COPY",
+      "title": "Copyright Act, 1957",
+      "issuer": "Parliament (DPIIT administers)",
+      "type": "Statute",
+      "force": "Hard law",
+      "date": "1958-01-21",
+      "status": "In force",
+      "sectors": [
+        "Media, entertainment & creators",
+        "AI development"
+      ],
+      "lifecycle": [
+        "Data collection",
+        "Build & train"
+      ],
+      "actors": [
+        "AI developers",
+        "Rights holders"
+      ],
+      "domains": [
+        "6.3"
+      ],
+      "provisions": "s.14 reproduction right; s.52(1)(a) fair dealing (as applied in ANI v OpenAI, 2026)",
+      "summary": "Governs use of copyrighted works to train AI. Delhi High Court applied fair dealing to training storage at the interim stage in July 2026.",
+      "url": "https://www.indiacode.nic.in/",
+      "verified": "partial",
+      "note": "Commencement date from researcher knowledge; s.52(1)(a) reading from iPleaders summary of ANI v OpenAI."
+    },
+    {
+      "id": "G-DPIIT-WP",
+      "title": "DPIIT Working Paper (Part 1) on generative AI and copyright",
+      "issuer": "DPIIT committee",
+      "type": "Consultation paper",
+      "force": "Proposal",
+      "date": "2025-12-08",
+      "status": "Consultation; not law",
+      "sectors": [
+        "Media, entertainment & creators",
+        "AI development"
+      ],
+      "lifecycle": [
+        "Build & train"
+      ],
+      "actors": [
+        "AI developers",
+        "Rights holders",
+        "Collecting bodies"
+      ],
+      "domains": [
+        "6.3"
+      ],
+      "provisions": "Hybrid model: mandatory blanket licence for training, royalties on commercialisation",
+      "summary": "Proposes that developers may train on copyrighted works under a statutory licence, with government-set royalties collected centrally. Nasscom dissented in favour of a text-and-data-mining exception.",
+      "url": "https://www.storyboard18.com/digital/dpiit-releases-working-paper-on-copyright-and-ai-proposes-hybrid-licensing-model-85551.htm",
+      "verified": "partial",
+      "note": "Secondary reporting; paper itself not opened."
+    },
+    {
+      "id": "G-AIGG",
+      "title": "India AI Governance Guidelines",
+      "issuer": "MeitY / IndiaAI Mission",
+      "type": "Policy guidelines",
+      "force": "Soft law",
+      "date": "2025-11-05",
+      "status": "Published policy; not legislation",
+      "sectors": [
+        "AI development",
+        "Internet platforms & telecom",
+        "Welfare & public services",
+        "Finance & banking",
+        "Healthcare"
+      ],
+      "lifecycle": [
+        "Plan & design",
+        "Build & train",
+        "Deploy",
+        "Operate & monitor"
+      ],
+      "actors": [
+        "Government",
+        "Regulators",
+        "Industry",
+        "Developers",
+        "Deployers"
+      ],
+      "domains": [
+        "1.1",
+        "1.2",
+        "3.1",
+        "4.1",
+        "4.2",
+        "4.3",
+        "6.1",
+        "6.5",
+        "7.1",
+        "7.4"
+      ],
+      "provisions": "Seven sutras; six pillars; AIGG, TPEC, AI Safety Institute; AI incidents database; graded liability; IT Act amendment",
+      "summary": "India’s national AI governance framework. Prefers existing laws and sectoral regulation, voluntary measures and techno-legal tools. Recommends an AI incidents database that encourages reporting without the threat of penalties.",
+      "url": "https://static.pib.gov.in/WriteReadData/specificdocs/documents/2025/nov/doc2025115685601.pdf",
+      "verified": "yes",
+      "note": "Full text read on 2026-10-22."
+    },
+    {
+      "id": "G-PSA-WP",
+      "title": "PSA white paper on techno-legal measures for AI governance",
+      "issuer": "Office of the Principal Scientific Adviser",
+      "type": "White paper",
+      "force": "Proposal",
+      "date": "2026-01-24",
+      "status": "Published proposal",
+      "sectors": [
+        "AI development",
+        "Welfare & public services"
+      ],
+      "lifecycle": [
+        "Build & train",
+        "Deploy",
+        "Operate & monitor"
+      ],
+      "actors": [
+        "Government",
+        "Industry",
+        "Researchers",
+        "Civil society"
+      ],
+      "domains": [
+        "1.1",
+        "2.2",
+        "6.5",
+        "7.3"
+      ],
+      "provisions": "National AI incident database; voluntary transparency reports, fairness and robustness tests, red-teaming; TPEC",
+      "summary": "Proposes a national database to record, classify and analyse AI safety failures, biased outcomes, security breaches and misuse, supporting an India-specific risk taxonomy.",
+      "url": "https://www.business-standard.com/india-news/govt-should-consider-national-database-for-ai-incidents-white-paper-126012400322_1.html",
+      "verified": "partial",
+      "note": "Date is the news report date. Formal title and paper text not opened. Directly overlaps this observatory’s purpose."
+    },
+    {
+      "id": "G-AISI",
+      "title": "IndiaAI Safety Institute",
+      "issuer": "MeitY / IndiaAI Mission",
+      "type": "Institution",
+      "force": "Institutional",
+      "date": "2025",
+      "status": "Announced; hub-and-spoke model",
+      "sectors": [
+        "AI development"
+      ],
+      "lifecycle": [
+        "Build & train",
+        "Deploy"
+      ],
+      "actors": [
+        "Government",
+        "Academia",
+        "Industry"
+      ],
+      "domains": [
+        "7.1",
+        "7.2",
+        "7.3"
+      ],
+      "provisions": "Under the Safe and Trusted pillar of the IndiaAI Mission",
+      "summary": "Research and standards body for AI safety using Indian datasets. The 2025 Guidelines recommend resourcing it to develop draft standards.",
+      "url": "https://indiaai.gov.in/article/india-takes-the-lead-establishing-the-indiaai-safety-institute-for-responsible-ai-innovation",
+      "verified": "partial",
+      "note": "Announcement date not stated on the IndiaAI page; reported as January 2025 elsewhere."
+    },
+    {
+      "id": "G-NITI1",
+      "title": "Responsible AI for All – Part 1: Principles",
+      "issuer": "NITI Aayog",
+      "type": "Policy approach paper",
+      "force": "Soft law",
+      "date": "2021-02",
+      "status": "Published",
+      "sectors": [
+        "Welfare & public services",
+        "AI development"
+      ],
+      "lifecycle": [
+        "Plan & design",
+        "Deploy"
+      ],
+      "actors": [
+        "Government",
+        "Developers"
+      ],
+      "domains": [
+        "1.1",
+        "1.3",
+        "2.1",
+        "2.2",
+        "6.2",
+        "6.5",
+        "7.4"
+      ],
+      "provisions": "Seven principles for responsible AI",
+      "summary": "Sets out system and societal considerations and seven principles (safety and reliability, equality, inclusivity and non-discrimination, privacy and security, transparency, accountability, positive human values).",
+      "url": "https://www.niti.gov.in/sites/default/files/2021-02/Responsible-AI-22022021.pdf",
+      "verified": "yes",
+      "note": "Full text read on 2026-10-22."
+    },
+    {
+      "id": "G-NITI2",
+      "title": "Responsible AI for All – Part 2: Operationalizing Principles",
+      "issuer": "NITI Aayog",
+      "type": "Policy approach paper",
+      "force": "Soft law",
+      "date": "2021-08-12",
+      "status": "Published",
+      "sectors": [
+        "Welfare & public services",
+        "AI development"
+      ],
+      "lifecycle": [
+        "Plan & design",
+        "Deploy",
+        "Operate & monitor"
+      ],
+      "actors": [
+        "Government",
+        "Regulators",
+        "Developers"
+      ],
+      "domains": [
+        "6.5"
+      ],
+      "provisions": "Mechanisms to operationalise the Part 1 principles",
+      "summary": "Companion paper on how government, regulators and industry could put the principles into practice.",
+      "url": "https://niti.gov.in/sites/default/files/2021-08/Part2-Responsible-AI-12082021.pdf",
+      "verified": "partial",
+      "note": "Date from file name; content not read in this session."
+    },
+    {
+      "id": "G-RBI",
+      "title": "RBI FREE-AI Committee Report (Financial sector)",
+      "issuer": "Reserve Bank of India",
+      "type": "Committee report",
+      "force": "Soft law (recommendations)",
+      "date": "2025-08-13",
+      "status": "Published; recommendations to RBI and regulated entities",
+      "sectors": [
+        "Finance & banking"
+      ],
+      "lifecycle": [
+        "Plan & design",
+        "Build & train",
+        "Deploy",
+        "Operate & monitor"
+      ],
+      "actors": [
+        "Regulated entities",
+        "Regulators",
+        "Industry bodies"
+      ],
+      "domains": [
+        "1.1",
+        "2.2",
+        "6.5",
+        "7.3",
+        "7.4"
+      ],
+      "provisions": "7 sutras; 6 pillars; 26 recommendations",
+      "summary": "Sector framework for AI in finance. Includes an AI sandbox, a graded liability framework, an RBI AI Standing Committee and board-approved AI policies.",
+      "url": "https://www.rbi.org.in/Scripts/PublicationReportDetails.aspx?UrlPage=&ID=1306",
+      "verified": "partial",
+      "note": "Recommendations 1–14 read; 15–26 not read."
+    },
+    {
+      "id": "G-SEBI-CP",
+      "title": "SEBI consultation paper on guidelines for responsible usage of AI/ML in securities markets",
+      "issuer": "SEBI",
+      "type": "Consultation paper",
+      "force": "Proposal",
+      "date": "2025-06-20",
+      "status": "Consultation; final guidelines not confirmed",
+      "sectors": [
+        "Securities markets"
+      ],
+      "lifecycle": [
+        "Build & train",
+        "Deploy",
+        "Operate & monitor"
+      ],
+      "actors": [
+        "Market intermediaries",
+        "Exchanges",
+        "Advisers"
+      ],
+      "domains": [
+        "1.1",
+        "7.3",
+        "7.4"
+      ],
+      "provisions": "Model governance, record-keeping, investor disclosure, testing, accountability",
+      "summary": "Proposes governance and disclosure duties for market participants using AI/ML in trading, advice and research.",
+      "url": "https://www.taxmann.com/post/blog/sebi-proposes-ai-ml-governance-framework-for-securities-markets",
+      "verified": "partial",
+      "note": "Secondary summary; whether final guidelines issued not confirmed."
+    },
+    {
+      "id": "G-ICMR",
+      "title": "Ethical Guidelines for Application of AI in Biomedical Research and Healthcare",
+      "issuer": "ICMR (DHR-ICMR AI Cell)",
+      "type": "Ethical guidelines",
+      "force": "Soft law",
+      "date": "2023",
+      "status": "Published",
+      "sectors": [
+        "Healthcare"
+      ],
+      "lifecycle": [
+        "Plan & design",
+        "Build & train",
+        "Deploy"
+      ],
+      "actors": [
+        "Researchers",
+        "Healthcare providers",
+        "Ethics committees"
+      ],
+      "domains": [
+        "2.1",
+        "7.3",
+        "6.5"
+      ],
+      "provisions": "Ethical principles for AI in health research and care",
+      "summary": "Sector guidance for developing and using AI in health research and clinical care.",
+      "url": "https://www.icmr.gov.in/icmrobject/custom_data/pdf/Ethical-guidelines/Ethical_Guidelines_AI_Healthcare_2023.pdf",
+      "verified": "partial",
+      "note": "Title, issuer and year from ICMR page; principles not read."
+    },
+    {
+      "id": "G-TEC",
+      "title": "TEC Standard for Fairness Assessment and Rating of AI Systems",
+      "issuer": "Telecommunication Engineering Centre (DoT)",
+      "type": "Voluntary standard",
+      "force": "Soft law",
+      "date": "2023",
+      "status": "Published (standard number to verify)",
+      "sectors": [
+        "Internet platforms & telecom",
+        "AI development"
+      ],
+      "lifecycle": [
+        "Build & train",
+        "Deploy"
+      ],
+      "actors": [
+        "Developers",
+        "Auditors"
+      ],
+      "domains": [
+        "1.1",
+        "1.3"
+      ],
+      "provisions": "Procedures for fairness metrics and a combined fairness score",
+      "summary": "Lets developers and auditors assess and rate AI fairness for self-assessment or third-party assurance.",
+      "url": "https://opengovasia.com/india-advancing-responsible-ai/",
+      "verified": "partial",
+      "note": "Release date and standard number not stated in the source read."
+    },
+    {
+      "id": "G-ECI-24",
+      "title": "ECI advisory on responsible use of social media (2024 general election)",
+      "issuer": "Election Commission of India",
+      "type": "Advisory",
+      "force": "Soft law (Model Code of Conduct)",
+      "date": "2024-05",
+      "status": "Issued for 2024 general election",
+      "sectors": [
+        "Elections & democracy"
+      ],
+      "lifecycle": [
+        "Operate & monitor"
+      ],
+      "actors": [
+        "Political parties"
+      ],
+      "domains": [
+        "4.1",
+        "3.1"
+      ],
+      "provisions": "Model Code of Conduct; Article 324",
+      "summary": "Told parties not to use technological or AI-based tools that distort information or spread misinformation. No labelling duty.",
+      "url": "https://www.medianama.com/2025/10/223-eci-bans-ai-deepfakes-guidelines-bihar-assembly-elections-2025/",
+      "verified": "partial",
+      "note": "Described in MediaNama’s Oct 2025 report; original advisory not opened."
+    },
+    {
+      "id": "G-ECI-25",
+      "title": "ECI directive on AI-generated campaign content (Bihar 2025)",
+      "issuer": "Election Commission of India",
+      "type": "Advisory / MCC directive",
+      "force": "Soft law (Model Code of Conduct)",
+      "date": "2025-10",
+      "status": "Issued for Bihar assembly elections and bye-elections",
+      "sectors": [
+        "Elections & democracy"
+      ],
+      "lifecycle": [
+        "Operate & monitor"
+      ],
+      "actors": [
+        "Political parties",
+        "Candidates"
+      ],
+      "domains": [
+        "4.1",
+        "3.1"
+      ],
+      "provisions": "Labels: 'AI-Generated', 'Digitally Enhanced' or 'Synthetic Content'",
+      "summary": "Requires parties to label synthetic campaign content and warns against deepfakes; MCC violations invite action.",
+      "url": "https://www.medianama.com/2025/10/223-eci-bans-ai-deepfakes-guidelines-bihar-assembly-elections-2025/",
+      "verified": "partial",
+      "note": "Exact issue date not stated in the source; reported 10 Oct 2025."
+    },
+    {
+      "id": "G-J-ANIL",
+      "title": "Anil Kapoor personality-rights order (Delhi High Court)",
+      "issuer": "Delhi High Court (Justice Pratibha M. Singh)",
+      "type": "Judicial order (interim)",
+      "force": "Judicial",
+      "date": "2023-09-20",
+      "status": "Interim order",
+      "sectors": [
+        "Media, entertainment & creators"
+      ],
+      "lifecycle": [
+        "Operate & monitor"
+      ],
+      "actors": [
+        "Platforms",
+        "Unknown persons (John Doe)",
+        "ISPs"
+      ],
+      "domains": [
+        "4.3",
+        "6.3"
+      ],
+      "provisions": "Personality rights; right of publicity",
+      "summary": "Restrained unauthorised commercial use of the actor’s name, voice and image, including AI-based manipulation, and ordered domain blocking and link takedowns.",
+      "url": "https://www.medianama.com/2023/09/223-delhi-hc-unauthorised-use-anil-kapoor-name-voice/",
+      "verified": "partial",
+      "note": "Order itself not read."
+    },
+    {
+      "id": "G-J-ARIJIT",
+      "title": "Arijit Singh v. Codible Ventures LLP (Bombay High Court)",
+      "issuer": "Bombay High Court (Justice Riyaz Chagla)",
+      "type": "Judicial order (ad-interim)",
+      "force": "Judicial",
+      "date": "2024-07-26",
+      "status": "Ad-interim injunction",
+      "sectors": [
+        "Media, entertainment & creators",
+        "AI development"
+      ],
+      "lifecycle": [
+        "Deploy",
+        "Operate & monitor"
+      ],
+      "actors": [
+        "AI voice platforms",
+        "Content producers"
+      ],
+      "domains": [
+        "6.3",
+        "4.3"
+      ],
+      "provisions": "Personality rights; right of publicity",
+      "summary": "Barred AI platforms from cloning or synthesising the singer’s voice, likeness or persona without consent.",
+      "url": "https://spicyip.com/2024/08/synthetic-singers-and-voice-theft-bomhc-protects-arijit-singhs-personality-rights-part-i.html",
+      "verified": "partial",
+      "note": "Order PDF available via Columbia Global Freedom of Expression; not read."
+    },
+    {
+      "id": "G-J-ANI",
+      "title": "ANI Media Pvt. Ltd. v. OpenAI OpCo LLC, CS(COMM) 1028/2024 (Delhi High Court)",
+      "issuer": "Delhi High Court (Justice Amit Bansal)",
+      "type": "Judicial order (interim)",
+      "force": "Judicial",
+      "date": "2026-07-24",
+      "status": "Interim injunction refused; suit continues",
+      "sectors": [
+        "Media, entertainment & creators",
+        "AI development"
+      ],
+      "lifecycle": [
+        "Data collection",
+        "Build & train"
+      ],
+      "actors": [
+        "AI developers",
+        "News publishers"
+      ],
+      "domains": [
+        "6.3"
+      ],
+      "provisions": "Copyright Act ss.14, 52(1)(a); jurisdiction over foreign servers",
+      "summary": "Prima facie: Delhi courts have jurisdiction; storing works for training falls within fair dealing; no substantial reproduction shown in outputs. Findings are interim only.",
+      "url": "https://blog.ipleaders.in/ani-v-openai-ai-training-copyright-ruling/",
+      "verified": "partial",
+      "note": "Neutral citation 2026:DHC:5900 per iPleaders; judgment not read."
+    }
+  ],
+  "mitigations": [
+    {
+      "id": "M-01",
+      "source": "G-AIGG",
+      "locator": "Sec 2.4",
+      "quote": "Develop a risk assessment and classification framework that is customised for India's local context",
+      "category": "1.2",
+      "actor": "Government",
+      "force": "Recommendation"
+    },
+    {
+      "id": "M-02",
+      "source": "G-AIGG",
+      "locator": "Sec 2.4",
+      "quote": "Establish a robust AI incidents mechanism to encourage individuals and organisations to report harm",
+      "category": "4.3",
+      "actor": "Government",
+      "force": "Recommendation"
+    },
+    {
+      "id": "M-03",
+      "source": "G-AIGG",
+      "locator": "Sec 2.4",
+      "quote": "The database should be set up in a way that encourages reporting cases without the threat of penalties",
+      "category": "4.3",
+      "actor": "Government",
+      "force": "Recommendation"
+    },
+    {
+      "id": "M-04",
+      "source": "G-AIGG",
+      "locator": "Sec 2.4",
+      "quote": "Encourage the adoption of voluntary frameworks to mitigate risks through principles, commitments, standards, audits",
+      "category": "3.1",
+      "actor": "Industry",
+      "force": "Recommendation"
+    },
+    {
+      "id": "M-05",
+      "source": "G-AIGG",
+      "locator": "Sec 2.4",
+      "quote": "Require human oversight and other safeguards to mitigate loss of control risks especially in sensitive sectors",
+      "category": "1.5",
+      "actor": "Regulators",
+      "force": "Recommendation"
+    },
+    {
+      "id": "M-06",
+      "source": "G-AIGG",
+      "locator": "Sec 2.5 / Part 4",
+      "quote": "Create a grievance redressal mechanism to enable reporting of AI-related harms",
+      "category": "4.6",
+      "actor": "Deployers",
+      "force": "Recommendation"
+    },
+    {
+      "id": "M-07",
+      "source": "G-AIGG",
+      "locator": "Sec 2.5",
+      "quote": "graded liability system for AI systems where responsibility is proportional to the function performed",
+      "category": "1.2",
+      "actor": "Government",
+      "force": "Recommendation"
+    },
+    {
+      "id": "M-08",
+      "source": "G-AIGG",
+      "locator": "Sec 2.3",
+      "quote": "to develop global standards around content authentication and provenance",
+      "category": "2.4",
+      "actor": "Government",
+      "force": "Recommendation"
+    },
+    {
+      "id": "M-09",
+      "source": "G-AIGG",
+      "locator": "Part 3",
+      "quote": "Publish common standards (e.g. content authentication, data integrity, fairness, cybersecurity).",
+      "category": "3.1",
+      "actor": "Standards bodies",
+      "force": "Recommendation"
+    },
+    {
+      "id": "M-10",
+      "source": "G-AIGG",
+      "locator": "Part 2",
+      "quote": "Create regulatory sandboxes to enable the development of cutting-edge technologies in constrained environments",
+      "category": "3.4",
+      "actor": "Regulators",
+      "force": "Recommendation"
+    },
+    {
+      "id": "M-11",
+      "source": "G-AIGG",
+      "locator": "Part 4",
+      "quote": "Publish transparency reports that evaluate the risk of harm to individuals and society in the Indian context",
+      "category": "4.2",
+      "actor": "Industry",
+      "force": "Recommendation"
+    },
+    {
+      "id": "M-12",
+      "source": "G-AIGG",
+      "locator": "Sec 2.6B",
+      "quote": "Provide adequate resources to the IndiaAI Safety Institute to conduct research, develop draft standards",
+      "category": "3.1",
+      "actor": "Government",
+      "force": "Recommendation"
+    },
+    {
+      "id": "M-13",
+      "source": "G-RBI",
+      "locator": "Rec 2",
+      "quote": "An AI innovation sandbox for the financial sector should be established to enable REs, FinTechs, and other innovators",
+      "category": "3.4",
+      "actor": "Regulators",
+      "force": "Recommendation"
+    },
+    {
+      "id": "M-14",
+      "source": "G-RBI",
+      "locator": "Rec 8",
+      "quote": "Since AI systems are probabilistic and non-deterministic, regulators should adopt a graded liability framework",
+      "category": "1.2",
+      "actor": "Regulators",
+      "force": "Recommendation"
+    },
+    {
+      "id": "M-15",
+      "source": "G-RBI",
+      "locator": "Rec 9",
+      "quote": "A permanent multi-stakeholder AI Standing Committee should be constituted under the Reserve Bank of India",
+      "category": "1.1",
+      "actor": "Regulators",
+      "force": "Recommendation"
+    },
+    {
+      "id": "M-16",
+      "source": "G-RBI",
+      "locator": "Rec 10",
+      "quote": "REs should develop AI-related capacity and governance competencies for the Board and C suite",
+      "category": "1.1",
+      "actor": "Regulated entities",
+      "force": "Recommendation"
+    },
+    {
+      "id": "M-17",
+      "source": "G-RBI",
+      "locator": "Rec 12",
+      "quote": "The financial services industry, through bodies such as IBA or SROs, should establish a framework",
+      "category": "4.3",
+      "actor": "Industry bodies",
+      "force": "Recommendation",
+      "note": "Framework for sharing best practices and lessons learned; closest RBI item to incident sharing in recs 1–14."
+    },
+    {
+      "id": "M-18",
+      "source": "G-RBI",
+      "locator": "Rec 14",
+      "quote": "REs should establish a board-approved AI policy which covers key areas such as governance structure, accountability",
+      "category": "1.2",
+      "actor": "Regulated entities",
+      "force": "Recommendation"
+    },
+    {
+      "id": "M-19",
+      "source": "G-PSA-WP",
+      "locator": "As reported by Business Standard",
+      "quote": "Industry should voluntarily publish transparency reports, run regular fairness and robustness tests, perform security reviews, and conduct red-teaming (paraphrase of report)",
+      "category": "3.1",
+      "actor": "Industry",
+      "force": "Proposal",
+      "note": "Paraphrase from news report, not the paper."
+    },
+    {
+      "id": "M-20",
+      "source": "G-PSA-WP",
+      "locator": "As reported by Business Standard",
+      "quote": "impact-aware data withdrawal mechanisms",
+      "category": "3.2",
+      "actor": "Developers",
+      "force": "Proposal"
+    },
+    {
+      "id": "M-21",
+      "source": "G-SEBI-CP",
+      "locator": "As summarised by Taxmann",
+      "quote": "keep detailed records of model development, testing, deployment, and monitoring (summary)",
+      "category": "4.1",
+      "actor": "Market intermediaries",
+      "force": "Proposal"
+    },
+    {
+      "id": "M-22",
+      "source": "G-SEBI-CP",
+      "locator": "As summarised by Taxmann",
+      "quote": "disclose their AI/ML use in algorithmic trading, asset management, portfolio management, and advisory and research services (summary)",
+      "category": "4.2",
+      "actor": "Market intermediaries",
+      "force": "Proposal"
+    },
+    {
+      "id": "M-23",
+      "source": "G-ADV-MAR24",
+      "locator": "Revised advisory, as summarised by JSA",
+      "quote": "Users must be told about output unreliability through a 'consent pop up' or equivalent mechanism (summary)",
+      "category": "4.2",
+      "actor": "Platforms offering AI models",
+      "force": "Advisory"
+    },
+    {
+      "id": "M-24",
+      "source": "G-ADV-MAR24",
+      "locator": "Revised advisory, as summarised by JSA",
+      "quote": "labels, metadata, or unique identifiers to flag AI-generated, modified, or synthetic content (summary)",
+      "category": "2.4",
+      "actor": "Intermediaries",
+      "force": "Advisory"
+    },
+    {
+      "id": "M-25",
+      "source": "G-ITR26",
+      "locator": "Rule 3(3)",
+      "quote": "Obtain user declarations on whether information is synthetically generated; ensure it is clearly displayed and labelled (summary)",
+      "category": "2.4",
+      "actor": "Intermediaries",
+      "force": "Binding"
+    },
+    {
+      "id": "M-26",
+      "source": "G-ECI-25",
+      "locator": "Bihar 2025 directive",
+      "quote": "AI-generated or synthetic campaign content must be clearly labelled (summary)",
+      "category": "2.4",
+      "actor": "Political parties",
+      "force": "MCC directive"
+    },
+    {
+      "id": "M-27",
+      "source": "G-TEC",
+      "locator": "Standard",
+      "quote": "standard operating procedures for assessing fairness under different fairness metrics and for producing a combined fairness score (summary)",
+      "category": "3.1",
+      "actor": "Developers / auditors",
+      "force": "Voluntary standard"
+    },
+    {
+      "id": "M-28",
+      "source": "G-CERTIN",
+      "locator": "Directions (ii)",
+      "quote": "report cyber incidents ... to CERT-In within 6 hours of noticing such incidents",
+      "category": "3.6",
+      "actor": "Service providers & body corporates",
+      "force": "Binding"
+    }
+  ],
+  "authorities": [
+    {
+      "id": "A-NCRP",
+      "name": "National Cyber Crime Reporting Portal / helpline 1930",
+      "role": "Citizen reporting of cybercrime, including financial fraud",
+      "url": "https://cybercrime.gov.in",
+      "verified": "partial"
+    },
+    {
+      "id": "A-POLICE",
+      "name": "State police cyber cell / cyber crime police station",
+      "role": "FIR registration and investigation",
+      "url": "https://cybercrime.gov.in",
+      "verified": "partial"
+    },
+    {
+      "id": "A-PLATFORM",
+      "name": "Platform grievance officer (IT Rules 2021)",
+      "role": "Takedown and grievance under intermediary due diligence",
+      "url": "https://www.meity.gov.in/",
+      "verified": "partial"
+    },
+    {
+      "id": "A-GAC",
+      "name": "Grievance Appellate Committee",
+      "role": "Appeal against a platform grievance decision",
+      "url": "https://www.gac.gov.in/",
+      "verified": "no"
+    },
+    {
+      "id": "A-CERTIN",
+      "name": "CERT-In",
+      "role": "Mandatory cyber incident reports by covered entities",
+      "url": "https://www.cert-in.org.in/",
+      "verified": "partial"
+    },
+    {
+      "id": "A-DPB",
+      "name": "Data Protection Board of India",
+      "role": "Personal data breach complaints (substantive duties from ~May 2027)",
+      "url": "https://www.meity.gov.in/",
+      "verified": "partial"
+    },
+    {
+      "id": "A-ECI",
+      "name": "Election Commission of India",
+      "role": "Model Code of Conduct complaints about campaign content",
+      "url": "https://www.eci.gov.in/",
+      "verified": "no"
+    },
+    {
+      "id": "A-COURT",
+      "name": "Civil courts / High Courts",
+      "role": "Injunctions (personality rights, copyright, defamation)",
+      "url": "https://www.indiacode.nic.in/",
+      "verified": "partial"
+    },
+    {
+      "id": "A-SC",
+      "name": "Supreme Court of India",
+      "role": "Writ and public-interest relief, e.g. welfare exclusion",
+      "url": "https://www.sci.gov.in/",
+      "verified": "no"
+    },
+    {
+      "id": "A-REG",
+      "name": "Sector regulator (RBI, SEBI, etc.)",
+      "role": "Sectoral supervision of regulated entities",
+      "url": "https://www.rbi.org.in/",
+      "verified": "partial"
+    }
+  ],
+  "incidents": [
+    {
+      "id": "IN-INC-01",
+      "title": "Deepfake video of actor Rashmika Mandanna goes viral",
+      "date": "2023-11",
+      "state": "National (accused traced to Guntur, Andhra Pradesh)",
+      "systems": [
+        "Face-swap deepfake tool (unnamed)"
+      ],
+      "developer": "Not identified",
+      "deployer": "Individual creator (arrested by Delhi Police, Jan 2024)",
+      "harm": "A video of British-Indian creator Zara Patel had the actor’s face superimposed and spread widely online. Police said the creator wanted followers for a fan page.",
+      "harm_types": [
+        "Reputational harm",
+        "Privacy / dignity",
+        "Psychological harm"
+      ],
+      "severity": 3,
+      "affected": "Two named individuals; wider public concern about deepfakes of women",
+      "domains": [
+        "4.3",
+        "1.2"
+      ],
+      "entity": "Human",
+      "intent": "Intentional",
+      "timing": "Post-deployment",
+      "sectors": [
+        "Media, entertainment & creators",
+        "Internet platforms & telecom"
+      ],
+      "response": "Delhi Police IFSO Special Cell investigated after a Delhi Commission for Women complaint and arrested a 24-year-old engineering graduate from Guntur. MeitY issued an advisory to platforms on 23 Dec 2023.",
+      "instruments": [
+        "G-ITA",
+        "G-ITR21",
+        "G-ADV-DEC23",
+        "G-BNS"
+      ],
+      "sources": [
+        {
+          "title": "The News Minute – Andhra techie made Rashmika Mandanna’s deepfake for followers, say cops",
+          "url": "https://thenewsminute.com/andhra-pradesh/andhra-techie-made-rashmika-mandannas-deepfake-for-followers-on-fan-page-say-cops",
+          "date": "2024-01-20"
+        }
+      ],
+      "netra": {
+        "locations": {
+          "incident": "Online (social media; platform not specified in source)",
+          "victim": "Not stated",
+          "accused": "Guntur, Andhra Pradesh",
+          "investigating_agency": "Delhi Police (IFSO Special Cell)",
+          "platform_service": "Not stated",
+          "network": "Unknown"
+        },
+        "authorities": [
+          "A-POLICE",
+          "A-NCRP",
+          "A-PLATFORM",
+          "A-GAC",
+          "A-COURT"
+        ],
+        "unknowns": [
+          "FIR sections not reported in the source read",
+          "Which tool produced the deepfake",
+          "Which platforms hosted it and how fast it was removed"
+        ],
+        "overclaim": "Do not describe the arrested person as guilty; the source reports an arrest, not a conviction.",
+        "stages": {
+          "S01": "done",
+          "S02": "done",
+          "S03": "done",
+          "S04": "done",
+          "S05": "secondary",
+          "S06": "secondary",
+          "S07": "done",
+          "S08": "partial",
+          "S09": "draft",
+          "S10": "draft",
+          "S11": "open",
+          "S12": "open",
+          "S13": "n/a",
+          "S14": "draft"
+        }
+      },
+      "review": "unreviewed"
+    },
+    {
+      "id": "IN-INC-02",
+      "title": "Anil Kapoor obtains order against AI misuse of his persona",
+      "date": "2023-09-20",
+      "state": "Delhi",
+      "systems": [
+        "AI image manipulation tools",
+        "Voice and GIF generators (unnamed)"
+      ],
+      "developer": "Various",
+      "deployer": "Unknown persons, websites and sellers",
+      "harm": "Unauthorised commercial use of the actor’s name, voice and image, including AI-manipulated images and GIFs, for profit.",
+      "harm_types": [
+        "Reputational harm",
+        "Financial loss",
+        "Intellectual property"
+      ],
+      "severity": 2,
+      "affected": "One individual",
+      "domains": [
+        "4.3",
+        "6.3"
+      ],
+      "entity": "Human",
+      "intent": "Intentional",
+      "timing": "Post-deployment",
+      "sectors": [
+        "Media, entertainment & creators"
+      ],
+      "response": "Delhi High Court (Justice Pratibha M. Singh) restrained misuse, including AI-based manipulation, and ordered domain blocking and link takedowns.",
+      "instruments": [
+        "G-J-ANIL",
+        "G-ITA"
+      ],
+      "sources": [
+        {
+          "title": "MediaNama – Delhi HC on unauthorised use of Anil Kapoor’s name and voice",
+          "url": "https://www.medianama.com/2023/09/223-delhi-hc-unauthorised-use-anil-kapoor-name-voice/",
+          "date": "2023-09-21"
+        }
+      ],
+      "netra": {
+        "locations": {
+          "incident": "Online (websites, e-commerce, social media)",
+          "victim": "Not stated",
+          "accused": "John Doe defendants",
+          "investigating_agency": "Civil suit (no police case reported)",
+          "platform_service": "Multiple",
+          "network": "Unknown"
+        },
+        "authorities": [
+          "A-COURT",
+          "A-PLATFORM"
+        ],
+        "unknowns": [
+          "Number of defendants",
+          "Compliance by platforms after the order"
+        ],
+        "overclaim": "An interim order is not a final finding of infringement.",
+        "stages": {
+          "S01": "done",
+          "S02": "done",
+          "S03": "done",
+          "S04": "secondary",
+          "S05": "secondary",
+          "S06": "n/a",
+          "S07": "done",
+          "S08": "partial",
+          "S09": "draft",
+          "S10": "done",
+          "S11": "open",
+          "S12": "done",
+          "S13": "open",
+          "S14": "draft"
+        }
+      },
+      "review": "unreviewed"
+    },
+    {
+      "id": "IN-INC-03",
+      "title": "Kozhikode man loses ₹40,000 in suspected deepfake video-call scam",
+      "date": "2023-07-09",
+      "state": "Kerala",
+      "systems": [
+        "Suspected face and voice deepfake on a WhatsApp video call"
+      ],
+      "developer": "Unknown",
+      "deployer": "Unknown fraudsters",
+      "harm": "A caller posing as a former colleague asked for money for a medical emergency, then made a video call that appeared to show the friend. The victim, a retired government official, paid ₹40,000.",
+      "harm_types": [
+        "Financial loss",
+        "Psychological harm"
+      ],
+      "severity": 2,
+      "affected": "One individual",
+      "domains": [
+        "4.3"
+      ],
+      "entity": "Human",
+      "intent": "Intentional",
+      "timing": "Post-deployment",
+      "sectors": [
+        "Finance & banking",
+        "Internet platforms & telecom"
+      ],
+      "response": "Kozhikode cyber police registered a case under IPC s.420 and IT Act ss.66C and 66D, froze a receiving account, and asked WhatsApp whether deepfake technology was used.",
+      "instruments": [
+        "G-ITA",
+        "G-BNS"
+      ],
+      "sources": [
+        {
+          "title": "South First – Kerala cyber police expand deepfake fraud probe to Goa",
+          "url": "https://thesouthfirst.com/news/ai-based-deepfake-fraud-case-kerala-cyber-police-expand-probe-to-goa-seek-assistance-from-whatsapp",
+          "date": "2023-07"
+        }
+      ],
+      "netra": {
+        "locations": {
+          "incident": "WhatsApp video call",
+          "victim": "Kozhikode, Kerala",
+          "accused": "Unknown; funds traced to a Gujarat bank branch and a Panaji trading company",
+          "investigating_agency": "Kozhikode cyber police",
+          "platform_service": "WhatsApp",
+          "network": "Caller claimed a Dubai number"
+        },
+        "authorities": [
+          "A-NCRP",
+          "A-POLICE",
+          "A-PLATFORM"
+        ],
+        "unknowns": [
+          "Police had not confirmed deepfake use at the time of the source",
+          "Outcome of the investigation"
+        ],
+        "overclaim": "AI involvement is suspected, not confirmed. Record this as a suspected AI incident.",
+        "stages": {
+          "S01": "done",
+          "S02": "done",
+          "S03": "done",
+          "S04": "done",
+          "S05": "secondary",
+          "S06": "partial",
+          "S07": "open",
+          "S08": "done",
+          "S09": "draft",
+          "S10": "done",
+          "S11": "open",
+          "S12": "open",
+          "S13": "n/a",
+          "S14": "draft"
+        }
+      },
+      "review": "unreviewed"
+    },
+    {
+      "id": "IN-INC-04",
+      "title": "Deepfake of Sachin Tendulkar used to promote a gaming app",
+      "date": "2024-01-15",
+      "state": "Maharashtra",
+      "systems": [
+        "Face and voice deepfake (unnamed)"
+      ],
+      "developer": "Unknown",
+      "deployer": "Online gaming app / promoting page",
+      "harm": "A morphed video showed the cricketer praising a gaming app as a quick money-maker and claiming his daughter used it.",
+      "harm_types": [
+        "Reputational harm",
+        "Financial loss"
+      ],
+      "severity": 2,
+      "affected": "One named individual; consumers targeted by the ad",
+      "domains": [
+        "4.3"
+      ],
+      "entity": "Human",
+      "intent": "Intentional",
+      "timing": "Post-deployment",
+      "sectors": [
+        "Media, entertainment & creators",
+        "Finance & banking"
+      ],
+      "response": "An FIR was registered against the gaming app; the cricketer had tagged Maharashtra Cyber Police and the MoS for IT.",
+      "instruments": [
+        "G-ITA",
+        "G-CPA",
+        "G-ITR21"
+      ],
+      "sources": [
+        {
+          "title": "The Week – FIR lodged against gaming app over fake promotion video",
+          "url": "https://www.theweek.in/news/india/2024/01/18/sachin-tendulkar-deepfake-row-fir-lodged-against-gaming-app-fake-promotion-video.amp.html",
+          "date": "2024-01-18"
+        }
+      ],
+      "netra": {
+        "locations": {
+          "incident": "Social media advertisement",
+          "victim": "Not stated",
+          "accused": "Not named in source",
+          "investigating_agency": "Not named in source",
+          "platform_service": "Facebook page (per headline in other reports)",
+          "network": "Unknown"
+        },
+        "authorities": [
+          "A-POLICE",
+          "A-PLATFORM",
+          "A-COURT"
+        ],
+        "unknowns": [
+          "Name of app",
+          "Police unit",
+          "Sections invoked"
+        ],
+        "overclaim": "Consumer harm from the ad is plausible but not documented in the source.",
+        "stages": {
+          "S01": "done",
+          "S02": "done",
+          "S03": "done",
+          "S04": "partial",
+          "S05": "secondary",
+          "S06": "open",
+          "S07": "done",
+          "S08": "partial",
+          "S09": "draft",
+          "S10": "draft",
+          "S11": "open",
+          "S12": "open",
+          "S13": "n/a",
+          "S14": "draft"
+        }
+      },
+      "review": "unreviewed"
+    },
+    {
+      "id": "IN-INC-05",
+      "title": "Gemini answer about the Prime Minister prompts IT Rules warning",
+      "date": "2024-02-22",
+      "state": "National",
+      "systems": [
+        "Google Gemini"
+      ],
+      "developer": "Google",
+      "deployer": "Google",
+      "harm": "Gemini said the PM had been accused of policies some experts characterised as fascist. The MoS for IT called this a direct violation of IT Rule 3(1)(b) and of criminal provisions.",
+      "harm_types": [
+        "Reputational harm",
+        "Democratic / electoral integrity"
+      ],
+      "severity": 2,
+      "affected": "Contested; public figure",
+      "domains": [
+        "3.1",
+        "1.1"
+      ],
+      "entity": "AI",
+      "intent": "Unintentional",
+      "timing": "Post-deployment",
+      "sectors": [
+        "AI development",
+        "Elections & democracy"
+      ],
+      "response": "Public statement by the MoS (Electronics & IT). MeitY issued an AI advisory on 1 March 2024, revised on 15 March. The sources read do not state that the advisory was a direct response.",
+      "instruments": [
+        "G-ITR21",
+        "G-ADV-MAR24"
+      ],
+      "sources": [
+        {
+          "title": "MediaNama – Rajeev Chandrasekhar says Gemini violates IT Rules",
+          "url": "https://www.medianama.com/2024/02/223-rajeev-chandrasekhar-google-chatbot-gemini-violating-it-rules/",
+          "date": "2024-02-23"
+        }
+      ],
+      "netra": {
+        "locations": {
+          "incident": "Gemini chat output shared on X",
+          "victim": "Not applicable",
+          "accused": "Not applicable",
+          "investigating_agency": "None reported",
+          "platform_service": "Google Gemini (servers outside India, location not stated)",
+          "network": "Unknown"
+        },
+        "authorities": [
+          "A-PLATFORM"
+        ],
+        "unknowns": [
+          "Whether a formal notice was issued",
+          "Google’s response to this specific answer"
+        ],
+        "overclaim": "Whether the output was false, biased or lawful opinion is contested. Do not classify it as a confirmed legal violation.",
+        "stages": {
+          "S01": "done",
+          "S02": "done",
+          "S03": "done",
+          "S04": "contested",
+          "S05": "secondary",
+          "S06": "n/a",
+          "S07": "done",
+          "S08": "partial",
+          "S09": "draft",
+          "S10": "draft",
+          "S11": "open",
+          "S12": "open",
+          "S13": "possible",
+          "S14": "draft"
+        }
+      },
+      "review": "unreviewed"
+    },
+    {
+      "id": "IN-INC-06",
+      "title": "AI voice-clone deepfakes of Aamir Khan and Ranveer Singh during the 2024 election",
+      "date": "2024-04-15",
+      "state": "Maharashtra (Mumbai police complaint)",
+      "systems": [
+        "AI voice cloning over real footage"
+      ],
+      "developer": "Unknown",
+      "deployer": "Social media handles",
+      "harm": "Old footage was paired with cloned voices so the actors appeared to criticise the PM and urge votes for a party during the Lok Sabha campaign.",
+      "harm_types": [
+        "Democratic / electoral integrity",
+        "Reputational harm"
+      ],
+      "severity": 3,
+      "affected": "Two named individuals; voters",
+      "domains": [
+        "4.1",
+        "3.1"
+      ],
+      "entity": "Human",
+      "intent": "Intentional",
+      "timing": "Post-deployment",
+      "sectors": [
+        "Elections & democracy",
+        "Media, entertainment & creators"
+      ],
+      "response": "Aamir Khan filed a case with Mumbai police; Ranveer Singh’s team lodged an FIR against the promoting handle.",
+      "instruments": [
+        "G-ITA",
+        "G-ITR21",
+        "G-ECI-24",
+        "G-BNS"
+      ],
+      "sources": [
+        {
+          "title": "The News Minute – Ranveer Singh files FIR over deepfake video",
+          "url": "https://thenewsminute.com/news/ranveer-singh-files-fir-over-deepfake-video-where-he-is-seen-criticising-pm-modi",
+          "date": "2024-04-23"
+        }
+      ],
+      "netra": {
+        "locations": {
+          "incident": "Social media",
+          "victim": "Mumbai (complainant)",
+          "accused": "Unknown",
+          "investigating_agency": "Mumbai police (Aamir Khan complaint)",
+          "platform_service": "Not stated",
+          "network": "Unknown"
+        },
+        "authorities": [
+          "A-POLICE",
+          "A-PLATFORM",
+          "A-ECI"
+        ],
+        "unknowns": [
+          "Creators not identified at time of report",
+          "Reach and electoral effect"
+        ],
+        "overclaim": "Do not attribute the videos to any party; the source does not identify the creator.",
+        "stages": {
+          "S01": "done",
+          "S02": "done",
+          "S03": "done",
+          "S04": "done",
+          "S05": "secondary",
+          "S06": "partial",
+          "S07": "done",
+          "S08": "partial",
+          "S09": "draft",
+          "S10": "draft",
+          "S11": "open",
+          "S12": "open",
+          "S13": "n/a",
+          "S14": "draft"
+        }
+      },
+      "review": "unreviewed"
+    },
+    {
+      "id": "IN-INC-07",
+      "title": "AI platforms clone singer Arijit Singh’s voice",
+      "date": "2024-07-26",
+      "state": "Maharashtra (Bombay High Court)",
+      "systems": [
+        "RVC voice-cloning platforms",
+        "AI music generators"
+      ],
+      "developer": "Defendant platforms",
+      "deployer": "Defendant platforms and a YouTube channel",
+      "harm": "Platforms offered AI voice models of the singer, one allegedly using 456 of his songs, and deepfake content was posted without consent.",
+      "harm_types": [
+        "Intellectual property",
+        "Financial loss",
+        "Reputational harm"
+      ],
+      "severity": 3,
+      "affected": "One individual; wider creative sector",
+      "domains": [
+        "6.3",
+        "4.3"
+      ],
+      "entity": "Human",
+      "intent": "Intentional",
+      "timing": "Post-deployment",
+      "sectors": [
+        "Media, entertainment & creators",
+        "AI development"
+      ],
+      "response": "Bombay High Court granted an ex parte ad-interim injunction against voice cloning and other uses of his persona.",
+      "instruments": [
+        "G-J-ARIJIT",
+        "G-COPY"
+      ],
+      "sources": [
+        {
+          "title": "SpicyIP – Synthetic singers and voice theft (Part I)",
+          "url": "https://spicyip.com/2024/08/synthetic-singers-and-voice-theft-bomhc-protects-arijit-singhs-personality-rights-part-i.html",
+          "date": "2024-08"
+        }
+      ],
+      "netra": {
+        "locations": {
+          "incident": "AI platforms and YouTube",
+          "victim": "Not stated",
+          "accused": "Defendant platforms (locations not stated)",
+          "investigating_agency": "Civil suit",
+          "platform_service": "Multiple AI platforms",
+          "network": "Unknown"
+        },
+        "authorities": [
+          "A-COURT",
+          "A-PLATFORM"
+        ],
+        "unknowns": [
+          "Defendant locations",
+          "Final outcome"
+        ],
+        "overclaim": "Ad-interim relief is not a final finding.",
+        "stages": {
+          "S01": "done",
+          "S02": "done",
+          "S03": "done",
+          "S04": "secondary",
+          "S05": "secondary",
+          "S06": "n/a",
+          "S07": "done",
+          "S08": "partial",
+          "S09": "draft",
+          "S10": "done",
+          "S11": "open",
+          "S12": "done",
+          "S13": "open",
+          "S14": "draft"
+        }
+      },
+      "review": "unreviewed"
+    },
+    {
+      "id": "IN-INC-08",
+      "title": "ANI sues OpenAI over use of news content to train ChatGPT",
+      "date": "2024-11",
+      "state": "Delhi",
+      "systems": [
+        "ChatGPT / OpenAI GPT models"
+      ],
+      "developer": "OpenAI",
+      "deployer": "OpenAI",
+      "harm": "A news agency alleged its articles were used without permission to train and serve ChatGPT.",
+      "harm_types": [
+        "Intellectual property",
+        "Financial loss"
+      ],
+      "severity": 3,
+      "affected": "Publisher; possibly wider news sector",
+      "domains": [
+        "6.3"
+      ],
+      "entity": "Human",
+      "intent": "Intentional",
+      "timing": "Pre-deployment",
+      "sectors": [
+        "Media, entertainment & creators",
+        "AI development"
+      ],
+      "response": "Delhi High Court refused an interim injunction on 24 July 2026, finding prima facie jurisdiction but fair dealing for training storage and no substantial reproduction in outputs. The suit continues.",
+      "instruments": [
+        "G-J-ANI",
+        "G-COPY",
+        "G-DPIIT-WP"
+      ],
+      "sources": [
+        {
+          "title": "iPleaders – ANI v OpenAI: first Indian AI-training copyright ruling",
+          "url": "https://blog.ipleaders.in/ani-v-openai-ai-training-copyright-ruling/",
+          "date": "2026-07"
+        }
+      ],
+      "netra": {
+        "locations": {
+          "incident": "Model training and outputs",
+          "victim": "ANI, India",
+          "accused": "OpenAI (servers outside India)",
+          "investigating_agency": "Civil suit",
+          "platform_service": "ChatGPT",
+          "network": "Access from India to foreign servers"
+        },
+        "authorities": [
+          "A-COURT"
+        ],
+        "unknowns": [
+          "Whether ANI appealed",
+          "Trial outcome on memorisation"
+        ],
+        "overclaim": "Interim findings do not decide the suit.",
+        "stages": {
+          "S01": "done",
+          "S02": "done",
+          "S03": "done",
+          "S04": "contested",
+          "S05": "secondary",
+          "S06": "n/a",
+          "S07": "done",
+          "S08": "done",
+          "S09": "draft",
+          "S10": "done",
+          "S11": "open",
+          "S12": "n/a",
+          "S13": "n/a",
+          "S14": "draft"
+        }
+      },
+      "review": "unreviewed"
+    },
+    {
+      "id": "IN-INC-09",
+      "title": "Tax tribunal order relies on non-existent judgments",
+      "date": "2024-12-30",
+      "state": "Karnataka (ITAT Bengaluru)",
+      "systems": [
+        "Reported as ChatGPT-assisted research (per LawTrend headline)"
+      ],
+      "developer": "Not confirmed",
+      "deployer": "Tribunal (process not disclosed)",
+      "harm": "The order in Buckeye Trust v. PCIT cited four judgments: two fabricated, one with a fabricated name on another case’s citation, and one that did not support the point. The order was recalled.",
+      "harm_types": [
+        "Justice system integrity"
+      ],
+      "severity": 3,
+      "affected": "Parties to the appeal; public trust in adjudication",
+      "domains": [
+        "5.1",
+        "3.1"
+      ],
+      "entity": "AI",
+      "intent": "Unintentional",
+      "timing": "Post-deployment",
+      "sectors": [
+        "Justice & legal"
+      ],
+      "response": "Order recalled under s.254(2) Income Tax Act and listed for fresh hearing on 19 Feb 2025.",
+      "instruments": [
+        "G-BSA"
+      ],
+      "sources": [
+        {
+          "title": "SpicyIP – Phantom precedents: when AI hallucinations invade judicial reasoning",
+          "url": "https://spicyip.com/2025/03/phantom-precedents-when-ai-hallucinations-invade-judicial-reasoning.html",
+          "date": "2025-03"
+        },
+        {
+          "title": "LawTrend – Bengaluru tax tribunal withdraws order based on non-existent case law",
+          "url": "https://lawtrend.in/bengaluru-tax-tribunal-withdraws-order-based-on-non-existent-case-law-cited-by-chatgpt/",
+          "date": "2025"
+        }
+      ],
+      "netra": {
+        "locations": {
+          "incident": "Tribunal order",
+          "victim": "Parties (Bengaluru)",
+          "accused": "Not applicable",
+          "investigating_agency": "None",
+          "platform_service": "Not confirmed",
+          "network": "Unknown"
+        },
+        "authorities": [
+          "A-COURT"
+        ],
+        "unknowns": [
+          "Which tool was used and by whom; the SpicyIP post does not confirm ChatGPT"
+        ],
+        "overclaim": "AI use is reported by media but not confirmed in the order recall. Classify as suspected AI hallucination.",
+        "stages": {
+          "S01": "done",
+          "S02": "done",
+          "S03": "done",
+          "S04": "done",
+          "S05": "secondary",
+          "S06": "partial",
+          "S07": "open",
+          "S08": "done",
+          "S09": "draft",
+          "S10": "n/a",
+          "S11": "open",
+          "S12": "done",
+          "S13": "n/a",
+          "S14": "draft"
+        }
+      },
+      "review": "unreviewed"
+    },
+    {
+      "id": "IN-INC-10",
+      "title": "Delhi High Court petition withdrawn after citing non-existent precedents",
+      "date": "2025-09",
+      "state": "Delhi",
+      "systems": [
+        "Suspected generative AI legal research"
+      ],
+      "developer": "Not identified",
+      "deployer": "Petitioner’s legal team",
+      "harm": "In Greenopolis Welfare Association v. Narender Singh, a petition relied on precedents and quoted passages that do not exist.",
+      "harm_types": [
+        "Justice system integrity"
+      ],
+      "severity": 2,
+      "affected": "Parties; court time",
+      "domains": [
+        "5.1",
+        "3.1"
+      ],
+      "entity": "AI",
+      "intent": "Unintentional",
+      "timing": "Post-deployment",
+      "sectors": [
+        "Justice & legal"
+      ],
+      "response": "Justice Girish Kathpalia allowed the petition to be withdrawn. No costs reported.",
+      "instruments": [
+        "G-BSA"
+      ],
+      "sources": [
+        {
+          "title": "Verdictum – False citation of case laws from non-existing judgments",
+          "url": "https://www.verdictum.in/court-updates/high-courts/delhi-high-court/false-citation-of-case-laws-paragraphs-from-non-existing-judgements-artificial-intelligence-ai-1592798",
+          "date": "2025-09-29"
+        }
+      ],
+      "netra": {
+        "locations": {
+          "incident": "Court filing",
+          "victim": "Respondents; court",
+          "accused": "Not applicable",
+          "investigating_agency": "None",
+          "platform_service": "Unknown",
+          "network": "Unknown"
+        },
+        "authorities": [
+          "A-COURT"
+        ],
+        "unknowns": [
+          "Whether AI was used (the source summary does not confirm it)"
+        ],
+        "overclaim": "Treat as suspected AI hallucination until the order is read.",
+        "stages": {
+          "S01": "done",
+          "S02": "done",
+          "S03": "done",
+          "S04": "done",
+          "S05": "secondary",
+          "S06": "open",
+          "S07": "open",
+          "S08": "done",
+          "S09": "draft",
+          "S10": "n/a",
+          "S11": "open",
+          "S12": "open",
+          "S13": "n/a",
+          "S14": "draft"
+        }
+      },
+      "review": "unreviewed"
+    },
+    {
+      "id": "IN-INC-11",
+      "title": "Telangana welfare algorithm wrongly removes families from food security",
+      "date": "2014–2019 (reported 2024-01-24)",
+      "state": "Telangana",
+      "systems": [
+        "Samagra Vedika (data-linking eligibility system)"
+      ],
+      "developer": "Posidex Technologies",
+      "deployer": "Government of Telangana",
+      "harm": "Telangana cancelled over 1.86 million food security cards and rejected 142,086 applications between 2014 and 2019. Reported errors include families tagged as car owners who own no car.",
+      "harm_types": [
+        "Access to essential services",
+        "Rights & civil liberties"
+      ],
+      "severity": 4,
+      "affected": "Hundreds of thousands of households (at least 7.5% of re-verified cards wrongly rejected, on partial data)",
+      "domains": [
+        "1.1",
+        "7.3",
+        "7.4"
+      ],
+      "entity": "AI",
+      "intent": "Unintentional",
+      "timing": "Post-deployment",
+      "sectors": [
+        "Welfare & public services"
+      ],
+      "response": "In April 2022 the Supreme Court ordered field re-verification of about 1.9 million deleted cards. The state said the system is accurate and transparent; RTI requests for source code were refused.",
+      "instruments": [
+        "G-NITI1",
+        "G-AIGG"
+      ],
+      "sources": [
+        {
+          "title": "Al Jazeera – How an algorithm denied food to thousands of poor in India’s Telangana",
+          "url": "https://www.aljazeera.com/economy/2024/1/24/how-an-algorithm-denied-food-to-thousands-of-poor-in-indias-telangana",
+          "date": "2024-01-24"
+        }
+      ],
+      "netra": {
+        "locations": {
+          "incident": "State welfare administration",
+          "victim": "Telangana (e.g. Hyderabad residents named in report)",
+          "accused": "Not applicable",
+          "investigating_agency": "Supreme Court (re-verification order)",
+          "platform_service": "Samagra Vedika",
+          "network": "State government systems"
+        },
+        "authorities": [
+          "A-SC"
+        ],
+        "unknowns": [
+          "Whether the system uses machine learning or rule-based matching",
+          "Final re-verification results",
+          "Error rate under current use"
+        ],
+        "overclaim": "This is an algorithmic decision system; do not call it 'AI' without technical confirmation. The 7.5% figure rests on partial data.",
+        "stages": {
+          "S01": "done",
+          "S02": "done",
+          "S03": "done",
+          "S04": "secondary",
+          "S05": "secondary",
+          "S06": "partial",
+          "S07": "partial",
+          "S08": "done",
+          "S09": "draft",
+          "S10": "done",
+          "S11": "open",
+          "S12": "partial",
+          "S13": "open",
+          "S14": "draft"
+        }
+      },
+      "review": "unreviewed"
+    },
+    {
+      "id": "IN-INC-12",
+      "title": "Bengaluru senior citizen loses ₹6.88 lakh after deepfake of Finance Minister",
+      "date": "2026-07-21 (report)",
+      "state": "Karnataka",
+      "systems": [
+        "Deepfake video of Nirmala Sitharaman (tool unknown)"
+      ],
+      "developer": "Unknown",
+      "deployer": "Unknown fraudsters",
+      "harm": "A fake video and link on Facebook promoted an investment scheme; follow-up contact came over WhatsApp from a UK number. The 66-year-old victim paid ₹6.88 lakh in instalments.",
+      "harm_types": [
+        "Financial loss"
+      ],
+      "severity": 3,
+      "affected": "One individual; PIB has flagged similar deepfakes",
+      "domains": [
+        "4.3"
+      ],
+      "entity": "Human",
+      "intent": "Intentional",
+      "timing": "Post-deployment",
+      "sectors": [
+        "Finance & banking",
+        "Internet platforms & telecom"
+      ],
+      "response": "Case registered by Bengaluru North-East CEN police against unknown persons.",
+      "instruments": [
+        "G-ITA",
+        "G-BNS",
+        "G-ITR26"
+      ],
+      "sources": [
+        {
+          "title": "Asianet Newsable – Bengaluru senior citizen loses ₹6.88 lakh in deepfake investment scam",
+          "url": "https://newsable.asianetnews.com/karnataka-news/bengaluru-cyber-fraud-senior-citizen-loses-6-88-lakh-deepfake-video-investment-scam-articleshow-0fby4ed",
+          "date": "2026-07-21"
+        }
+      ],
+      "netra": {
+        "locations": {
+          "incident": "Facebook ad, then WhatsApp",
+          "victim": "Narayanapura, Bengaluru",
+          "accused": "Unknown (UK number used)",
+          "investigating_agency": "Bengaluru NE CEN police",
+          "platform_service": "Facebook; WhatsApp",
+          "network": "+44 number"
+        },
+        "authorities": [
+          "A-NCRP",
+          "A-POLICE",
+          "A-PLATFORM"
+        ],
+        "unknowns": [
+          "Year of the transfers",
+          "Whether the video was AI-generated or edited footage"
+        ],
+        "overclaim": "Report calls it a deepfake; technical confirmation not in source.",
+        "stages": {
+          "S01": "done",
+          "S02": "done",
+          "S03": "done",
+          "S04": "done",
+          "S05": "secondary",
+          "S06": "partial",
+          "S07": "partial",
+          "S08": "done",
+          "S09": "draft",
+          "S10": "done",
+          "S11": "open",
+          "S12": "open",
+          "S13": "n/a",
+          "S14": "draft"
+        }
+      },
+      "review": "unreviewed"
+    }
+  ],
+  "gaps": [
+    {
+      "id": "T2-01",
+      "title": "No duty to report AI incidents to a central body",
+      "type": "Governance gap",
+      "basis": "CERT-In covers cyber incidents only; the 2025 Guidelines and 2026 PSA paper both recommend an AI incidents database, which does not yet exist.",
+      "incidents": [
+        "IN-INC-09",
+        "IN-INC-10",
+        "IN-INC-11"
+      ],
+      "instruments": [
+        "G-AIGG",
+        "G-PSA-WP",
+        "G-CERTIN"
+      ]
+    },
+    {
+      "id": "T2-02",
+      "title": "Deepfake fraud is handled as ordinary cheating, with no AI-specific evidence protocol",
+      "type": "Possible legal gap",
+      "basis": "Scam cases are booked under general cheating and IT Act personation provisions. Police could not confirm whether a deepfake was used (IN-INC-03). No forensic standard for detecting synthetic media in evidence was found.",
+      "incidents": [
+        "IN-INC-03",
+        "IN-INC-12"
+      ],
+      "instruments": [
+        "G-ITA",
+        "G-BSA",
+        "G-BNS"
+      ]
+    },
+    {
+      "id": "T2-03",
+      "title": "Personality rights rely on case-by-case injunctions",
+      "type": "Possible legal gap",
+      "basis": "Voice and likeness cloning relief comes from court orders for well-known individuals. No statutory right reaches ordinary people targeted by deepfakes.",
+      "incidents": [
+        "IN-INC-02",
+        "IN-INC-07",
+        "IN-INC-01"
+      ],
+      "instruments": [
+        "G-J-ANIL",
+        "G-J-ARIJIT"
+      ]
+    },
+    {
+      "id": "T2-04",
+      "title": "Public-sector algorithms lack disclosure and contestability",
+      "type": "Governance gap",
+      "basis": "RTI requests for Samagra Vedika source code were refused on the vendor’s rights. NITI Aayog principles flag exclusion risk, but no binding audit or explanation duty applies to state eligibility systems.",
+      "incidents": [
+        "IN-INC-11"
+      ],
+      "instruments": [
+        "G-NITI1",
+        "G-AIGG"
+      ]
+    },
+    {
+      "id": "T2-05",
+      "title": "No verification rule for AI-assisted legal citations",
+      "type": "Governance gap",
+      "basis": "Two incidents of non-existent precedents reached adjudication. No court-wide practice direction on AI use was found in this research.",
+      "incidents": [
+        "IN-INC-09",
+        "IN-INC-10"
+      ],
+      "instruments": [
+        "G-BSA"
+      ]
+    },
+    {
+      "id": "T2-06",
+      "title": "SGI labelling rules exclude text, and chatbot output liability is unsettled",
+      "type": "Interpretive question",
+      "basis": "The 2026 rules cover audio-visual synthetic content only. Whether an AI developer is an intermediary for its chatbot’s answers remains unclear (IN-INC-05).",
+      "incidents": [
+        "IN-INC-05"
+      ],
+      "instruments": [
+        "G-ITR26",
+        "G-ITR21",
+        "G-ADV-MAR24"
+      ]
+    }
+  ],
+  "survey": {
+    "version": "IND-S1",
+    "intro": "This survey asks practitioners who work on AI in India to rate which AI risks matter most here. It adapts the structure of the MIT AI Risk Initiative expert survey (severity, likelihood, vulnerability, responsibility) to Indian conditions. It takes about 6 minutes.",
+    "privacy": "Signed-in contributors save answers directly; everyone else gets a short response code to send to the researcher. Individual answers are seen only by the observatory owner. Others see aggregate results only after at least 5 people respond and the owner publishes a summary. Please do not enter personal data about anyone else.",
+    "roles": [
+      "Government or regulator",
+      "Judiciary or legal practice",
+      "Academia or research",
+      "Industry – AI developer",
+      "Industry – AI deployer",
+      "Civil society",
+      "Journalism",
+      "Other"
+    ],
+    "experience": [
+      "Under 2 years",
+      "2–5 years",
+      "6–10 years",
+      "Over 10 years"
+    ],
+    "likelihood": {
+      "1": "Very unlikely",
+      "2": "Unlikely",
+      "3": "Even chance",
+      "4": "Likely",
+      "5": "Very likely"
+    },
+    "groups": [
+      "Children",
+      "Women",
+      "Older people",
+      "Rural and low-literacy users",
+      "Welfare beneficiaries",
+      "Gig and informal workers",
+      "Linguistic minorities",
+      "Voters",
+      "Small businesses",
+      "Consumers generally"
+    ],
+    "actors": [
+      "AI model developers",
+      "Deployers (companies using AI)",
+      "Platforms and intermediaries",
+      "Government and regulators",
+      "Courts and investigators",
+      "End users"
+    ]
+  }
+}

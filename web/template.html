@@ -1,0 +1,779 @@
+<title>NETRA India AI Risk Observatory</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,500;0,6..72,650;1,6..72,500&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: "the iris" — the 24 risk areas drawn as the coloured ring of an eye (netra); every tool reuses its 7 domain colours, so a colour always means the same risk domain */
+:root{
+  --paper:#F4F5F9; --sheet:#FFFFFF; --ink:#141A2E; --muted:#59617A; --line:#DCE0EA; --soft:#ECEEF5;
+  --accent:#3B4CC0; --accent-ink:#FFFFFF; --accent-soft:#E6E9FA;
+  --hero:#121A3A; --hero-2:#1E2A5E; --hero-ink:#F2F4FC; --hero-muted:#B5BDE0;
+  --d1:#2a78d6; --d2:#eb6834; --d3:#1baf7a; --d4:#eda100; --d5:#e87ba4; --d6:#008300; --d7:#6250d6;
+  --ok:#1E7F4C; --part:#B9770E; --open:#C2392B; --na:#9AA1B5;
+  --f-display:"Newsreader", Georgia, "Times New Roman", serif;
+  --f-body:"IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#0C1020; --sheet:#141A2E; --ink:#E7EAF5; --muted:#A0A8C4; --line:#283050; --soft:#1C2340;
+  --accent:#9AA8FF; --accent-ink:#0E1430; --accent-soft:#232C5A;
+  --hero:#151D45; --hero-2:#25337A; --hero-ink:#F2F4FC; --hero-muted:#B5BDE0;
+  --d1:#3987e5; --d2:#d95926; --d3:#199e70; --d4:#c98500; --d5:#d55181; --d6:#008300; --d7:#9085e9;
+  --ok:#5CCB8D; --part:#E2A64A; --open:#F27E6E; --na:#6F7794; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#0C1020; --sheet:#141A2E; --ink:#E7EAF5; --muted:#A0A8C4; --line:#283050; --soft:#1C2340;
+  --accent:#9AA8FF; --accent-ink:#0E1430; --accent-soft:#232C5A;
+  --hero:#151D45; --hero-2:#25337A; --hero-ink:#F2F4FC; --hero-muted:#B5BDE0;
+  --d1:#3987e5; --d2:#d95926; --d3:#199e70; --d4:#c98500; --d5:#d55181; --d6:#008300; --d7:#9085e9;
+  --ok:#5CCB8D; --part:#E2A64A; --open:#F27E6E; --na:#6F7794; color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-padding-top:130px}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.55}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--sheet)}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+h1,h2,h3{font-family:var(--f-display);font-weight:650;line-height:1.15;margin:0;text-wrap:balance}
+h2{font-size:clamp(1.5rem,3vw,2rem)} h3{font-size:1.15rem}
+p{margin:0}
+.wrap{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.inner{max-width:1200px;margin:0 auto}
+.muted{color:var(--muted)} .mono{font-family:var(--f-mono);font-size:.82rem}
+.eyebrow{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600}
+
+/* header */
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:color-mix(in srgb,var(--sheet) 94%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:12px;padding-block:10px 4px;cursor:pointer}
+.brand b{font-family:var(--f-display);font-size:1.25rem;font-weight:650}
+.brand small{display:block;font-size:.78rem;color:var(--muted)}
+nav.tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding-bottom:8px}
+nav.tabs button{font:inherit;font-size:.86rem;font-weight:500;background:none;border:1px solid transparent;border-radius:999px;color:var(--muted);padding:5px 12px;cursor:pointer;white-space:nowrap;transition:background .15s,color .15s}
+nav.tabs button:hover{background:var(--soft);color:var(--ink)}
+nav.tabs button[aria-current="page"]{background:var(--accent);color:var(--accent-ink)}
+main{padding-block:22px 64px}
+footer{border-top:1px solid var(--line);font-size:.8rem;color:var(--muted)}
+footer .inner{padding-block:18px;display:flex;flex-direction:column;gap:4px}
+.view{animation:rise .32s ease-out}
+@keyframes rise{from{opacity:.0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* hero */
+.hero{background:radial-gradient(120% 140% at 85% 20%,var(--hero-2) 0%,var(--hero) 60%);color:var(--hero-ink);border-radius:14px;padding:28px clamp(18px,4vw,40px);display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:24px;align-items:center;overflow:hidden}
+.hero .eyebrow{color:var(--hero-muted)}
+.hero h2{font-size:clamp(1.7rem,3.6vw,2.6rem);color:var(--hero-ink);margin-top:8px}
+.hero h2 em{font-style:italic;color:#FFD27A}
+.hero p.lede{color:var(--hero-muted);margin-top:12px;max-width:56ch;font-size:1.02rem}
+.hero .stats{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-top:22px}
+.hero .stat{border-left:2px solid rgba(255,255,255,.25);padding-left:10px;cursor:pointer;background:none;border-top:0;border-right:0;border-bottom:0;text-align:left;font:inherit;color:inherit}
+.hero .stat:hover{border-left-color:#FFD27A}
+.hero .stat b{display:block;font-family:var(--f-display);font-size:2.1rem;line-height:1;font-variant-numeric:tabular-nums}
+.hero .stat span{font-size:.8rem;color:var(--hero-muted)}
+.hero .cta{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.hero .btn{background:rgba(255,255,255,.1);color:var(--hero-ink);border-color:rgba(255,255,255,.25)}
+.hero .btn.primary{background:#FFD27A;color:#1A1A2E;border-color:#FFD27A}
+.iris-wrap{position:relative;display:flex;justify-content:center}
+.iris-wrap svg{width:100%;max-width:440px;height:auto;overflow:visible}
+.iris-seg{cursor:pointer;transition:transform .18s ease,opacity .18s;transform-origin:center;transform-box:view-box}
+.iris-seg:hover,.iris-seg.on{transform:scale(1.035)}
+.iris-dim .iris-seg:not(.on){opacity:.35}
+.iris-in{animation:spin-in .9s cubic-bezier(.2,.8,.2,1) both}
+@keyframes spin-in{from{transform:rotate(-30deg) scale(.85);opacity:0}to{transform:none;opacity:1}}
+
+/* building blocks */
+.head{display:flex;flex-direction:column;gap:8px;margin-bottom:20px;max-width:78ch}
+.head p{font-size:1rem}
+.stack{display:flex;flex-direction:column;gap:14px}
+.grid{display:grid;gap:14px}
+.g-tools{grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+.g-2{grid-template-columns:repeat(auto-fit,minmax(330px,1fr))}
+.g-3{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:12px;padding:18px 20px;min-width:0}
+.card{background:var(--sheet);border:1px solid var(--line);border-radius:12px;padding:18px 20px;min-width:0;position:relative;overflow:hidden;transition:box-shadow .18s,transform .18s}
+.card:hover{box-shadow:0 8px 24px -14px color-mix(in srgb,var(--ink) 40%,transparent)}
+.card.edge{border-left:5px solid var(--edge,var(--accent))}
+.tool{background:var(--sheet);border:1px solid var(--line);border-radius:12px;padding:16px;text-align:left;font:inherit;color:inherit;cursor:pointer;display:grid;grid-template-columns:44px minmax(0,1fr);gap:4px 12px;transition:transform .18s,box-shadow .18s,border-color .18s}
+.tool:hover{transform:translateY(-2px);border-color:var(--tc);box-shadow:0 10px 26px -16px var(--tc)}
+.tool .ic{grid-row:1/3;width:44px;height:44px;border-radius:10px;display:grid;place-items:center;background:color-mix(in srgb,var(--tc) 16%,transparent);color:var(--tc)}
+.tool b{font-family:var(--f-display);font-size:1.12rem}
+.tool span{font-size:.86rem;color:var(--muted)}
+.row{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}
+.id{font-family:var(--f-mono);font-size:.76rem;color:var(--muted);white-space:nowrap}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:.76rem;font-weight:500;padding:2px 9px;border-radius:999px;border:1px solid var(--line);background:var(--paper);color:var(--ink);max-width:100%;text-align:left}
+.chip i{width:9px;height:9px;border-radius:50%;flex:none;background:var(--c,var(--accent))}
+button.chip{cursor:pointer;font-family:inherit}
+button.chip:hover{border-color:var(--c,var(--accent))}
+.chip.dom{background:color-mix(in srgb,var(--c) 12%,var(--sheet));border-color:color-mix(in srgb,var(--c) 45%,var(--line))}
+.chip.hard{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.chip.soft{border-style:dashed}
+.rev{font-size:.72rem;font-weight:600;color:var(--part);background:color-mix(in srgb,var(--part) 14%,transparent);padding:2px 8px;border-radius:999px;white-space:nowrap}
+.verify{color:var(--open);font-weight:600;font-size:.74rem}
+.sevm{display:inline-flex;align-items:center;gap:2px;font-size:.74rem;font-weight:600;color:var(--muted)}
+.sevm span{width:7px;height:14px;border-radius:2px;background:var(--soft)}
+.sevm span.f{background:var(--sc)}
+.sevm em{font-style:normal;margin-left:6px}
+blockquote{margin:8px 0 0;padding:4px 0 4px 14px;border-left:3px solid var(--c,var(--accent));font-family:var(--f-display);font-size:1.08rem;font-style:italic;max-width:70ch}
+.kv{display:grid;grid-template-columns:minmax(110px,170px) minmax(0,1fr);gap:7px 16px;margin-top:14px}
+.kv dt{font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600;padding-top:2px}
+.kv dd{margin:0;max-width:72ch;min-width:0}
+details.more summary{cursor:pointer;color:var(--accent);font-weight:500;font-size:.88rem;margin-top:10px;list-style:none}
+details.more summary::-webkit-details-marker{display:none}
+details.more summary::before{content:"+ ";font-weight:700}
+details.more[open] summary::before{content:"– "}
+.filters{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:16px}
+.filters input[type=search]{flex:1 1 240px}
+.filters select{flex:0 1 auto;width:auto;max-width:100%}
+.pills{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.pill{font:inherit;font-size:.82rem;border:1px solid var(--line);background:var(--sheet);color:var(--ink);border-radius:999px;padding:4px 11px;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.pill i{width:10px;height:10px;border-radius:50%;background:var(--c)}
+.pill[aria-pressed="true"]{background:color-mix(in srgb,var(--c,var(--accent)) 18%,var(--sheet));border-color:var(--c,var(--accent));font-weight:600}
+select,input[type=search],textarea{font:inherit;font-size:.9rem;color:var(--ink);background:var(--sheet);border:1px solid var(--line);border-radius:8px;padding:7px 10px;width:100%;min-width:0}
+textarea{min-height:80px;resize:vertical}
+.field{display:flex;flex-direction:column;gap:4px;font-size:.78rem;color:var(--muted);font-weight:600}
+.btn{font:inherit;font-size:.88rem;font-weight:500;border:1px solid var(--line);background:var(--sheet);color:var(--ink);border-radius:999px;padding:7px 15px;cursor:pointer;transition:border-color .15s,background .15s}
+.btn:hover{border-color:var(--accent)}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);font-weight:600}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--sheet)}
+table{border-collapse:collapse;width:100%;font-size:.86rem}
+th,td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:middle}
+th{font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:var(--soft);font-weight:600;white-space:nowrap}
+td.n{text-align:center;font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+tr.click{cursor:pointer} tr.click:hover td{background:var(--soft)}
+.bub{display:inline-grid;place-items:center;border-radius:50%;font-size:.72rem;font-weight:600;color:#fff;font-family:var(--f-mono)}
+.empty{padding:26px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:12px}
+.note{font-size:.84rem;color:var(--muted)}
+.callout{border-left:4px solid var(--part);padding:10px 14px;background:color-mix(in srgb,var(--part) 9%,var(--sheet));border-radius:0 10px 10px 0;font-size:.92rem}
+.callout.red{border-left-color:var(--open);background:color-mix(in srgb,var(--open) 8%,var(--sheet))}
+.hbar{display:grid;grid-template-columns:minmax(120px,240px) minmax(0,1fr) 2.2em;gap:10px;align-items:center;font-size:.86rem;padding:2px 0}
+.hbar .track{height:12px;background:var(--soft);border-radius:4px;overflow:hidden}
+.hbar .fill{height:100%;border-radius:0 4px 4px 0;background:var(--c,var(--accent));transform-origin:left;animation:grow .7s ease-out both}
+@keyframes grow{from{transform:scaleX(0)}to{transform:none}}
+.hbar .v{font-family:var(--f-mono);text-align:right}
+.chart svg{width:100%;height:auto;display:block}
+.chart text{fill:var(--muted);font-family:var(--f-body);font-size:11px}
+.chart .grid line{stroke:var(--line)}
+.dot-hit{cursor:pointer}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.8rem;color:var(--muted);margin-top:10px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:10px;height:10px;border-radius:50%;background:var(--c)}
+#tip{position:fixed;z-index:50;pointer-events:none;background:var(--ink);color:var(--paper);font-size:.8rem;line-height:1.35;padding:7px 10px;border-radius:8px;max-width:280px;opacity:0;transition:opacity .12s;box-shadow:0 6px 20px -8px rgba(0,0,0,.5)}
+#tip.show{opacity:1}
+#tip b{display:block;font-size:.84rem}
+
+/* domain cards on navigator */
+.domstrip{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.domcard{font:inherit;text-align:left;border:1px solid var(--line);border-top:4px solid var(--c);background:var(--sheet);border-radius:10px;padding:10px 12px;cursor:pointer;color:var(--ink)}
+.domcard:hover,.domcard.on{background:color-mix(in srgb,var(--c) 10%,var(--sheet))}
+.domcard b{font-size:.86rem;display:block}
+.domcard span{font-size:.76rem;color:var(--muted)}
+.subgrid{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.cov{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-top:14px}
+.cov div{border-radius:10px;padding:10px;background:color-mix(in srgb,var(--c) 10%,var(--sheet));border:1px solid color-mix(in srgb,var(--c) 30%,var(--line))}
+.cov b{display:block;font-family:var(--f-display);font-size:1.6rem;line-height:1}
+.cov span{font-size:.75rem;color:var(--muted)}
+
+/* NETRA */
+.pipe{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px 0;margin-top:16px}
+.node{min-width:0;position:relative;padding:0 4px 14px;text-align:center;font-size:.74rem;color:var(--muted)}
+.node::before{content:"";position:absolute;top:16px;left:-50%;width:100%;height:3px;background:var(--line);z-index:0}
+.node:nth-child(7n+1)::before{display:none}
+.node.s-done::before{background:var(--ok)}
+.node .c{position:relative;z-index:1;width:34px;height:34px;margin:0 auto 6px;border-radius:50%;display:grid;place-items:center;font-family:var(--f-mono);font-weight:600;font-size:.76rem;border:3px solid var(--na);background:var(--sheet);color:var(--ink)}
+.s-done .c{background:var(--ok);border-color:var(--ok);color:#fff}
+.s-secondary .c,.s-partial .c,.s-draft .c,.s-contested .c,.s-possible .c{border-color:var(--part);background:color-mix(in srgb,var(--part) 18%,var(--sheet))}
+.s-open .c{border-color:var(--open);border-style:dashed}
+.s-n\/a .c{opacity:.45}
+.node b{display:block;color:var(--ink);font-weight:600;font-size:.76rem;line-height:1.25;hyphens:auto;overflow-wrap:anywhere}
+.cell{display:inline-block;width:16px;height:16px;border-radius:4px}
+.c-done{background:var(--ok)} .c-secondary,.c-partial,.c-draft,.c-contested,.c-possible{background:var(--part)} .c-open{border:2px dashed var(--open)} .c-n\/a{background:var(--soft)}
+.ring text{font-family:var(--f-display);font-weight:650;fill:var(--ink)}
+.loc{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,200px),1fr));gap:8px;margin-top:10px}
+.loc div{border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--paper)}
+.loc span{font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600;display:block}
+.route{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.route>div{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.route>div>div{min-width:0;overflow-wrap:anywhere}
+.route .num{flex:none;width:24px;height:24px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-size:.76rem;font-weight:700}
+
+/* mitigations */
+.mcat{border-top:5px solid var(--c)}
+.mstack{display:flex;height:16px;border-radius:8px;overflow:hidden;gap:2px;margin-top:10px}
+.mstack div{background:var(--c)}
+
+/* survey */
+fieldset{border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:0;min-width:0;background:var(--sheet)}
+legend{font-family:var(--f-display);font-weight:650;font-size:1.05rem;padding:0 6px}
+.rate{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) minmax(0,1fr);gap:10px 14px;align-items:center;margin-top:10px}
+.rate .hdr{font-size:.72rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.rate .dname{display:flex;gap:8px;align-items:center;font-size:.9rem}
+.rate .dname i{width:12px;height:12px;border-radius:50%;background:var(--c);flex:none}
+.seg{display:flex;gap:3px}
+.seg label{flex:1}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg span{display:block;text-align:center;font-size:.82rem;font-weight:600;padding:6px 0;border-radius:6px;border:1px solid var(--line);cursor:pointer;background:var(--paper);transition:background .12s}
+.seg label:nth-child(1) input:checked+span{background:#9ec5f4;color:#0d366b;border-color:#6da7ec}
+.seg label:nth-child(2) input:checked+span{background:#6da7ec;color:#0d366b;border-color:#3987e5}
+.seg label:nth-child(3) input:checked+span{background:#3987e5;color:#fff;border-color:#256abf}
+.seg label:nth-child(4) input:checked+span{background:#256abf;color:#fff;border-color:#184f95}
+.seg label:nth-child(5) input:checked+span{background:#104281;color:#fff;border-color:#0d366b}
+.seg input:focus-visible+span{outline:2px solid var(--accent);outline-offset:1px}
+.checks{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:8px 12px;font-size:.9rem;margin-top:8px}
+.checks label{display:flex;gap:8px;align-items:flex-start;border:1px solid var(--line);border-radius:8px;padding:7px 10px;cursor:pointer}
+.checks label:has(input:checked){border-color:var(--accent);background:var(--accent-soft)}
+.status-msg{font-size:.9rem}
+.status-msg.ok{color:var(--ok)} .status-msg.err{color:var(--open)}
+
+@media (max-width:820px){
+  .hero{grid-template-columns:minmax(0,1fr)}
+  .iris-wrap svg{max-width:340px}
+  .kv{grid-template-columns:minmax(0,1fr)}
+  .rate{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .rate .dname{grid-column:1/-1;margin-top:6px}
+  .rate .hdr.d{display:none}
+  .hbar{grid-template-columns:minmax(0,1fr) 70px 2em}
+  .cov{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .filters select{flex:1 1 140px}
+  .hero .stats{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .pipe{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .node:nth-child(7n+1)::before{display:block}
+  .node:nth-child(4n+1)::before{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<header class="top">
+  <div class="wrap"><div class="inner">
+    <div class="brand" data-go="home" role="link" tabindex="0">
+      <svg width="38" height="38" viewBox="0 0 38 38" aria-hidden="true"><path d="M2 19 C10 6,28 6,36 19 C28 32,10 32,2 19Z" fill="none" stroke="var(--ink)" stroke-width="2"/>
+      <g id="logo-iris"></g><circle cx="19" cy="19" r="4.2" fill="var(--ink)"/></svg>
+      <div><b>NETRA India</b><small>AI Risk Observatory</small></div>
+    </div>
+    <nav class="tabs" id="tabs" aria-label="Tools"></nav>
+  </div></div>
+</header>
+<main class="wrap"><div class="inner" id="view"></div></main>
+<footer class="wrap"><div class="inner">
+  <span><b>Pilot research, not legal advice.</b> Codings were drafted with AI assistance and are unreviewed; items marked <span class="verify">verify</span> rest on secondary sources.</span>
+  <span>Uses the MIT AI Risk Initiative’s causal, domain and mitigation taxonomies under CC BY 4.0. Independent project; not affiliated with or endorsed by MIT.</span>
+  <span id="built"></span>
+</div></footer>
+<div id="tip" role="tooltip"></div>
+
+<script>
+const PAYLOAD = /*__DATA__*/null;
+(function(){
+"use strict";
+const $view = document.getElementById('view');
+if(!PAYLOAD){ $view.innerHTML = '<div class="empty">No data embedded. Run <span class="mono">python3 scripts/build.py</span>.</div>'; return; }
+const T = PAYLOAD.tax, D = PAYLOAD.india, G = PAYLOAD.global;
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const byId = a => Object.fromEntries(a.map(x => [x.id, x]));
+const SUB = {}, DOM = {};
+T.domains.forEach(d => { DOM[d.id] = d; d.subs.forEach(s => SUB[s.id] = {...s, domain: d.id, dname: d.name}); });
+const MSUB = {}; T.mitigation.forEach(c => c.subs.forEach(s => MSUB[s.id] = {...s, cat: c.id, cname: c.name}));
+const INS = byId(D.instruments), INC = byId(D.incidents), FW = byId(D.frameworks), AUTH = byId(D.authorities);
+const isHard = i => /^Hard|^Judicial/.test(i.force);
+const domOf = sid => sid.split('.')[0];
+const dc = id => `var(--d${domOf(String(id))})`;
+const MCOL = {'1':'var(--d1)','2':'var(--d7)','3':'var(--d3)','4':'var(--d2)'};
+const reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+const ICON = {
+  navigator:'<circle cx="12" cy="12" r="9"/><path d="M15.5 8.5 13 13l-4.5 2.5L11 11z"/>',
+  risks:'<path d="M4 6h16M4 12h16M4 18h10"/>',
+  incidents:'<path d="M3 12h4l2-6 4 12 2-6h6"/>',
+  governance:'<path d="M12 3v18M5 7h14M7 7l-3 7h6zM17 7l-3 7h6z"/>',
+  mitigations:'<path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/>',
+  netra:'<path d="M2 12C6 5 18 5 22 12 18 19 6 19 2 12Z"/><circle cx="12" cy="12" r="3"/>',
+  gaps:'<path d="M4 12h5M15 12h5M9 8v8M15 8v8"/>',
+  evidence:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/>',
+  survey:'<path d="M5 19V9M12 19V5M19 19v-7"/>',
+  about:'<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/>'
+};
+const TOOLS = [
+  ['home','Overview','',''],
+  ['navigator','Navigator','Click any of the 24 risk areas and see India’s risks, incidents, laws, measures and gaps together.','var(--d1)'],
+  ['risks','Risk repository','Risks named in Indian policy frameworks, each quoted word for word and coded to a shared taxonomy.','var(--d7)'],
+  ['incidents','Incident tracker','Documented AI-linked harms in India on a timeline, with severity and legal response.','var(--d2)'],
+  ['governance','Governance map','Indian laws, rules, advisories, standards and court orders, and the risks each reaches.','var(--d3)'],
+  ['mitigations','Mitigations','Measures Indian authorities require or recommend, sorted into 23 control types.','var(--d6)'],
+  ['netra','NETRA pipeline','Each incident run through 14 stages: evidence, jurisdiction, legal issues, where to report, gaps.','var(--d5)'],
+  ['gaps','Gap register','Where Indian law or governance does not yet answer the incidents recorded here.','var(--d4)'],
+  ['evidence','Global evidence','Technical findings from METR reports mapped to Indian law.','var(--d1)'],
+  ['survey','Expert survey','Rate which AI risks matter most in India. Anyone can take part.','var(--d2)'],
+  ['about','Method & sources','How the data was gathered, what is verified, and what is not.','var(--d7)']
+];
+const state = {view:'home', sub:'4.3', dom:'4', inc:'IN-INC-01', f:{}};
+const h0 = (location.hash||'').slice(1); if(TOOLS.some(t=>t[0]===h0)) state.view = h0;
+
+/* ---------- shared bits ---------- */
+const svgIcon = (k, size=22) => `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICON[k]||''}</svg>`;
+const domChip = sid => `<button type="button" class="chip dom" style="--c:${dc(sid)}" data-sub="${esc(sid)}" data-tip="<b>${esc(SUB[sid]?.dname)}</b>Open in Navigator"><i></i>${esc(sid)} ${esc(SUB[sid]?.name)}</button>`;
+const rev = r => `<span class="rev">${esc(D.review_statuses[r]||r)}</span>`;
+const ver = v => v==='yes' ? '' : ' <span class="verify">verify</span>';
+const shortIns = i => i.title.replace(/\s*\(.*?\)\s*/g,' ').replace(/,? (\d{4})$/,' $1').trim().slice(0,58);
+const insChip = id => { const i = INS[id]; return i ? `<span class="chip ${isHard(i)?'hard':'soft'}" data-tip="<b>${esc(i.title)}</b>${esc(i.force)} · ${esc(i.status)}">${esc(shortIns(i))}</span>` : esc(id); };
+const SEVC = {1:'var(--na)',2:'var(--d4)',3:'var(--d2)',4:'var(--open)',5:'var(--open)'};
+const sevm = n => `<span class="sevm" style="--sc:${SEVC[n]}" data-tip="Severity ${n} of 5: ${esc(T.severity[n])} (pilot coding)">${[1,2,3,4,5].map(k=>`<span class="${k<=n?'f':''}"></span>`).join('')}<em>${esc(T.severity[n])}</em></span>`;
+const head = (eyebrow, t, d, icon='', color='var(--accent)') => `<div class="head"><span class="eyebrow" style="display:flex;gap:8px;align-items:center;color:${color}">${icon?svgIcon(icon,18):''}${esc(eyebrow)}</span><h2>${esc(t)}</h2><p class="muted">${d}</p></div>`;
+const empty = () => '<div class="empty">Nothing matches these filters. <button class="btn" type="button" data-clear="1">Clear filters</button></div>';
+const opts = (list, cur, all='All') => `<option value="">${all}</option>` + list.map(([v,l]) => `<option value="${esc(v)}" ${String(v)===String(cur)?'selected':''}>${esc(l)}</option>`).join('');
+const subOpts = (cur, all='All risk areas') => `<option value="">${all}</option>` + T.domains.map(d => `<optgroup label="${esc(d.id+'. '+d.name)}">${d.subs.map(s=>`<option value="${s.id}" ${s.id===cur?'selected':''}>${s.id} ${esc(s.name)}</option>`).join('')}</optgroup>`).join('');
+function hbars(rows){ const max = Math.max(1, ...rows.map(r=>r[1])); return `<div class="stack" style="gap:6px">${rows.map(([l,n,c])=>`<div class="hbar" data-tip="<b>${esc(l)}</b>${n}"><span>${esc(l)}</span><div class="track"><div class="fill" style="width:${n/max*100}%;--c:${c||'var(--accent)'}"></div></div><span class="v">${n}</span></div>`).join('')}</div>`; }
+function mitigationsForSub(sid){ const ids = new Set(D.instruments.filter(i=>i.domains.includes(sid)).map(i=>i.id)); return D.mitigations.filter(m=>ids.has(m.source)); }
+function coverage(sid){ return { risks: D.risks.filter(r=>r.domain.includes(sid)).length, incidents: D.incidents.filter(i=>i.domains.includes(sid)).length, hard: D.instruments.filter(i=>i.domains.includes(sid) && isHard(i)).length, soft: D.instruments.filter(i=>i.domains.includes(sid) && !isHard(i)).length, mit: mitigationsForSub(sid).length }; }
+function domCoverage(did){ const inD = arr => arr.some(x=>domOf(x)===did); const insD = D.instruments.filter(i=>inD(i.domains)), ids = new Set(insD.map(i=>i.id));
+  return {risks:D.risks.filter(r=>inD(r.domain)).length, incidents:D.incidents.filter(i=>inD(i.domains)).length, hard:insD.filter(isHard).length, soft:insD.filter(i=>!isHard(i)).length, mit:D.mitigations.filter(m=>ids.has(m.source)).length}; }
+function filterBox(view, fields){ const f = state.f[view]||{}; return `<div class="filters" data-fview="${view}"><input type="search" data-k="q" value="${esc(f.q||'')}" placeholder="Search…" aria-label="Search">${fields(f)}${Object.values(f).some(Boolean)?'<button class="btn" type="button" data-clear="1">Clear</button>':''}</div>`; }
+const sel = (k, label, list, cur, all) => `<select data-k="${k}" aria-label="${esc(label)}">${opts(list, cur, all||label+': all')}</select>`;
+const domPills = (view, key='dom') => { const cur = (state.f[view]||{})[key]||''; return `<div class="pills" data-fview="${view}">${T.domains.map(d=>`<button type="button" class="pill" style="--c:var(--d${d.id})" data-pill="${key}" data-v="${d.id}" aria-pressed="${cur===d.id}"><i></i>${d.id}. ${esc(d.name)}</button>`).join('')}</div>`; };
+
+/* ---------- the iris (taxonomy wheel) ---------- */
+function arc(cx, cy, r0, r1, a0, a1){
+  const p = (r,a)=>[cx+r*Math.cos(a), cy+r*Math.sin(a)];
+  const [x0,y0]=p(r1,a0),[x1,y1]=p(r1,a1),[x2,y2]=p(r0,a1),[x3,y3]=p(r0,a0); const lg = (a1-a0)>Math.PI?1:0;
+  return `M${x0.toFixed(2)} ${y0.toFixed(2)}A${r1} ${r1} 0 ${lg} 1 ${x1.toFixed(2)} ${y1.toFixed(2)}L${x2.toFixed(2)} ${y2.toFixed(2)}A${r0} ${r0} 0 ${lg} 0 ${x3.toFixed(2)} ${y3.toFixed(2)}Z`;
+}
+function iris({size=440, onDark=false, select=null, metric='incidents'}={}){
+  const c = size/2, R = c-16, step = 2*Math.PI/24, gap = 0.012; let k = 0, segs = '', doms = '', labels = '';
+  const val = sid => { const v = coverage(sid); return metric==='incidents' ? v.incidents*2 + v.hard + v.soft : v[metric]; };
+  const max = Math.max(1, ...Object.keys(SUB).map(val));
+  T.domains.forEach(d=>{
+    const a0 = -Math.PI/2 + k*step;
+    d.subs.forEach(s=>{
+      const a = -Math.PI/2 + k*step, v = val(s.id), cv = coverage(s.id);
+      const op = (0.28 + 0.72*(v/max)).toFixed(2);
+      const tip = `<b>${s.id} ${esc(s.name)}</b>${cv.incidents} incidents · ${cv.hard} binding · ${cv.soft} soft · ${cv.risks} risks`;
+      segs += `<path class="iris-seg ${select===s.id?'on':''}" data-sub="${s.id}" data-tip="${esc(tip)}" d="${arc(c,c,R*0.66,R,a+gap,a+step-gap)}" fill="var(--d${d.id})" fill-opacity="${op}" stroke="${onDark?'var(--hero)':'var(--sheet)'}" stroke-width="1.5"/>`;
+      k++;
+    });
+    const a1 = -Math.PI/2 + k*step, mid = (a0+a1)/2;
+    doms += `<path class="iris-seg ${select&&domOf(select)===d.id?'on':''}" data-dom="${d.id}" data-tip="<b>${d.id}. ${esc(d.name)}</b>${d.subs.length} risk areas" d="${arc(c,c,R*0.44,R*0.63,a0+gap,a1-gap)}" fill="var(--d${d.id})" stroke="${onDark?'var(--hero)':'var(--sheet)'}" stroke-width="1.5"/>`;
+    const lx = c + R*0.535*Math.cos(mid), ly = c + R*0.535*Math.sin(mid);
+    labels += `<text x="${lx.toFixed(1)}" y="${(ly+5).toFixed(1)}" text-anchor="middle" style="font:700 15px var(--f-body);fill:#fff;pointer-events:none">${d.id}</text>`;
+  });
+  const total = D.incidents.length;
+  return `<svg viewBox="0 0 ${size} ${size}" role="img" aria-label="Risk taxonomy wheel: 7 domains, 24 risk areas, shaded by recorded coverage in India" class="${select?'iris-dim':''}">
+    <g class="${reduce?'':'iris-in'}" style="transform-origin:center;transform-box:view-box">${segs}${doms}${labels}</g>
+    <circle cx="${c}" cy="${c}" r="${R*0.41}" fill="${onDark?'#0B1030':'var(--ink)'}"/>
+    <circle cx="${c-R*0.24}" cy="${c-R*0.22}" r="${R*0.045}" fill="#fff" opacity=".8"/>
+    <text x="${c}" y="${c+8}" text-anchor="middle" style="font:650 ${Math.round(R*0.24)}px var(--f-display);fill:#fff">${select?esc(select):total}</text>
+    <text x="${c}" y="${c+R*0.2}" text-anchor="middle" style="font:500 ${Math.max(10,Math.round(R*0.055))}px var(--f-body);fill:#C9CFEA">${select?'selected area':'incidents on record'}</text>
+  </svg>`;
+}
+
+/* ---------- views ---------- */
+const V = {};
+V.home = () => {
+  const recent = [...D.incidents].sort((a,b)=>b.id.localeCompare(a.id)).slice(0,3);
+  return `<section class="hero">
+    <div><span class="eyebrow">India · pilot v0.1 · checked ${esc(D.meta.checked)}</span>
+      <h2>India has AI harms on record across most risk areas. Binding law reaches them <em>only through general statutes.</em></h2>
+      <p class="lede">An open observatory of AI risks, incidents, laws and safety measures in India, sorted by a shared risk taxonomy and traced through the NETRA evidence and accountability pipeline. Hover the iris to explore; click any segment to open it.</p>
+      <div class="stats">
+        ${[['risks',D.risks.length,'risks quoted'],['incidents',D.incidents.length,'incidents'],['governance',D.instruments.length,'laws & orders'],['mitigations',D.mitigations.length,'measures'],['gaps',D.gaps.length,'gaps']].map(([g,n,l])=>`<button type="button" class="stat" data-go="${g}"><b data-count="${n}">${n}</b><span>${l}</span></button>`).join('')}
+      </div>
+      <div class="cta"><button type="button" class="btn primary" data-go="navigator">Explore the Navigator</button><button type="button" class="btn" data-go="survey">Take the expert survey</button></div>
+    </div>
+    <div class="iris-wrap">${iris({onDark:true})}</div>
+  </section>
+  <div class="legend" style="margin-top:12px">${T.domains.map(d=>`<span style="--c:var(--d${d.id})"><i></i>${d.id}. ${esc(d.name)}</span>`).join('')}<span>· darker segment = more incidents and law on record</span></div>
+
+  <h3 style="margin:30px 0 12px">Where incidents outrun binding law</h3>
+  <div class="grid g-3">${T.domains.map(d=>{ const c = domCoverage(d.id); const flag = c.incidents && c.hard < c.incidents;
+    return `<button type="button" class="card edge" style="--edge:var(--d${d.id});text-align:left;font:inherit;color:inherit;cursor:pointer" data-sub="${d.subs[0].id}">
+      <div class="row" style="justify-content:space-between"><b style="font-family:var(--f-display);font-size:1.05rem">${d.id}. ${esc(d.name)}</b>${flag?'<span class="rev" style="color:var(--open);background:color-mix(in srgb,var(--open) 12%,transparent)">more incidents than laws</span>':''}</div>
+      <div class="cov" style="--c:var(--d${d.id});grid-template-columns:repeat(3,minmax(0,1fr))">
+        <div><b>${c.incidents}</b><span>incidents</span></div><div><b>${c.hard}</b><span>binding</span></div><div><b>${c.soft}</b><span>soft / proposals</span></div></div></button>`; }).join('')}</div>
+
+  <h3 style="margin:30px 0 12px">Tools</h3>
+  <div class="grid g-tools">${TOOLS.filter(t=>t[0]!=='home').map(([k,l,d,c])=>`<button type="button" class="tool" style="--tc:${c}" data-go="${k}"><span class="ic">${svgIcon(k)}</span><b>${esc(l)}</b><span>${esc(d)}</span></button>`).join('')}</div>
+
+  <div class="row" style="justify-content:space-between;margin:30px 0 12px"><h3>Latest incidents</h3><button class="btn" type="button" data-go="incidents">See all ${D.incidents.length}</button></div>
+  <div class="grid g-3">${recent.map(i=>`<button type="button" class="card edge" style="--edge:${dc(i.domains[0])};text-align:left;font:inherit;color:inherit;cursor:pointer" data-inc="${i.id}">
+    <div class="row"><span class="id">${i.id}</span>${sevm(i.severity)}</div><b style="display:block;font-family:var(--f-display);font-size:1.08rem;margin-top:8px">${esc(i.title)}</b>
+    <p class="note" style="margin-top:6px">${esc(i.date)} · ${esc(i.state)}</p></button>`).join('')}</div>`;
+};
+
+V.navigator = () => {
+  const sid = state.sub, s = SUB[sid], c = coverage(sid), col = dc(sid);
+  const risks = D.risks.filter(r=>r.domain.includes(sid));
+  const incs = D.incidents.filter(i=>i.domains.includes(sid));
+  const ins = D.instruments.filter(i=>i.domains.includes(sid));
+  const mits = mitigationsForSub(sid);
+  const gaps = D.gaps.filter(g=>g.incidents.some(x=>incs.some(i=>i.id===x)));
+  return head('Navigator','Pick a risk area','Click a segment of the iris or a card below. Everything recorded for that area in India appears together, linked through the shared taxonomy.','navigator','var(--d1)') +
+  `<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr));align-items:start">
+    <div class="sheet" style="display:flex;flex-direction:column;align-items:center;gap:10px"><div class="iris-wrap" style="width:100%">${iris({size:380, select:sid})}</div>
+      <label class="field" style="width:100%">Or choose from the list<select id="nav-sub">${subOpts(sid,'Choose a risk area')}</select></label></div>
+    <div class="sheet" style="border-top:6px solid ${col}">
+      <span class="eyebrow" style="color:${col}">Domain ${esc(s.domain)} · ${esc(s.dname)}</span>
+      <h2 style="margin-top:6px">${esc(sid)} ${esc(s.name)}</h2>
+      <div class="cov" style="--c:${col}">${[['Risks',c.risks],['Incidents',c.incidents],['Binding',c.hard],['Soft',c.soft],['Measures',c.mit]].map(([l,n])=>`<div><b>${n}</b><span>${l}</span></div>`).join('')}</div>
+      ${c.incidents && !c.hard ? '<p class="callout red" style="margin-top:14px">Incidents are recorded here, but no binding instrument in this seed is tagged to this risk area.</p>':''}
+      <div class="subgrid">${DOM[s.domain].subs.map(x=>`<button type="button" class="pill" style="--c:${col}" data-sub="${x.id}" aria-pressed="${x.id===sid}">${x.id}</button>`).join('')}</div>
+    </div></div>
+  <div class="grid g-2" style="margin-top:14px">
+   <section class="sheet"><h3>Risks named in Indian frameworks</h3>${risks.length?risks.map(r=>`<div style="margin-top:14px;--c:${col}"><b>${esc(r.title)}</b><blockquote>“${esc(r.quote)}”</blockquote><div class="note" style="margin-top:4px">${esc(FW[r.framework].issuer.split(' (')[0])}, ${esc(r.locator)}</div></div>`).join(''):'<p class="note" style="margin-top:8px">None in the frameworks read so far.</p>'}</section>
+   <section class="sheet"><h3>Incidents in India</h3>${incs.length?incs.map(i=>`<button type="button" class="card edge" style="--edge:${col};margin-top:10px;width:100%;text-align:left;font:inherit;color:inherit;cursor:pointer;padding:12px 14px" data-inc="${i.id}"><div class="row">${sevm(i.severity)}<span class="note">${esc(i.date)}</span></div><b style="display:block;margin-top:4px">${esc(i.title)}</b></button>`).join(''):'<p class="note" style="margin-top:8px">None recorded yet.</p>'}</section>
+   <section class="sheet"><h3>Laws, policies and orders</h3><div class="row" style="margin-top:10px">${ins.length?ins.map(i=>insChip(i.id)).join(''):'<span class="note">None tagged.</span>'}</div><p class="note" style="margin-top:10px">Solid = binding law or court order. Dashed = policy, advisory or proposal.</p></section>
+   <section class="sheet"><h3>Measures</h3>${mits.length?`<ul style="margin:8px 0 0;padding-left:18px">${mits.slice(0,7).map(m=>`<li style="margin-top:4px"><b>${esc(MSUB[m.category].name)}:</b> <span class="muted">${esc(m.quote)}</span></li>`).join('')}</ul>${mits.length>7?`<button class="btn" style="margin-top:10px" type="button" data-go="mitigations">+${mits.length-7} more</button>`:''}`:'<p class="note" style="margin-top:8px">None linked.</p>'}</section>
+  </div>
+  ${gaps.length?`<section class="sheet" style="margin-top:14px"><h3>Gaps touching this area</h3>${gaps.map(g=>`<p style="margin-top:8px"><span class="id">${g.id}</span> <b>${esc(g.title)}</b> <span class="muted">— ${esc(g.type)}</span></p>`).join('')}</section>`:''}`;
+};
+
+V.risks = () => {
+  const f = state.f.risks||{};
+  const list = D.risks.filter(r => (!f.dom || r.domain.some(x=>domOf(x)===f.dom)) && (!f.fw || r.framework===f.fw) && (!f.entity || r.entity===f.entity) && (!f.intent || r.intent===f.intent) && (!f.timing || r.timing===f.timing) && (!f.q || JSON.stringify(r).toLowerCase().includes(f.q.toLowerCase())));
+  const byDom = T.domains.map(d=>[d.id+'. '+d.name, D.risks.filter(r=>r.domain.some(x=>domOf(x)===d.id)).length, `var(--d${d.id})`]);
+  return head('Risk repository',`${D.risks.length} risks named in Indian policy`, 'Each risk is quoted word for word from an Indian framework, with its location, and coded to the MIT causal and domain taxonomies. Codings are ours and unreviewed.','risks','var(--d7)') +
+  `<div class="grid g-2" style="margin-bottom:16px"><section class="sheet"><h3>Risks by domain</h3><div style="margin-top:12px">${hbars(byDom)}</div></section>
+   <section class="sheet"><h3>Sources read so far</h3>${D.frameworks.map(fw=>{const n=D.risks.filter(r=>r.framework===fw.id).length;return `<div style="margin-top:12px"><div class="row" style="justify-content:space-between"><a href="${esc(fw.url)}" target="_blank" rel="noopener">${esc(fw.title)}</a><span class="chip">${n} risks</span></div><div class="note">${esc(fw.issuer)} · ${esc(fw.date)}</div></div>`}).join('')}</section></div>
+  ${domPills('risks')}
+  ${filterBox('risks', f=>sel('fw','Source',D.frameworks.map(x=>[x.id,x.issuer.split(' (')[0]]),f.fw)+sel('entity','Caused by',Object.keys(T.causal.entity).map(x=>[x,x]),f.entity)+sel('intent','Intent',Object.keys(T.causal.intent).map(x=>[x,x]),f.intent)+sel('timing','Timing',Object.keys(T.causal.timing).map(x=>[x,x]),f.timing))}
+  ${list.length ? `<div class="grid g-2">${list.map(r=>`<article class="card edge" style="--edge:${dc(r.domain[0])};--c:${dc(r.domain[0])}"><div class="row"><span class="id">${r.id}</span><b>${esc(r.title)}</b></div>
+    <blockquote>“${esc(r.quote)}”</blockquote>
+    <div class="note" style="margin-top:8px"><a href="${esc(FW[r.framework].url)}" target="_blank" rel="noopener">${esc(FW[r.framework].issuer.split(' (')[0])}</a> · ${esc(r.locator)}</div>
+    <div class="row" style="margin-top:10px">${r.domain.map(domChip).join('')}</div>
+    <div class="row" style="margin-top:6px"><span class="chip">${esc(r.entity)}</span><span class="chip">${esc(r.intent)}</span><span class="chip">${esc(r.timing)}</span></div></article>`).join('')}</div>` : empty()}`;
+};
+
+function timeline(list){
+  const W = 900, H = 230, x0 = 50, x1 = W-20, y0 = H-36, ymin = 2014, ymax = 2026;
+  const X = y => x0 + (y-ymin)/(ymax-ymin)*(x1-x0);
+  const yearOf = i => { const m = String(i.date).match(/(\d{4})/g); return m ? m : ['2024']; };
+  const stack = {}; let marks = '';
+  [...list].sort((a,b)=>String(a.date).localeCompare(String(b.date))).forEach(i=>{
+    const ys = yearOf(i).map(Number), y = ys[0], y2 = ys.length>1 && ys[1]<=ymax && ys[1]>y ? ys[1] : null;
+    const r = 6 + i.severity*2.2, col = dc(i.domains[0]);
+    const tip = `<b>${esc(i.title)}</b>${esc(i.date)} · ${esc(i.state)}<br>Severity ${i.severity}: ${esc(T.severity[i.severity])}`;
+    if(y2){ marks += `<g class="dot-hit" data-scroll="${i.id}" data-tip="${esc(tip)}"><rect x="${X(y)}" y="${y0-26}" width="${X(y2)-X(y)}" height="14" rx="7" fill="${col}" fill-opacity=".55" stroke="${col}" stroke-width="2"/></g>`; return; }
+    const k = stack[y] = (stack[y]||0)+1; const cy = y0 - 18 - (k-1)*(2*r+4) - r + 8;
+    marks += `<g class="dot-hit" data-scroll="${i.id}" data-tip="${esc(tip)}"><circle cx="${X(y)+((k%2)?0:0)}" cy="${cy}" r="${r}" fill="${col}" stroke="var(--sheet)" stroke-width="2"/><circle cx="${X(y)}" cy="${cy}" r="${r+8}" fill="transparent"/></g>`;
+  });
+  let axis = ''; for(let y=ymin; y<=ymax; y+=2){ axis += `<g class="grid"><line x1="${X(y)}" x2="${X(y)}" y1="16" y2="${y0}" stroke-dasharray="2 4"/></g><text x="${X(y)}" y="${y0+18}" text-anchor="middle">${y}</text>`; }
+  return `<div class="chart"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Timeline of incidents by year, coloured by risk domain, sized by severity">${axis}<line x1="${x0}" x2="${x1}" y1="${y0}" y2="${y0}" stroke="var(--line)"/>${marks}</svg></div>`;
+}
+function incCard(i){
+  const col = dc(i.domains[0]);
+  return `<article class="card edge" id="${i.id}" style="--edge:${col}"><div class="row"><span class="id">${i.id}</span>${sevm(i.severity)}${rev(i.review)}<span class="note">${esc(i.date)} · ${esc(i.state)}</span></div>
+  <h3 style="margin-top:8px">${esc(i.title)}</h3><p style="margin-top:6px;max-width:74ch">${esc(i.harm)}</p>
+  <div class="row" style="margin-top:10px">${i.domains.map(domChip).join('')}</div>
+  <p style="margin-top:10px"><b>Legal response:</b> ${esc(i.response)}</p>
+  <details class="more"><summary>Details and sources</summary><dl class="kv"><dt>AI system</dt><dd>${i.systems.map(esc).join('; ')}</dd><dt>Developer / deployer</dt><dd>${esc(i.developer)} / ${esc(i.deployer)}</dd>
+  <dt>Harm type</dt><dd>${i.harm_types.map(esc).join(', ')}</dd><dt>Affected</dt><dd>${esc(i.affected)}</dd><dt>Cause</dt><dd>${esc(i.entity)} · ${esc(i.intent)} · ${esc(i.timing)}</dd>
+  <dt>Sources</dt><dd>${i.sources.map(s=>`<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a> <span class="muted">(${esc(s.date)})</span>`).join('<br>')}</dd></dl></details>
+  <div class="row" style="margin-top:12px"><button type="button" class="btn primary" data-inc="${i.id}">${svgIcon('netra',16)} Open NETRA dossier</button><span class="note">${esc(i.netra.overclaim)}</span></div></article>`;
+}
+V.incidents = () => {
+  const f = state.f.incidents||{};
+  const list = D.incidents.filter(i => (!f.dom || i.domains.some(s=>domOf(s)===f.dom)) && (!f.sector || i.sectors.includes(f.sector)) && (!f.harm || i.harm_types.includes(f.harm)) && (!f.sev || i.severity>=+f.sev) && (!f.entity || i.entity===f.entity) && (!f.q || JSON.stringify(i).toLowerCase().includes(f.q.toLowerCase())));
+  const byHarm = T.harm_types.map(h=>[h, list.filter(i=>i.harm_types.includes(h)).length]).filter(r=>r[1]).sort((a,b)=>b[1]-a[1]);
+  const byDom = T.domains.map(d=>[d.id+'. '+d.name, list.filter(i=>i.domains.some(s=>domOf(s)===d.id)).length, `var(--d${d.id})`]);
+  return head('Incident tracker',`${D.incidents.length} AI-linked harms in India`,'Drawn from news and legal reporting. Each dot is an incident: colour shows its main risk domain, size shows severity. Hover for details; click to jump to it. Severity and codes are pilot codings.','incidents','var(--d2)') +
+  domPills('incidents') +
+  filterBox('incidents', f=>sel('sector','Sector',T.sectors.map(x=>[x,x]),f.sector)+sel('harm','Harm type',T.harm_types.map(x=>[x,x]),f.harm)+sel('sev','Severity',Object.entries(T.severity).map(([k,v])=>[k,k+'+ '+v]),f.sev,'Severity: any')+sel('entity','Caused by',Object.keys(T.causal.entity).map(x=>[x,x]),f.entity)) +
+  `<section class="sheet"><div class="row" style="justify-content:space-between"><h3>Timeline</h3><span class="note">${list.length} of ${D.incidents.length} shown</span></div>${timeline(list)}
+   <div class="legend">${T.domains.map(d=>`<span style="--c:var(--d${d.id})"><i></i>${d.id}. ${esc(d.name)}</span>`).join('')}</div></section>
+  <div class="grid g-2" style="margin:14px 0"><section class="sheet"><h3>By risk domain</h3><div style="margin-top:12px">${hbars(byDom)}</div></section>
+  <section class="sheet"><h3>By harm type</h3><div style="margin-top:12px">${byHarm.length?hbars(byHarm.map(r=>[r[0],r[1],'var(--d2)'])):'<p class="note">No matches.</p>'}</div></section></div>
+  <p class="callout" style="margin-bottom:14px">Reported incidents are a small, biased sample of real harms. Where a source does not confirm that AI was used, the record says so.</p>` +
+  (list.length ? `<div class="stack">${list.map(incCard).join('')}</div>` : empty());
+};
+
+function lawLandscape(list){
+  const W = 900, H = 210, x0 = 60, x1 = W-20, ymin = 2000, ymax = 2027;
+  const X = y => x0 + (y-ymin)/(ymax-ymin)*(x1-x0);
+  const lanes = {hard: 70, soft: 150}; const used = {}; let marks = '';
+  list.forEach(i=>{ const y = +String(i.date).slice(0,4) || 2025; const lane = isHard(i)?'hard':'soft'; const key = lane+Math.round(X(y)/14);
+    const k = used[key] = (used[key]||0)+1; const cy = lanes[lane] + (k%2?-1:1)*Math.floor(k/2)*15; const col = dc(i.domains[0]||'6.5');
+    const tip = `<b>${esc(i.title)}</b>${esc(i.date)} · ${esc(i.type)}<br>${esc(i.status)}`;
+    marks += `<g class="dot-hit" data-scroll="ins-${i.id}" data-tip="${esc(tip)}"><circle cx="${X(y)}" cy="${cy}" r="7" fill="${isHard(i)?col:'var(--sheet)'}" stroke="${col}" stroke-width="2.5"/><circle cx="${X(y)}" cy="${cy}" r="13" fill="transparent"/></g>`; });
+  let axis = ''; for(let y=2000; y<=2026; y+=2){ axis += `<g class="grid"><line x1="${X(y)}" x2="${X(y)}" y1="30" y2="${H-30}" stroke-dasharray="2 4"/></g><text x="${X(y)}" y="${H-12}" text-anchor="middle">${y}</text>`; }
+  return `<div class="chart"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Indian AI-relevant instruments by year, binding versus soft">${axis}
+   <text x="8" y="${lanes.hard+4}" style="font-weight:600;fill:var(--ink)">Binding</text><text x="8" y="${lanes.soft+4}" style="font-weight:600;fill:var(--ink)">Soft</text>${marks}</svg></div>`;
+}
+V.governance = () => {
+  const f = state.f.governance||{};
+  const list = D.instruments.filter(i => (!f.force || (f.force==='hard'?isHard(i):!isHard(i))) && (!f.type || i.type===f.type) && (!f.sector || i.sectors.includes(f.sector)) && (!f.dom || i.domains.some(s=>domOf(s)===f.dom)) && (!f.ver || (f.ver==='yes'?i.verified==='yes':i.verified!=='yes')) && (!f.q || JSON.stringify(i).toLowerCase().includes(f.q.toLowerCase())));
+  return head('Governance map',`${D.instruments.length} Indian laws, rules, policies and court orders`,'India has no AI-specific statute. This map shows the general laws, sector rules, advisories, policy papers, standards and court orders that reach AI, and which risk domains each touches. Filled dots are binding; hollow dots are soft law or proposals.','governance','var(--d3)') +
+  domPills('governance') +
+  filterBox('governance', f=>sel('force','Legal force',[['hard','Binding law & court orders'],['soft','Soft law & proposals']],f.force)+sel('type','Type',[...new Set(D.instruments.map(i=>i.type))].sort().map(x=>[x,x]),f.type)+sel('sector','Sector',T.sectors.map(x=>[x,x]),f.sector)+sel('ver','Verification',[['yes','Full text read'],['no','Needs verification']],f.ver)) +
+  `<section class="sheet"><div class="row" style="justify-content:space-between"><h3>The legal landscape over time</h3><span class="note">${list.length} shown · colour = main risk domain</span></div>${lawLandscape(list)}</section>
+  <section class="sheet" style="margin-top:14px"><h3>Which domains each instrument reaches</h3>
+  <div class="tablewrap" style="margin-top:12px"><table><thead><tr><th>Instrument</th>${T.domains.map(d=>`<th style="text-align:center" data-tip="${esc(d.name)}"><span class="bub" style="width:22px;height:22px;background:var(--d${d.id})">${d.id}</span></th>`).join('')}</tr></thead><tbody>
+  ${list.map(i=>`<tr class="click" data-scroll="ins-${i.id}"><td><b style="font-weight:600">${esc(shortIns(i))}</b> ${isHard(i)?'<span class="chip hard" style="font-size:.68rem">Binding</span>':'<span class="chip soft" style="font-size:.68rem">Soft</span>'}<div class="note">${esc(i.date)} · ${esc(i.type)}</div></td>${T.domains.map(d=>{const n=i.domains.filter(s=>domOf(s)===d.id).length;return `<td class="n">${n?`<span class="bub" style="width:${14+n*5}px;height:${14+n*5}px;background:var(--d${d.id})" data-tip="${n} risk area${n>1?'s':''} in ${esc(d.name)}">${n>1?n:''}</span>`:''}</td>`}).join('')}</tr>`).join('')}
+  </tbody></table></div></section>
+  <div class="stack" style="margin-top:14px">${list.length?list.map(i=>`<article class="card edge" id="ins-${i.id}" style="--edge:${isHard(i)?'var(--accent)':'var(--line)'}"><div class="row"><span class="id">${i.id}</span>${isHard(i)?'<span class="chip hard">'+esc(i.force)+'</span>':'<span class="chip soft">'+esc(i.force)+'</span>'}<span class="chip">${esc(i.type)}</span><span class="note">${esc(i.date)}</span></div>
+   <h3 style="margin-top:8px">${esc(i.title)}</h3><p style="margin-top:6px;max-width:74ch">${esc(i.summary)}</p>
+   <div class="row" style="margin-top:10px">${i.domains.map(domChip).join('')}</div>
+   <details class="more"><summary>Status, provisions and source</summary><dl class="kv"><dt>Issuer</dt><dd>${esc(i.issuer)}</dd><dt>Status</dt><dd>${esc(i.status)}</dd><dt>Key provisions</dt><dd>${esc(i.provisions)}</dd>
+   <dt>Who it targets</dt><dd>${i.actors.map(esc).join(', ')}</dd><dt>Sectors</dt><dd>${i.sectors.map(esc).join(', ')}</dd><dt>Lifecycle</dt><dd>${i.lifecycle.map(esc).join(', ')}</dd>
+   <dt>Source</dt><dd><a href="${esc(i.url)}" target="_blank" rel="noopener">${esc(new URL(i.url).hostname)}</a>${ver(i.verified)}<div class="note">${esc(i.note)}</div></dd></dl></details></article>`).join(''):empty()}</div>`;
+};
+
+V.mitigations = () => {
+  const f = state.f.mitigations||{};
+  const list = D.mitigations.filter(m => (!f.src || m.source===f.src) && (!f.q || JSON.stringify(m).toLowerCase().includes(f.q.toLowerCase())));
+  const tot = Math.max(1,list.length);
+  return head('Mitigations',`${D.mitigations.length} measures Indian authorities require or recommend`,'Sorted into the MIT AI Risk Mitigation Taxonomy (4 categories, 23 control types). Empty types show where no Indian measure has been recorded yet. Text marked “summary” paraphrases a secondary source.','mitigations','var(--d6)') +
+  `<section class="sheet"><h3>Share of measures by control category</h3><div class="mstack">${T.mitigation.map(c=>{const n=list.filter(m=>MSUB[m.category].cat===c.id).length;return n?`<div style="--c:${MCOL[c.id]};flex:${n}" data-tip="<b>${esc(c.name)}</b>${n} measures"></div>`:''}).join('')}</div>
+   <div class="legend">${T.mitigation.map(c=>`<span style="--c:${MCOL[c.id]}"><i></i>${esc(c.name)} (${list.filter(m=>MSUB[m.category].cat===c.id).length})</span>`).join('')}</div></section>
+  <div style="margin-top:14px">${filterBox('mitigations', f=>sel('src','Source',[...new Set(D.mitigations.map(m=>m.source))].map(s=>[s, shortIns(INS[s])]),f.src))}</div>
+  <div class="grid g-2">${T.mitigation.map(c=>`<section class="sheet mcat" style="--c:${MCOL[c.id]}"><h3>${c.id}. ${esc(c.name)}</h3>
+   ${c.subs.map(s=>{const ms=list.filter(m=>m.category===s.id);return `<div style="margin-top:14px"><div class="row"><b style="font-size:.92rem">${s.id} ${esc(s.name)}</b><span class="bub" style="width:22px;height:22px;background:${ms.length?MCOL[c.id]:'var(--na)'}">${ms.length}</span></div>
+   ${ms.length?ms.map(m=>`<div style="margin:6px 0 0 2px;font-size:.9rem;border-left:3px solid ${MCOL[c.id]};padding-left:10px">${esc(m.quote)}<div class="note">${esc(shortIns(INS[m.source]))} · ${esc(m.locator)} · ${esc(m.actor)} · ${esc(m.force)}</div></div>`).join(''):'<div class="note" style="margin-top:4px">No Indian measure recorded yet.</div>'}</div>`}).join('')}</section>`).join('')}</div>`;
+};
+
+function ring(pct, size=90){ const r = size/2-8, C = 2*Math.PI*r; return `<svg class="ring" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" role="img" aria-label="${pct}% of stages done"><circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="var(--soft)" stroke-width="9"/><circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="var(--ok)" stroke-width="9" stroke-linecap="round" stroke-dasharray="${(C*pct/100).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 ${size/2} ${size/2})"/><text x="50%" y="54%" text-anchor="middle" style="font-size:20px">${pct}%</text></svg>`; }
+V.netra = () => {
+  const i = INC[state.inc], n = i.netra, col = dc(i.domains[0]);
+  const gaps = D.gaps.filter(g=>g.incidents.includes(i.id));
+  const done = Object.values(n.stages).filter(v=>v==='done').length, appl = Object.values(n.stages).filter(v=>v!=='n/a').length;
+  const pct = Math.round(done/appl*100);
+  const lbl = {incident:'Where it happened', victim:'Victim', accused:'Respondent / accused', investigating_agency:'Investigating body', platform_service:'Platform or service', network:'Network / account'};
+  return head('NETRA pipeline','From signal to accountability', esc(T.netra_note),'netra','var(--d5)') +
+  `<section class="sheet"><div class="row" style="justify-content:space-between"><h3>Pick an incident</h3><span class="note">Each row: 14 stages · green done · amber partial · dashed open</span></div>
+   <div class="tablewrap" style="margin-top:12px"><table><thead><tr><th>Incident</th>${T.netra_stages.map(s=>`<th style="text-align:center" data-tip="${esc(s.name)}">${s.id.slice(1)}</th>`).join('')}</tr></thead><tbody>
+   ${D.incidents.map(x=>`<tr class="click" data-inc="${x.id}" ${x.id===i.id?'style="background:var(--accent-soft)"':''}><td><span class="cell" style="background:${dc(x.domains[0])};width:8px;margin-right:8px;vertical-align:-2px"></span>${esc(x.title.slice(0,48))}${x.title.length>48?'…':''}</td>${T.netra_stages.map(s=>`<td class="n"><span class="cell c-${x.netra.stages[s.id]}" data-tip="<b>${esc(s.name)}</b>${esc(x.netra.stages[s.id])}"></span></td>`).join('')}</tr>`).join('')}
+   </tbody></table></div></section>
+
+  <section class="sheet" style="margin-top:14px;border-top:6px solid ${col}">
+   <div class="row" style="justify-content:space-between;align-items:flex-start"><div style="min-width:0;flex:1 1 300px"><div class="row"><span class="id">${i.id}</span>${sevm(i.severity)}${rev(i.review)}</div>
+     <h2 style="margin-top:8px">${esc(i.title)}</h2><p class="muted" style="margin-top:6px">${esc(i.date)} · ${esc(i.state)}</p></div>
+     <div style="text-align:center">${ring(pct)}<div class="note">stages done from sources</div></div></div>
+   <div class="pipe">${T.netra_stages.map(s=>`<div class="node s-${n.stages[s.id]}" data-tip="<b>${esc(s.name)}</b>${esc(n.stages[s.id])}"><div class="c">${s.id.slice(1)}</div><b>${esc(s.name)}</b>${esc(n.stages[s.id])}</div>`).join('')}</div>
+   <div class="grid g-2" style="margin-top:18px">
+    <div><h3>Location & jurisdiction</h3><p class="note" style="margin-top:4px">Kept separate, as NETRA requires; one incident can touch several jurisdictions.</p>
+     <div class="loc">${Object.entries(n.locations).map(([k,v])=>`<div><span>${esc(lbl[k]||k)}</span>${esc(v)}</div>`).join('')}</div></div>
+    <div><h3>Where to report or seek relief</h3><p class="note" style="margin-top:4px">Information only. NETRA never files reports automatically.</p>
+     <div class="route">${n.authorities.map((a,k)=>`<div><span class="num">${k+1}</span><div><b>${esc(AUTH[a].name)}</b>${AUTH[a].verified!=='yes'?' <span class="verify">verify</span>':''}<div class="note">${esc(AUTH[a].role)} · <a href="${esc(AUTH[a].url)}" target="_blank" rel="noopener">${esc(new URL(AUTH[a].url).hostname)}</a></div></div></div>`).join('')}</div></div>
+   </div>
+   <h3 style="margin-top:20px">Legal issues (T1)</h3><p class="note" style="margin-top:4px">Instruments that may bear on this incident. Applicability is unreviewed.</p>
+   <div class="row" style="margin-top:10px">${i.instruments.map(insChip).join('')}</div>
+   <h3 style="margin-top:20px">Gaps (T2–T3)</h3>${gaps.length?gaps.map(g=>`<p style="margin-top:8px"><span class="id">${g.id}</span> <b>${esc(g.title)}</b> — <span class="muted">${esc(g.basis)}</span></p>`).join(''):'<p class="note" style="margin-top:6px">None linked.</p>'}
+   <div class="grid g-2" style="margin-top:20px">
+    <div class="callout"><b>What NETRA does not know</b><ul style="margin:6px 0 0;padding-left:18px">${n.unknowns.map(u=>`<li>${esc(u)}</li>`).join('')}</ul></div>
+    <div class="callout red"><b>Overclaim check</b><p style="margin-top:6px">${esc(n.overclaim)}</p></div>
+   </div>
+   <h3 style="margin-top:20px">Evidence register</h3>
+   <div class="tablewrap" style="margin-top:10px"><table><thead><tr><th>ID</th><th>Source</th><th>Kind</th><th>Date</th></tr></thead><tbody>
+   ${i.sources.map((s,k)=>`<tr><td class="id">E-${String(k+1).padStart(2,'0')}</td><td><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a></td><td>Secondary (news / legal reporting)</td><td class="mono">${esc(s.date)}</td></tr>`).join('')}
+   </tbody></table></div><p class="note" style="margin-top:8px">No primary evidence (orders, FIRs, platform records) has been captured yet. That is the next step for each dossier.</p></section>`;
+};
+
+V.gaps = () => head('Gap register',`${D.gaps.length} places the law has not caught up`,'Each gap names the incidents and instruments behind it. India’s lack of an AI-specific statute is not counted as a gap by itself.','gaps','var(--d4)') +
+  `<div class="grid g-2">${D.gaps.map(g=>{ const cols = [...new Set(g.incidents.map(x=>INC[x].domains[0]))]; return `<article class="card edge" style="--edge:${g.type==='Governance gap'?'var(--d4)':g.type==='Possible legal gap'?'var(--open)':'var(--d7)'}"><div class="row"><span class="id">${g.id}</span><span class="chip">${esc(g.type)}</span></div><h3 style="margin-top:8px">${esc(g.title)}</h3><p style="margin-top:6px">${esc(g.basis)}</p>
+  <div style="margin-top:12px"><span class="eyebrow">Incidents</span>${g.incidents.map(x=>`<button type="button" class="chip" style="--c:${dc(INC[x].domains[0])};margin:6px 6px 0 0;cursor:pointer" data-inc="${x}"><i></i>${esc(INC[x].title.slice(0,44))}${INC[x].title.length>44?'…':''}</button>`).join('')}</div>
+  <div style="margin-top:10px"><span class="eyebrow">Instruments</span><div class="row" style="margin-top:6px">${g.instruments.map(insChip).join('')}</div></div></article>`}).join('')}</div>`;
+
+V.evidence = () => {
+  const cls = G.classifications;
+  return head('Global evidence','What frontier-AI evaluations mean for Indian law','Findings from three METR reports, mapped to Indian provisions in the earlier pilot. None of these reports identifies an Indian computer, user or entity, so every mapping is conditional.','evidence','var(--d1)') +
+  `<div class="stack">${G.reports.map(r=>{const ms=G.mappings.filter(m=>m.report===r.id);return `<article class="card edge" style="--edge:var(--d1)"><div class="row"><span class="id">${r.id}</span>${rev(r.review)}<span class="note">${esc(r.org)} · ${esc(r.published)}</span></div>
+  <h3 style="margin-top:8px">${esc(r.title)}</h3><p style="margin-top:6px;max-width:74ch">${esc(r.finding)}</p>
+  <div class="row" style="margin-top:10px">${ms.map(m=>`<span class="chip">${esc(cls[m.classification])}</span>`).join('')}</div>
+  <details class="more"><summary>${ms.length} Indian provisions, limits and source</summary><dl class="kv"><dt>Limitations</dt><dd>${esc(r.limitations)}</dd><dt>India nexus</dt><dd>${esc(r.india_nexus)}</dd>
+  <dt>Provisions</dt><dd>${ms.map(m=>{const ii=G.instruments.find(x=>x.id===m.instrument);return `<div style="margin-bottom:8px"><b>${esc(ii.instrument)} ${esc(ii.provision)}</b> <span class="chip">${esc(cls[m.classification])}</span><div class="note">${esc(m.explanation)}</div></div>`}).join('')}</dd>
+  <dt>Source</dt><dd><a href="${esc(G.sources.find(s=>s.id===r.source).url)}" target="_blank" rel="noopener">${esc(G.sources.find(s=>s.id===r.source).title)}</a></dd></dl></details></article>`}).join('')}</div>`;
+};
+
+V.about = () => head('Method & sources','How this was built, and how far to trust it','Pilot v0.1. Everything is open to correction.','about','var(--d7)') +
+  `<div class="grid g-2">
+  <section class="sheet"><h3>What each tool contains</h3><dl class="kv">
+   <dt>Risks</dt><dd>Quoted from ${D.frameworks.filter(f=>D.risks.some(r=>r.framework===f.id)).map(f=>`<a href="${esc(f.url)}" target="_blank" rel="noopener">${esc(f.issuer.split(' (')[0])}</a>`).join(' and ')} documents read in full.</dd>
+   <dt>Incidents</dt><dd>${D.incidents.length} found through targeted searches and read in news and legal-analysis sources. Not a systematic sample.</dd>
+   <dt>Governance</dt><dd>${D.instruments.length} instruments; ${D.instruments.filter(i=>i.verified==='yes').length} read in full, the rest flagged for verification.</dd>
+   <dt>Mitigations</dt><dd>${D.mitigations.length} measures quoted or summarised from those instruments.</dd>
+   <dt>Coding</dt><dd>Taxonomy, cause and severity codes were assigned with AI assistance and have not been checked by a second coder.</dd></dl></section>
+  <section class="sheet"><h3>Next steps</h3><ol style="margin:8px 0 0;padding-left:20px">
+   <li>Read official texts for every item marked “verify”.</li><li>Capture primary evidence for each NETRA dossier.</li><li>Add risks from RBI FREE-AI, ICMR and SEBI documents.</li><li>Have a second coder check codes.</li><li>Publish survey results after 5+ responses.</li></ol></section>
+  <section class="sheet"><h3>Attribution</h3><p style="margin-top:6px">${esc(T.attribution)}</p></section>
+  <section class="sheet"><h3>Relation to NETRA</h3><p style="margin-top:6px">${esc(T.netra_note)}</p></section></div>
+  <details class="sheet more" style="margin-top:14px"><summary>Verification warnings (${PAYLOAD.warnings.length})</summary><ul style="margin:8px 0 0;padding-left:18px;font-size:.88rem">${PAYLOAD.warnings.map(w=>`<li>${esc(w)}</li>`).join('')}</ul></details>`;
+
+/* ---------- survey ---------- */
+const S = D.survey;
+let SV = {ready:false, canSave:false, code:'', db:null, user:null, uid:null, owner:false, mine:null, summary:null, all:null, msg:'', msgKind:''};
+const seg = (name, cur, labels) => `<div class="seg" role="radiogroup">${[1,2,3,4,5].map(v=>`<label data-tip="${esc(labels[v])}"><input type="radio" name="${name}" id="${name}-${v}" value="${v}" ${+cur===v?'checked':''}><span>${v}</span></label>`).join('')}</div>`;
+V.survey = () => {
+  const m = SV.mine || {};
+  const status = !SV.ready ? 'Connecting…' : (SV.canSave ? (SV.mine ? 'You have already answered. Submitting again replaces your answers.' : '') : 'Anyone can take part. When you submit, you will get a short response code to send to the researcher.');
+  return head('Expert survey','Which AI risks matter most in India?', esc(S.intro)+' '+esc(S.privacy),'survey','var(--d2)') +
+  `<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,520px),1fr));align-items:start">
+  <form class="stack" id="survey-form" novalidate>
+    <fieldset><legend>About you</legend><div class="grid g-3" style="margin-top:8px">
+      <label class="field">Main role<select id="sv-role">${opts(S.roles.map(x=>[x,x]), m.role, 'Choose')}</select></label>
+      <label class="field">Years in AI, tech law or policy<select id="sv-exp">${opts(S.experience.map(x=>[x,x]), m.exp, 'Choose')}</select></label>
+      <label class="field">Sector you know best<select id="sv-sector">${opts(T.sectors.map(x=>[x,x]), m.sector, 'Choose')}</select></label></div></fieldset>
+    <fieldset><legend>Severity and likelihood in India</legend><p class="note">Tap 1–5. Severity: worst realistic harm in India (1 negligible – 5 severe). Likelihood: chance of significant harm in India by 2030 (1 very unlikely – 5 very likely).</p>
+      <div class="rate"><span class="hdr d">Risk domain</span><span class="hdr">Severity</span><span class="hdr">Likelihood</span>
+      ${T.domains.map(d=>`<span class="dname" style="--c:var(--d${d.id})"><i></i>${d.id}. ${esc(d.name)}</span>${seg('sev-'+d.id,(m.sev||{})[d.id],T.severity)}${seg('lik-'+d.id,(m.lik||{})[d.id],S.likelihood)}`).join('')}</div></fieldset>
+    <fieldset><legend>Your top three priorities for India</legend><div class="grid g-3" style="margin-top:8px">
+      ${[0,1,2].map(k=>`<label class="field">Priority ${k+1}<select id="sv-top${k}">${subOpts((m.top||[])[k],'Choose')}</select></label>`).join('')}</div></fieldset>
+    <fieldset><legend>Who is most vulnerable? (up to 3)</legend><div class="checks">${S.groups.map((g,k)=>`<label><input type="checkbox" id="sv-g${k}" name="groups" value="${esc(g)}" ${(m.groups||[]).includes(g)?'checked':''}> ${esc(g)}</label>`).join('')}</div></fieldset>
+    <fieldset><legend>Who should be most responsible?</legend><div class="checks">${S.actors.map((a,k)=>`<label><input type="radio" id="sv-a${k}" name="actor" value="${esc(a)}" ${m.actor===a?'checked':''}> ${esc(a)}</label>`).join('')}</div></fieldset>
+    <fieldset><legend>Anything missing for India? (optional)</legend><textarea id="sv-note" maxlength="600" placeholder="A risk, incident or law this observatory should add. Only the owner sees this.">${esc(m.note||'')}</textarea></fieldset>
+    <label class="checks" style="display:flex;margin:0"><input type="checkbox" id="sv-consent" ${m.consent?'checked':''}> I agree that my anonymised answers may be included in published aggregate results.</label>
+    <div class="row"><button class="btn primary" type="submit" ${SV.ready?'':'disabled'}>${SV.mine?'Update my answers':(SV.canSave?'Submit answers':'Get my response code')}</button><span class="status-msg ${SV.msgKind}" id="sv-msg" role="status">${esc(SV.msg || status)}</span></div>
+  </form>
+  <div class="stack" id="sv-results">${surveyResults()}</div></div>
+  <section class="sheet" id="sv-codebox" style="margin-top:14px;border:2px solid var(--accent)" ${SV.code?'':'hidden'}><h3>Your response code</h3>
+   <p style="margin-top:6px">Copy this code and send it to the researcher who shared this page with you (by email, WhatsApp or any message). It contains only your survey answers, no name or account details.</p>
+   <textarea id="sv-code" readonly style="margin-top:10px;font-family:var(--f-mono);font-size:.78rem;min-height:110px">${esc(SV.code||'')}</textarea>
+   <div class="row" style="margin-top:8px"><button type="button" class="btn primary" id="sv-copy">Copy code</button><span class="status-msg" id="sv-copymsg" role="status"></span></div></section>`;
+};
+function aggregate(rows){
+  const n = rows.length, out = {n, version:S.version, updated:new Date().toISOString(), domains:{}, top:{}, groups:{}, actors:{}, roles:{}};
+  T.domains.forEach(d=>{ const sv=rows.map(r=>+((r.sev||{})[d.id])).filter(Boolean), lk=rows.map(r=>+((r.lik||{})[d.id])).filter(Boolean);
+    out.domains[d.id] = {sev: sv.length? +(sv.reduce((a,b)=>a+b,0)/sv.length).toFixed(2):null, lik: lk.length? +(lk.reduce((a,b)=>a+b,0)/lk.length).toFixed(2):null, k: Math.min(sv.length, lk.length)}; });
+  const cnt = (obj, v) => { if(v) obj[v] = (obj[v]||0)+1; };
+  rows.forEach(r=>{ (r.top||[]).forEach(t=>cnt(out.top,t)); (r.groups||[]).forEach(g=>cnt(out.groups,g)); cnt(out.actors,r.actor); cnt(out.roles,r.role); });
+  return out;
+}
+function riskMatrix(a){
+  const W=360,H=300,x0=44,y0=H-36,x1=W-14,y1=14, X=v=>x0+(v-1)/4*(x1-x0), Y=v=>y0-(v-1)/4*(y0-y1);
+  let g=''; for(let v=1;v<=5;v++){ g+=`<g class="grid"><line x1="${X(v)}" x2="${X(v)}" y1="${y1}" y2="${y0}"/><line x1="${x0}" x2="${x1}" y1="${Y(v)}" y2="${Y(v)}"/></g><text x="${X(v)}" y="${y0+16}" text-anchor="middle">${v}</text><text x="${x0-10}" y="${Y(v)+4}" text-anchor="end">${v}</text>`; }
+  const dots = T.domains.map(d=>{const x=a.domains[d.id]||{}; if(!x.sev||!x.lik) return ''; return `<g data-tip="<b>${d.id}. ${esc(d.name)}</b>Severity ${x.sev} · Likelihood ${x.lik}"><circle cx="${X(x.lik)}" cy="${Y(x.sev)}" r="13" fill="var(--d${d.id})" stroke="var(--sheet)" stroke-width="2"/><text x="${X(x.lik)}" y="${Y(x.sev)+4}" text-anchor="middle" style="fill:#fff;font-weight:700">${d.id}</text></g>`;}).join('');
+  return `<div class="chart"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Mean severity against likelihood by domain">${g}<text x="${(x0+x1)/2}" y="${H-4}" text-anchor="middle">Likelihood →</text><text x="12" y="${(y0+y1)/2}" transform="rotate(-90 12 ${(y0+y1)/2})" text-anchor="middle">Severity →</text>${dots}</svg></div>`;
+}
+function renderAgg(a, title){
+  const top = Object.entries(a.top).sort((x,y)=>y[1]-x[1]).slice(0,8).map(([k,v])=>[k+' '+(SUB[k]?.name||''),v,dc(k)]);
+  return `<section class="sheet"><h3>${esc(title)}</h3><p class="note">${a.n} response${a.n===1?'':'s'} · updated ${esc((a.updated||'').slice(0,10))}</p>
+   ${riskMatrix(a)}
+   ${top.length?`<h3 style="margin-top:14px">Most-chosen priorities</h3><div style="margin-top:8px">${hbars(top)}</div>`:''}
+   ${Object.keys(a.groups).length?`<h3 style="margin-top:14px">Most vulnerable groups</h3><div style="margin-top:8px">${hbars(Object.entries(a.groups).sort((x,y)=>y[1]-x[1]).map(r=>[r[0],r[1],'var(--d5)']))}</div>`:''}
+   ${Object.keys(a.actors).length?`<h3 style="margin-top:14px">Most responsible actor</h3><div style="margin-top:8px">${hbars(Object.entries(a.actors).sort((x,y)=>y[1]-x[1]).map(r=>[r[0],r[1],'var(--d7)']))}</div>`:''}</section>`;
+}
+function surveyResults(){
+  let html = ''; const s = SV.summary;
+  if(s && s.n >= 5) html += renderAgg(s, 'Published results');
+  else html += `<section class="sheet" style="text-align:center"><div style="display:flex;justify-content:center;margin-bottom:10px;color:var(--d2)">${svgIcon('survey',40)}</div><h3>Results appear here</h3><p style="margin-top:6px">${s ? `A summary of ${s.n} responses exists, but results are shown only once at least 5 people have answered.` : 'No results have been published yet. Results appear here once at least 5 practitioners have answered and the owner publishes a summary.'}</p><p class="note" style="margin-top:8px">They will show each domain on a severity × likelihood chart, plus the most-chosen priorities. Results describe the views of those who answer, not a representative sample.</p></section>`;
+  if(SV.owner){
+    const rows = (SV.all||[]).filter(r=>r.consent);
+    html += `<section class="sheet" style="border:2px solid var(--accent)"><span class="eyebrow" style="color:var(--accent)">Owner only</span><h3 style="margin-top:4px">Live responses</h3>
+     <p class="note" style="margin-top:4px">${SV.all? `${SV.all.length} stored, ${rows.length} with consent to publish.` : 'Loading…'}</p>
+     <label class="field" style="margin-top:12px">Import response codes from outside respondents (paste one or many)<textarea id="sv-import" placeholder="NETRA-IND-S1:..."></textarea></label>
+     <div class="row" style="margin-top:10px"><button type="button" class="btn" id="sv-doimport">Import codes</button><button type="button" class="btn" id="sv-refresh">Refresh</button><button type="button" class="btn primary" id="sv-publish" ${rows.length?'':'disabled'}>Publish aggregate</button></div></section>`;
+    if(rows.length) html += renderAgg(aggregate(rows), 'Live aggregate (not yet public)');
+    const notes = (SV.all||[]).filter(r=>r.note);
+    if(notes.length) html += `<section class="sheet"><h3>Suggestions from respondents</h3><ul style="margin:8px 0 0;padding-left:18px">${notes.map(r=>`<li>${esc(r.note)} <span class="note">(${esc(r.role||'')})</span></li>`).join('')}</ul></section>`;
+  }
+  return html;
+}
+async function initSurvey(){
+  try{
+    const [db, user] = await Promise.all([window.claude?.use?.('db') ?? null, window.claude?.use?.('user') ?? null]);
+    SV.db = db; SV.user = user;
+    if(db && user){
+      SV.uid = await user.id(); SV.owner = !!user.isOwner?.();
+      let can = null; try{ can = await user.can?.('data.write'); }catch(e){}
+      SV.canSave = can !== false;
+      try{ const mine = await db.doc('survey/'+SV.uid).get(); if(mine.exists) SV.mine = mine.data(); }catch(e){}
+      db.doc('public/summary').onSnapshot(s=>{ SV.summary = s.exists ? s.data() : null; if(state.view==='survey') refreshResults(); }, ()=>{});
+      if(SV.owner) await loadAll();
+    }
+  }catch(e){ SV.db = null; }
+  SV.ready = true; if(state.view==='survey') render();
+}
+async function loadAll(){ try{ const q = await SV.db.collection('survey').get(); SV.all = q.docs.map(d=>d.data()); }catch(e){ SV.all = []; } }
+function refreshResults(){ const box = document.getElementById('sv-results'); if(box) box.innerHTML = surveyResults(); }
+function readForm(){
+  const v = id => document.getElementById(id)?.value || '';
+  const radio = name => +(document.querySelector(`input[name="${name}"]:checked`)?.value) || null;
+  const out = {version:S.version, role:v('sv-role'), exp:v('sv-exp'), sector:v('sv-sector'), sev:{}, lik:{}, top:[], groups:[], actor:'', note:v('sv-note').trim().slice(0,600), consent:!!document.getElementById('sv-consent')?.checked, submitted:new Date().toISOString()};
+  T.domains.forEach(d=>{ out.sev[d.id]=radio('sev-'+d.id); out.lik[d.id]=radio('lik-'+d.id); });
+  out.top = [0,1,2].map(k=>v('sv-top'+k)).filter(Boolean);
+  document.querySelectorAll('input[name=groups]:checked').forEach(c=>out.groups.push(c.value));
+  out.actor = document.querySelector('input[name=actor]:checked')?.value || '';
+  return out;
+}
+const CODE_PREFIX = 'NETRA-'+S.version+':';
+function encodeAnswers(a){ const {submitted, ...rest} = a; return CODE_PREFIX + btoa(unescape(encodeURIComponent(JSON.stringify(rest)))); }
+function cleanAnswers(x){
+  if(!x || typeof x!=='object') return null;
+  const pick = (v, list) => list.includes(v) ? v : '';
+  const out = {version:S.version, role:pick(x.role,S.roles), exp:pick(x.exp,S.experience), sector:pick(x.sector,T.sectors), sev:{}, lik:{}, top:[], groups:[], actor:pick(x.actor,S.actors), note:String(x.note||'').slice(0,600), consent:x.consent===true, via:'code'};
+  T.domains.forEach(d=>{ const sv=+(x.sev||{})[d.id], lk=+(x.lik||{})[d.id]; out.sev[d.id]=sv>=1&&sv<=5?sv:null; out.lik[d.id]=lk>=1&&lk<=5?lk:null; });
+  out.top = (Array.isArray(x.top)?x.top:[]).filter(t=>SUB[t]).slice(0,3);
+  out.groups = (Array.isArray(x.groups)?x.groups:[]).filter(g=>S.groups.includes(g)).slice(0,3);
+  if(!out.role || T.domains.some(d=>!out.sev[d.id]||!out.lik[d.id]) || out.top.length<3) return null;
+  return out;
+}
+function decodeCodes(text){
+  const re = new RegExp(CODE_PREFIX.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'[A-Za-z0-9+/=]+','g');
+  const found = String(text||'').match(re) || []; const ok = [], bad = [];
+  found.forEach(c=>{ try{ const a = cleanAnswers(JSON.parse(decodeURIComponent(escape(atob(c.slice(CODE_PREFIX.length))))));
+    if(a){ let h=0; for(const ch of c) h=(h*31+ch.charCodeAt(0))>>>0; ok.push({id:'code-'+h.toString(36), a}); } else bad.push(c); }catch(e){ bad.push(c); } });
+  return {ok, bad, total: found.length};
+}
+async function importCodes(){
+  const box = document.getElementById('sv-import'); const {ok, bad, total} = decodeCodes(box?.value);
+  if(!total){ setMsg('No response codes found in the pasted text.', 'err'); return; }
+  let saved = 0; for(const r of ok){ try{ await SV.db.doc('survey/'+r.id).set({...r.a, imported:new Date().toISOString()}); saved++; }catch(e){} }
+  await loadAll(); refreshResults();
+  setMsg(`Imported ${saved} of ${total} code${total===1?'':'s'}${bad.length?`; ${bad.length} could not be read`:''}. Re-importing the same code replaces it, so duplicates are not counted twice.`, saved?'ok':'err');
+}
+function showCode(a){ SV.code = encodeAnswers(a); const box = document.getElementById('sv-codebox'); if(!box) return; document.getElementById('sv-code').value = SV.code; box.hidden = false; box.scrollIntoView({block:'start', behavior: reduce?'auto':'smooth'}); }
+async function copyCode(){
+  const ta = document.getElementById('sv-code'), m = document.getElementById('sv-copymsg');
+  try{ await navigator.clipboard.writeText(ta.value); m.textContent='Copied.'; m.className='status-msg ok'; }
+  catch(e){ ta.focus(); ta.select(); m.textContent='Press Ctrl+C (or long-press and Copy) to copy the selected code.'; m.className='status-msg'; }
+}
+function setMsg(t, kind){ SV.msg=t; SV.msgKind=kind; const el=document.getElementById('sv-msg'); if(el){ el.textContent=t; el.className='status-msg '+kind; } }
+async function submitSurvey(e){
+  e.preventDefault(); if(!SV.ready) return;
+  const a = readForm(); const missing = [];
+  if(!a.role) missing.push('your role');
+  if(T.domains.some(d=>!a.sev[d.id]||!a.lik[d.id])) missing.push('all 14 ratings');
+  if(a.top.length<3 || new Set(a.top).size<3) missing.push('three different priorities');
+  if(a.groups.length>3) missing.push('no more than 3 groups');
+  if(missing.length){ setMsg('Please add '+missing.join(', ')+'.', 'err'); return; }
+  if(!SV.canSave || !SV.db){ showCode(a); setMsg('Done. Copy your response code below and send it to the researcher.', 'ok'); return; }
+  try{ await SV.db.doc('survey/'+SV.uid).set(a); SV.mine = a; setMsg('Saved. Thank you — you can change your answers any time.', 'ok'); if(SV.owner){ await loadAll(); refreshResults(); } }
+  catch(err){ SV.canSave = false; showCode(a); setMsg('Your access level cannot save answers here, so a response code was made instead. Copy it below and send it to the researcher.', 'ok'); }
+}
+async function publishSummary(){
+  const rows = (SV.all||[]).filter(r=>r.consent); if(!rows.length) return;
+  try{ await SV.db.doc('public/summary').set(aggregate(rows)); setMsg('Aggregate published.', 'ok'); }
+  catch(err){ setMsg('Could not publish the aggregate ('+(err?.code||'error')+').', 'err'); }
+}
+
+/* ---------- shell ---------- */
+function renderTabs(){ document.getElementById('tabs').innerHTML = TOOLS.map(([k,l])=>`<button type="button" data-go="${k}" ${state.view===k?'aria-current="page"':''}>${esc(l)}</button>`).join(''); }
+function countUp(){ if(reduce) return; document.querySelectorAll('[data-count]').forEach(el=>{ const n=+el.dataset.count, t0=performance.now(); const tick=t=>{ const p=Math.min(1,(t-t0)/700); el.textContent=Math.round(n*(1-Math.pow(1-p,3))); if(p<1) requestAnimationFrame(tick); }; requestAnimationFrame(tick); }); }
+function render(){ $view.innerHTML = `<div class="view">${V[state.view]()}</div>`; if(state.view==='home' && typeof requestAnimationFrame!=='undefined') countUp(); }
+function go(v, keepScroll){ state.view = v; try{ history.replaceState(null,'','#'+v); }catch(e){} renderTabs(); render(); hideTip(); if(!keepScroll) window.scrollTo(0,0); const cur = document.querySelector('nav.tabs [aria-current]'); cur?.scrollIntoView?.({inline:'center',block:'nearest'}); }
+const $tip = document.getElementById('tip');
+function hideTip(){ $tip && $tip.classList.remove('show'); }
+document.addEventListener('pointerover', e => { const t = e.target.closest?.('[data-tip]'); if(!t){ hideTip(); return; } $tip.innerHTML = t.dataset.tip; $tip.classList.add('show'); });
+document.addEventListener('pointermove', e => { if(!$tip.classList.contains('show')) return; const w = $tip.offsetWidth, h = $tip.offsetHeight; let x = e.clientX+14, y = e.clientY+14; if(x+w>innerWidth-8) x = e.clientX-w-14; if(y+h>innerHeight-8) y = e.clientY-h-14; $tip.style.left = Math.max(8,x)+'px'; $tip.style.top = Math.max(8,y)+'px'; });
+document.addEventListener('click', e => {
+  const t = e.target.closest('[data-go],[data-sub],[data-dom],[data-inc],[data-scroll],[data-pill],[data-clear],#sv-refresh,#sv-publish,#sv-copy,#sv-doimport');
+  if(!t) return;
+  if(t.id==='sv-copy'){ copyCode(); return; }
+  if(t.id==='sv-doimport'){ importCodes(); return; }
+  if(t.id==='sv-refresh'){ loadAll().then(refreshResults); return; }
+  if(t.id==='sv-publish'){ publishSummary(); return; }
+  e.preventDefault();
+  if(t.dataset.go) return go(t.dataset.go);
+  if(t.dataset.clear){ state.f[state.view] = {}; return render(); }
+  if(t.dataset.pill){ const box = t.closest('[data-fview]').dataset.fview, cur = (state.f[box]||{})[t.dataset.pill]; state.f[box] = {...(state.f[box]||{}), [t.dataset.pill]: cur===t.dataset.v ? '' : t.dataset.v}; return render(); }
+  if(t.dataset.sub){ state.sub = t.dataset.sub; return go('navigator', state.view==='navigator'); }
+  if(t.dataset.dom){ state.sub = DOM[t.dataset.dom].subs[0].id; return go('navigator', state.view==='navigator'); }
+  if(t.dataset.inc){ state.inc = t.dataset.inc; return go('netra', state.view==='netra'); }
+  if(t.dataset.scroll){ const el = document.getElementById(t.dataset.scroll); if(el){ const d = el.querySelector('details'); if(d) d.open = true; el.scrollIntoView({block:'start', behavior: reduce?'auto':'smooth'}); el.animate?.([{boxShadow:'0 0 0 4px var(--accent)'},{boxShadow:'0 0 0 0 transparent'}],{duration:1200}); } }
+});
+document.addEventListener('keydown', e => { if((e.key==='Enter'||e.key===' ') && e.target.matches?.('.brand')){ e.preventDefault(); go('home'); } });
+document.addEventListener('input', e => {
+  const box = e.target.closest('[data-fview]'); if(!box || !e.target.dataset.k) return;
+  const v = box.dataset.fview; state.f[v] = {...(state.f[v]||{}), [e.target.dataset.k]: e.target.value};
+  if(e.target.type==='search'){ clearTimeout(window.__t); window.__t = setTimeout(()=>{ const pos = e.target.selectionStart; render(); const s = document.querySelector(`[data-fview="${v}"] input[type=search]`); if(s){ s.focus(); s.setSelectionRange(pos,pos);} }, 250); }
+  else render();
+});
+document.addEventListener('change', e => { if(e.target.id==='nav-sub' && e.target.value){ state.sub = e.target.value; render(); } });
+document.addEventListener('submit', e => { if(e.target.id==='survey-form') submitSurvey(e); });
+(function logo(){ const g = document.getElementById('logo-iris'); if(!g) return; let s=''; for(let k=0;k<7;k++){ const a0=-Math.PI/2+k*2*Math.PI/7+0.06, a1=a0+2*Math.PI/7-0.12; s+=`<path d="${arc(19,19,5.4,9.6,a0,a1)}" fill="var(--d${k+1})"/>`; } g.innerHTML = s; })();
+document.getElementById('built').textContent = `Data built ${PAYLOAD.built}. ${D.meta.status}`;
+renderTabs(); render(); initSurvey();
+window.__NETRA = {state, V, go, aggregate, SV, encodeAnswers, decodeCodes};
+})();
+</script>
