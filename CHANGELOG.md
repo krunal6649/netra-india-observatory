@@ -26,11 +26,21 @@ First public pilot. Kept unchanged as the reference version.
 3. **MIT data import (CC BY 4.0)** — AI Risk Repository (1,700+ risks), Mitigations (831), Priority survey results
 4. **Weekly incident sync** — AI Incident Database feed filtered for India links, with MIT incident codes; candidates
    arrive unreviewed via pull request
-5. **AI model register** — METR time-horizon results and evaluation reports, linked to incidents
+5. **AI model register** — one card per model (developer, release date, what was tested, by whom, results,
+   known incidents, Indian law touched), linked to incidents and the report generator. Sources, checked for reuse
+   terms on 2026-10-23 (details in `docs/model-sources.md`):
+   - **Import:** Epoch AI benchmark data (CC BY 4.0; CSV or `epochai` client) for model list, release dates
+     and scores · MITRE ATLAS (Apache 2.0; monthly YAML) for attack techniques and case studies ·
+     AVID vulnerability database (MIT licence; GitHub `avidml/avid-db`) for model failure reports ·
+     OWASP Top 10 for LLM Applications 2026 (CC BY-SA 4.0; kept in its own file with share-alike notice)
+   - **Cite and summarise only (no bulk copy):** METR time-horizon results and reports (no licence on the
+     data repo, so headline figures are quoted with a link; ask METR before importing run data) ·
+     developer system and model cards (company copyright) · UK AI Security Institute reports (reuse terms
+     not confirmed yet)
 6. **Housekeeping** — verify the 26 flagged items against official texts; Zenodo DOI for the release
 
 ## Later (v0.3+)
 - Indian Kanoon API, eGazette, Indian fact-checkers and PIB Fact Check as signals
 - OECD AIM and AIAAIC as lead sources
-- Model system cards, UK AI Security Institute, MITRE ATLAS
+- METR run-level data, if METR grants permission; UK AISI data once reuse terms are confirmed
 - Remaining states' authorities
