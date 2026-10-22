@@ -18,8 +18,19 @@ First public pilot. Kept unchanged as the reference version.
 - Known limits: all codings unreviewed; 26 items rest on secondary sources (see build warnings)
 
 ## Planned for v0.2
-- Report generator (incident, AI model, legal event) in NETRA structure, with NIST AI RMF section
-- MIT AI Risk Repository and Mitigations import (CC BY 4.0)
-- Weekly AIID sync with MIT incident codes; candidates enter as unreviewed via pull request
-- METR model register (time horizons, evaluation reports)
-- Later: Indian Kanoon API, eGazette, Indian fact-checker signals, OECD AIM and AIAAIC as leads
+1. **Report generator** — Report tab (incident, AI model, legal event, risk area, overall India summary) plus
+   "Generate report" buttons on incidents, dossiers and risk areas; NETRA structure with a NIST AI RMF
+   (Govern / Map / Measure / Manage) section; optional AI-drafted narrative labelled for review; download or copy
+2. **Authorities explorer** — treemap: India → Union / State-UT → authority type → authority, with powers, laws,
+   linked incidents and reporting routes; Union and the 5 states with incidents first
+3. **MIT data import (CC BY 4.0)** — AI Risk Repository (1,700+ risks), Mitigations (831), Priority survey results
+4. **Weekly incident sync** — AI Incident Database feed filtered for India links, with MIT incident codes; candidates
+   arrive unreviewed via pull request
+5. **AI model register** — METR time-horizon results and evaluation reports, linked to incidents
+6. **Housekeeping** — verify the 26 flagged items against official texts; Zenodo DOI for the release
+
+## Later (v0.3+)
+- Indian Kanoon API, eGazette, Indian fact-checkers and PIB Fact Check as signals
+- OECD AIM and AIAAIC as lead sources
+- Model system cards, UK AI Security Institute, MITRE ATLAS
+- Remaining states' authorities
