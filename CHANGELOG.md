@@ -3,6 +3,7 @@
 ## v0.1.1 — 2026-10-23 (bug fix)
 - Tool tabs no longer hide the last tab on laptop screens: they wrap on wide screens and scroll with a fade hint on phones
 - 'Method & sources' tab shortened to 'Method'
+- Link previews: Open Graph and Twitter card tags plus a 1200×627 preview image, so LinkedIn and X show a picture
 - No data changes. v0.1.0-pilot remains the frozen reference.
 
 ## v0.1.0-pilot — 2026-10-22 (frozen)
