@@ -167,6 +167,22 @@ def build(check_only=False):
     OUT.parent.mkdir(exist_ok=True)
     OUT.write_text(html.replace(PLACEHOLDER, blob), encoding="utf-8")
     print(f"Built dist/index.html ({OUT.stat().st_size // 1024} KB)")
+    write_pages(OUT.read_text(encoding="utf-8"))
+
+
+def write_pages(page):
+    """Write a complete HTML document for GitHub Pages (index.html at repo root).
+    The Claude artifact wraps the page automatically; ordinary hosts and link-preview
+    crawlers (LinkedIn, X) need a real <html><head> with the meta tags inside it."""
+    cut = page.index("</style>") + len("</style>")
+    head, body = page[:cut], page[cut:]
+    doc = ("<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n"
+           "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1,viewport-fit=cover\">\n"
+           "<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}"
+           "body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>\n"
+           + head + "\n</head>\n<body>\n" + body + "\n</body>\n</html>\n")
+    (ROOT / "index.html").write_text(doc, encoding="utf-8")
+    print("Built index.html for GitHub Pages (full document)")
 
 
 if __name__ == "__main__":
