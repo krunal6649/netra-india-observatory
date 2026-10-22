@@ -22,7 +22,10 @@ First public pilot. Kept unchanged as the reference version.
    "Generate report" buttons on incidents, dossiers and risk areas; NETRA structure with a NIST AI RMF
    (Govern / Map / Measure / Manage) section; optional AI-drafted narrative labelled for review; download or copy
 2. **Authorities explorer** — treemap: India → Union / State-UT → authority type → authority, with powers, laws,
-   linked incidents and reporting routes; Union and the 5 states with incidents first
+   linked incidents and reporting routes. Covers **all 28 states and 8 UTs** and about 30 Union bodies.
+   Per state/UT: police and cyber crime, High Court and legal aid, rights commissions (human rights, women,
+   child rights, consumer), state IT department, state CERT, State Election Commission. Full list in
+   `docs/authorities-plan.md`; built Union first, then states with incidents, then the rest
 3. **MIT data import (CC BY 4.0)** — AI Risk Repository (1,700+ risks), Mitigations (831), Priority survey results
 4. **Weekly incident sync** — AI Incident Database feed filtered for India links, with MIT incident codes; candidates
    arrive unreviewed via pull request
@@ -43,4 +46,3 @@ First public pilot. Kept unchanged as the reference version.
 - Indian Kanoon API, eGazette, Indian fact-checkers and PIB Fact Check as signals
 - OECD AIM and AIAAIC as lead sources
 - METR run-level data, if METR grants permission; UK AISI data once reuse terms are confirmed
-- Remaining states' authorities
