@@ -38,9 +38,18 @@ HARM_TERMS = ["fraud", "scam", "scammed", "cheat", "cheated", "duped", "arrest",
               "morphed", "fake", "leak", "leaked", "breach", "extortion", "extort", "sextortion", "harass", "harassment",
               "misuse", "lawsuit", "sued", "suit", "court", "ban", "banned", "blocked", "notice", "probe", "complaint",
               "victim", "victims", "lost", "loses", "duping", "impersonat", "misinformation", "wrong", "error", "bias",
-              "discriminat", "suicide", "death", "injur", "obscene", "abuse", "threat", "hoax", "manipulat", "stolen"]
+              "discriminat", "suicide", "death", "injur", "obscene", "abuse", "threat", "hoax", "manipulat", "stolen",
+              "fraudster", "fraudsters", "scammer", "scammers", "swindle", "swindled", "conned", "looted", "blackmail",
+              "nude", "morphing", "misused", "raid", "seized", "case registered", "cybercrime", "cyber fraud", "forged"]
 CYBER_TERMS = ["ransomware", "data breach", "breach", "cyber attack", "cyberattack", "cyber-attack", "phishing", "cert-in",
-               "hacked", "hack", "hackers", "malware", "data leak", "ddos", "vulnerability", "spyware", "cyber fraud"]
+               "hacked", "hacker", "hackers", "hacking", "malware", "data leak", "data exposure", "dark web", "dark-web", "ddos",
+               "vulnerability", "spyware", "cyber fraud", "cyber security", "cybersecurity"]
+# 'Hacked to death' is violence, not a cyber attack
+NOT_CYBER = ["hacked to death", "hacking to death", "machete", "axe", "sickle", "sword", "witchcraft"]
+# A headline from an Indian outlet counts as about India unless it names another country first
+FOREIGN_TERMS = ["u.s.", "usa", "america", "american", "uk", "britain", "british", "china", "chinese", "pakistan",
+                 "europe", "european", "eu", "california", "new york", "washington", "canada", "australia", "japan",
+                 "korea", "russia", "ukraine", "israel", "iran", "dubai", "uae", "singapore", "trump", "global"]
 INDIA_TERMS = ["india", "indian", "delhi", "mumbai", "bengaluru", "bangalore", "hyderabad", "chennai", "kolkata", "pune",
                "ahmedabad", "lucknow", "jaipur", "noida", "gurugram", "gurgaon", "high court", "supreme court", "police",
                "meity", "rbi", "sebi", "cert-in", "i4c", "cybercrime", "₹", "rs", "lakh", "crore", "pib", "union minister",
@@ -62,22 +71,51 @@ def fetch(url, timeout=60):
         raise SourceError(f"{type(e).__name__}: {str(e)[:160]}") from None
 
 
+STEMS = ("impersonat", "injur", "discriminat", "manipulat", "threat")
+
+
 def has(text, terms):
-    """Terms found in text, matched on word starts (so 'impersonat' finds 'impersonation')."""
+    """Terms found in text; the few stems in STEMS also match longer words (so 'impersonat' finds 'impersonation')."""
     t = text.lower()
-    return [w for w in terms if re.search(r"(?<![\w])" + re.escape(w) + (r"" if w.endswith(("at", "injur", "discriminat", "manipulat", "hack")) else r"(?![\w])"), t)]
+    return [w for w in terms if re.search(r"(?<![\w])" + re.escape(w) + (r"" if w in STEMS else r"(?![\w])"), t)]
+
+
+def clean_title(t):
+    """GDELT spaces out punctuation ('AI - generated', '3 . 75 lakh', 'claim : hackers'); put it back."""
+    t = re.sub(r"\s+", " ", t or "").strip()
+    t = re.sub(r"(\d) ([.,]) (\d)", r"\1\2\3", t)
+    t = re.sub(r"(\w) - (\w)", r"\1-\2", t)
+    t = re.sub(r" ([,.:;!?%])", r"\1", t)
+    t = re.sub(r"([‘'\"(]) ", r"\1", t)
+    return re.sub(r" ([’'\")])", r"\1", t)
+
+
+def words(title):
+    """Key words in order: numbers such as 3.75 are kept whole; short and common words are dropped."""
+    return [w for w in re.findall(r"\d+(?:[.,]\d+)*|[a-z₹]+", title.lower()) if w not in STOP and (len(w) > 2 or w[0].isdigit())]
 
 
 def tokens(title):
-    return {w for w in re.findall(r"[a-z0-9₹]+", title.lower()) if w not in STOP and len(w) > 2}
+    return set(words(title))
+
+
+def trigrams(title):
+    """Three-word phrases that name something specific: a phrase made only of topic words ('ai voice clone',
+    'police arrest gang') is too common to show two headlines are the same story."""
+    generic = {x for t in AI_TERMS + HARM_TERMS + CYBER_TERMS + ["police", "arrest", "arrested", "gang", "man", "woman"] for x in re.findall(r"[a-z]+", t)}
+    w = [x for x in words(title) if not x[0].isdigit()]
+    return {g for g in (tuple(w[k:k + 3]) for k in range(len(w) - 2)) if any(x not in generic for x in g)}
 
 
 def same_story(a, b):
     ta, tb = tokens(a), tokens(b)
     if not ta or not tb:
         return False
-    jac = len(ta & tb) / len(ta | tb)
-    return jac >= 0.4 or difflib.SequenceMatcher(None, a.lower(), b.lower()).ratio() >= 0.75
+    shared = ta & tb
+    jac = len(shared) / len(ta | tb)
+    # Outlets word the same story differently: enough shared key words (names, numbers) also counts
+    overlap = len(shared) / min(len(ta), len(tb))
+    return jac >= 0.4 or (len(shared) >= 4 and overlap >= 0.45) or bool(trigrams(a) & trigrams(b)) or difflib.SequenceMatcher(None, a.lower(), b.lower()).ratio() >= 0.75
 
 
 def gdelt_date(s):
@@ -105,7 +143,7 @@ def gdelt(query, get, start, end, sleep=time.sleep):
         data = json.loads(raw.decode("utf-8", "replace") or "{}")
     except json.JSONDecodeError:
         raise SourceError("GDELT did not return JSON: " + raw[:120].decode("utf-8", "replace")) from None
-    return [{"title": a.get("title", "").strip(), "url": a.get("url", ""), "domain": a.get("domain", ""),
+    return [{"title": clean_title(a.get("title", "")), "url": a.get("url", ""), "domain": a.get("domain", ""),
              "date": gdelt_date(a.get("seendate")), "via": "GDELT"} for a in data.get("articles", []) if a.get("url", "").startswith("http")]
 
 
@@ -153,8 +191,14 @@ def atlas_studies(get):
     return version, studies
 
 
-def india_nexus(title, states):
-    return has(title, INDIA_TERMS) + [s for s in states if s.lower() in title.lower()]
+def india_nexus(title, states, official=False, indian_outlet=False):
+    """Why a headline is about India: a named Indian place or body, an official Indian source, or an Indian outlet
+    whose headline names no other country."""
+    named = has(title, INDIA_TERMS) + [s for s in states if s.lower() in title.lower()]
+    if named or official:
+        return named or ["official Indian source"]
+    foreign = has(title, FOREIGN_TERMS) or re.search(r"\bUS\b", title)   # 'US' only in capitals, so 'fool us' is not foreign
+    return ["Indian outlet"] if indian_outlet and not foreign else []
 
 
 def cluster(items):
@@ -200,8 +244,9 @@ def select(articles, kind, existing, seen_urls, states, terms, sub_names, limit=
         if not a["title"] or a["url"] in seen_urls:
             continue
         t = a["title"]
-        ai, harm, cyber, ind = has(t, AI_TERMS), has(t, HARM_TERMS), has(t, CYBER_TERMS), india_nexus(t, states)
-        ok = (ai and harm and ind) if kind == "ai" else (cyber and ind and not ai)
+        ai, harm, cyber = has(t, AI_TERMS), has(t, HARM_TERMS), has(t, CYBER_TERMS)
+        ind = india_nexus(t, states, a.get("official", False), a.get("via") == "GDELT")
+        ok = (ai and harm and ind) if kind == "ai" else (cyber and ind and not ai and not has(t, NOT_CYBER))
         if ok:
             cands.append({**a, "_score": len(set(harm)) + len(set(ai)) + (2 if a.get("official") else 0) if kind == "ai" else len(set(cyber)) + (2 if a.get("official") else 0)})
     picked = []
