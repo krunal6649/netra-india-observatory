@@ -287,13 +287,46 @@ def check_terms(terms, subs, india, errors):
             errors.append(f"check_terms: {kind} {k} has no terms")
 
 
-def validate(tax, india, glob, directory=None, models=None, terms=None):
+def check_weekly(weekly, india, subs, errors):
+    """data/weekly.json from scripts/weekly_top5.py: auto-selected, unreviewed, at most 5 AI items, cyber kept apart."""
+    for w in weekly.get("weeks", []):
+        wid = f"weekly {w.get('week_start')}"
+        if not (is_date(w.get("week_start")) and is_date(w.get("week_end")) and w["week_start"] <= w["week_end"]):
+            errors.append(f"{wid}: week_start and week_end must be ISO dates in order")
+        if len(w.get("top", [])) > 5:
+            errors.append(f"{wid}: at most 5 AI items")
+        if len(w.get("cyber", [])) > 5:
+            errors.append(f"{wid}: at most 5 cyber items")
+        top_urls = {x["url"] for it in w.get("top", []) for x in it.get("sources", [])}
+        for kind in ("top", "cyber"):
+            for it in w.get(kind, []):
+                iid = f"{wid} {it.get('id', '?')}"
+                if it.get("auto_selected") is not True or it.get("review") != "unreviewed":
+                    errors.append(f"{iid}: must be auto-selected and 'unreviewed'")
+                if not it.get("summary") or len(it["summary"]) > 400:
+                    errors.append(f"{iid}: needs NETRA's own summary of at most 400 characters")
+                if not it.get("sources") or any(not str(x.get("url", "")).startswith(("https://", "http://")) for x in it["sources"]):
+                    errors.append(f"{iid}: every item needs source links")
+                if set(it) & {"text", "body", "content", "article"}:
+                    errors.append(f"{iid}: article text must not be stored")
+                if subs and any(r not in subs for r in it.get("risk_areas", [])):
+                    errors.append(f"{iid}: unknown risk area")
+                if kind == "cyber" and (it.get("risk_areas") or top_urls & {x["url"] for x in it["sources"]}):
+                    errors.append(f"{iid}: cyber items stay out of AI counts (no risk areas, no shared sources)")
+        for m in w.get("models", []):
+            if m.get("review") != "unreviewed" or not str(m.get("url", "")).startswith("https://"):
+                errors.append(f"{wid} model item {m.get('title', '?')[:40]}: must be unreviewed with an https link")
+
+
+def validate(tax, india, glob, directory=None, models=None, terms=None, weekly=None):
     if directory is None:
         directory = load("authorities.json")
     if models is None:
         models = load("models.json")
     if terms is None:
         terms = load("check_terms.json")
+    if weekly is None:
+        weekly = load("weekly.json") if (DATA / "weekly.json").exists() else {"weeks": []}
     errors, warnings = [], []
     subs = {s["id"] for d in tax["domains"] for s in d["subs"]}
     msubs = {s["id"] for d in tax["mitigation"] for s in d["subs"]}
@@ -430,6 +463,7 @@ def validate(tax, india, glob, directory=None, models=None, terms=None):
     check_models(models, india, glob, directory, errors)
     check_drafts(errors)
     check_terms(terms, subs, india, errors)
+    check_weekly(weekly, india, subs, errors)
 
     for g in india["gaps"]:
         for x in g["incidents"]:
@@ -456,7 +490,8 @@ def slim_global(glob):
 def build(check_only=False):
     tax, india, glob, directory, models, terms = (load("taxonomy.json"), load("india.json"), load("global_evidence.json"),
                                                   load("authorities.json"), load("models.json"), load("check_terms.json"))
-    warnings = validate(tax, india, glob, directory, models, terms)
+    weekly = load("weekly.json") if (DATA / "weekly.json").exists() else {"meta": {}, "weeks": []}
+    warnings = validate(tax, india, glob, directory, models, terms, weekly)
     print(f"Validation passed: {len(india['risks'])} risks, {len(india['incidents'])} incidents, "
           f"{len(india['instruments'])} instruments, {len(india['mitigations'])} mitigations, "
           f"{len(india['gaps'])} gaps, {len(directory['bodies'])} directory bodies, {len(models['models'])} models; {len(warnings)} verification warnings.")
@@ -464,7 +499,7 @@ def build(check_only=False):
         for w in warnings:
             print("  ! " + w)
         return
-    payload = {"tax": tax, "india": india, "global": slim_global(glob), "directory": directory, "models": models, "check": terms, "warnings": warnings,
+    payload = {"tax": tax, "india": india, "global": slim_global(glob), "directory": directory, "models": models, "check": terms, "weekly": weekly, "warnings": warnings,
                "built": date.today().isoformat()}
     blob = json.dumps(payload, ensure_ascii=False).replace("</", "<\\/")
     html = TEMPLATE.read_text(encoding="utf-8")
