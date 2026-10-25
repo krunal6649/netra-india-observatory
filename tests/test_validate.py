@@ -137,7 +137,9 @@ class Tests(unittest.TestCase):
 
     def test_only_owner_checked_bodies_are_verified(self):
         yes = {x["id"] for x in self.dir["bodies"] if x["verified"] == "yes"}
-        self.assertEqual(yes, {"U-NCRP", "U-GAC", "U-CERTIN", "U-ECI", "U-SC", "U-PIB"})
+        # Every body with a link has been opened and confirmed by the owner
+        self.assertEqual(len(yes), 32)
+        self.assertTrue(all(x["verified"] == "yes" for x in self.dir["bodies"] if x["url"]))
 
     def test_document_kind(self):
         d = copy.deepcopy(self.india)

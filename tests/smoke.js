@@ -74,6 +74,7 @@ check(D.states_uts.states.concat(D.states_uts.union_territories).every(p => hm.i
 const cells = [...hm.matchAll(/grid-column:(\d+);grid-row:(\d+)/g)].map(m => m[1] + ',' + m[2]);
 check(cells.length === 36 && new Set(cells).size === 36, 'tile map gives each state and UT its own square');
 check(!/data-tip=""/.test(hm), 'no empty hover cards');
+check(['Jammu and Kashmir', 'Ladakh', 'Arunachal Pradesh'].every(p => hm.includes(`data-dir="place:state:${p}"`)) && hm.includes('including Jammu and Kashmir, Ladakh and Arunachal Pradesh'), 'tile map shows Jammu and Kashmir, Ladakh and Arunachal Pradesh as part of India');
 check(!/\b\d+ (case|incident)s?\b/i.test(hm.slice(hm.indexOf('id="directory"'), hm.indexOf('Where incidents outrun'))), 'directory shows no case counts');
 N.state.dir = { level: 'state', place: 'Kerala', body: null };
 hm = N.page('home');

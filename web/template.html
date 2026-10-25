@@ -549,7 +549,8 @@ const tipAttr = t => t ? ` data-tip="${esc(t)}"` : '';
 function tileMap(){
   const uts = new Set(D.states_uts.union_territories);
   return `<div class="tmap" role="group" aria-label="States and union territories, placed roughly where they lie">${Object.entries(TILE_MAP).map(([p,[c,r,short,reg]])=>`<button type="button" class="mt${uts.has(p)?' ut':''}" style="grid-column:${c+1};grid-row:${r+1};--c:${REGIONS[reg][1]}" data-dir="${esc(`place:state:${p}`)}" aria-label="${esc(p)}${uts.has(p)?', union territory':''}"${tipAttr(`<b>${esc(p)}</b>${uts.has(p)?'Union territory':'State'} · ${REGIONS[reg][0]}${PRIORITY_PLACES.includes(p)?' · checked first':''}`)}><b>${esc(short)}</b>${PRIORITY_PLACES.includes(p)?'<i aria-hidden="true"></i>':''}</button>`).join('')}</div>
-   <div class="legend">${Object.values(REGIONS).map(([n,c])=>`<span style="--c:${c}"><i></i>${n}</span>`).join('')}<span>· dashed edge = union territory · white dot = checked first · squares are placed roughly by location; no boundaries are drawn</span></div>`;
+   <div class="legend">${Object.values(REGIONS).map(([n,c])=>`<span style="--c:${c}"><i></i>${n}</span>`).join('')}<span>· dashed edge = union territory · dot = checked first</span></div>
+   <p class="note" style="margin-top:6px">All 28 states and 8 union territories of India, including Jammu and Kashmir, Ladakh and Arunachal Pradesh. Each square is placed roughly where the place lies.</p>`;
 }
 /* Equal-weight choices read better as a row-by-row grid in alphabetical order */
 function tileGrid(items, label){

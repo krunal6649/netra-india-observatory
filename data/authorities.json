@@ -46,9 +46,11 @@
         "G-DPDP"
       ],
       "url": "https://www.meity.gov.in",
-      "verified": "partial",
-      "source": "Address appeared on the body's official domain in a web search on 2026-10-25; not opened from the build sandbox.",
-      "priority": true
+      "verified": "yes",
+      "source": "Link opened and confirmed by the project owner on 2026-10-25.",
+      "priority": true,
+      "checked_by": "Krunal (project owner)",
+      "checked_on": "2026-10-25"
     },
     {
       "id": "U-INDIAAI",
@@ -64,9 +66,11 @@
         "G-AIGG"
       ],
       "url": "https://indiaai.gov.in",
-      "verified": "partial",
-      "source": "Address appeared on the body's official domain in a web search on 2026-10-25; not opened from the build sandbox.",
-      "priority": true
+      "verified": "yes",
+      "source": "Link opened and confirmed by the project owner on 2026-10-25.",
+      "priority": true,
+      "checked_by": "Krunal (project owner)",
+      "checked_on": "2026-10-25"
     },
     {
       "id": "U-I4C",
@@ -99,9 +103,11 @@
         "G-ITR21"
       ],
       "url": "https://mib.gov.in",
-      "verified": "no",
-      "source": "Address from researcher knowledge; not yet confirmed against an official source.",
-      "priority": true
+      "verified": "yes",
+      "source": "Link opened and confirmed by the project owner on 2026-10-25.",
+      "priority": true,
+      "checked_by": "Krunal (project owner)",
+      "checked_on": "2026-10-25"
     },
     {
       "id": "U-COPY",
@@ -117,9 +123,11 @@
         "G-DPIIT-WP"
       ],
       "url": "https://copyright.gov.in",
-      "verified": "no",
-      "source": "Address from researcher knowledge; not yet confirmed against an official source.",
-      "priority": true
+      "verified": "yes",
+      "source": "Link opened and confirmed by the project owner on 2026-10-25.",
+      "priority": true,
+      "checked_by": "Krunal (project owner)",
+      "checked_on": "2026-10-25"
     },
     {
       "id": "U-CERTIN",
@@ -192,9 +200,11 @@
         "G-ITA"
       ],
       "url": "https://sancharsaathi.gov.in",
-      "verified": "partial",
-      "source": "Address appeared on the body's official domain in a web search on 2026-10-25; not opened from the build sandbox.",
-      "priority": true
+      "verified": "yes",
+      "source": "Link opened and confirmed by the project owner on 2026-10-25.",
+      "priority": true,
+      "checked_by": "Krunal (project owner)",
+      "checked_on": "2026-10-25"
     },
     {
       "id": "U-PLATFORM",
@@ -284,9 +294,11 @@
       "laws": [],
       "url": "https://nalsa.gov.in",
       "phone": "15100",
-      "verified": "partial",
-      "source": "Address appeared on the body's official domain in a web search on 2026-10-25; not opened from the build sandbox.",
-      "priority": true
+      "verified": "yes",
+      "source": "Link opened and confirmed by the project owner on 2026-10-25.",
+      "priority": true,
+      "checked_by": "Krunal (project owner)",
+      "checked_on": "2026-10-25"
     },
     {
       "id": "U-NHRC",
@@ -299,9 +311,11 @@
       "how_to_report": "See the Commission's website for complaint routes.",
       "laws": [],
       "url": "https://nhrc.nic.in",
-      "verified": "no",
-      "source": "Address from researcher knowledge; not yet confirmed against an official source.",
-      "priority": true
+      "verified": "yes",
+      "source": "Link opened and confirmed by the project owner on 2026-10-25.",
+      "priority": true,
+      "checked_by": "Krunal (project owner)",
+      "checked_on": "2026-10-25"
     },
     {
       "id": "U-NCW",
@@ -318,9 +332,11 @@
       ],
       "url": "https://www.ncw.gov.in",
       "phone": "14490",
-      "verified": "partial",
-      "source": "Address appeared on the body's official domain in a web search on 2026-10-25; not opened from the build sandbox.",
-      "priority": true
+      "verified": "yes",
+      "source": "Link opened and confirmed by the project owner on 2026-10-25.",
+      "priority": true,
+      "checked_by": "Krunal (project owner)",
+      "checked_on": "2026-10-25"
     },
     {
       "id": "U-NCPCR",
@@ -333,9 +349,11 @@
       "how_to_report": "See the Commission's website for complaint routes.",
       "laws": [],
       "url": "https://ncpcr.gov.in",
-      "verified": "no",
-      "source": "Address from researcher knowledge; not yet confirmed against an official source.",
-      "priority": true
+      "verified": "yes",
+      "source": "Link opened and confirmed by the project owner on 2026-10-25.",
+      "priority": true,
+      "checked_by": "Krunal (project owner)",
+      "checked_on": "2026-10-25"
     },
     {
       "id": "U-NCDRC",
@@ -350,9 +368,11 @@
         "G-CPA"
       ],
       "url": "https://ncdrc.nic.in",
-      "verified": "no",
-      "source": "Address from researcher knowledge; not yet confirmed against an official source.",
-      "priority": true
+      "verified": "yes",
+      "source": "Link opened and confirmed by the project owner on 2026-10-25.",
+      "priority": true,
+      "checked_by": "Krunal (project owner)",
+      "checked_on": "2026-10-25"
     },
     {
       "id": "U-CCPA",
@@ -386,9 +406,11 @@
       ],
       "url": "https://consumerhelpline.gov.in",
       "phone": "1915",
-      "verified": "partial",
-      "source": "Address appeared on the body's official domain in a web search on 2026-10-25; not opened from the build sandbox.",
-      "priority": true
+      "verified": "yes",
+      "source": "Link opened and confirmed by the project owner on 2026-10-25.",
+      "priority": true,
+      "checked_by": "Krunal (project owner)",
+      "checked_on": "2026-10-25"
     },
     {
       "id": "U-ECI",
@@ -423,9 +445,11 @@
         "G-RBI"
       ],
       "url": "https://www.rbi.org.in",
-      "verified": "partial",
-      "source": "Address appeared on the body's official domain in a web search on 2026-10-25; not opened from the build sandbox.",
-      "priority": true
+      "verified": "yes",
+      "source": "Link opened and confirmed by the project owner on 2026-10-25.",
+      "priority": true,
+      "checked_by": "Krunal (project owner)",
+      "checked_on": "2026-10-25"
     },
     {
       "id": "U-SEBI",
@@ -440,9 +464,11 @@
         "G-SEBI-CP"
       ],
       "url": "https://www.sebi.gov.in",
-      "verified": "no",
-      "source": "Address from researcher knowledge; not yet confirmed against an official source.",
-      "priority": true
+      "verified": "yes",
+      "source": "Link opened and confirmed by the project owner on 2026-10-25.",
+      "priority": true,
+      "checked_by": "Krunal (project owner)",
+      "checked_on": "2026-10-25"
     },
     {
       "id": "U-IRDAI",
@@ -455,9 +481,11 @@
       "how_to_report": "Complain to the insurer first, then through IRDAI's grievance system.",
       "laws": [],
       "url": "https://irdai.gov.in",
-      "verified": "no",
-      "source": "Address from researcher knowledge; not yet confirmed against an official source.",
-      "priority": true
+      "verified": "yes",
+      "source": "Link opened and confirmed by the project owner on 2026-10-25.",
+      "priority": true,
+      "checked_by": "Krunal (project owner)",
+      "checked_on": "2026-10-25"
     },
     {
       "id": "U-TRAI",
@@ -470,9 +498,11 @@
       "how_to_report": "Spam calls and messages are reported to your telecom operator (1909).",
       "laws": [],
       "url": "https://www.trai.gov.in",
-      "verified": "no",
-      "source": "Address from researcher knowledge; not yet confirmed against an official source.",
-      "priority": true
+      "verified": "yes",
+      "source": "Link opened and confirmed by the project owner on 2026-10-25.",
+      "priority": true,
+      "checked_by": "Krunal (project owner)",
+      "checked_on": "2026-10-25"
     },
     {
       "id": "U-CCI",
@@ -485,9 +515,11 @@
       "how_to_report": "See the Commission's website for how to file information.",
       "laws": [],
       "url": "https://www.cci.gov.in",
-      "verified": "no",
-      "source": "Address from researcher knowledge; not yet confirmed against an official source.",
-      "priority": true
+      "verified": "yes",
+      "source": "Link opened and confirmed by the project owner on 2026-10-25.",
+      "priority": true,
+      "checked_by": "Krunal (project owner)",
+      "checked_on": "2026-10-25"
     },
     {
       "id": "U-ICMR",
@@ -502,9 +534,11 @@
         "G-ICMR"
       ],
       "url": "https://www.icmr.gov.in",
-      "verified": "no",
-      "source": "Address from researcher knowledge; not yet confirmed against an official source.",
-      "priority": true
+      "verified": "yes",
+      "source": "Link opened and confirmed by the project owner on 2026-10-25.",
+      "priority": true,
+      "checked_by": "Krunal (project owner)",
+      "checked_on": "2026-10-25"
     },
     {
       "id": "U-CDSCO",
@@ -532,9 +566,11 @@
       "how_to_report": "No complaint route for AI harm.",
       "laws": [],
       "url": "https://www.bis.gov.in",
-      "verified": "no",
-      "source": "Address from researcher knowledge; not yet confirmed against an official source.",
-      "priority": true
+      "verified": "yes",
+      "source": "Link opened and confirmed by the project owner on 2026-10-25.",
+      "priority": true,
+      "checked_by": "Krunal (project owner)",
+      "checked_on": "2026-10-25"
     },
     {
       "id": "U-TEC",
@@ -549,9 +585,11 @@
         "G-TEC"
       ],
       "url": "https://www.tec.gov.in",
-      "verified": "no",
-      "source": "Address from researcher knowledge; not yet confirmed against an official source.",
-      "priority": true
+      "verified": "yes",
+      "source": "Link opened and confirmed by the project owner on 2026-10-25.",
+      "priority": true,
+      "checked_by": "Krunal (project owner)",
+      "checked_on": "2026-10-25"
     },
     {
       "id": "U-PIB",
@@ -607,9 +645,11 @@
         "G-COPY"
       ],
       "url": "https://aphc.gov.in",
-      "verified": "no",
-      "source": "Address from researcher knowledge; not yet confirmed against an official source.",
-      "priority": true
+      "verified": "yes",
+      "source": "Link opened and confirmed by the project owner on 2026-10-25.",
+      "priority": true,
+      "checked_by": "Krunal (project owner)",
+      "checked_on": "2026-10-25"
     },
     {
       "id": "S-andhra-pradesh-SLSA",
@@ -2327,9 +2367,11 @@
         "G-ITA"
       ],
       "url": "https://ksp.karnataka.gov.in",
-      "verified": "no",
-      "source": "Address from researcher knowledge; not yet confirmed against an official source.",
-      "priority": true
+      "verified": "yes",
+      "source": "Link opened and confirmed by the project owner on 2026-10-25.",
+      "priority": true,
+      "checked_by": "Krunal (project owner)",
+      "checked_on": "2026-10-25"
     },
     {
       "id": "S-karnataka-HC",
@@ -2347,9 +2389,11 @@
         "G-COPY"
       ],
       "url": "https://judiciary.karnataka.gov.in",
-      "verified": "no",
-      "source": "Address from researcher knowledge; not yet confirmed against an official source.",
-      "priority": true
+      "verified": "yes",
+      "source": "Link opened and confirmed by the project owner on 2026-10-25.",
+      "priority": true,
+      "checked_by": "Krunal (project owner)",
+      "checked_on": "2026-10-25"
     },
     {
       "id": "S-karnataka-SLSA",
@@ -2501,9 +2545,11 @@
         "G-ITA"
       ],
       "url": "https://keralapolice.gov.in",
-      "verified": "no",
-      "source": "Address from researcher knowledge; not yet confirmed against an official source.",
-      "priority": true
+      "verified": "yes",
+      "source": "Link opened and confirmed by the project owner on 2026-10-25.",
+      "priority": true,
+      "checked_by": "Krunal (project owner)",
+      "checked_on": "2026-10-25"
     },
     {
       "id": "S-kerala-HC",
@@ -4609,9 +4655,11 @@
         "G-COPY"
       ],
       "url": "https://tshc.gov.in",
-      "verified": "no",
-      "source": "Address from researcher knowledge; not yet confirmed against an official source.",
-      "priority": true
+      "verified": "yes",
+      "source": "Link opened and confirmed by the project owner on 2026-10-25.",
+      "priority": true,
+      "checked_by": "Krunal (project owner)",
+      "checked_on": "2026-10-25"
     },
     {
       "id": "S-telangana-SLSA",
@@ -5981,9 +6029,11 @@
         "G-ITA"
       ],
       "url": "https://delhipolice.gov.in",
-      "verified": "no",
-      "source": "Address from researcher knowledge; not yet confirmed against an official source.",
-      "priority": true
+      "verified": "yes",
+      "source": "Link opened and confirmed by the project owner on 2026-10-25.",
+      "priority": true,
+      "checked_by": "Krunal (project owner)",
+      "checked_on": "2026-10-25"
     },
     {
       "id": "S-delhi-HC",
@@ -6001,9 +6051,11 @@
         "G-COPY"
       ],
       "url": "https://delhihighcourt.nic.in",
-      "verified": "partial",
-      "source": "Address appeared on the body's official domain in a web search on 2026-10-25; not opened from the build sandbox.",
-      "priority": true
+      "verified": "yes",
+      "source": "Link opened and confirmed by the project owner on 2026-10-25.",
+      "priority": true,
+      "checked_by": "Krunal (project owner)",
+      "checked_on": "2026-10-25"
     },
     {
       "id": "S-delhi-SLSA",

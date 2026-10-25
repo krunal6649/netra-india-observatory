@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.2-dev (unreleased) — Directory links confirmed; tile map wording
+- **26 more directory links confirmed by the project owner** on 2026-10-25. All 32 bodies with a link are now verified
+  (MeitY, IndiaAI, MIB, Copyright Office, Sanchar Saathi, NALSA, NHRC, NCW, NCPCR, NCDRC, National Consumer Helpline,
+  RBI, SEBI, IRDAI, TRAI, CCI, ICMR, BIS, TEC; Delhi, Karnataka, Telangana and Andhra Pradesh High Courts; Delhi,
+  Kerala and Karnataka Police; plus the six checked earlier). 359 bodies still have no link and stay "to verify".
+- **Tile map kept as it is.** The map and `docs/authorities-plan.md` now state that it shows all 28 states and 8 UTs of
+  India, including Jammu and Kashmir, Ladakh and Arunachal Pradesh.
+
 ## v0.2-dev (unreleased) — Directory links checked by the owner
 - **PIB Fact Check** now links to https://www.pib.gov.in/index.aspx?reg=48&lang=2, opened by the project owner on
   2026-10-25, and is verified.
