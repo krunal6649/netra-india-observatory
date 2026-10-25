@@ -1,0 +1,52 @@
+name: Suggest a report for NETRA
+description: Send a public report, with the NETRA check from "Add a report", for the maintainer to review.
+title: "Report for review: "
+labels: ["report-suggestion"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you. The maintainer reads every suggestion; nothing is added to the site until a person has reviewed it.
+
+        - Give only public information. Do not include personal details about yourself or anyone else.
+        - Do not attach a file unless you are free to share it. A public link is best.
+        - This form is **not** for reporting a live incident. For financial cyber fraud, call **1930** or use **cybercrime.gov.in**.
+  - type: input
+    id: report_title
+    attributes:
+      label: Report title
+    validations:
+      required: false
+  - type: input
+    id: source
+    attributes:
+      label: Public link or publisher
+      placeholder: https://
+    validations:
+      required: false
+  - type: input
+    id: date
+    attributes:
+      label: Publication date
+      placeholder: YYYY-MM-DD
+    validations:
+      required: false
+  - type: input
+    id: licence
+    attributes:
+      label: Licence of the report, if known
+    validations:
+      required: false
+  - type: textarea
+    id: check
+    attributes:
+      label: NETRA check (auto-matched, unreviewed)
+      description: Filled in by "Add a report". Keyword matching only; not an AI and not a legal analysis.
+    validations:
+      required: false
+  - type: textarea
+    id: notes
+    attributes:
+      label: Why it matters for India (optional)
+    validations:
+      required: false
