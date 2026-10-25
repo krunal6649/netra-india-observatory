@@ -14,5 +14,14 @@ Checked 2026-10-23. Re-check terms before each import; licences can change.
 
 Not used: AVID's Hugging Face organisation has no public datasets.
 
+## Status after Phase 5 (2026-10-25)
+
+- **Used:** METR (three reports already in `data/global_evidence.json`, cite and summarise only) and **MITRE ATLAS v5.6.0**
+  (eight case studies summarised in `data/models.json`, Apache 2.0). Twelve model cards in all, every one unreviewed.
+- **Not yet used:** Epoch AI (its data site was not reachable from the build sandbox, so release dates come from cited
+  developer or press pages, or are left blank), AVID and OWASP. Planned for v0.3.
+- Each card keeps "what the testers found" apart from "NETRA's India analysis", and says that a test result is not
+  evidence of real-world harm.
+
 Rules carried over from v0.1: every imported record arrives unreviewed; nothing is shown as a legal conclusion
 without human review; each record keeps its source link and licence.

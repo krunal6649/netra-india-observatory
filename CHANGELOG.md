@@ -1,5 +1,30 @@
 # Changelog
 
+## v0.2-dev (unreleased) — Phase 5: model register and report upload
+- **`data/models.json`: 12 model cards** (all unreviewed): GPT-5.6 Sol, HPIM (OpenAI internal), Claude Opus 4.6,
+  o3, Claude Opus 4, DeepSeek-R1, Gemini 2.5 Pro (preview), ChatGPT, Gemini (formerly Bard), Microsoft 365 Copilot and
+  Copilot Studio, Claude computer use, Grok. Built from the three METR reports already in global evidence (cite and
+  summarise only) and eight MITRE ATLAS v5.6.0 case studies (Apache 2.0), linked to India cases IN-INC-05, 08 and 20.
+  Release dates only where a cited source gave one; otherwise "not recorded yet".
+- Each card keeps **"What the testers found"** apart from **"NETRA's India analysis"** (risk areas, laws labelled
+  possible / interpretive question / gap, bodies from the directory, gaps, unknowns, overclaim check saying a test
+  result is not evidence of real-world harm).
+- **Model reports** in the report generator: Part A "What METR found" (or "What the testers found"), Part B "NETRA's
+  India analysis", plus the usual evidence, NIST and review sections.
+- **Add a report** (Model register and Report generator): PDF (pdf.js from cdnjs, loaded only for PDFs), Word (.docx,
+  read with the browser's own unzip), text or Markdown, read in the browser only; title, source, date and licence
+  are checked.
+- **AI-assisted Extract, Triage, Draft** with the visitor's own key (Anthropic, or any OpenAI-compatible service),
+  after a disclosure that the document leaves the browser; key held in memory only. **Owner-only option:**
+  `scripts/ai_draft.py` (standard library) and `.github/workflows/ai-draft.yml`, which opens an unreviewed draft pull
+  request. Shared rules in `scripts/ai_prompts.json`.
+- **Safeguards:** quotes not found word for word (or not on the stated page) are removed and listed; sentences that
+  read as legal conclusions, accusations or review claims are removed; unknown ids are dropped; drafts are always
+  "unreviewed"; the build rejects drafts marked reviewed or with unverified quotes.
+- Build validates models (links to incidents, laws, bodies, reports, mappings, gaps; release source; overclaim;
+  review). Tests: 55 unit tests (13 for the AI draft script, 6 for models), 127 smoke checks, plus a browser test of the
+  full upload and AI flow against a fake provider.
+
 ## v0.2-dev (unreleased) — Directory links confirmed; tile map wording
 - **26 more directory links confirmed by the project owner** on 2026-10-25. All 32 bodies with a link are now verified
   (MeitY, IndiaAI, MIB, Copyright Office, Sanchar Saathi, NALSA, NHRC, NCW, NCPCR, NCDRC, National Consumer Helpline,
