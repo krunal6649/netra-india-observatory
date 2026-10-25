@@ -99,6 +99,16 @@ nav.tabs button[aria-current="page"]{background:var(--accent);color:var(--accent
 .lrow .ldom{display:inline-flex;gap:3px} .lrow .ldom i{width:10px;height:10px;border-radius:50%;background:var(--c)}
 .lrow .lbody{padding:4px 18px 16px}
 .lrow .lbody>.card{border:0;padding:0;background:none}
+details.stages{margin-top:14px;border:1px solid var(--line);border-radius:10px;padding:8px 12px;background:var(--paper)}
+details.stages>summary{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;cursor:pointer;list-style:none}
+details.stages>summary::-webkit-details-marker{display:none}
+.strip{display:inline-flex;gap:3px}.strip i{width:16px;height:10px;border-radius:3px;background:var(--soft)}
+.strip i.c-done{background:var(--ok)}.strip i.c-secondary,.strip i.c-partial,.strip i.c-draft,.strip i.c-contested,.strip i.c-possible{background:var(--part)}.strip i.c-open{background:none;border:2px dashed var(--open)}.strip i.c-n\/a{opacity:.35}
+.dtabs{display:flex;flex-wrap:wrap;gap:4px;margin:16px 0 14px;border-bottom:1px solid var(--line)}
+.dtabs button{font:inherit;font-size:.9rem;font-weight:600;background:none;border:0;border-bottom:3px solid transparent;color:var(--muted);padding:8px 12px;cursor:pointer;margin-bottom:-1px}
+.dtabs button:hover{color:var(--ink)}
+.dtabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent)}
+.vtag.pending{color:var(--muted);background:var(--soft)}
 @media (max-width:820px){.lrow>summary{grid-template-columns:minmax(0,1fr) auto auto}.lrow>summary .id{grid-column:1/-1}.lrow>summary .lt{grid-column:1/-1}.lrow .ldom{display:none}}
 .hint{color:var(--muted);font-size:.92rem;margin-top:4px;max-width:72ch}
 h4.ctitle{font-family:var(--f-display);font-size:1.15rem;font-weight:650;line-height:1.2;margin:8px 0 0;text-wrap:balance}
@@ -403,10 +413,11 @@ const LEGACY = {navigator:'explore-area', risks:'explore-risks', incidents:'expl
   explore:'explore-incidents', analysis:'analysis-dossiers', credits:'about-credits', report:'analysis-report', models:'analysis-models'};
 const resolve = v => PAGES[v] ? v : (LEGACY[v] || null);
 const PAGE_SIZE = 20;
+const STATE_WORD = {done:'done', secondary:'from secondary sources only', partial:'partly done', draft:'drafted', open:'open', contested:'contested', possible:'possible', 'n/a':'not applicable'};
 const KINDS = [['risks','Risks'],['incidents','Incidents'],['laws','Laws'],['measures','Measures']];
 const REPO = 'https://github.com/krunal6649/netra-india-observatory';
 const correctUrl = rec => REPO + '/issues/new?template=correction.yml&title=' + encodeURIComponent('Correction: ' + (rec || ''));
-const state = {view:'home', sub:'4.3', dom:'4', inc:'IN-INC-01', f:{}, q:'', showFilters:false, tour:-1, report:{kind:'incident', id:'IN-INC-01'}, mode:{incidents:'list', laws:'list'}, sort:{incidents:'new', laws:'new'}, limit:PAGE_SIZE};
+const state = {view:'home', sub:'4.3', dom:'4', inc:'IN-INC-01', f:{}, q:'', showFilters:false, tour:-1, report:{kind:'incident', id:'IN-INC-01'}, dtab:'overview', mode:{incidents:'list', laws:'list'}, sort:{incidents:'new', laws:'new'}, limit:PAGE_SIZE};
 const h0 = (location.hash||'').slice(1); if(resolve(h0)) state.view = resolve(h0);
 
 /* ---------- shared bits ---------- */
@@ -718,43 +729,58 @@ V['explore-measures'] = () => {
 };
 
 function ring(pct, size=90){ const r = size/2-8, C = 2*Math.PI*r; return `<svg class="ring" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" role="img" aria-label="${pct}% of stages done"><circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="var(--soft)" stroke-width="9"/><circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="var(--ok)" stroke-width="9" stroke-linecap="round" stroke-dasharray="${(C*pct/100).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 ${size/2} ${size/2})"/><text x="50%" y="54%" text-anchor="middle" style="font-size:20px">${pct}%</text></svg>`; }
+/* A dossier shows one case at a time: a short header, a one-line stage strip, and four tabs instead of one long page */
+const DTABS = [['overview','Overview'],['laws','Laws and gaps'],['report','Where to report'],['evidence','Evidence']];
+const LOC_LABEL = {incident:'Where it happened', victim:'Victim', accused:'Respondent / accused', investigating_agency:'Investigating body', platform_service:'Platform or service', network:'Network / account'};
+const caseOrder = () => [...D.incidents].sort(SORTS.incidents.new[1]);
+function courtDocs(i){
+  return (i.court_documents||[]).length ? `<div class="route">${i.court_documents.map(c=>`<div><span class="num" aria-hidden="true">§</span><div><a href="${esc(c.url)}" target="_blank" rel="noopener"><b>${esc(c.title)}</b></a><div class="note">${esc(c.court)} · ${esc(c.kind)} · ${esc(c.date)} · ${c.host==='official'?'court website':'other copy'} ${c.opened==='yes'?`<span class="vtag yes">Checked by ${esc(c.checked_by)}, ${esc(c.checked_on)}</span>`:'<span class="vtag partial">Link not yet opened</span>'}</div><div class="note">${esc(c.note)}</div></div></div>`).join('')}</div>`
+    : `<p class="note" style="margin-top:6px">No official court document has been located for this case. Indian courts usually publish orders and judgments, not petitions; they are added here when found on a court website.</p>`;
+}
 V['analysis-dossiers'] = () => {
   const i = INC[state.inc], n = i.netra, col = dc(i.domains[0]);
   const gaps = D.gaps.filter(g=>g.incidents.includes(i.id));
   const done = Object.values(n.stages).filter(v=>v==='done').length, appl = Object.values(n.stages).filter(v=>v!=='n/a').length;
-  const pct = Math.round(done/appl*100);
-  const lbl = {incident:'Where it happened', victim:'Victim', accused:'Respondent / accused', investigating_agency:'Investigating body', platform_service:'Platform or service', network:'Network / account'};
-  return head('NETRA dossiers','From signal to accountability', esc(T.netra_note),'netra','var(--d5)') +
-  `<section class="sheet"><div class="row" style="justify-content:space-between"><div>${H3('Pick an incident','Each row shows the 14 NETRA stages: green done, amber partial, dashed open.')}</div></div>
-   <div class="tablewrap" style="margin-top:12px"><table><thead><tr><th>Incident</th>${T.netra_stages.map(s=>`<th style="text-align:center" data-tip="${esc(s.name)}">${s.id.slice(1)}</th>`).join('')}</tr></thead><tbody>
-   ${D.incidents.map(x=>`<tr class="click" data-inc="${x.id}" ${x.id===i.id?'style="background:var(--accent-soft)"':''}><td><span class="cell" style="background:${dc(x.domains[0])};width:8px;margin-right:8px;vertical-align:-2px"></span>${esc(x.title.slice(0,48))}${x.title.length>48?'…':''}</td>${T.netra_stages.map(s=>`<td class="n"><span class="cell c-${x.netra.stages[s.id]}" data-tip="<b>${esc(s.name)}</b>${esc(x.netra.stages[s.id])}"></span></td>`).join('')}</tr>`).join('')}
-   </tbody></table></div></section>
-
-  <section class="sheet" style="margin-top:14px;border-top:6px solid ${col}">
-   <div class="row" style="justify-content:space-between;align-items:flex-start"><div style="min-width:0;flex:1 1 300px"><div class="row"><span class="id">${i.id}</span>${sevm(i.severity)}${rev(i.review)}</div>
+  const order = caseOrder(), at = order.findIndex(x=>x.id===i.id), prev = order[at-1], next = order[at+1];
+  const tab = DTABS.some(([k])=>k===state.dtab) ? state.dtab : 'overview';
+  const unchecked = n.authorities.some(a=>AUTH[a].verified!=='yes');
+  const panel = (k, html) => `<div role="tabpanel" id="dtab-${k}" aria-labelledby="dtab-btn-${k}" ${tab===k?'':'hidden'}>${html}</div>`;
+  return head('NETRA dossiers','One case, from signal to accountability','Choose a case. Its dossier is split into tabs; the strip shows how far it has moved through the 14 NETRA stages.','netra','var(--d5)') +
+  `<div class="row dpick" style="margin-bottom:14px">
+    <label class="field" style="flex:1 1 320px;min-width:0;max-width:100%">Choose a case<select id="dossier-pick" style="width:100%">${order.map(x=>`<option value="${x.id}" ${x.id===i.id?'selected':''}>${x.id} ${esc(x.title)}</option>`).join('')}</select></label>
+    <div class="row" style="align-self:flex-end"><button type="button" class="btn" ${prev?`data-inc="${prev.id}"`:'disabled'} aria-label="Newer case">‹ Newer</button><button type="button" class="btn" ${next?`data-inc="${next.id}"`:'disabled'} aria-label="Older case">Older ›</button><button type="button" class="linkbtn" data-go="explore-incidents">All cases in Explore</button></div></div>
+  <section class="sheet" style="border-top:6px solid ${col}">
+   <div class="row" style="justify-content:space-between;align-items:flex-start;gap:12px"><div style="min-width:0;flex:1 1 300px"><div class="row"><span class="id">${i.id}</span>${sevm(i.severity)}${rev(i.review)}</div>
      <h2 style="margin-top:8px">${esc(i.title)}</h2><p class="hint">${esc(i.date)} · ${esc(i.state)}${i.reviewed_by?` · reviewed by ${esc(i.reviewed_by)} on ${esc(i.reviewed_on)}`:''}</p></div>
-     <div style="text-align:center">${ring(pct)}<div class="note">stages done from sources</div><div style="margin-top:10px">${reportBtn('incident', i.id)}</div></div></div>
-   <div class="pipe">${T.netra_stages.map(s=>`<div class="node s-${n.stages[s.id]}" data-tip="<b>${esc(s.name)}</b>${esc(n.stages[s.id])}"><div class="c">${s.id.slice(1)}</div><b>${esc(s.name)}</b>${esc(n.stages[s.id])}</div>`).join('')}</div>
-   <div class="grid g-2" style="margin-top:18px">
-    <div>${H3('Location & jurisdiction','Kept separate, as NETRA requires; one incident can touch several jurisdictions.')}
-     <div class="loc">${Object.entries(n.locations).map(([k,v])=>`<div><span>${esc(lbl[k]||k)}</span>${esc(v)}</div>`).join('')}</div>
-     <h4 class="ctitle" style="font-size:1rem;margin-top:16px">Official court documents</h4>
-     ${(i.court_documents||[]).length ? `<div class="route">${i.court_documents.map(c=>`<div><span class="num" aria-hidden="true">§</span><div><a href="${esc(c.url)}" target="_blank" rel="noopener"><b>${esc(c.title)}</b></a><div class="note">${esc(c.court)} · ${esc(c.kind)} · ${esc(c.date)} · ${c.host==='official'?'court website':'other copy'} ${c.opened==='yes'?`<span class="vtag yes">Checked by ${esc(c.checked_by)}, ${esc(c.checked_on)}</span>`:'<span class="vtag partial">Link not yet opened</span>'}</div><div class="note">${esc(c.note)}</div></div></div>`).join('')}</div>`
-       : `<p class="note" style="margin-top:6px">No official court document has been located for this case. Petitions filed by parties are usually not published by Indian courts; orders and judgments are added here when found on a court website.</p>`}</div>
-    <div>${H3('Where to report or seek relief','Information only. NETRA never files reports automatically.')}
-     <div class="route">${n.authorities.map((a,k)=>`<div><span class="num">${k+1}</span><div><b>${esc(AUTH[a].name)}</b>${AUTH[a].verified!=='yes'?' <span class="verify">to verify</span>':''}<div class="note">${esc(AUTH[a].role)} · <a href="${esc(AUTH[a].url)}" target="_blank" rel="noopener">${esc(new URL(AUTH[a].url).hostname)}</a></div></div></div>`).join('')}</div></div>
-   </div>
-   ${H3('Legal issues (T1)','Instruments that may bear on this incident. Applicability is unreviewed.','margin-top:20px')}
-   <div class="row" style="margin-top:10px">${i.instruments.map(insChip).join('')}</div>
-   ${H3('Gaps (T2–T3)','Where the law does not yet answer this incident.','margin-top:20px')}${gaps.length?gaps.map(g=>`<p style="margin-top:8px"><span class="id">${g.id}</span> <b>${esc(g.title)}</b> — <span class="muted">${esc(g.basis)}</span></p>`).join(''):'<p class="note" style="margin-top:6px">None linked.</p>'}
-   <div class="grid g-2" style="margin-top:20px">
-    <div class="callout"><b>What NETRA does not know</b><ul style="margin:6px 0 0;padding-left:18px">${n.unknowns.map(u=>`<li>${esc(u)}</li>`).join('')}</ul></div>
-    <div class="callout red"><b>Overclaim check</b><p style="margin-top:6px">${esc(n.overclaim)}</p></div>
-   </div>
-   ${H3('Evidence register','Every source behind this dossier, with its kind and date.','margin-top:20px')}
-   <div class="tablewrap" style="margin-top:10px"><table><thead><tr><th>ID</th><th>Source</th><th>Kind</th><th>Date</th></tr></thead><tbody>
-   ${i.sources.map((s,k)=>`<tr><td class="id">E-${String(k+1).padStart(2,'0')}</td><td><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a></td><td>Secondary (news / legal reporting)</td><td class="mono">${esc(s.date)}</td></tr>`).join('')}
-   </tbody></table></div><p class="note" style="margin-top:8px">No primary evidence (orders, FIRs, platform records) has been captured yet. That is the next step for each dossier. ${correctLink(i.id)}</p></section>` + creditLine();
+     <div>${reportBtn('incident', i.id)}</div></div>
+   <details class="stages"><summary><span class="strip" aria-hidden="true">${T.netra_stages.map(s=>`<i class="c-${n.stages[s.id]}" data-tip="<b>${esc(s.id.slice(1))} ${esc(s.name)}</b>${esc(STATE_WORD[n.stages[s.id]]||n.stages[s.id])}"></i>`).join('')}</span><span class="note"><b>NETRA stages: ${done} of ${appl} done.</b> Show each stage</span></summary>
+    <div class="pipe">${T.netra_stages.map(s=>`<div class="node s-${n.stages[s.id]}" data-tip="<b>${esc(s.name)}</b>${esc(n.stages[s.id])}"><div class="c">${s.id.slice(1)}</div><b>${esc(s.name)}</b>${esc(n.stages[s.id])}</div>`).join('')}</div>
+    <p class="note" style="margin-top:8px">Green done · amber partial or from secondary sources · dashed open · faded not applicable.</p></details>
+   <div class="dtabs" role="tablist" aria-label="Dossier sections">${DTABS.map(([k,l])=>`<button type="button" role="tab" id="dtab-btn-${k}" aria-controls="dtab-${k}" aria-selected="${tab===k}" data-dtab="${k}">${l}</button>`).join('')}</div>
+   ${panel('overview', `${H3('What happened','As reported by the sources in the Evidence tab.')}<p style="margin-top:8px;max-width:74ch">${esc(i.harm)}</p>
+     <p style="margin-top:10px;max-width:74ch"><b>Response so far:</b> ${esc(i.response)}</p>
+     <dl class="kv"><dt>AI system</dt><dd>${i.systems.map(esc).join('; ')}</dd><dt>Developer / deployer</dt><dd>${esc(i.developer)} / ${esc(i.deployer)}</dd><dt>AI’s role (stage 7)</dt><dd>${esc(STATE_WORD[n.stages.S07]||n.stages.S07)} · caused by ${esc(i.entity)}, ${esc(i.intent.toLowerCase())}</dd><dt>Risk areas</dt><dd><div class="row">${i.domains.map(domChip).join('')}</div></dd></dl>
+     <div class="grid g-2" style="margin-top:16px"><div class="callout"><b>What NETRA does not know</b><ul style="margin:6px 0 0;padding-left:18px">${n.unknowns.map(u=>`<li>${esc(u)}</li>`).join('')}</ul></div>
+      <div class="callout red"><b>Overclaim check</b><p style="margin-top:6px">${esc(n.overclaim)}</p></div></div>`)}
+   ${panel('laws', `${H3('Legal issues (T1)','Laws, rules and orders that may bear on this case. Applicability has not been decided.')}<div class="row" style="margin-top:10px">${i.instruments.map(insChip).join('')}</div>
+     ${H3('Gaps (T2–T3)','Where the law does not yet answer this case.','margin-top:20px')}${gaps.length?gaps.map(g=>`<p style="margin-top:8px"><span class="id">${g.id}</span> <b>${esc(g.title)}</b> <span class="chip">${esc(g.type)}</span><br><span class="muted">${esc(g.basis)}</span></p>`).join(''):'<p class="note" style="margin-top:6px">None linked.</p>'}`)}
+   ${panel('report', `<div class="grid g-2"><div>${H3('Where to report or seek relief','Information only. NETRA never files reports.')}
+      ${i.harm_types.includes('Financial loss')?'<p class="callout" style="margin-top:10px">For financial cyber fraud, call <b>1930</b> or use cybercrime.gov.in first.</p>':''}
+      ${unchecked?'<p class="note" style="margin-top:8px">These contact routes come from the pilot list and have not yet been checked against each body’s official website.</p>':''}
+      <div class="route">${n.authorities.map((a,k)=>`<div><span class="num">${k+1}</span><div><b>${esc(AUTH[a].name)}</b>${AUTH[a].verified!=='yes'?' <span class="vtag pending">not yet checked</span>':''}<div class="note">${esc(AUTH[a].role)} · <a href="${esc(AUTH[a].url)}" target="_blank" rel="noopener">${esc(new URL(AUTH[a].url).hostname)}</a></div></div></div>`).join('')}</div></div>
+     <div>${H3('Location & jurisdiction','Kept separate, as NETRA requires; one case can touch several jurisdictions.')}
+      <div class="loc">${Object.entries(n.locations).map(([k,v])=>`<div><span>${esc(LOC_LABEL[k]||k)}</span>${esc(v)}</div>`).join('')}</div>
+      <h4 class="ctitle" style="font-size:1rem;margin-top:16px">Official court documents</h4>${courtDocs(i)}</div></div>`)}
+   ${panel('evidence', `${H3('Evidence register','Every source behind this dossier, with its kind and date.')}
+     <div class="tablewrap" style="margin-top:10px"><table><thead><tr><th>ID</th><th>Source</th><th>Kind</th><th>Date</th></tr></thead><tbody>
+     ${i.sources.map((s,k)=>`<tr><td class="id">E-${String(k+1).padStart(2,'0')}</td><td><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a></td><td>Secondary (news / legal reporting)</td><td class="mono">${esc(s.date)}</td></tr>`).join('')}
+     ${(i.court_documents||[]).map((c,k)=>`<tr><td class="id">C-${String(k+1).padStart(2,'0')}</td><td><a href="${esc(c.url)}" target="_blank" rel="noopener">${esc(c.title)}</a></td><td>Official court document</td><td class="mono">${esc(c.date)}</td></tr>`).join('')}
+     </tbody></table></div><p class="note" style="margin-top:8px">Primary evidence such as FIRs and platform records has not been captured yet. The report (Generate report) explains how to preserve evidence, including the BSA s.63 certificate. ${correctLink(i.id)}</p>`)}
+  </section>
+  <details class="sheet more" style="margin-top:14px"><summary>Compare all cases by stage</summary><p class="hint">One row per case across the 14 NETRA stages: green done, amber partial, dashed open. Click a row to open that case.</p>
+   <div class="tablewrap" style="margin-top:12px"><table><thead><tr><th>Case</th>${T.netra_stages.map(s=>`<th style="text-align:center" data-tip="${esc(s.name)}">${s.id.slice(1)}</th>`).join('')}</tr></thead><tbody>
+   ${order.map(x=>`<tr class="click" data-inc="${x.id}" ${x.id===i.id?'style="background:var(--accent-soft)"':''}><td><span class="cell" style="background:${dc(x.domains[0])};width:8px;margin-right:8px;vertical-align:-2px"></span>${esc(x.title.slice(0,48))}${x.title.length>48?'…':''}</td>${T.netra_stages.map(s=>`<td class="n"><span class="cell c-${x.netra.stages[s.id]}" data-tip="<b>${esc(s.name)}</b>${esc(x.netra.stages[s.id])}"></span></td>`).join('')}</tr>`).join('')}
+   </tbody></table></div></details>` + creditLine();
 };
 
 V['analysis-gaps'] = () => head('Gap register',`${D.gaps.length} places the law has not caught up`,'Each gap names the incidents and instruments behind it. India’s lack of an AI-specific statute is not counted as a gap by itself.','gaps','var(--d4)') +
@@ -772,7 +798,6 @@ const CSF_AN = [
   ['RS.AN-03', 'Work out what happened during the incident and its root cause'],
   ['RS.AN-06', 'Record every action taken during the investigation, and keep those records’ integrity and provenance'],
   ['RS.AN-07', 'Collect incident data and metadata, and keep their integrity and provenance']];
-const STATE_WORD = {done:'done', secondary:'from secondary sources only', partial:'partly done', draft:'drafted', open:'open', contested:'contested', possible:'possible', 'n/a':'not applicable'};
 const GAP_LABEL = t => t === 'Interpretive question' ? 'interpretive' : 'gap';
 const mdUrl = u => String(u).replace(/\(/g,'%28').replace(/\)/g,'%29').replace(/ /g,'%20');
 const mdLink = (t, u) => `[${String(t).replace(/[\[\]]/g,'')}](${mdUrl(u)})`;
@@ -1209,7 +1234,7 @@ document.addEventListener('pointerover', e => { const t = e.target.closest?.('[d
 document.addEventListener('pointermove', e => { if(!$tip.classList.contains('show')) return; const w = $tip.offsetWidth, h = $tip.offsetHeight; let x = e.clientX+14, y = e.clientY+14; if(x+w>innerWidth-8) x = e.clientX-w-14; if(y+h>innerHeight-8) y = e.clientY-h-14; $tip.style.left = Math.max(8,x)+'px'; $tip.style.top = Math.max(8,y)+'px'; });
 document.addEventListener('click', e => {
   if(e.target.closest?.('#theme-btn')){ setTheme(document.documentElement.getAttribute('data-theme')==='light' ? 'dark' : 'light', true); return; }
-  const t = e.target.closest('[data-mode],[data-more],[data-unfilter],[data-unq],[data-go],[data-sub],[data-dom],[data-inc],[data-law],[data-report],[data-scroll],[data-pill],[data-clear],[data-filters],[data-tour],#rep-copy,#rep-dl,#rep-print,#sv-refresh,#sv-publish,#sv-copy,#sv-doimport');
+  const t = e.target.closest('[data-dtab],[data-mode],[data-more],[data-unfilter],[data-unq],[data-go],[data-sub],[data-dom],[data-inc],[data-law],[data-report],[data-scroll],[data-pill],[data-clear],[data-filters],[data-tour],#rep-copy,#rep-dl,#rep-print,#sv-refresh,#sv-publish,#sv-copy,#sv-doimport');
   if(!t) return;
   if(t.id==='rep-copy'){ copyReport(); return; }
   if(t.id==='rep-dl'){ downloadReport(); return; }
@@ -1220,6 +1245,7 @@ document.addEventListener('click', e => {
   if(t.id==='sv-publish'){ publishSummary(); return; }
   e.preventDefault();
   if(t.dataset.tour){ const a = t.dataset.tour; return tour(a==='start' ? 0 : a==='next' ? state.tour+1 : a==='back' ? state.tour-1 : -1); }
+  if(t.dataset.dtab){ state.dtab = t.dataset.dtab; return render(); }
   if(t.dataset.mode){ const [k, m] = t.dataset.mode.split(':'); state.mode[k] = m; return render(); }
   if(t.dataset.more){ state.limit += PAGE_SIZE; return render(); }
   if(t.dataset.unfilter){ const kind = PAGES[state.view].kind; state.f[kind] = {...(state.f[kind]||{}), [t.dataset.unfilter]: ''}; state.limit = PAGE_SIZE; return render(); }
@@ -1230,7 +1256,7 @@ document.addEventListener('click', e => {
   if(t.dataset.pill){ state.limit = PAGE_SIZE; const box = t.closest('[data-fview]').dataset.fview, cur = (state.f[box]||{})[t.dataset.pill]; state.f[box] = {...(state.f[box]||{}), [t.dataset.pill]: cur===t.dataset.v ? '' : t.dataset.v}; return render(); }
   if(t.dataset.sub){ state.sub = t.dataset.sub; return go('explore-area', state.view==='explore-area'); }
   if(t.dataset.dom){ state.sub = DOM[t.dataset.dom].subs[0].id; return go('explore-area', state.view==='explore-area'); }
-  if(t.dataset.inc){ state.inc = t.dataset.inc; return go('analysis-dossiers', state.view==='analysis-dossiers'); }
+  if(t.dataset.inc){ if(t.dataset.inc!==state.inc) state.dtab = 'overview'; state.inc = t.dataset.inc; return go('analysis-dossiers', state.view==='analysis-dossiers'); }
   if(t.dataset.law) return openLaw(t.dataset.law);
   if(t.dataset.report){ const [kind, id] = t.dataset.report.split(/:(.*)/); state.report = {kind, id}; return go('analysis-report'); }
   if(t.dataset.scroll){ let el = document.getElementById(t.dataset.scroll); if(!el){ state.limit = Infinity; render(); el = document.getElementById(t.dataset.scroll); } if(el){ const d = el.tagName==='DETAILS' ? el : el.querySelector('details'); if(d) d.open = true; el.scrollIntoView({block:'start', behavior: reduce?'auto':'smooth'}); el.animate?.([{boxShadow:'0 0 0 4px var(--accent)'},{boxShadow:'0 0 0 0 transparent'}],{duration:1200}); } }
@@ -1244,6 +1270,7 @@ document.addEventListener('input', e => {
 });
 document.addEventListener('change', e => {
   if(e.target.id==='nav-sub' && e.target.value){ state.sub = e.target.value; render(); }
+  if(e.target.id==='dossier-pick'){ state.inc = e.target.value; state.dtab = 'overview'; return render(); }
   if(e.target.dataset?.sort){ state.sort[e.target.dataset.sort] = e.target.value; state.limit = PAGE_SIZE; return render(); }
   if(e.target.id==='rep-kind'){ const k = e.target.value; state.report = {kind:k, id: REPORT_KINDS[k].items()[0][0]}; render(); }
   if(e.target.id==='rep-item'){ state.report = {...state.report, id: e.target.value}; render(); }
