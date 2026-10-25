@@ -578,7 +578,7 @@ function incCard(i){
   <details class="more"><summary>Details and sources</summary><dl class="kv"><dt>AI system</dt><dd>${i.systems.map(esc).join('; ')}</dd><dt>Developer / deployer</dt><dd>${esc(i.developer)} / ${esc(i.deployer)}</dd>
   <dt>Harm type</dt><dd>${i.harm_types.map(esc).join(', ')}</dd><dt>Affected</dt><dd>${esc(i.affected)}</dd><dt>Cause</dt><dd>${esc(i.entity)} · ${esc(i.intent)} · ${esc(i.timing)}</dd>
   <dt>Sources</dt><dd>${i.sources.map(s=>`<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a> <span class="muted">(${esc(s.date)})</span>`).join('<br>')}</dd>
-  <dt>Corrections</dt><dd>${correctLink(i.id)}</dd></dl></details>
+  ${i.notes?`<dt>Notes</dt><dd>${esc(i.notes)}</dd>`:''}<dt>Corrections</dt><dd>${correctLink(i.id)}</dd></dl></details>
   <div class="row" style="margin-top:12px"><button type="button" class="btn primary" data-inc="${i.id}">${svgIcon('netra',16)} Open NETRA dossier</button><span class="note">${esc(i.netra.overclaim)}</span></div></article>`;
 }
 V['explore-incidents'] = () => {

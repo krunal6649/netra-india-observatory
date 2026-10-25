@@ -17,6 +17,10 @@
   case (ignoring `www.`, `/amp/` and trailing slashes), or whose title is 75% or more alike, unless a person lists it
   in `distinct_from`. The current 22 cases pass; the closest pair (IN-INC-09 and IN-INC-19) is 54% alike and is two
   different cases. 4 new unit tests.
+- **IN-INC-19 (KMG Wires) expanded** from sources supplied by the owner: AY 2023-24, ss.143(3) r/w 144B, about ₹22 crore
+  demand, penalty notice under s.274 r/w s.271AAC, suppliers' s.133(6) replies ignored, bench Colabawalla and
+  Amit S. Jamsandekar JJ. AI involvement stays 'as reported': summaries differ on whether the court itself found the
+  citations AI-generated, and the order has not been read. Case cards now show a `notes` line where present.
 - Build: `batch` must look like `B2`. 1 new unit test checks batch 2 is unreviewed, sourced, and covers all 7 domains.
 
 ## v0.2-dev (unreleased) — Owner review and court documents

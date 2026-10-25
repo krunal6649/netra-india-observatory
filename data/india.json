@@ -3071,7 +3071,7 @@
       ],
       "developer": "Not known",
       "deployer": "Income-tax assessing officer (National Faceless Assessment Centre)",
-      "harm": "A faceless tax assessment raised a company's assessed income from ₹3.09 crore to ₹27.91 crore, relying on court decisions that do not exist, without showing the company the basis. The High Court set the order aside for breach of natural justice and said authorities must not blindly rely on AI output without checking it.",
+      "harm": "A faceless tax assessment for AY 2023-24 under s.143(3) read with s.144B of the Income Tax Act raised a company's assessed income from ₹3.09 crore to ₹27.91 crore, leading to a tax demand reported at about ₹22 crore and a penalty notice under s.274 read with s.271AAC. The order relied on court decisions that do not exist and ignored suppliers' replies filed under s.133(6), without a proper show-cause notice. The High Court set it aside as a breach of natural justice and warned that authorities must not blindly rely on AI output without checking it.",
       "harm_types": [
         "Financial loss",
         "Justice system integrity"
@@ -3089,7 +3089,7 @@
         "Justice & legal",
         "Welfare & public services"
       ],
-      "response": "Writ Petition (L) No. 24366 of 2025: Bombay High Court (Colabawalla and Jamsandekar JJ.) quashed the order on 6 Oct 2025 and remanded it, requiring at least 7 days' notice of any decisions relied upon.",
+      "response": "Writ Petition (L) No. 24366 of 2025: a Division Bench of the Bombay High Court (B.P. Colabawalla and Amit S. Jamsandekar JJ.) quashed the assessment order on 6 Oct 2025 and remanded it for fresh assessment, requiring at least 7 days' notice of any decisions relied upon. The department said the wrong citations were an error already rectified.",
       "instruments": [
         "G-BSA",
         "G-AIGG"
@@ -3103,6 +3103,21 @@
         {
           "title": "LawTrend – Bombay High Court quashes income tax assessment citing AI-generated non-existent case laws",
           "url": "https://lawtrend.in/?p=322084",
+          "date": "2025-10"
+        },
+        {
+          "title": "ITATonline – KMG Wires Pvt Ltd v. NFAC (Bombay High Court)",
+          "url": "https://itatonline.org/digest/verdicts/kmg-wires-pvt-ltd-v-nfac-bombay-high-court/",
+          "date": "2025-10"
+        },
+        {
+          "title": "Times of India – A ₹22 crore tax notice built on AI-generated court rulings: what the Bombay High Court ruled",
+          "url": "https://timesofindia.indiatimes.com/business/financial-literacy/taxation/a-rs-22-crore-tax-notice-built-on-ai-generated-court-rulings-what-the-bombay-high-court-just-ruled/articleshow/125103410.cms",
+          "date": "2025-10"
+        },
+        {
+          "title": "TaxHeal – Faceless assessment order quashed due to reliance on non-existent decisions",
+          "url": "https://www.taxheal.com/use-of-ai-to-issue-income-tax.html",
           "date": "2025-10"
         }
       ],
@@ -3119,11 +3134,11 @@
           "A-COURT"
         ],
         "unknowns": [
-          "Whether AI produced the citations (the court did not expressly find so)",
-          "The second judge's initials differ across reports",
+          "The order's own words on AI: reports differ on whether the court found the citations were AI-generated or only warned against relying on AI (order text not read)",
+          "Which tool, if any, produced the citations",
           "Outcome of the fresh assessment"
         ],
-        "overclaim": "The court cautioned against relying on AI but did not find that AI produced these citations. Record as a suspected AI hallucination.",
+        "overclaim": "Reports describe the citations as AI-generated; summaries differ on whether the court itself said so. Treat AI involvement as reported, not as a court finding, until the order is read.",
         "stages": {
           "S01": "done",
           "S02": "done",
@@ -3142,7 +3157,8 @@
         }
       },
       "review": "unreviewed",
-      "batch": "B2"
+      "batch": "B2",
+      "notes": "Details added on 2026-10-25 from secondary sources supplied by the project owner (ITATonline, Times of India, TaxHeal, Indic Pacific). Bench name 'Amit S. Jamsandekar' now agrees across several reports. The Bombay High Court order itself has not been read."
     },
     {
       "id": "IN-INC-20",
