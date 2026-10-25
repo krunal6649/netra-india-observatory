@@ -67,6 +67,23 @@ class Tests(unittest.TestCase):
         self.ins(d, "G-ITR21")["notifications"] = [{"no": "G.S.R. 139(E)", "date": "25 Feb 2021", "what": "x"}]
         self.rejects(d, "date must be an ISO date")
 
+    def test_v02_verification_records(self):
+        bns, bsa = self.ins(self.india, "G-BNS"), self.ins(self.india, "G-BSA")
+        self.assertEqual((bns["verified"], bns["act_no"]), ("yes", "Act 45 of 2023"))
+        for s in ("s.77 ", "s.308 ", "s.318 ", "s.319 ", "s.335 ", "s.336 ", "s.340 ", "s.351 ", "s.353 ", "s.356 "):
+            self.assertIn(s, bns["provisions"])
+        self.assertEqual((bsa["verified"], bsa["act_no"]), ("yes", "Act 47 of 2023"))
+        # The case was read only through a report, so it must not be marked verified
+        self.assertEqual(bsa["cases"][0]["verified"], "partial")
+        nos = lambda iid: [n["no"] for n in self.ins(self.india, iid)["notifications"]]
+        self.assertEqual(nos("G-ITR21"), ["G.S.R. 139(E)", "G.S.R. 794(E)"])
+        self.assertEqual(nos("G-ITR26"), ["G.S.R. 120(E)"])
+        self.assertEqual(nos("G-DPDP"), ["G.S.R. 843(E)"])
+        self.assertEqual(nos("G-DPDPR"), ["G.S.R. 846(E)"])
+        for iid in ("G-ITR21", "G-ITA", "G-CPA", "G-ITR26", "G-DPDP", "G-DPDPR"):
+            self.assertEqual(self.ins(self.india, iid)["verified"], "partial", iid)
+        self.assertEqual(len(build.validate(self.tax, self.india, self.glob)), 24)
+
     def test_case_needs_fields(self):
         d = copy.deepcopy(self.india); self.ins(d, "G-BSA")["cases"] = [{"name": "X v. Y"}]
         self.rejects(d, "case X v. Y missing citation")
