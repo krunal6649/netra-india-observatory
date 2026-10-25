@@ -137,7 +137,7 @@ class Tests(unittest.TestCase):
 
     def test_only_owner_checked_bodies_are_verified(self):
         yes = {x["id"] for x in self.dir["bodies"] if x["verified"] == "yes"}
-        self.assertEqual(yes, {"U-NCRP", "U-GAC", "U-CERTIN", "U-ECI", "U-SC"})
+        self.assertEqual(yes, {"U-NCRP", "U-GAC", "U-CERTIN", "U-ECI", "U-SC", "U-PIB"})
 
     def test_document_kind(self):
         d = copy.deepcopy(self.india)

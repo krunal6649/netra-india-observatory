@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.2-dev (unreleased) — Directory links checked by the owner
+- **PIB Fact Check** now links to https://www.pib.gov.in/index.aspx?reg=48&lang=2, opened by the project owner on
+  2026-10-25, and is verified.
+- **Links removed** because they did not open for the owner on 2026-10-25: NCIIPC (nciipc.gov.in), CDSCO
+  (cdsco.gov.in), Kerala High Court (hckerala.gov.in), Bombay High Court (bombayhighcourt.nic.in). Each entry says so
+  and stays "to verify" until a working official address is found.
+
 ## v0.2-dev (unreleased) — Phase 3 (a): Who to approach directory
 - **New `data/authorities.json`: 391 bodies.** 31 Union bodies in the plan's groups (ministries and policy, cyber
   security, platforms and data, courts and legal aid, rights commissions, elections, sector regulators, standards,
