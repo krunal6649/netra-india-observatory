@@ -14,30 +14,28 @@
         {
           "name": "GDELT: AI news",
           "url": "https://api.gdeltproject.org/api/v2/doc/doc",
-          "status": "failed",
-          "items": 0,
-          "error": "HTTPError: HTTP Error 429: Too Many Requests"
+          "status": "ok",
+          "items": 250
         },
         {
           "name": "GDELT: cyber news",
           "url": "https://api.gdeltproject.org/api/v2/doc/doc",
-          "status": "failed",
-          "items": 0,
-          "error": "HTTPError: HTTP Error 429: Too Many Requests"
+          "status": "ok",
+          "items": 181
         },
         {
           "name": "Press Information Bureau: press releases (RSS, as listed)",
           "url": "https://pib.gov.in/RssMain.aspx?ModId=6&Lang=2&Regid=3",
-          "status": "failed",
+          "status": "off",
           "items": 0,
-          "error": "HTTPError: HTTP Error 403: Forbidden"
+          "error": "Exact address listed on PIB's own RSS page (pib.gov.in/ViewRss.aspx). That page is in Hindi, so the language of this feed is to confirm on the first workflow run. First workflow run on 2026-10-25: HTTP 403 (forbidden) from GitHub's servers. Switched off: NETRA does not work around a site that refuses automated access. PIB releases can still be added by hand."
         },
         {
           "name": "Press Information Bureau: press releases (RSS, Lang=1)",
           "url": "https://pib.gov.in/RssMain.aspx?ModId=6&Lang=1&Regid=3",
-          "status": "failed",
+          "status": "off",
           "items": 0,
-          "error": "HTTPError: HTTP Error 403: Forbidden"
+          "error": "Same feed with Lang=1, tried in case it is the English edition. Not confirmed; if it fails or repeats the other feed, the run report says so and it can be switched off. First workflow run on 2026-10-25: HTTP 403 (forbidden) from GitHub's servers. Switched off: NETRA does not work around a site that refuses automated access. PIB releases can still be added by hand."
         },
         {
           "name": "CERT-In advisories",
@@ -59,8 +57,146 @@
           "items": 0
         }
       ],
-      "top": [],
-      "cyber": [],
+      "top": [
+        {
+          "title": "Man arrested in Bengal for threatening traffic cops with AI - generated police identity card",
+          "summary": "1 report from prokerala.com on 2026-10-24. No NETRA risk area matched the headlines. Auto-selected and not yet checked by a person: open the sources for the facts.",
+          "risk_areas": [],
+          "sources": [
+            {
+              "title": "Man arrested in Bengal for threatening traffic cops with AI - generated police identity card",
+              "url": "https://www.prokerala.com/news/articles/a1828279.html",
+              "domain": "prokerala.com",
+              "date": "2026-10-24",
+              "via": "GDELT"
+            }
+          ],
+          "score": 3,
+          "auto_selected": true,
+          "review": "unreviewed",
+          "id": "W-2026-10-19-1"
+        }
+      ],
+      "cyber": [
+        {
+          "title": "SBI data breach claim : Hackers allegedly access 3 . 75 lakh accounts",
+          "summary": "4 reports from economictimes.indiatimes.com, ibtimes.co.in, livemint.com between 2026-10-19 and 2026-10-21. Cyber security item, listed separately and not counted as an AI incident. Not checked by a person.",
+          "risk_areas": [],
+          "sources": [
+            {
+              "title": "SBI data breach claim : Hackers allegedly access 3 . 75 lakh accounts",
+              "url": "https://economictimes.indiatimes.com/markets/stocks/news/sbi-data-breach-claim-hackers-allegedly-access-3-75-lakh-accounts/articleshow/135059062.cms",
+              "domain": "economictimes.indiatimes.com",
+              "date": "2026-10-20",
+              "via": "GDELT"
+            },
+            {
+              "title": "SBI data breach claim : Hackers allegedly access 3 . 75 lakh accounts",
+              "url": "https://economictimes.indiatimes.com/industry/banking/finance/banking/sbi-data-breach-claim-hackers-allegedly-access-3-75-lakh-accounts/articleshow/135055988.cms",
+              "domain": "economictimes.indiatimes.com",
+              "date": "2026-10-19",
+              "via": "GDELT"
+            },
+            {
+              "title": "SBI data breach claim : Hacker group alleges access to 3 . 75 lakh records , 2 , 722 documents",
+              "url": "https://www.ibtimes.co.in/sbi-data-breach-claim-hacker-group-alleges-access-3-75-lakh-records-2722-documents-907722",
+              "domain": "ibtimes.co.in",
+              "date": "2026-10-21",
+              "via": "GDELT"
+            },
+            {
+              "title": "SBI data leak claim : Hacker allegedly leaks 3 . 75 lakh records , 2 , 722 PDF documents ; details remain unverified",
+              "url": "https://www.livemint.com/news/india/sbi-data-leak-claim-hacker-allegedly-leaks-3-75-lakh-records-2-722-pdf-documents-details-remain-unverified-11792503049159.html",
+              "domain": "livemint.com",
+              "date": "2026-10-20",
+              "via": "GDELT"
+            }
+          ],
+          "score": 8,
+          "auto_selected": true,
+          "review": "unreviewed",
+          "id": "C-2026-10-19-1"
+        },
+        {
+          "title": "SBI Data Exposure : What the Dark - Web Breach Means for 3 . 75 Lakh Records",
+          "summary": "2 reports from moneycontrol.com, openthemagazine.com on 2026-10-21. Cyber security item, listed separately and not counted as an AI incident. Not checked by a person.",
+          "risk_areas": [],
+          "sources": [
+            {
+              "title": "SBI Data Exposure : What the Dark - Web Breach Means for 3 . 75 Lakh Records",
+              "url": "https://openthemagazine.com/india/sbi-dark-web-exposure-explained-were-375-lakh-customers-breached",
+              "domain": "openthemagazine.com",
+              "date": "2026-10-21",
+              "via": "GDELT"
+            },
+            {
+              "title": "SBI flags suspected dark web data leak affecting over 3 . 75 lakh customer records",
+              "url": "https://www.moneycontrol.com/banking/sbi-flags-incident-of-data-leak-says-no-material-impact-on-bank-s-business-operations-article-14056419.html",
+              "domain": "moneycontrol.com",
+              "date": "2026-10-21",
+              "via": "GDELT"
+            }
+          ],
+          "score": 3,
+          "auto_selected": true,
+          "review": "unreviewed",
+          "id": "C-2026-10-19-2"
+        },
+        {
+          "title": "RS MP AA Rahim calls for independent probe into SBI data breach , writes to FM",
+          "summary": "1 report from calcuttanews.net on 2026-10-22. Cyber security item, listed separately and not counted as an AI incident. Not checked by a person.",
+          "risk_areas": [],
+          "sources": [
+            {
+              "title": "RS MP AA Rahim calls for independent probe into SBI data breach , writes to FM",
+              "url": "http://www.calcuttanews.net/news/279392431/rs-mp-aa-rahim-calls-for-independent-probe-into-sbi-data-breach-writes-to-fm",
+              "domain": "calcuttanews.net",
+              "date": "2026-10-22",
+              "via": "GDELT"
+            }
+          ],
+          "score": 2,
+          "auto_selected": true,
+          "review": "unreviewed",
+          "id": "C-2026-10-19-3"
+        },
+        {
+          "title": "Rajasthan Police allegedly hacked , 70 , 000 identity records and 59 , 460 mobile numbers claimed to be up for sale",
+          "summary": "1 report from businesstoday.in on 2026-10-21. Cyber security item, listed separately and not counted as an AI incident. Not checked by a person.",
+          "risk_areas": [],
+          "sources": [
+            {
+              "title": "Rajasthan Police allegedly hacked , 70 , 000 identity records and 59 , 460 mobile numbers claimed to be up for sale",
+              "url": "https://www.businesstoday.in/india/story/rajasthan-police-allegedly-hacked-70000-identity-records-and-59460-mobile-numbers-claimed-to-be-up-for-sale-562889-2026-10-21",
+              "domain": "businesstoday.in",
+              "date": "2026-10-21",
+              "via": "GDELT"
+            }
+          ],
+          "score": 2,
+          "auto_selected": true,
+          "review": "unreviewed",
+          "id": "C-2026-10-19-4"
+        },
+        {
+          "title": "Elderly man hacked to death in Jharkhand Palamu over suspected witchcraft",
+          "summary": "1 report from prokerala.com on 2026-10-21. Cyber security item, listed separately and not counted as an AI incident. Not checked by a person.",
+          "risk_areas": [],
+          "sources": [
+            {
+              "title": "Elderly man hacked to death in Jharkhand Palamu over suspected witchcraft",
+              "url": "https://www.prokerala.com/news/articles/a1827002.html",
+              "domain": "prokerala.com",
+              "date": "2026-10-21",
+              "via": "GDELT"
+            }
+          ],
+          "score": 2,
+          "auto_selected": true,
+          "review": "unreviewed",
+          "id": "C-2026-10-19-5"
+        }
+      ],
       "models": [
         {
           "kind": "METR publication",
@@ -81,7 +217,7 @@
       ],
       "notes": [
         "MITRE ATLAS release 2026.09: 73 case studies in total, 65 not yet in NETRA's model register.",
-        "Only 0 AI items met the selection rules this week; NETRA does not pad the list."
+        "Only 1 AI item met the selection rules this week; NETRA does not pad the list."
       ],
       "review": "unreviewed"
     }
