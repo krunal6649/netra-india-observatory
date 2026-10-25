@@ -22,7 +22,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Find this week's items (official feeds and APIs only)
-        run: python3 scripts/weekly_top5.py
+        run: |
+          python3 scripts/weekly_top5.py
+          # GDELT limits requests per address and GitHub's runners are shared: if it was busy, wait 10 minutes and try once more
+          if ! python3 -c "import json,sys; sys.exit(0 if json.load(open('data/weekly.json'))['weeks'][0].get('news_ok') else 1)"; then
+            echo "GDELT did not answer; trying again in 10 minutes"
+            sleep 600
+            python3 scripts/weekly_top5.py
+          fi
       - name: Validate and rebuild the site
         run: |
           python3 scripts/build.py

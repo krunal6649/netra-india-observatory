@@ -118,6 +118,23 @@ class Tests(unittest.TestCase):
         with self.assertRaises(wk.SourceError):
             wk.gdelt("x", always_busy, date(2026, 10, 17), date(2026, 10, 23), sleep=lambda s: None)
 
+    def test_news_source_down_is_said_plainly(self):
+        def no_gdelt(url):
+            if "gdeltproject" in url:
+                raise wk.SourceError("HTTPError: HTTP Error 429: Too Many Requests")
+            return fake_get(url)
+        real = wk.DATA / "weekly.json"
+        had = real.read_text(encoding="utf-8") if real.exists() else None
+        try:
+            _, week = wk.run(date(2026, 10, 24), get=no_gdelt, sleep=lambda s: None)
+        finally:
+            if had is not None:
+                real.write_text(had, encoding="utf-8")
+        self.assertFalse(week["news_ok"])
+        self.assertTrue(any("did not answer" in n for n in week["notes"]))
+        self.assertFalse(any("does not pad" in n for n in week["notes"]))
+        self.assertTrue(self.week["news_ok"])
+
     def test_gdelt_spacing_is_cleaned(self):
         self.assertEqual(wk.clean_title("SBI data breach claim : Hackers access 3 . 75 lakh accounts"), "SBI data breach claim: Hackers access 3.75 lakh accounts")
         self.assertEqual(wk.clean_title("ID card made with AI - generated photo , police say"), "ID card made with AI-generated photo, police say")

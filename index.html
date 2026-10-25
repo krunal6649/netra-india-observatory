@@ -635,10 +635,10 @@ function weekBlock(w){
       <b style="display:block;font-family:var(--f-display);font-size:1.02rem;margin-top:8px">${esc(it.sources[0].title)}</b>
       <p style="margin-top:6px">${esc(it.summary)}</p>${it.risk_areas.length?`<div class="row" style="margin-top:6px">${it.risk_areas.map(domChip).join('')}</div>`:''}
       <details class="more"><summary>${it.sources.length} source${it.sources.length===1?'':'s'}</summary>${srcLinks(it)}</details></article>`).join('')
-    : '<p class="note">No AI item met the selection rules this week.</p>'}</div>
+    : w.news_ok===false ? '<p class="callout">The news source (GDELT) did not answer this week, so no incidents could be picked. This does not mean nothing happened.</p>' : '<p class="note">No AI item met the selection rules this week.</p>'}</div>
    <div class="grid g-2" style="margin-top:14px;align-items:start">
     <section class="sheet">${H3('Cyber watch','Cyber security news from India. Kept apart and never counted as AI incidents.')}
-     ${w.cyber.length ? w.cyber.map(it=>`<div style="margin-top:10px"><b>${esc(it.sources[0].title)}</b> ${autoTag}<p class="note" style="margin-top:4px">${esc(it.summary)}</p>${srcLinks(it)}</div>`).join('') : '<p class="note" style="margin-top:6px">Nothing this week.</p>'}</section>
+     ${!w.cyber.length && w.news_ok===false ? '<p class="note" style="margin-top:6px">The news source did not answer this week.</p>' : w.cyber.length ? w.cyber.map(it=>`<div style="margin-top:10px"><b>${esc(it.sources[0].title)}</b> ${autoTag}<p class="note" style="margin-top:4px">${esc(it.summary)}</p>${srcLinks(it)}</div>`).join('') : '<p class="note" style="margin-top:6px">Nothing this week.</p>'}</section>
     <section class="sheet">${H3('Model watch','New AI model tests published this week. Not yet read or mapped by NETRA.')}
      ${w.models.length ? `<ul style="margin:8px 0 0;padding-left:18px">${w.models.map(m=>`<li><a href="${esc(m.url)}" target="_blank" rel="noopener">${esc(m.title)}</a> <span class="note">${esc(m.kind)}${m.date?` · ${esc(m.date)}`:''}. ${esc(m.note)}</span></li>`).join('')}</ul>` : '<p class="note" style="margin-top:6px">Nothing new this week.</p>'}</section></div>
    <details class="more" style="margin-top:10px"><summary>How these were chosen, and source status (${ok} of ${w.sources.length} sources answered)</summary>

@@ -332,10 +332,13 @@ def run(today, get=fetch, sleep=time.sleep):
         it["id"] = f"W-{start.isoformat()}-{k}"
     for k, it in enumerate(cyber, 1):
         it["id"] = f"C-{start.isoformat()}-{k}"
-    if len(top) < 5:
+    news_ok = any(r["status"] == "ok" for r in report if r["name"].startswith("GDELT"))
+    if not news_ok:
+        notes.append("The news source (GDELT) did not answer this week, so no news items could be picked. This does not mean nothing happened.")
+    elif len(top) < 5:
         notes.append(f"Only {len(top)} AI item{'s' if len(top) != 1 else ''} met the selection rules this week; NETRA does not pad the list.")
     notes += [f"Not listed (already a NETRA record): {s}" for s in skipped_ai + skipped_cy]
-    week = {"week_start": start.isoformat(), "week_end": end.isoformat(), "generated": today.isoformat(), "sources": report,
+    week = {"week_start": start.isoformat(), "week_end": end.isoformat(), "generated": today.isoformat(), "news_ok": news_ok, "sources": report,
             "top": top, "cyber": cyber, "models": model_items[:10], "notes": notes, "review": "unreviewed"}
     store["meta"] = {"title": "This week in India", "method": "docs/weekly-method.md",
                      "note": "Auto-selected from official feeds and APIs; unreviewed. NETRA's own summaries; headlines only as link titles.",
