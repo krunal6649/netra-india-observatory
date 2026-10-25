@@ -1,0 +1,48 @@
+# Weekly "This week in India": runs every Saturday at 00:00 IST and opens a pull request for the owner to review.
+# Never merges anything. Uses no AI and no API key: GDELT, PIB, METR and MITRE ATLAS are free and need no sign-up.
+# Needs Settings > Actions > General > "Allow GitHub Actions to create and approve pull requests".
+name: Weekly update (unreviewed)
+
+on:
+  schedule:
+    - cron: "30 18 * * 5"   # 18:30 UTC Friday = 00:00 IST Saturday. GitHub may start scheduled runs a little late.
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: weekly
+  cancel-in-progress: false
+
+jobs:
+  weekly:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Find this week's items (official feeds and APIs only)
+        run: python3 scripts/weekly_top5.py
+      - name: Validate and rebuild the site
+        run: |
+          python3 scripts/build.py
+          python3 -m unittest discover tests
+      - name: Open a pull request for review
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          day=$(TZ=Asia/Kolkata date +%F)
+          branch="weekly/${day}-${GITHUB_RUN_ID}"
+          git config user.name "netra-weekly"
+          git config user.email "actions@users.noreply.github.com"
+          git checkout -b "$branch"
+          git add data/weekly.json dist/index.html index.html
+          if git diff --cached --quiet; then echo "Nothing changed"; exit 0; fi
+          git commit -m "Weekly update (unreviewed): week ending ${day}"
+          git push -u origin "$branch"
+          summary=$(python3 -c "import json; w=json.load(open('data/weekly.json'))['weeks'][0]; print(f\"{len(w['top'])} AI items, {len(w['cyber'])} cyber items, {len(w['models'])} model items for {w['week_start']} to {w['week_end']}.\"); [print(f\"- [{s['status']}] {s['name']}: {s['items']} items {s.get('error','')}\") for s in w['sources']]")
+          gh pr create --base main --head "$branch" \
+            --title "Weekly update (unreviewed): week ending ${day}" \
+            --body "Auto-selected by scripts/weekly_top5.py. Every item is labelled 'Auto-selected, unreviewed'. Check each one against its sources before merging; delete any that are wrong. Nothing is added to NETRA's incident records automatically.
+
+          ${summary}"
