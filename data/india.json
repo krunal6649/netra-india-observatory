@@ -368,7 +368,7 @@
       "type": "Rules",
       "force": "Hard law",
       "date": "2026-02-10",
-      "status": "In force from 2026-02-20",
+      "status": "In force from 2026-02-20. A draft Second Amendment (2026) is pending and not in force",
       "sectors": [
         "Internet platforms & telecom",
         "Media, entertainment & creators",
@@ -389,10 +389,18 @@
         "4.3"
       ],
       "provisions": "Rule 2(1)(wa) 'synthetically generated information'; Rule 3(3)",
-      "summary": "Defines synthetically generated audio-visual information. Requires user declarations, prominent labels and provenance metadata, and cuts some takedown windows from 36 hours to 3 hours. Text-only AI output is outside the definition.",
+      "summary": "Defines synthetically generated audio-visual information; text-only AI output is outside the definition. Requires user declarations, prominent labels and provenance metadata. Cuts the takedown window on a court or government order from 36 hours to 3 hours, sets a 2-hour deadline for intimate-image deepfakes, and cuts grievance resolution from 15 to 7 days.",
       "url": "https://www.dsci.in/resource/content/it-amendment-rules-2026",
       "verified": "partial",
-      "note": "Dates and scope agree across DSCI, Mondaq, IFF and iPleaders summaries; Gazette text not opened."
+      "note": "G.S.R. number and dates supplied by the project owner; scope agrees across DSCI, Mondaq, IFF and iPleaders summaries. Missing for 'yes': the Gazette PDF of G.S.R. 120(E) has not been opened; URL is a DSCI summary. Draft Second Amendment (2026) not read.",
+      "notifications": [
+        {
+          "no": "G.S.R. 120(E)",
+          "date": "2026-02-10",
+          "effective": "2026-02-20",
+          "what": "Amendment Rules, 2026"
+        }
+      ]
     },
     {
       "id": "G-ADV-DEC23",
@@ -520,7 +528,14 @@
       "summary": "General data protection law. Applies to personal data used to train or run AI systems. Most obligations commence 18 months after the November 2025 notification.",
       "url": "https://www.indiacode.nic.in/bitstream/123456789/22037/2/a2023-22.pdf",
       "verified": "partial",
-      "note": "Commencement split per secondary summaries of G.S.R. 843(E); Gazette not opened."
+      "note": "Commencement split per secondary summaries of G.S.R. 843(E). G.S.R. number supplied by the project owner. Missing for 'yes': owner to confirm the Gazette text at gazette_url (not opened by the AI-assisted session; host blocked).",
+      "notifications": [
+        {
+          "no": "G.S.R. 843(E)",
+          "what": "Commencement notification (phased)"
+        }
+      ],
+      "gazette_url": "https://egazette.gov.in/WriteReadData/2025/267650.pdf"
     },
     {
       "id": "G-DPDPR",
@@ -551,7 +566,14 @@
       "summary": "Operational rules under the DPDP Act, commenced in three phases.",
       "url": "https://www.azbpartners.com/bank/update-indias-digital-personal-data-protection-framework-comes-into-effect/",
       "verified": "partial",
-      "note": "Phasing per Mondaq, AZB and Konfirmity summaries. Official Gazette link not located."
+      "note": "Phasing per Mondaq, AZB and Konfirmity summaries; URL is the AZB summary. G.S.R. number supplied by the project owner. Missing for 'yes': owner to confirm the Gazette text at gazette_url (not opened by the AI-assisted session; host blocked).",
+      "notifications": [
+        {
+          "no": "G.S.R. 846(E)",
+          "what": "Digital Personal Data Protection Rules, 2025"
+        }
+      ],
+      "gazette_url": "https://egazette.gov.in/WriteReadData/2025/267650.pdf"
     },
     {
       "id": "G-BSA",
