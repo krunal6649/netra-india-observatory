@@ -153,9 +153,9 @@
       "laws": [
         "G-ITA"
       ],
-      "url": "https://nciipc.gov.in",
+      "url": null,
       "verified": "no",
-      "source": "Address from researcher knowledge; not yet confirmed against an official source.",
+      "source": "https://nciipc.gov.in did not open when the project owner tried it on 2026-10-25. Removed until a working official address is found.",
       "priority": true
     },
     {
@@ -516,9 +516,9 @@
       "can_do": "Regulates drugs and medical devices; software used as a medical device may fall under it.",
       "how_to_report": "See the organisation's website.",
       "laws": [],
-      "url": "https://cdsco.gov.in",
+      "url": null,
       "verified": "no",
-      "source": "Address from researcher knowledge; not yet confirmed against an official source.",
+      "source": "https://cdsco.gov.in did not open when the project owner tried it on 2026-10-25. Removed until a working official address is found.",
       "priority": true
     },
     {
@@ -565,10 +565,12 @@
       "laws": [
         "G-ITR21"
       ],
-      "url": "https://pib.gov.in",
-      "verified": "partial",
-      "source": "Address appeared on the body's official domain in a web search on 2026-10-25; not opened from the build sandbox.",
-      "priority": true
+      "url": "https://www.pib.gov.in/index.aspx?reg=48&lang=2",
+      "verified": "yes",
+      "source": "Link supplied and opened by the project owner on 2026-10-25. It is the PIB site; PIB Fact Check is a unit of PIB.",
+      "priority": true,
+      "checked_by": "Krunal (project owner)",
+      "checked_on": "2026-10-25"
     },
     {
       "id": "S-andhra-pradesh-POLICE",
@@ -2518,9 +2520,9 @@
         "G-BSA",
         "G-COPY"
       ],
-      "url": "https://hckerala.gov.in",
+      "url": null,
       "verified": "no",
-      "source": "Address from researcher knowledge; not yet confirmed against an official source.",
+      "source": "https://hckerala.gov.in did not open when the project owner tried it on 2026-10-25. Removed until a working official address is found.",
       "priority": true
     },
     {
@@ -2866,9 +2868,9 @@
         "G-BSA",
         "G-COPY"
       ],
-      "url": "https://bombayhighcourt.nic.in",
+      "url": null,
       "verified": "no",
-      "source": "Address from researcher knowledge; not yet confirmed against an official source.",
+      "source": "https://bombayhighcourt.nic.in did not open when the project owner tried it on 2026-10-25. Removed until a working official address is found.",
       "priority": true
     },
     {
