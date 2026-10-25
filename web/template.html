@@ -491,7 +491,6 @@ V.home = () => {
       <p class="hint" style="color:var(--hero-muted)">An open record of AI harms in India, the laws that may apply, and who can act on them.</p>
       <div class="counter" role="group" aria-label="Cases tracked"><b data-count="${n}">${n}</b><span>cases tracked</span>
         <small>${nRev} reviewed by a person · ${n-nRev} unreviewed (AI-assisted drafts) · <time datetime="${esc(D.meta.updated)}">data updated ${esc(D.meta.updated)}</time></small></div>
-      <div class="cta"><button type="button" class="btn primary" data-go="explore-incidents">Explore the cases</button><button type="button" class="btn" data-tour="start">Guided tour</button></div>
     </div>
     <div class="iris-wrap">${iris({onDark:true})}</div>
   </section>
@@ -634,6 +633,13 @@ function incCard(i){
   <div class="row" style="margin-top:12px"><button type="button" class="btn primary" data-inc="${i.id}">${svgIcon('netra',16)} Open NETRA dossier</button>${reportBtn('incident', i.id)}<span class="note">${esc(i.netra.overclaim)}</span></div></article>`;
 }
 const stateOf = i => i.state.split(' (')[0];
+/* All 28 states and 8 UTs, so every place can be picked even before it has a case; the count shows how many it has */
+function stateSel(cur){
+  const n = x => D.incidents.filter(i=>stateOf(i)===x).length;
+  const o = x => `<option value="${esc(x)}" ${x===cur?'selected':''}>${esc(x)} (${n(x)})</option>`;
+  return `<select data-k="state" aria-label="State or UT"><option value="">State or UT: all</option><option value="National" ${cur==='National'?'selected':''}>National or several states (${n('National')})</option>
+   <optgroup label="States (28)">${D.states_uts.states.map(o).join('')}</optgroup><optgroup label="Union territories (8)">${D.states_uts.union_territories.map(o).join('')}</optgroup></select>`;
+}
 const domDots = ds => `<span class="ldom">${ds.map(d=>`<i style="--c:${dc(d)}" data-tip="<b>${esc(d)}</b>${esc(SUB[d]?.name)}"></i>`).join('')}</span>`;
 function incRow(i){
   return `<details class="lrow" id="${i.id}" style="--edge:${dc(i.domains[0])}"><summary><span class="id">${i.id}</span><span class="lt"><b>${esc(i.title)}</b><span class="note">${esc(i.date)} · ${esc(i.state)}</span></span>${domDots(i.domains)}${sevm(i.severity)}${rev(i.review)}</summary>
@@ -646,9 +652,9 @@ V['explore-incidents'] = () => {
   const list = D.incidents.filter(i => (!f.dom || i.domains.some(s=>domOf(s)===f.dom)) && (!f.sector || i.sectors.includes(f.sector)) && (!f.harm || i.harm_types.includes(f.harm)) && (!f.sev || i.severity>=+f.sev) && (!f.entity || i.entity===f.entity)
     && (!f.state || stateOf(i)===f.state) && (!f.year || yearOf(i)===f.year) && (!f.rev || (f.rev==='reviewed') === (i.review!=='unreviewed')) && matchQ(i));
   const page = sortPage('incidents', list);
-  const states = [...new Set(D.incidents.map(stateOf))].sort(), years = [...new Set(D.incidents.map(yearOf).filter(Boolean))].sort().reverse();
+  const years = [...new Set(D.incidents.map(yearOf).filter(Boolean))].sort().reverse();
   return explore('incidents',
-    domPills('incidents') + filterBox('incidents', f=>sel('state','State or UT',states.map(x=>[x,x]),f.state)+sel('year','Year',years.map(x=>[x,x]),f.year)+sel('rev','Review',[['reviewed','Reviewed by a person'],['unreviewed','Unreviewed']],f.rev)+sel('sector','Sector',T.sectors.map(x=>[x,x]),f.sector)+sel('harm','Harm type',T.harm_types.map(x=>[x,x]),f.harm)+sel('sev','Severity',Object.entries(T.severity).map(([k,v])=>[k,k+'+ '+v]),f.sev,'Severity: any')+sel('entity','Caused by',Object.keys(T.causal.entity).map(x=>[x,x]),f.entity)),
+    domPills('incidents') + filterBox('incidents', f=>stateSel(f.state)+sel('year','Year',years.map(x=>[x,x]),f.year)+sel('rev','Review',[['reviewed','Reviewed by a person'],['unreviewed','Unreviewed']],f.rev)+sel('sector','Sector',T.sectors.map(x=>[x,x]),f.sector)+sel('harm','Harm type',T.harm_types.map(x=>[x,x]),f.harm)+sel('sev','Severity',Object.entries(T.severity).map(([k,v])=>[k,k+'+ '+v]),f.sev,'Severity: any')+sel('entity','Caused by',Object.keys(T.causal.entity).map(x=>[x,x]),f.entity)),
     (state.mode.incidents==='cards' ? `<div class="stack">${page.map(incCard).join('')}</div>` : `<div class="lstack">${page.map(incRow).join('')}</div>`) + moreBtn(page.length, list.length),
     list.length,
     `<p class="callout" style="margin-bottom:12px">Reported incidents are a small, biased sample of real harms. Where a source does not confirm that AI was used, the record says so.</p>

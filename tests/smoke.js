@@ -29,6 +29,7 @@ for (const v of Object.keys(N.PAGES)) {
 const shell = html.slice(html.indexOf('<header'), html.indexOf('<script>'));
 check((shell.match(/[ऀ-ॿ]+/g) || []).every(w => w === 'नेत्र'), 'Devanagari appears only as the title नेत्र');
 check(!/class="stats"|class="stat"/.test(N.page('home')), 'home has no separate stat boxes');
+check(!N.page('home').includes('Explore the cases') && !N.page('home').includes('data-tour="start"'), 'home banner has no buttons repeating the header');
 const nRev = D.incidents.filter(i => i.review !== 'unreviewed').length;
 check(N.page('home').includes(`data-count="${D.incidents.length}"`) && N.page('home').includes(`${nRev} reviewed by a person · ${D.incidents.length - nRev} unreviewed`) && N.page('home').includes(D.meta.updated), 'home counter is computed from the data, with the update date');
 for (const [old, now] of [['navigator','explore-area'],['risks','explore-risks'],['incidents','explore-incidents'],['governance','explore-laws'],['mitigations','explore-measures'],['netra','analysis-dossiers'],['gaps','analysis-gaps'],['evidence','about-evidence'],['survey','about-survey'],['about','about-method']])
@@ -71,6 +72,9 @@ N.state.sort.incidents = 'new';
 N.state.f.incidents = { state: 'Karnataka' };
 ex = N.page('explore-incidents');
 check([...ex.matchAll(/<details class="lrow" id="(IN-INC-\d+)"/g)].every(m => D.incidents.find(i => i.id === m[1]).state.startsWith('Karnataka')) && ex.includes('data-unfilter="state"'), 'state filter narrows the list and shows a removable chip');
+N.state.showFilters = true; N.state.f.incidents = {};
+const allStates = N.page('explore-incidents');
+check(D.states_uts.states.concat(D.states_uts.union_territories).every(x => allStates.includes(`<option value="${x}"`)) && allStates.includes('Lakshadweep (0)') && allStates.includes('optgroup label="Union territories (8)"'), 'state filter lists all 28 states and 8 UTs with case counts');
 N.state.f.incidents = { rev: 'unreviewed' };
 check([...N.page('explore-incidents').matchAll(/<details class="lrow" id="(IN-INC-\d+)"/g)].every(m => D.incidents.find(i => i.id === m[1]).review === 'unreviewed'), 'review filter keeps only unreviewed cases');
 N.state.f.incidents = { year: '2025' };
