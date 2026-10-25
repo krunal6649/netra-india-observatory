@@ -57,6 +57,37 @@ check(N.page('about-credits').includes('CC BY 4.0') && N.page('about-credits').i
 check(N.page('analysis-dossiers').includes('All sources and credits') && N.page('analysis-gaps').includes('All sources and credits'), 'analysis pages show credits');
 check(N.page('about-verification').includes('Partly verified') && N.page('about-method').includes('issues/new?template=correction.yml'), 'verification status and correction link render');
 check(N.TOUR.every(([p]) => N.PAGES[p]), 'every guided tour step points at a real page');
+// Phase 3: Who to approach directory
+const DIRD = JSON.parse(script.match(/const PAYLOAD = (\{[\s\S]*?\});\n\(function/)[1]).directory;
+const sq = N.squarify([{ w: 5 }, { w: 3 }, { w: 2 }, { w: 1 }, { w: 1 }], 0, 0, 100, 100);
+const area = sq.reduce((s, r) => s + r.w * r.h, 0);
+const overlap = sq.some((r, k) => sq.some((q, j) => j > k && r.x < q.x + q.w - 1e-6 && q.x < r.x + r.w - 1e-6 && r.y < q.y + q.h - 1e-6 && q.y < r.y + r.h - 1e-6));
+check(Math.abs(area - 10000) < 1e-6 && !overlap && sq.every(r => r.x >= -1e-9 && r.y >= -1e-9 && r.x + r.w <= 100 + 1e-6 && r.y + r.h <= 100 + 1e-6), 'treemap tiles fill the box without overlapping');
+N.state.dir = { level: null, place: null, body: null };
+let hm = N.page('home');
+check(hm.includes('Who to approach') && hm.indexOf('id="directory"') < hm.indexOf('Where incidents outrun binding law') && hm.includes('data-dir="level:union"') && hm.includes('data-dir="level:state"'), 'directory sits at the top of Home with Union and State/UT tiles');
+check(hm.includes('Call <b>1930</b>') && hm.includes('What NETRA adds'), 'directory shows the 1930 first step and what NETRA adds');
+N.state.dir = { level: 'state', place: null, body: null };
+hm = N.page('home');
+check(D.states_uts.states.concat(D.states_uts.union_territories).every(p => hm.includes(`data-dir="place:state:${p}"`)), 'step 2 shows all 36 states and UTs');
+check(!/\b\d+ (case|incident)s?\b/i.test(hm.slice(hm.indexOf('id="directory"'), hm.indexOf('Where incidents outrun'))), 'directory shows no case counts');
+N.state.dir = { level: 'state', place: 'Kerala', body: null };
+hm = N.page('home');
+check((hm.match(/data-dir="body:S-kerala-/g) || []).length === 10 && hm.includes('Back') && hm.includes('Supports victims'), 'step 3 shows a state’s bodies coloured by role, with a legend');
+let bodyBad = [];
+for (const b of DIRD.bodies) {
+  N.state.dir = { level: b.level, place: b.level === 'union' ? b.group : b.place, body: b.id };
+  const out = N.page('home');
+  for (const need of ['What it can do', 'Laws it may apply', 'How to report', 'Official website', 'Date checked', 'Status', 'Back to treemap'])
+    if (!out.includes(need)) bodyBad.push(`${b.id} lacks ${need}`);
+  if (b.verified !== 'yes' && !out.includes('class="verify">to verify')) bodyBad.push(`${b.id} has no visible "to verify" label`);
+}
+check(bodyBad.length === 0, `every directory body page renders with all fields (${DIRD.bodies.length} checked)${bodyBad.length ? ': ' + bodyBad.slice(0, 5).join(' | ') : ''}`);
+N.state.dir = { level: null, place: null, body: null };
+const routeBad = [];
+for (const i of D.incidents) { N.state.inc = i.id; const out = N.page('analysis-dossiers');
+  for (const m of out.matchAll(/data-dir="body:([^"]+)"/g)) if (!N.BODY[m[1]]) routeBad.push(`${i.id} → ${m[1]}`); }
+check(routeBad.length === 0, `every dossier "Open in directory" link resolves${routeBad.length ? ': ' + routeBad.join(', ') : ''}`);
 // Dossier: one case at a time, stage strip, four tabs, comparison table folded away
 N.state.inc = 'IN-INC-03'; N.state.dtab = 'overview';
 const dz = N.page('analysis-dossiers');

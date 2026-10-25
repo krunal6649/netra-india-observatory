@@ -109,6 +109,19 @@ details.stages>summary::-webkit-details-marker{display:none}
 .dtabs button:hover{color:var(--ink)}
 .dtabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent)}
 .vtag.pending{color:var(--muted);background:var(--soft)}
+.tm{position:relative;width:100%;aspect-ratio:16/7;margin-top:10px}
+.tile{position:absolute;box-sizing:border-box;border:2px solid var(--paper);border-left:5px solid var(--c);background:color-mix(in srgb,var(--c) 24%,var(--sheet));color:var(--ink);font:inherit;text-align:left;padding:8px 10px;cursor:pointer;overflow:hidden;display:flex;flex-direction:column;gap:2px;border-radius:6px;transition:background .15s}
+.tile:hover,.tile:focus-visible{background:color-mix(in srgb,var(--c) 42%,var(--sheet))}
+.tile.dashed{border-left-style:dashed}
+.tile b{font-size:.88rem;line-height:1.2;font-weight:600}
+.tile span{font-size:.74rem;color:var(--muted)}
+ol.steps{display:flex;flex-wrap:wrap;gap:6px;list-style:none;margin:0 0 8px;padding:0;font-size:.78rem}
+ol.steps li{padding:3px 10px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+ol.steps li.done{color:var(--ink)} ol.steps li[aria-current="step"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);font-weight:600}
+#directory .crumb{align-items:center}
+.tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px;margin-top:8px}
+.tgrid .tile{position:static;min-height:64px;border-width:1px 1px 1px 5px;border-color:var(--line);border-left-color:var(--c)}
+@media (max-width:820px){.tgrid{grid-template-columns:repeat(2,minmax(0,1fr))}.tgrid .tile span{display:block}.tm{aspect-ratio:3/4}.tile{padding:6px}.tile b{font-size:.78rem}.tile span{display:none}}
 @media (max-width:820px){.lrow>summary{grid-template-columns:minmax(0,1fr) auto auto}.lrow>summary .id{grid-column:1/-1}.lrow>summary .lt{grid-column:1/-1}.lrow .ldom{display:none}}
 .hint{color:var(--muted);font-size:.92rem;margin-top:4px;max-width:72ch}
 h4.ctitle{font-family:var(--f-display);font-size:1.15rem;font-weight:650;line-height:1.2;margin:8px 0 0;text-wrap:balance}
@@ -417,7 +430,7 @@ const STATE_WORD = {done:'done', secondary:'from secondary sources only', partia
 const KINDS = [['risks','Risks'],['incidents','Incidents'],['laws','Laws'],['measures','Measures']];
 const REPO = 'https://github.com/krunal6649/netra-india-observatory';
 const correctUrl = rec => REPO + '/issues/new?template=correction.yml&title=' + encodeURIComponent('Correction: ' + (rec || ''));
-const state = {view:'home', sub:'4.3', dom:'4', inc:'IN-INC-01', f:{}, q:'', showFilters:false, tour:-1, report:{kind:'incident', id:'IN-INC-01'}, dtab:'overview', mode:{incidents:'list', laws:'list'}, sort:{incidents:'new', laws:'new'}, limit:PAGE_SIZE};
+const state = {view:'home', sub:'4.3', dom:'4', inc:'IN-INC-01', f:{}, q:'', showFilters:false, tour:-1, report:{kind:'incident', id:'IN-INC-01'}, dtab:'overview', dir:{level:null, place:null, body:null}, mode:{incidents:'list', laws:'list'}, sort:{incidents:'new', laws:'new'}, limit:PAGE_SIZE};
 const h0 = (location.hash||'').slice(1); if(resolve(h0)) state.view = resolve(h0);
 
 /* ---------- shared bits ---------- */
@@ -487,6 +500,82 @@ function iris({size=440, onDark=false, select=null, metric='incidents'}={}){
   </svg>`;
 }
 
+/* ---------- Who to approach: a drill-down treemap (Level → Authority → Bodies → body page) ---------- */
+const DIR = PAYLOAD.directory, BODY = byId(DIR.bodies);
+const ROLE_COL = {enforces:'var(--d2)', adjudicates:'var(--d7)', regulates:'var(--d1)', supports:'var(--d3)'};
+const ROLE_NAME = DIR.meta.roles;
+const slugOf = s => String(s).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+const PRIORITY_PLACES = [...new Set(DIR.bodies.filter(b=>b.level==='state' && b.priority).map(b=>b.place))];
+/* Squarified treemap: lays weighted items into a w×h box, keeping tiles close to square */
+function squarify(items, x, y, w, h){
+  const out = [], total = items.reduce((a,b)=>a+b.w,0) || 1, scale = w*h/total;
+  let rest = items.map(it=>({...it, a: it.w*scale})).sort((p,q)=>q.a-p.a);  // the layout needs largest first
+  const worst = (row, side) => { const s = row.reduce((a,b)=>a+b.a,0), mx = Math.max(...row.map(r=>r.a)), mn = Math.min(...row.map(r=>r.a)); return Math.max(side*side*mx/(s*s), s*s/(side*side*mn)); };
+  while(rest.length){
+    const side = Math.min(w, h); let row = [rest[0]], k = 1;
+    while(k < rest.length && worst([...row, rest[k]], side) <= worst(row, side)){ row.push(rest[k]); k++; }
+    const s = row.reduce((a,b)=>a+b.a,0);
+    if(w >= h){ const cw = s/h; let cy = y; row.forEach(r=>{ const ch = r.a/cw; out.push({...r, x, y:cy, w:cw, h:ch}); cy += ch; }); x += cw; w -= cw; }
+    else { const ch = s/w; let cx = x; row.forEach(r=>{ const cw = r.a/ch; out.push({...r, x:cx, y, w:cw, h:ch}); cx += cw; }); y += ch; h -= ch; }
+    rest = rest.slice(k);
+  }
+  return out;
+}
+function treemap(items, label){
+  const rects = squarify(items, 0, 0, 100, 100);
+  return `<div class="tm" role="group" aria-label="${esc(label)}">${rects.map(r=>`<button type="button" class="tile${r.dashed?' dashed':''}" style="left:${r.x.toFixed(3)}%;top:${r.y.toFixed(3)}%;width:${r.w.toFixed(3)}%;height:${r.h.toFixed(3)}%;--c:${r.col||'var(--accent)'}" data-dir="${esc(r.go)}" data-tip="${esc(r.tip||'')}"><b>${esc(r.name)}</b>${r.sub?`<span>${esc(r.sub)}</span>`:''}</button>`).join('')}</div>`;
+}
+/* Equal-weight choices (the 36 states and UTs) read better as a row-by-row grid in alphabetical order */
+function tileGrid(items, label){
+  return `<div class="tgrid" role="group" aria-label="${esc(label)}">${items.map(r=>`<button type="button" class="tile${r.dashed?' dashed':''}" style="--c:${r.col||'var(--accent)'}" data-dir="${esc(r.go)}" data-tip="${esc(r.tip||'')}"><b>${esc(r.name)}</b>${r.sub?`<span>${esc(r.sub)}</span>`:''}</button>`).join('')}</div>`;
+}
+const vlabel = b => b.verified==='yes' ? `<span class="vtag yes">Checked ${esc(b.checked_on)}</span>` : '<span class="verify">to verify</span>';
+const bodyTip = b => `<b>${esc(b.name)}</b>${esc(ROLE_NAME[b.role])} · ${b.verified==='yes'?'checked':'to verify'}<br>${esc(b.can_do.length>140?b.can_do.slice(0,137)+'…':b.can_do)}`;
+function dirStep(){ const d = state.dir; return d.body ? 4 : d.place ? 3 : d.level ? 2 : 1; }
+function dirCrumb(){
+  const d = state.dir, parts = [['Who to approach','top']];
+  if(d.level) parts.push([d.level==='union'?'Union':'States and UTs', `level:${d.level}`]);
+  if(d.place) parts.push([d.place, `place:${d.level}:${d.place}`]);
+  if(d.body) parts.push([BODY[d.body].name, '']);
+  const steps = ['Level','Authority','Bodies','Body'], at = dirStep();
+  return `<ol class="steps" aria-label="Steps">${steps.map((s,k)=>`<li ${k+1===at?'aria-current="step"':''} class="${k+1<at?'done':''}">${k+1}. ${s}</li>`).join('')}</ol>
+   <div class="crumb">${parts.map(([l,go],k)=>go && k<parts.length-1 ? `<button type="button" data-dir="${esc(go)}">${esc(l)}</button>` : `<span>${esc(l)}</span>`).join('<span aria-hidden="true">›</span>')}
+   ${d.place||d.body?`<button type="button" class="btn sm" style="margin-left:auto" data-dir="${esc(d.body?`place:${d.level}:${d.place}`:`level:${d.level}`)}">${d.body?'Back to treemap':'Back'}</button>`:''}</div>`;
+}
+function dirBody(b){
+  return `<section class="sheet dbody" style="border-top:6px solid ${ROLE_COL[b.role]}">
+   <div class="row"><span class="chip" style="--c:${ROLE_COL[b.role]}"><i></i>${esc(ROLE_NAME[b.role])}</span><span class="chip">${esc(b.group)}</span><span class="note">${esc(b.level==='union'?'Union':`${b.place} (${b.place_type})`)}</span>${vlabel(b)}</div>
+   <h3 style="margin-top:10px;font-size:1.4rem">${esc(b.name)}</h3><p class="hint">What this body can do, the laws it may apply, and how to reach it.</p>
+   <dl class="kv"><dt>What it can do</dt><dd>${esc(b.can_do)}</dd>
+    <dt>Laws it may apply</dt><dd>${b.laws.length?`<div class="row">${b.laws.map(insChip).join('')}</div>`:'<span class="note">None recorded yet.</span>'}</dd>
+    <dt>How to report</dt><dd>${esc(b.how_to_report)}${b.phone?` <b>Phone: ${esc(b.phone)}</b>`:''}</dd>
+    <dt>Official website</dt><dd>${b.url?`<a href="${esc(b.url)}" target="_blank" rel="noopener">${esc(new URL(b.url).hostname)}</a>`:'<span class="note">Not added yet.</span>'}</dd>
+    <dt>Date checked</dt><dd>${b.checked_on?`${esc(b.checked_on)} by ${esc(b.checked_by)}`:'<span class="note">Not yet checked against an official source.</span>'}</dd>
+    <dt>Status</dt><dd>${vtag(b.verified)} <span class="note">${esc(b.source)}</span></dd>
+    <dt>Corrections</dt><dd>${correctLink(b.id)}</dd></dl></section>`;
+}
+function dirSection(){
+  const d = state.dir;
+  const union = DIR.bodies.filter(b=>b.level==='union'), stb = DIR.bodies.filter(b=>b.level==='state');
+  let view;
+  if(d.body && BODY[d.body]) view = dirBody(BODY[d.body]);
+  else if(d.place){
+    const list = d.level==='union' ? union.filter(b=>b.group===d.place) : stb.filter(b=>b.place===d.place);
+    view = treemap(list.map(b=>({w:1, name:b.name, sub:`${ROLE_NAME[b.role]}${b.verified==='yes'?'':' · to verify'}`, col:ROLE_COL[b.role], go:`body:${b.id}`, tip:bodyTip(b), dashed:b.verified!=='yes'})), `Bodies in ${d.place}`);
+  }
+  else if(d.level==='union') view = treemap(DIR.meta.union_groups.map(g=>{ const n = union.filter(b=>b.group===g).length; return {w:n, name:g, sub:`${n} bod${n>1?'ies':'y'}`, go:`place:union:${g}`, tip:`<b>${esc(g)}</b>${n} bodies`}; }), 'Union groups');
+  else if(d.level==='state'){ const tile = t => p => ({name:p, sub:PRIORITY_PLACES.includes(p)?'checked first':'', go:`place:state:${p}`, dashed:t!=='State', col:PRIORITY_PLACES.includes(p)?'var(--accent)':'var(--na)', tip:`<b>${esc(p)}</b>${t}${PRIORITY_PLACES.includes(p)?' · checked first':''}`});
+    view = `<h4 class="ctitle" style="font-size:1rem;margin-top:12px">States (28)</h4>${tileGrid(D.states_uts.states.map(tile('State')), 'States')}<h4 class="ctitle" style="font-size:1rem;margin-top:14px">Union territories (8)</h4>${tileGrid(D.states_uts.union_territories.map(tile('Union territory')), 'Union territories')}`; }
+  else view = treemap([{w:union.length, name:'Union', sub:`${union.length} bodies: ministries, regulators, courts, commissions`, go:'level:union', col:'var(--accent)'},
+                       {w:36, name:'States and union territories', sub:'28 states and 8 UTs: police, High Courts, commissions', go:'level:state', col:'var(--d3)'}], 'Choose a level');
+  const legend = dirStep() >= 3 ? `<div class="legend">${Object.entries(ROLE_NAME).map(([k,v])=>`<span style="--c:${ROLE_COL[k]}"><i></i>${esc(v)}</span>`).join('')}<span>· dashed edge = to verify</span></div>` :
+    d.level==='state' ? '<div class="legend"><span style="--c:var(--accent)"><i></i>States and UTs named in cases (checked first)</span><span style="--c:var(--na)"><i></i>Others</span><span>· dashed edge = union territory</span></div>' : '';
+  return `<section class="sheet" id="directory" style="margin-top:18px">${H3('Who to approach','Find the body that can act: pick a level, then an authority, then a body to see what it can do and how to reach it.')}
+   <p class="callout" style="margin-top:12px"><b>Lost money to cyber fraud?</b> Call <b>1930</b> or report at cybercrime.gov.in first. Speed matters for freezing funds. NETRA is not a complaint service.</p>
+   <p class="note" style="margin-top:8px">What NETRA adds: AI-role analysis, evidence preservation, legal mapping and gaps, for lawyers, researchers and policymakers. Every entry is “to verify” until checked against an official source; ${DIR.bodies.filter(b=>b.verified==='yes').length} of ${DIR.bodies.length} are checked so far.</p>
+   <div style="margin-top:14px">${dirCrumb()}${view}${legend}</div></section>`;
+}
+
 /* ---------- views ---------- */
 const V = {};
 const isReviewed = i => i.review !== 'unreviewed';
@@ -505,7 +594,8 @@ V.home = () => {
     </div>
     <div class="iris-wrap">${iris({onDark:true})}</div>
   </section>
-  <div class="legend" style="margin-top:12px">${T.domains.map(d=>`<span style="--c:var(--d${d.id})"><i></i>${d.id}. ${esc(d.name)}</span>`).join('')}<span>· darker segment = more incidents and law on record · click a segment to open that risk area</span></div>
+  ${dirSection()}
+  <div class="legend" style="margin-top:18px">${T.domains.map(d=>`<span style="--c:var(--d${d.id})"><i></i>${d.id}. ${esc(d.name)}</span>`).join('')}<span>· darker segment = more incidents and law on record · click a segment to open that risk area</span></div>
 
   ${H3('Where incidents outrun binding law','Each card is one risk domain: how many incidents are on record, against how many binding and soft instruments reach it.','margin-top:30px')}
   <div class="grid g-3" style="margin-top:12px">${T.domains.map(d=>{ const c = domCoverage(d.id); const flag = c.incidents && c.hard < c.incidents;
@@ -737,6 +827,11 @@ function courtDocs(i){
   return (i.court_documents||[]).length ? `<div class="route">${i.court_documents.map(c=>`<div><span class="num" aria-hidden="true">§</span><div><a href="${esc(c.url)}" target="_blank" rel="noopener"><b>${esc(c.title)}</b></a><div class="note">${esc(c.court)} · ${esc(c.kind)} · ${esc(c.date)} · ${c.host==='official'?'court website':'other copy'} ${c.opened==='yes'?`<span class="vtag yes">Checked by ${esc(c.checked_by)}, ${esc(c.checked_on)}</span>`:'<span class="vtag partial">Link not yet opened</span>'}</div><div class="note">${esc(c.note)}</div></div></div>`).join('')}</div>`
     : `<p class="note" style="margin-top:6px">No official court document has been located for this case. Indian courts usually publish orders and judgments, not petitions; they are added here when found on a court website.</p>`;
 }
+function dirLink(a, inc){
+  const place = inc.state.split(' (')[0];
+  const go = a.directory ? `body:${a.directory[0]}` : (place!=='National' ? `body:S-${slugOf(place)}-${a.directory_state}` : 'level:state');
+  return `<button type="button" class="linkbtn" data-dir="${esc(go)}">Open in directory</button>`;
+}
 V['analysis-dossiers'] = () => {
   const i = INC[state.inc], n = i.netra, col = dc(i.domains[0]);
   const gaps = D.gaps.filter(g=>g.incidents.includes(i.id));
@@ -767,7 +862,7 @@ V['analysis-dossiers'] = () => {
    ${panel('report', `<div class="grid g-2"><div>${H3('Where to report or seek relief','Information only. NETRA never files reports.')}
       ${i.harm_types.includes('Financial loss')?'<p class="callout" style="margin-top:10px">For financial cyber fraud, call <b>1930</b> or use cybercrime.gov.in first.</p>':''}
       ${unchecked?'<p class="note" style="margin-top:8px">These contact routes come from the pilot list and have not yet been checked against each body’s official website.</p>':''}
-      <div class="route">${n.authorities.map((a,k)=>`<div><span class="num">${k+1}</span><div><b>${esc(AUTH[a].name)}</b>${AUTH[a].verified!=='yes'?' <span class="vtag pending">not yet checked</span>':''}<div class="note">${esc(AUTH[a].role)} · <a href="${esc(AUTH[a].url)}" target="_blank" rel="noopener">${esc(new URL(AUTH[a].url).hostname)}</a></div></div></div>`).join('')}</div></div>
+      <div class="route">${n.authorities.map((a,k)=>`<div><span class="num">${k+1}</span><div><b>${esc(AUTH[a].name)}</b>${AUTH[a].verified!=='yes'?' <span class="vtag pending">not yet checked</span>':''}<div class="note">${esc(AUTH[a].role)} · <a href="${esc(AUTH[a].url)}" target="_blank" rel="noopener">${esc(new URL(AUTH[a].url).hostname)}</a> · ${dirLink(AUTH[a], i)}</div></div></div>`).join('')}</div></div>
      <div>${H3('Location & jurisdiction','Kept separate, as NETRA requires; one case can touch several jurisdictions.')}
       <div class="loc">${Object.entries(n.locations).map(([k,v])=>`<div><span>${esc(LOC_LABEL[k]||k)}</span>${esc(v)}</div>`).join('')}</div>
       <h4 class="ctitle" style="font-size:1rem;margin-top:16px">Official court documents</h4>${courtDocs(i)}</div></div>`)}
@@ -1024,6 +1119,7 @@ V['about-credits'] = () => {
   <section class="sheet">${H3('Laws, rules and orders','Sites the legal records link to. Official copies are preferred; others are marked “to verify”.')}${hostList(hosts(D.instruments.flatMap(i=>[i.url, i.gazette_url].filter(Boolean))))}</section>
   <section class="sheet">${H3('Incident reporting','News and legal-reporting sites behind the incident records. Short facts only; no article text is copied.')}${hostList(hosts(D.incidents.flatMap(i=>i.sources.map(s=>s.url))))}</section>
   <section class="sheet">${H3('Global evidence','Technical reports cited and summarised, never copied in bulk.')}<ul style="margin:8px 0 0;padding-left:18px">${G.sources.map(s=>`<li><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a></li>`).join('')}</ul><p class="note" style="margin-top:6px">METR: cite and summarise only, with links. METR retains its rights.</p></section>
+  <section class="sheet">${H3('Who to approach directory','Where the directory entries come from.')}<p style="margin-top:6px">${DIR.bodies.length} bodies: ${DIR.bodies.filter(b=>b.level==='union').length} Union bodies and 10 standard bodies for each of the 36 states and UTs. Groups and High Court names follow the project’s authorities plan. Links come from the bodies’ official sites; each entry says whether it has been checked (${DIR.bodies.filter(b=>b.verified==='yes').length} so far).</p></section>
   <section class="sheet">${H3('Fonts','Typefaces served by Google Fonts.')}<p style="margin-top:6px">Newsreader, IBM Plex Sans, IBM Plex Mono and Noto Serif Devanagari, under the SIL Open Font License 1.1.</p></section>
   <section class="sheet">${H3('Planned sources, not used yet','Checked for reuse terms; nothing from them is on the site yet.')}<ul style="margin:8px 0 0;padding-left:18px">
    <li>Epoch AI benchmark data (CC BY 4.0)</li><li>MITRE ATLAS (Apache 2.0)</li><li>AVID vulnerability database (MIT licence)</li><li>OWASP Top 10 for LLM Applications (CC BY-SA 4.0, kept in its own file)</li><li>Developer system cards and UK AI Security Institute reports (cite and summarise only)</li></ul></section>
@@ -1196,7 +1292,7 @@ async function publishSummary(){
 
 /* ---------- shell ---------- */
 const TOUR = [
-  ['home','Home','The counter shows how many cases are tracked and how many a person has reviewed. Click any segment of the wheel to open that risk area.'],
+  ['home','Home','The counter shows how many cases are tracked and how many a person has reviewed. Below it, Who to approach lets you drill down from Union or state to the body that can act. Click any segment of the wheel to open that risk area.'],
   ['explore-incidents','Explore','One searchable list. The switch changes between risks, incidents, laws and measures. Filters stay hidden until you click the Filters button.'],
   ['analysis-dossiers','Analysis','NETRA dossiers trace each incident through 14 stages: location, laws that may apply, where to report, gaps, and what is still unknown. Each dossier has a Generate report button.'],
   ['about-verification','Verification status','Which legal records have been checked against official texts, and what is still missing for the rest.'],
@@ -1234,7 +1330,7 @@ document.addEventListener('pointerover', e => { const t = e.target.closest?.('[d
 document.addEventListener('pointermove', e => { if(!$tip.classList.contains('show')) return; const w = $tip.offsetWidth, h = $tip.offsetHeight; let x = e.clientX+14, y = e.clientY+14; if(x+w>innerWidth-8) x = e.clientX-w-14; if(y+h>innerHeight-8) y = e.clientY-h-14; $tip.style.left = Math.max(8,x)+'px'; $tip.style.top = Math.max(8,y)+'px'; });
 document.addEventListener('click', e => {
   if(e.target.closest?.('#theme-btn')){ setTheme(document.documentElement.getAttribute('data-theme')==='light' ? 'dark' : 'light', true); return; }
-  const t = e.target.closest('[data-dtab],[data-mode],[data-more],[data-unfilter],[data-unq],[data-go],[data-sub],[data-dom],[data-inc],[data-law],[data-report],[data-scroll],[data-pill],[data-clear],[data-filters],[data-tour],#rep-copy,#rep-dl,#rep-print,#sv-refresh,#sv-publish,#sv-copy,#sv-doimport');
+  const t = e.target.closest('[data-dir],[data-dtab],[data-mode],[data-more],[data-unfilter],[data-unq],[data-go],[data-sub],[data-dom],[data-inc],[data-law],[data-report],[data-scroll],[data-pill],[data-clear],[data-filters],[data-tour],#rep-copy,#rep-dl,#rep-print,#sv-refresh,#sv-publish,#sv-copy,#sv-doimport');
   if(!t) return;
   if(t.id==='rep-copy'){ copyReport(); return; }
   if(t.id==='rep-dl'){ downloadReport(); return; }
@@ -1245,6 +1341,13 @@ document.addEventListener('click', e => {
   if(t.id==='sv-publish'){ publishSummary(); return; }
   e.preventDefault();
   if(t.dataset.tour){ const a = t.dataset.tour; return tour(a==='start' ? 0 : a==='next' ? state.tour+1 : a==='back' ? state.tour-1 : -1); }
+  if(t.dataset.dir){ const [k, a, ...b] = t.dataset.dir.split(':'), v = b.join(':');
+    if(k==='top') state.dir = {level:null, place:null, body:null};
+    else if(k==='level') state.dir = {level:a, place:null, body:null};
+    else if(k==='place') state.dir = {level:a, place:v, body:null};
+    else if(k==='body'){ const x = BODY[a]; state.dir = {level:x.level, place:x.level==='union'?x.group:x.place, body:a}; }
+    if(state.view!=='home') go('home'); else render();
+    document.getElementById('directory')?.scrollIntoView?.({block:'start'}); return; }
   if(t.dataset.dtab){ state.dtab = t.dataset.dtab; return render(); }
   if(t.dataset.mode){ const [k, m] = t.dataset.mode.split(':'); state.mode[k] = m; return render(); }
   if(t.dataset.more){ state.limit += PAGE_SIZE; return render(); }
@@ -1282,6 +1385,6 @@ document.getElementById('built').textContent = `Data updated ${D.meta.updated}; 
 for(const [id, href] of [['foot-correct', correctUrl('')], ['foot-code', REPO]]){ const a = document.getElementById(id); if(a) a.href = href; }
 if(h0 && LEGACY[h0]){ try{ history.replaceState(null,'','#'+state.view); }catch(e){} }
 renderTabs(); render(); initSurvey();
-window.__NETRA = {state, V, PAGES, LEGACY, resolve, page, go, aggregate, SV, encodeAnswers, decodeCodes, TOUR, reportMd, mdToHtml};
+window.__NETRA = {state, squarify, BODY, V, PAGES, LEGACY, resolve, page, go, aggregate, SV, encodeAnswers, decodeCodes, TOUR, reportMd, mdToHtml};
 })();
 </script>
