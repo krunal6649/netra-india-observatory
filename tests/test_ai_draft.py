@@ -92,7 +92,9 @@ class Tests(unittest.TestCase):
 
     def test_metadata_checked(self):
         a = type("A", (), {"title": "", "source": "http://x", "date": "1 Oct", "licence": "Whatever"})
-        self.assertEqual(len(ai_draft.check_meta(a)), 4)
+        self.assertEqual(len(ai_draft.check_meta(a)), 3)
+        blank = type("B", (), {"title": "", "source": "", "date": "", "licence": ""})
+        self.assertEqual(ai_draft.check_meta(blank), [])
 
     def test_build_rejects_a_draft_marked_reviewed(self):
         drafts = build.DATA / "drafts"

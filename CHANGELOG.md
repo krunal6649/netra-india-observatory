@@ -12,8 +12,8 @@
 - **Model reports** in the report generator: Part A "What METR found" (or "What the testers found"), Part B "NETRA's
   India analysis", plus the usual evidence, NIST and review sections.
 - **Add a report** (Model register and Report generator): PDF (pdf.js from cdnjs, loaded only for PDFs), Word (.docx,
-  read with the browser's own unzip), text or Markdown, read in the browser only; title, source, date and licence
-  are checked.
+  read with the browser's own unzip), text or Markdown, read in the browser only. The file is read as soon as it is chosen; title, source, date and
+  licence are optional, and anything filled in is checked.
 - **AI-assisted Extract, Triage, Draft** with the visitor's own key (Anthropic, or any OpenAI-compatible service),
   after a disclosure that the document leaves the browser; key held in memory only. **Owner-only option:**
   `scripts/ai_draft.py` (standard library) and `.github/workflows/ai-draft.yml`, which opens an unreviewed draft pull

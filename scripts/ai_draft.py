@@ -6,8 +6,8 @@ safeguards, and writes data/drafts/<slug>.json as an unreviewed draft. The GitHu
 .github/workflows/ai-draft.yml runs this and opens a pull request; nothing is merged automatically.
 
 Usage (from the repo root):
-    NETRA_AI_KEY=... python3 scripts/ai_draft.py --file uploads/report.md --title "..." \\
-        --source https://example.org/report --date 2026-10-01 --licence "CC BY 4.0"
+    NETRA_AI_KEY=... python3 scripts/ai_draft.py --file uploads/report.md [--title "..."] \\
+        [--source https://example.org/report --date 2026-10-01 --licence "CC BY 4.0"]
 
 Environment:
     NETRA_AI_KEY       API key (required; never written anywhere)
@@ -178,22 +178,22 @@ def run(text, meta, ask):
 
 
 def check_meta(a):
+    """Title, source, date and licence are optional; anything given must be well formed."""
     errs = []
-    if not a.title.strip():
-        errs.append("title is required")
-    if not (a.source.startswith("https://") or (a.source.strip() and "://" not in a.source)):
+    if a.source.strip() and "://" in a.source and not a.source.startswith("https://"):
         errs.append("source must be an https link or a plain name")
-    if not re.match(r"^\d{4}-\d{2}-\d{2}$", a.date):
+    if a.date and not re.match(r"^\d{4}-\d{2}-\d{2}$", a.date):
         errs.append("date must be YYYY-MM-DD")
-    if a.licence not in LICENCES:
+    if a.licence and a.licence not in LICENCES:
         errs.append(f"licence must be one of: {', '.join(sorted(LICENCES))}")
     return errs
 
 
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    for k in ("file", "title", "source", "date", "licence"):
-        ap.add_argument("--" + k, required=True)
+    ap.add_argument("--file", required=True)
+    for k in ("title", "source", "date", "licence"):
+        ap.add_argument("--" + k, default="")
     a = ap.parse_args(argv)
     errs = check_meta(a)
     if errs:
@@ -204,11 +204,11 @@ def main(argv=None):
     provider = os.environ.get("NETRA_AI_PROVIDER", "anthropic")
     model, base = os.environ.get("NETRA_AI_MODEL", ""), os.environ.get("NETRA_AI_BASE", "")
     text = read_document(a.file)
-    meta = {"title": a.title.strip(), "source": a.source.strip(), "date": a.date, "licence": a.licence,
+    meta = {"title": a.title.strip() or Path(a.file).stem, "source": a.source.strip(), "date": a.date, "licence": a.licence or "Unknown",
             "provider": provider, "model": model or (PROMPTS["anthropic"]["default_model"] if provider == "anthropic" else "")}
     out = run(text, meta, lambda s, u, sc: call_model(s, u, sc, provider, key, model, base))
-    slug = re.sub(r"[^a-z0-9]+", "-", a.title.lower()).strip("-")[:60] or "draft"
-    dest = ROOT / "data" / "drafts" / f"{a.date}-{slug}.json"
+    slug = re.sub(r"[^a-z0-9]+", "-", meta["title"].lower()).strip("-")[:60] or "draft"
+    dest = ROOT / "data" / "drafts" / f"{a.date or date.today().isoformat()}-{slug}.json"
     dest.parent.mkdir(exist_ok=True)
     dest.write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"Wrote {dest.relative_to(ROOT)}: {len(out['quotes'])} quotes kept, {len(out['quotes_removed'])} removed, {len(out['safeguard_flags'])} sentences redacted.")

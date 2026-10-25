@@ -10,19 +10,19 @@ on:
         description: "Path in the repo to a .txt, .md or .docx file (for example uploads/report.md)"
         required: true
       title:
-        description: "Title of the report"
-        required: true
+        description: "Title of the report (optional)"
+        required: false
       source:
-        description: "Public https link to the report, or the publisher's name"
-        required: true
+        description: "Public https link to the report, or the publisher's name (optional)"
+        required: false
       date:
-        description: "Publication date, YYYY-MM-DD"
-        required: true
+        description: "Publication date, YYYY-MM-DD (optional)"
+        required: false
       licence:
-        description: "Licence of the report"
-        required: true
+        description: "Licence of the report (optional)"
+        required: false
         type: choice
-        options: ["CC BY 4.0", "CC BY-SA 4.0", "Apache 2.0", "MIT", "Public domain", "Cite and summarise only", "Unknown"]
+        options: ["", "CC BY 4.0", "CC BY-SA 4.0", "Apache 2.0", "MIT", "Public domain", "Cite and summarise only", "Unknown"]
 
 permissions:
   contents: write
@@ -52,14 +52,15 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           IN_TITLE: ${{ inputs.title }}
+          IN_FILE: ${{ inputs.file }}
         run: |
           branch="ai-draft/${GITHUB_RUN_ID}"
           git config user.name "netra-ai-draft"
           git config user.email "actions@users.noreply.github.com"
           git checkout -b "$branch"
           git add data/drafts
-          git commit -m "AI draft (unreviewed): $IN_TITLE"
+          git commit -m "AI draft (unreviewed): ${IN_TITLE:-$IN_FILE}"
           git push -u origin "$branch"
           gh pr create --draft --base main --head "$branch" \
-            --title "AI draft (unreviewed): $IN_TITLE" \
+            --title "AI draft (unreviewed): ${IN_TITLE:-$IN_FILE}" \
             --body "AI-assisted draft produced by scripts/ai_draft.py. Unreviewed. Quotes were checked word for word against the source; non-matching quotes were removed and sentences that read as legal conclusions were redacted. A person must review it before anything is used. Not legal advice."

@@ -234,6 +234,8 @@ details.sheet.more>summary{margin-top:0}
 select,input[type=search],textarea{font:inherit;font-size:.9rem;color:var(--ink);background:var(--sheet);border:1px solid var(--line);border-radius:8px;padding:7px 10px;width:100%;min-width:0}
 textarea{min-height:80px;resize:vertical}
 .field{display:flex;flex-direction:column;gap:4px;font-size:.78rem;color:var(--muted);font-weight:600}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.filebtn{display:inline-flex;align-items:center;gap:6px}.filebtn:focus-within{outline:2px solid var(--accent);outline-offset:2px}
 .btn{font:inherit;font-size:.88rem;font-weight:500;border:1px solid var(--line);background:var(--sheet);color:var(--ink);border-radius:999px;padding:7px 15px;cursor:pointer;transition:border-color .15s,background .15s}
 .btn:hover{border-color:var(--accent)}
 .btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);font-weight:600}
@@ -1203,12 +1205,12 @@ function filterTriage(t){
   return {risk_areas: keep(t.risk_areas, x=>!!SUB[x]), possible_laws: keep(t.possible_laws, l=>!!INS[l.instrument_id] && ['possible','interpretive','gap'].includes(l.label)),
           authorities: keep(t.authorities, x=>!!BODY[x] && BODY[x].level==='union'), gaps: (t.gaps||[]).filter(g=>g && g.title), dropped};
 }
+/* title, source, date and licence are optional; anything filled in must be well formed */
 function validateMeta(m){
   const e = [];
-  if(!m.title.trim()) e.push('Add a title.');
-  if(!m.source.trim() || (/^[a-z]+:\/\//i.test(m.source) && !/^https:\/\//i.test(m.source))) e.push('Source must be an https link or a plain name.');
-  if(!/^\d{4}-\d{2}-\d{2}$/.test(m.date) || isNaN(new Date(m.date))) e.push('Date must be YYYY-MM-DD.');
-  if(!LICENCE_OPTS.includes(m.licence)) e.push('Choose a licence.');
+  if(m.source.trim() && /^[a-z]+:\/\//i.test(m.source) && !/^https:\/\//i.test(m.source)) e.push('Source must be an https link or a plain name.');
+  if(m.date && (!/^\d{4}-\d{2}-\d{2}$/.test(m.date) || isNaN(new Date(m.date)))) e.push('Date must be YYYY-MM-DD.');
+  if(m.licence && !LICENCE_OPTS.includes(m.licence)) e.push('Choose a licence from the list.');
   return e;
 }
 async function unzipEntry(buf, name){
@@ -1309,12 +1311,12 @@ function uploadPanel(){
   return `<section class="sheet" id="upload" style="margin-bottom:14px;border:2px solid var(--accent)">${H3('Add a report','Read a PDF, Word (.docx), text or Markdown file in this browser. Nothing is uploaded or stored.')}
    <p class="note" style="margin-top:6px">The file is read only in this tab and is forgotten when you close or reload it. NETRA has no server and keeps no copy.</p>
    <div class="grid g-2" style="margin-top:12px">
-    <label class="field">File<input type="file" id="up-file" accept=".pdf,.docx,.txt,.md,.markdown"></label>
-    <label class="field">Title<input type="text" id="up-title" value="${esc(m.title)}" autocomplete="off"></label>
-    <label class="field">Source (https link or publisher)<input type="text" id="up-source" value="${esc(m.source)}" autocomplete="off"></label>
-    <label class="field">Date (YYYY-MM-DD)<input type="text" id="up-date" value="${esc(m.date)}" placeholder="2026-10-25" autocomplete="off"></label>
-    <label class="field">Licence<select id="up-licence"><option value="">Choose</option>${LICENCE_OPTS.map(x=>`<option ${x===m.licence?'selected':''}>${esc(x)}</option>`).join('')}</select></label></div>
-   <div class="row" style="margin-top:10px"><button type="button" class="btn primary" id="up-read">Read file</button><span class="status-msg ${UP.errors.length?'err':UP.ok?'ok':''}" id="up-msg" role="status">${esc(UP.errors.join(' ') || UP.msg)}</span></div>
+    <div class="field">File<div class="row" style="align-items:center"><label class="btn primary filebtn">${svgIcon('report',16)} ${UP.fileObj?'Choose another file':'Choose file'}<input type="file" id="up-file" class="sr-only" accept=".pdf,.docx,.txt,.md,.markdown"></label><span class="note" id="up-fname">${UP.fileObj?esc(UP.fileObj.name):'No file chosen'}</span></div></div>
+    <label class="field">Title (optional)<input type="text" id="up-title" value="${esc(m.title)}" autocomplete="off"></label>
+    <label class="field">Source (optional: https link or publisher)<input type="text" id="up-source" value="${esc(m.source)}" autocomplete="off"></label>
+    <label class="field">Date (optional, YYYY-MM-DD)<input type="text" id="up-date" value="${esc(m.date)}" placeholder="e.g. 2026-10-25" autocomplete="off"></label>
+    <label class="field">Licence (optional)<select id="up-licence"><option value="">Not stated</option>${LICENCE_OPTS.map(x=>`<option ${x===m.licence?'selected':''}>${esc(x)}</option>`).join('')}</select></label></div>
+   <div class="row" style="margin-top:10px">${UP.fileObj?`<button type="button" class="btn" id="up-read">Read again</button>`:''}<span class="status-msg ${UP.errors.length?'err':UP.ok?'ok':''}" id="up-msg" role="status">${esc(UP.errors.join(' ') || UP.msg)}</span></div>
    ${ready?`<details class="more" style="margin-top:10px"><summary>Show the text read from ${esc(UP.file)}</summary><pre class="uptext">${esc(UP.text.slice(0,4000))}${UP.text.length>4000?'\n…':''}</pre></details>
    <section style="margin-top:14px">${H3('AI-assisted draft (optional)','Extract, Triage and Draft with your own API key. Results are unreviewed drafts and never change NETRA’s data.')}
     <div class="grid g-2" style="margin-top:10px">
@@ -1331,8 +1333,9 @@ function uploadPanel(){
 function readUpMeta(){ const g = id => document.getElementById(id)?.value ?? ''; UP.meta = {title:g('up-title'), source:g('up-source'), date:g('up-date').trim(), licence:g('up-licence')}; }
 async function doRead(){
   readUpMeta(); UP.errors = validateMeta(UP.meta); UP.ok = false;
-  const f = document.getElementById('up-file')?.files?.[0];
-  if(!f) UP.errors.push('Choose a file.');
+  /* the File is kept in UP so that re-rendering the form (which empties the file input) does not lose it */
+  const f = document.getElementById('up-file')?.files?.[0] || UP.fileObj;
+  if(f) UP.fileObj = f; else UP.errors.push('Choose a file.');
   if(UP.errors.length) return render();
   UP.msg = 'Reading…'; UP.errors = []; const msg = document.getElementById('up-msg'); if(msg) msg.textContent = UP.msg;
   try{ const r = await readUpload(f); if(!r.text.trim()) throw new Error('No text was found in this file. A scanned PDF needs OCR first.');
@@ -1670,6 +1673,7 @@ document.addEventListener('change', e => {
   if(e.target.id==='nav-sub' && e.target.value){ state.sub = e.target.value; render(); }
   if(e.target.id==='dossier-pick'){ state.inc = e.target.value; state.dtab = 'overview'; return render(); }
   if(e.target.dataset?.sort){ state.sort[e.target.dataset.sort] = e.target.value; state.limit = PAGE_SIZE; return render(); }
+  if(e.target.id==='up-file' && e.target.files?.[0]){ UP.fileObj = e.target.files[0]; return doRead(); }
   if(e.target.id==='ai-provider'){ UP.provider = e.target.value; UP.model = ''; readUpMeta(); return render(); }
   if(e.target.id==='rep-kind'){ const k = e.target.value; state.report = {kind:k, id: REPORT_KINDS[k].items()[0][0]}; render(); }
   if(e.target.id==='rep-item'){ state.report = {...state.report, id: e.target.value}; render(); }
