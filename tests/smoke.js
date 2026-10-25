@@ -29,6 +29,7 @@ for (const v of Object.keys(N.PAGES)) {
 const shell = html.slice(html.indexOf('<header'), html.indexOf('<script>'));
 check((shell.match(/[ऀ-ॿ]+/g) || []).every(w => w === 'नेत्र'), 'Devanagari appears only as the title नेत्र');
 check(!/class="stats"|class="stat"/.test(N.page('home')), 'home has no separate stat boxes');
+check(!N.page('home').includes('Explore the cases') && !N.page('home').includes('data-tour="start"'), 'home banner has no buttons repeating the header');
 const nRev = D.incidents.filter(i => i.review !== 'unreviewed').length;
 check(N.page('home').includes(`data-count="${D.incidents.length}"`) && N.page('home').includes(`${nRev} reviewed by a person · ${D.incidents.length - nRev} unreviewed`) && N.page('home').includes(D.meta.updated), 'home counter is computed from the data, with the update date');
 for (const [old, now] of [['navigator','explore-area'],['risks','explore-risks'],['incidents','explore-incidents'],['governance','explore-laws'],['mitigations','explore-measures'],['netra','analysis-dossiers'],['gaps','analysis-gaps'],['evidence','about-evidence'],['survey','about-survey'],['about','about-method']])
@@ -48,13 +49,41 @@ check(N.page('explore-incidents').includes('id="IN-INC-07"') && !N.page('explore
 N.state.q = '';
 N.state.f.laws = { force: 'hard' };
 check(!N.page('explore-laws').includes('id="ins-G-AIGG"'), 'binding filter hides soft-law guidelines');
-N.state.f.laws = {};
+N.state.f.laws = {}; N.state.limit = Infinity;
 const laws = N.page('explore-laws');
+N.state.limit = 20;
 check(laws.includes('Act 45 of 2023') && laws.includes('G.S.R. 794(E)') && laws.includes('Pune Bar Association') && laws.includes('egazette.gov.in'), 'law cards show act numbers, Gazette notifications, cases and Gazette links');
 check(N.page('about-credits').includes('CC BY 4.0') && N.page('about-credits').includes('METR'), 'sources and credits page lists licences');
 check(N.page('analysis-dossiers').includes('All sources and credits') && N.page('analysis-gaps').includes('All sources and credits'), 'analysis pages show credits');
 check(N.page('about-verification').includes('Partly verified') && N.page('about-method').includes('issues/new?template=correction.yml'), 'verification status and correction link render');
 check(N.TOUR.every(([p]) => N.PAGES[p]), 'every guided tour step points at a real page');
+// Explore stays usable as the database grows: compact rows, sorting, paging, more filters, filter chips
+N.state.q = ''; N.state.f.incidents = {}; N.state.limit = 20; N.state.mode.incidents = 'list'; N.state.sort.incidents = 'new';
+let ex = N.page('explore-incidents');
+const rows = (ex.match(/<details class="lrow"/g) || []).length;
+check(rows === Math.min(20, D.incidents.length) && (D.incidents.length <= 20 || ex.includes(`(${D.incidents.length - 20} not shown)`)), `list shows 20 compact rows with a Show more button (${rows} rows)`);
+N.state.limit = Infinity;
+check((N.page('explore-incidents').match(/<details class="lrow"/g) || []).length === D.incidents.length, 'Show more reveals every case');
+N.state.sort.incidents = 'sev';
+const ids = [...N.page('explore-incidents').matchAll(/<details class="lrow" id="(IN-INC-\d+)"/g)].map(m => m[1]);
+const sevs = ids.map(id => D.incidents.find(i => i.id === id).severity);
+check(sevs.every((v, k) => k === 0 || sevs[k - 1] >= v), 'Most severe first sorts by severity');
+N.state.sort.incidents = 'new';
+N.state.f.incidents = { state: 'Karnataka' };
+ex = N.page('explore-incidents');
+check([...ex.matchAll(/<details class="lrow" id="(IN-INC-\d+)"/g)].every(m => D.incidents.find(i => i.id === m[1]).state.startsWith('Karnataka')) && ex.includes('data-unfilter="state"'), 'state filter narrows the list and shows a removable chip');
+N.state.showFilters = true; N.state.f.incidents = {};
+const allStates = N.page('explore-incidents');
+check(D.states_uts.states.concat(D.states_uts.union_territories).every(x => allStates.includes(`<option value="${x}"`)) && allStates.includes('Lakshadweep (0)') && allStates.includes('optgroup label="Union territories (8)"'), 'state filter lists all 28 states and 8 UTs with case counts');
+N.state.f.incidents = { rev: 'unreviewed' };
+check([...N.page('explore-incidents').matchAll(/<details class="lrow" id="(IN-INC-\d+)"/g)].every(m => D.incidents.find(i => i.id === m[1]).review === 'unreviewed'), 'review filter keeps only unreviewed cases');
+N.state.f.incidents = { year: '2025' };
+check([...N.page('explore-incidents').matchAll(/<details class="lrow" id="(IN-INC-\d+)"/g)].every(m => /2025/.test(D.incidents.find(i => i.id === m[1]).date)), 'year filter keeps only that year');
+N.state.f.incidents = {}; N.state.mode.incidents = 'cards';
+check(N.page('explore-incidents').includes('<article class="card edge" id="IN-INC-'), 'Cards view still available');
+N.state.mode.incidents = 'list'; N.state.mode.laws = 'list';
+check(N.page('explore-laws').includes('<details class="lrow" id="ins-'), 'laws also use compact rows');
+N.state.limit = 20;
 // Phase 4: reports, built from stored data for every incident and every risk area
 const SECTIONS = ['What happened', 'Evidence and how to preserve it', 'AI’s role', 'Laws that may apply', 'What NETRA does not know', 'Overclaim check', 'NIST AI RMF view', 'Cyber AI Profile', 'Sources and credits', 'Review status'];
 let repBad = [];

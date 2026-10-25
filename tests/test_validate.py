@@ -52,12 +52,12 @@ class Tests(unittest.TestCase):
         doc.pop("checked_by")
         self.rejects(d, "needs checked_by")
 
-    def test_new_batch_arrives_unreviewed(self):
+    def test_batch_two_reviewed_by_owner(self):
         b2 = [i for i in self.india["incidents"] if i.get("batch") == "B2"]
         self.assertEqual(len(b2), 10)
         for i in b2:
-            self.assertEqual((i["review"], i["netra"]["stages"]["S11"]), ("unreviewed", "open"), i["id"])
-            self.assertNotIn("reviewed_by", i)
+            # Reviewed by the project owner on 2026-10-25; the validator separately requires reviewer, date and S11
+            self.assertEqual((i["review"], i["reviewed_by"], i["netra"]["stages"]["S11"]), ("human_reviewed", "Krunal (project owner)", "done"), i["id"])
             self.assertTrue(i["sources"] and all(s["url"].startswith("https://") for s in i["sources"]))
         # Batch 2 was chosen to cover every risk domain
         self.assertEqual({d.split(".")[0] for i in b2 for d in i["domains"]}, {"1", "2", "3", "4", "5", "6", "7"})
@@ -90,6 +90,14 @@ class Tests(unittest.TestCase):
         new["distinct_from"] = ["IN-INC-03"]
         d["incidents"].append(new)
         build.validate(self.tax, d, self.glob)
+
+    def test_incident_state_must_be_known(self):
+        d = copy.deepcopy(self.india); d["incidents"][0]["state"] = "Bombay"
+        self.rejects(d, "state must start with one of")
+
+    def test_all_states_and_uts_listed(self):
+        su = self.india["states_uts"]
+        self.assertEqual((len(su["states"]), len(su["union_territories"])), (28, 8))
 
     def test_document_kind(self):
         d = copy.deepcopy(self.india)

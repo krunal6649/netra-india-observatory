@@ -1,5 +1,25 @@
 # Changelog
 
+## v0.2-dev (unreleased) — Easier Explore for a growing database
+- **Compact list** for incidents and laws: one line per record (ID, title, date and place, risk-area dots, severity,
+  review or verification status). Click a line to expand a summary with Open dossier and Generate report.
+  A **List / Cards** switch keeps the full cards.
+- **Sort:** incidents by newest, oldest, most severe, recently added or state; laws by newest, oldest, title or least
+  verified first.
+- **New incident filters:** state or UT, year, review status (reviewed / unreviewed).
+- **Active-filter chips** above the list, each removable with ×, plus Clear all.
+- **20 records at a time** with "Show N more", so long lists stay fast. Timeline dots and law links still find records
+  beyond the first page.
+- **State or UT filter lists all 28 states and 8 union territories** (plus "National or several states"), each with
+  its case count, so places with no case yet can still be chosen. The names are stored once in `data/india.json`
+  (`states_uts`) for the Phase 3 treemap, match `docs/authorities-plan.md`, and the build rejects a case whose place
+  does not start with one of them.
+- **Home banner:** removed the "Explore the cases" and "Guided tour" buttons, which repeated the header and tabs.
+- **Batch 2 (IN-INC-13 to 22) human-reviewed** by the project owner on 2026-10-25. Home now reads "22 cases tracked ·
+  22 reviewed by a person · 0 unreviewed".
+- Smoke test: 10 new checks (paging, sorting, filters, all states listed, chips, cards view, law rows, banner);
+  99 in total. 2 new unit tests.
+
 ## v0.2-dev (unreleased) — Phase 4: report generator
 - **Generate report** button on every NETRA dossier, incident card and risk-area page, plus a working
   Analysis › Report generator page (record type and record pickers). Model reports come with Phase 5.
