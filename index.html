@@ -50,7 +50,8 @@
   --hero:#FFFFFF; --hero-2:#FFFFFF; --hero-ink:#141A2E; --hero-muted:#59617A;
   --d1:#2a78d6; --d2:#eb6834; --d3:#1baf7a; --d4:#eda100; --d5:#e87ba4; --d6:#008300; --d7:#6250d6;
   --ok:#1E7F4C; --part:#B9770E; --open:#C2392B; --na:#9AA1B5; color-scheme:light}
-  header.top,.subnav,.switch,.toolbar,#tour,footer .links,body::before{display:none!important}
+  header.top,.subnav,.switch,.toolbar,#tour,footer .links,body::before,.no-print,body.print-report footer{display:none!important}
+  .sheet.report{border:0;padding:0;max-width:none;margin:0!important}
   .hero{border:1px solid var(--line)}
 }
 *{box-sizing:border-box}
@@ -113,6 +114,12 @@ h4.ctitle{font-family:var(--f-display);font-size:1.15rem;font-weight:650;line-he
 #tour{position:fixed;z-index:40;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));width:min(360px,calc(100vw - 32px));background:var(--sheet);color:var(--ink);border:2px solid var(--accent);border-radius:14px;padding:16px 18px;box-shadow:0 18px 40px -18px rgba(0,0,0,.7)}
 #tour .row{justify-content:space-between;margin-top:12px}
 footer .links{display:flex;flex-wrap:wrap;gap:6px 16px}
+.report{max-width:82ch}
+.report .rh{font-family:var(--f-display);font-weight:650;line-height:1.2;margin:22px 0 6px}
+.report h2.rh{font-size:1.6rem;margin-top:0} .report h3.rh{font-size:1.2rem;padding-top:10px;border-top:1px solid var(--line)} .report h4.rh{font-size:1rem}
+.report p{margin:8px 0 0;max-width:76ch} .report ul,.report ol{margin:6px 0 0;padding-left:22px} .report li{margin-top:4px}
+.report code{font-family:var(--f-mono);font-size:.82rem;background:var(--soft);padding:1px 5px;border-radius:4px}
+.report .rnote{border-left:4px solid var(--part);padding:8px 12px;background:color-mix(in srgb,var(--part) 9%,var(--sheet));border-radius:0 8px 8px 0}
 main{padding-block:22px 64px}
 footer{border-top:1px solid var(--line);font-size:.8rem;color:var(--muted)}
 footer .inner{padding-block:18px;display:flex;flex-direction:column;gap:4px}
@@ -360,7 +367,8 @@ const ICON = {
   survey:'<path d="M5 19V9M12 19V5M19 19v-7"/>',
   about:'<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/>',
   sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
-  moon:'<path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/>'
+  moon:'<path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/>',
+  report:'<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/>'
 };
 /* Four sections. Each page has a plain-token address (#explore-incidents) so it can be linked and shared. */
 const TABS = [
@@ -394,7 +402,7 @@ const resolve = v => PAGES[v] ? v : (LEGACY[v] || null);
 const KINDS = [['risks','Risks'],['incidents','Incidents'],['laws','Laws'],['measures','Measures']];
 const REPO = 'https://github.com/krunal6649/netra-india-observatory';
 const correctUrl = rec => REPO + '/issues/new?template=correction.yml&title=' + encodeURIComponent('Correction: ' + (rec || ''));
-const state = {view:'home', sub:'4.3', dom:'4', inc:'IN-INC-01', f:{}, q:'', showFilters:false, tour:-1};
+const state = {view:'home', sub:'4.3', dom:'4', inc:'IN-INC-01', f:{}, q:'', showFilters:false, tour:-1, report:{kind:'incident', id:'IN-INC-01'}};
 const h0 = (location.hash||'').slice(1); if(resolve(h0)) state.view = resolve(h0);
 
 /* ---------- shared bits ---------- */
@@ -495,7 +503,7 @@ V.home = () => {
   ${H3('Three ways in','Explore the records, read the analysis, or check how it was built.','margin-top:30px')}
   <div class="grid g-3" style="margin-top:12px">${[
     ['explore-incidents','navigator','Explore','Search one list of risks, incidents, laws and measures.','var(--d1)'],
-    ['analysis-dossiers','netra','Analysis','NETRA dossiers, the gap register, and (soon) reports and a model register.','var(--d5)'],
+    ['analysis-dossiers','netra','Analysis','NETRA dossiers, the gap register, the report generator, and (soon) a model register.','var(--d5)'],
     ['about-method','about','About','Method, sources and credits, verification status, survey and global evidence.','var(--d7)']
   ].map(([go,ic,l,d,c])=>`<button type="button" class="tool" style="--tc:${c}" data-go="${go}"><span class="ic">${svgIcon(ic)}</span><b>${l}</b><span>${d}</span></button>`).join('')}</div>
 
@@ -522,6 +530,7 @@ V['explore-area'] = () => {
       <h2 style="margin-top:6px">${esc(sid)} ${esc(s.name)}</h2><p class="hint">Counts for this area across all records.</p>
       <div class="cov" style="--c:${col}">${[['Risks',c.risks],['Incidents',c.incidents],['Binding',c.hard],['Soft',c.soft],['Measures',c.mit]].map(([l,n])=>`<div><b>${n}</b><span>${l}</span></div>`).join('')}</div>
       ${c.incidents && !c.hard ? '<p class="callout red" style="margin-top:14px">Incidents are recorded here, but no binding instrument in this seed is tagged to this risk area.</p>':''}
+      <div style="margin-top:12px">${reportBtn('area', sid, 'Generate report for this area')}</div>
       <div class="subgrid">${DOM[s.domain].subs.map(x=>`<button type="button" class="pill" style="--c:${col}" data-sub="${x.id}" aria-pressed="${x.id===sid}">${x.id}</button>`).join('')}</div>
     </div></div>
   <div class="grid g-2" style="margin-top:14px">
@@ -588,7 +597,7 @@ function incCard(i){
   <dt>Harm type</dt><dd>${i.harm_types.map(esc).join(', ')}</dd><dt>Affected</dt><dd>${esc(i.affected)}</dd><dt>Cause</dt><dd>${esc(i.entity)} · ${esc(i.intent)} · ${esc(i.timing)}</dd>
   <dt>Sources</dt><dd>${i.sources.map(s=>`<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a> <span class="muted">(${esc(s.date)})</span>`).join('<br>')}</dd>
   ${i.notes?`<dt>Notes</dt><dd>${esc(i.notes)}</dd>`:''}<dt>Corrections</dt><dd>${correctLink(i.id)}</dd></dl></details>
-  <div class="row" style="margin-top:12px"><button type="button" class="btn primary" data-inc="${i.id}">${svgIcon('netra',16)} Open NETRA dossier</button><span class="note">${esc(i.netra.overclaim)}</span></div></article>`;
+  <div class="row" style="margin-top:12px"><button type="button" class="btn primary" data-inc="${i.id}">${svgIcon('netra',16)} Open NETRA dossier</button>${reportBtn('incident', i.id)}<span class="note">${esc(i.netra.overclaim)}</span></div></article>`;
 }
 V['explore-incidents'] = () => {
   const f = state.f.incidents||{};
@@ -668,7 +677,7 @@ V['analysis-dossiers'] = () => {
   <section class="sheet" style="margin-top:14px;border-top:6px solid ${col}">
    <div class="row" style="justify-content:space-between;align-items:flex-start"><div style="min-width:0;flex:1 1 300px"><div class="row"><span class="id">${i.id}</span>${sevm(i.severity)}${rev(i.review)}</div>
      <h2 style="margin-top:8px">${esc(i.title)}</h2><p class="hint">${esc(i.date)} · ${esc(i.state)}${i.reviewed_by?` · reviewed by ${esc(i.reviewed_by)} on ${esc(i.reviewed_on)}`:''}</p></div>
-     <div style="text-align:center">${ring(pct)}<div class="note">stages done from sources</div></div></div>
+     <div style="text-align:center">${ring(pct)}<div class="note">stages done from sources</div><div style="margin-top:10px">${reportBtn('incident', i.id)}</div></div></div>
    <div class="pipe">${T.netra_stages.map(s=>`<div class="node s-${n.stages[s.id]}" data-tip="<b>${esc(s.name)}</b>${esc(n.stages[s.id])}"><div class="c">${s.id.slice(1)}</div><b>${esc(s.name)}</b>${esc(n.stages[s.id])}</div>`).join('')}</div>
    <div class="grid g-2" style="margin-top:18px">
     <div>${H3('Location & jurisdiction','Kept separate, as NETRA requires; one incident can touch several jurisdictions.')}
@@ -698,8 +707,204 @@ V['analysis-gaps'] = () => head('Gap register',`${D.gaps.length} places the law 
   <div style="margin-top:10px"><span class="eyebrow">Instruments</span><div class="row" style="margin-top:6px">${g.instruments.map(insChip).join('')}</div></div></article>`).join('')}</div>` + creditLine();
 
 const planned = (what, items) => `<div class="planned"><span class="vtag partial">Not built yet</span><p style="margin-top:10px;max-width:70ch">${what}</p><ul style="margin:10px 0 0;padding-left:18px">${items.map(x=>`<li style="margin-top:4px">${x}</li>`).join('')}</ul></div>`;
-V['analysis-report'] = () => head('Report generator','Turn a record into a plain report','Planned for v0.2. Reports will be built in your browser from the stored data, with no AI, and labelled with their review status.','netra','var(--d5)') +
-  planned('This page will let you pick an incident, risk area or model and produce a report you can preview, copy, download as Markdown, or print.', ['What happened, and the evidence to preserve (including a BSA s.63 certificate with hash value)','AI’s role, laws that may apply (possible / interpretive question / gap) and the authority to approach','What NETRA does not know, an overclaim check, and a NIST AI RMF section','Sources, credits, review status and a “not legal advice” notice']) + creditLine();
+/* ---------- reports: built in the browser from stored data, with no AI ---------- */
+const NIST_RMF = 'https://www.nist.gov/itl/ai-risk-management-framework';
+const NIST_CYBER_AI = 'https://csrc.nist.gov/pubs/ir/8596/iprd';
+const NIST_CSF = 'https://www.nist.gov/cyberframework';
+/* CSF 2.0 incident-analysis items, paraphrased (not quoted) */
+const CSF_AN = [
+  ['RS.AN-03', 'Work out what happened during the incident and its root cause'],
+  ['RS.AN-06', 'Record every action taken during the investigation, and keep those records’ integrity and provenance'],
+  ['RS.AN-07', 'Collect incident data and metadata, and keep their integrity and provenance']];
+const STATE_WORD = {done:'done', secondary:'from secondary sources only', partial:'partly done', draft:'drafted', open:'open', contested:'contested', possible:'possible', 'n/a':'not applicable'};
+const GAP_LABEL = t => t === 'Interpretive question' ? 'interpretive' : 'gap';
+const mdUrl = u => String(u).replace(/\(/g,'%28').replace(/\)/g,'%29').replace(/ /g,'%20');
+const mdLink = (t, u) => `[${String(t).replace(/[\[\]]/g,'')}](${mdUrl(u)})`;
+const today = () => new Date().toISOString().slice(0,10);
+const reviewLine = i => i.review==='unreviewed' ? 'Unreviewed (AI-assisted draft; no person has checked this record yet)' : `${D.review_statuses[i.review]} by ${i.reviewed_by} on ${i.reviewed_on}`;
+const subName = s => `${s} ${SUB[s]?.name||''}`.trim();
+const insLine = i => `${mdLink(i.title, i.url)}${i.act_no?` (${i.act_no})`:''}. Key provisions: ${i.provisions}. Legal force: ${i.force}. Verification: ${VLABEL[i.verified]}.`;
+function cyberTags(domains, entity, intent){
+  const t = [];
+  if(domains.includes('2.2')) t.push('Secure (securing AI system components)');
+  if(domains.some(d=>['4.1','4.2','4.3'].includes(d)) && entity==='Human' && intent==='Intentional') t.push('Thwart (resisting AI-enabled attacks)');
+  return t;
+}
+function preserveBlock(financial){
+  const bsa = INS['G-BSA'], pb = (bsa?.cases||[])[0];
+  return [
+    '### How to preserve electronic evidence (general guidance)',
+    ...(financial ? ['- **Financial fraud:** call **1930** or report at cybercrime.gov.in at once. Speed matters for freezing money.'] : []),
+    '- Keep the original file, message or link. Do not edit, crop, compress or re-save it.',
+    '- Note the web address, account name, and the date and time (IST) you saw it. Take full-screen captures that show these.',
+    '- Make a hash (a fingerprint) of each original file: on Windows `certutil -hashfile FILE SHA256`, on Mac or Linux `shasum -a 256 FILE`. Write the value down.',
+    `- To rely on an electronic record in court, the ${bsa?mdLink('Bharatiya Sakshya Adhiniyam, 2023', bsa.url):'Bharatiya Sakshya Adhiniyam, 2023'}${bsa?.act_no?` (${bsa.act_no})`:''} (ss.61–63) needs a certificate under s.63(4) in the Schedule form: **Part A** filled by the party and **Part B** by an expert, both stating the **hash value** (SHA1 / SHA256 / MD5 / other). NETRA record ${bsa?`G-BSA: ${VLABEL[bsa.verified]}${bsa.checked?`, checked ${bsa.checked}`:''}`:'not found'}.`,
+    ...(pb ? [`- ${pb.name}, ${pb.citation} (${pb.date}) is reported to have upheld s.63(4). ${VLABEL[pb.verified]}: ${pb.note}`] : []),
+    '- Ask the platform’s grievance officer in writing to preserve the content and account data before they are deleted.'];
+}
+function reportIncident(i){
+  const n = i.netra, gaps = D.gaps.filter(g=>g.incidents.includes(i.id));
+  const ins = i.instruments.map(x=>INS[x]).filter(Boolean);
+  const interp = gaps.filter(g=>GAP_LABEL(g.type)==='interpretive'), real = gaps.filter(g=>GAP_LABEL(g.type)==='gap');
+  const mits = D.mitigations.filter(m=>i.instruments.includes(m.source));
+  const fin = i.harm_types.includes('Financial loss');
+  const tags = cyberTags(i.domains, i.entity, i.intent);
+  const st = k => STATE_WORD[n.stages[k]] || n.stages[k];
+  return [
+    `# NETRA incident report: ${i.title}`,
+    `**Record:** ${i.id} · **Review status:** ${reviewLine(i)} · **Data updated:** ${D.meta.updated} · **Report generated:** ${today()}`,
+    '> Not legal advice. Generated in the browser from NETRA’s stored record, with no AI. It states no legal conclusion and accuses no one.',
+    '## 1. What happened', i.harm,
+    `- **Date:** ${i.date}`, `- **Place:** ${i.state}`, `- **AI system:** ${i.systems.join('; ')}`, `- **Developer / deployer:** ${i.developer} / ${i.deployer}`,
+    `- **Affected:** ${i.affected}`, `- **Harm:** ${i.harm_types.join(', ')}`, `- **Severity (pilot coding):** ${i.severity} of 5, ${T.severity[i.severity]}`,
+    `- **Risk areas:** ${i.domains.map(subName).join('; ')}`, `- **Response so far:** ${i.response}`,
+    '## 2. Evidence and how to preserve it', 'Evidence on record:',
+    ...i.sources.map((s,k)=>`- E-${String(k+1).padStart(2,'0')}: ${mdLink(s.title, s.url)} (secondary source, ${s.date})`),
+    ...(i.court_documents||[]).map(c=>`- Court document: ${mdLink(c.title, c.url)} (${c.court}, ${c.kind}, ${c.date}; ${c.opened==='yes'?`checked by ${c.checked_by}, ${c.checked_on}`:'link not yet opened'})`),
+    `- NETRA stages: evidence capture ${st('S05')}; forensic reconstruction ${st('S06')}.`,
+    ...preserveBlock(fin),
+    '## 3. AI’s role',
+    `- **System:** ${i.systems.join('; ')}`,
+    `- **NETRA stage 7 (AI role and causation):** ${st('S07')}`,
+    `- **Cause coding (MIT causal taxonomy):** caused by ${i.entity}; ${i.intent.toLowerCase()}; ${i.timing.toLowerCase()}.`,
+    '## 4. Laws that may apply',
+    'Labels: **Possible** means the law may apply; applicability has not been decided. **Interpretive question** means it is unsettled how the law applies. **Gap** means the law does not yet answer the problem.',
+    '### Possible', ...(ins.length ? ins.map(x=>`- ${insLine(x)}`) : ['- None recorded.']),
+    '### Interpretive questions', ...(interp.length ? interp.map(g=>`- ${g.id} ${g.title}: ${g.basis}`) : ['- None recorded for this case.']),
+    '### Gaps', ...(real.length ? real.map(g=>`- ${g.id} ${g.title} (${g.type}): ${g.basis}`) : ['- None recorded for this case.']),
+    '## 5. Authority to approach',
+    ...(fin ? ['For financial cyber fraud, the first step is **1930** or cybercrime.gov.in.'] : []),
+    ...n.authorities.map((a,k)=>`${k+1}. **${AUTH[a].name}**: ${AUTH[a].role}. ${mdLink(new URL(AUTH[a].url).hostname, AUTH[a].url)} (${VLABEL[AUTH[a].verified]})`),
+    'NETRA never files reports. Check each body’s current procedure on its own website.',
+    '## 6. What NETRA does not know', ...n.unknowns.map(u=>`- ${u}`),
+    '## 7. Overclaim check', n.overclaim,
+    '## 8. NIST AI RMF view',
+    `Mapped by NETRA to the four functions of the ${mdLink('NIST AI Risk Management Framework 1.0', NIST_RMF)} (NIST AI 100-1, 2023). The mapping is NETRA’s and is unreviewed.`,
+    `- **Govern:** accountable parties on record are ${i.developer} (developer) and ${i.deployer} (deployer). Policy instruments on record: ${ins.filter(x=>!isHard(x)).map(x=>shortIns(x)).join('; ') || 'none'}.`,
+    `- **Map:** sector ${i.sectors.join(', ')}; affected: ${i.affected}; where: ${n.locations.incident} (victim: ${n.locations.victim}).`,
+    `- **Measure:** severity ${i.severity} of 5 (pilot coding); harm verification ${st('S04')}; evidence ${st('S05')}; AI role ${st('S07')}.`,
+    `- **Manage:** response: ${i.response} Mitigation stage ${st('S12')}.${mits.length?` Measures required or recommended by the laws on record: ${mits.slice(0,4).map(m=>m.quote).join(' · ')}`:''}`,
+    '## 9. Cyber AI Profile',
+    `Based on the ${mdLink('NIST Cyber AI Profile, NIST IR 8596 (preliminary draft, December 2025)', NIST_CYBER_AI)}, which builds on ${mdLink('NIST CSF 2.0', NIST_CSF)}. The draft may change.`,
+    `- **Focus-area tag (NETRA’s):** ${tags.length ? tags.join('; ') : 'not tagged: this is not a cybersecurity incident under the draft’s Secure, Defend or Thwart focus areas'}`,
+    'Evidence checklist (CSF 2.0 incident analysis, paraphrased):',
+    `- [ ] ${CSF_AN[0][0]}: ${CSF_AN[0][1]}. NETRA status: forensic reconstruction ${st('S06')}, AI role ${st('S07')}.`,
+    `- [ ] ${CSF_AN[1][0]}: ${CSF_AN[1][1]}. NETRA keeps a dated evidence register (section 2); keep your own log of who did what, and when.`,
+    `- [ ] ${CSF_AN[2][0]}: ${CSF_AN[2][1]}. NETRA status: evidence capture ${st('S05')}; no original files or hash values are held by NETRA.`,
+    '## 10. Sources and credits',
+    ...i.sources.map(s=>`- ${mdLink(s.title, s.url)}`),
+    `- NETRA India AI Risk Observatory, maintained by ${D.meta.maintainer}: ${mdLink('code and data', REPO)} (data CC BY 4.0, code MIT).`,
+    `- Risk taxonomies adapted from the ${mdLink('MIT AI Risk Initiative', 'https://airisk.mit.edu/')} (CC BY 4.0). Not affiliated with or endorsed by MIT.`,
+    '- NIST AI RMF 1.0, NIST IR 8596 (preliminary draft) and NIST CSF 2.0 are paraphrased, not quoted.',
+    '## 11. Review status',
+    `- **This record:** ${reviewLine(i)}. NETRA stage 11 (Human review): ${st('S11')}.`,
+    '- **This report** was generated automatically from the record and has not itself been reviewed.',
+    '**Not legal advice.** Research and decision-support material only. Consult a lawyer before acting.'
+  ].join('\n\n').replace(/\n\n(?=- |\d+\. )/g, '\n');
+}
+function reportArea(sid){
+  const incs = D.incidents.filter(i=>i.domains.includes(sid));
+  const risks = D.risks.filter(r=>r.domain.includes(sid));
+  const ins = D.instruments.filter(i=>i.domains.includes(sid));
+  const gaps = D.gaps.filter(g=>g.incidents.some(x=>incs.some(i=>i.id===x)));
+  const interp = gaps.filter(g=>GAP_LABEL(g.type)==='interpretive'), real = gaps.filter(g=>GAP_LABEL(g.type)==='gap');
+  const mits = mitigationsForSub(sid);
+  const auth = {}; incs.forEach(i=>i.netra.authorities.forEach(a=>auth[a]=(auth[a]||0)+1));
+  const s7 = {}; incs.forEach(i=>{ const v = i.netra.stages.S07; s7[v]=(s7[v]||0)+1; });
+  const tags = [...new Set(incs.flatMap(i=>cyberTags(i.domains, i.entity, i.intent)))];
+  const nRev = incs.filter(i=>i.review!=='unreviewed').length;
+  const fin = incs.some(i=>i.harm_types.includes('Financial loss'));
+  return [
+    `# NETRA risk-area report: ${subName(sid)}`,
+    `**Domain:** ${SUB[sid].domain}. ${SUB[sid].dname} · **Cases:** ${incs.length} (${nRev} reviewed by a person) · **Data updated:** ${D.meta.updated} · **Report generated:** ${today()}`,
+    '> Not legal advice. Generated in the browser from NETRA’s stored records, with no AI. Counts come from a small, non-random sample and do not show how common a harm is.',
+    '## 1. What happened in this area',
+    ...(incs.length ? incs.map(i=>`- **${i.id}** ${i.title} (${i.date}, ${i.state}; severity ${i.severity} of 5; ${D.review_statuses[i.review]})`) : ['- No incidents recorded yet.']),
+    ...(risks.length ? ['Risks named in Indian frameworks:', ...risks.map(r=>`- ${r.title}: “${r.quote}” (${FW[r.framework].issuer.split(' (')[0]}, ${r.locator})`)] : []),
+    '## 2. Evidence and how to preserve it',
+    `${incs.reduce((a,i)=>a+i.sources.length,0)} sources and ${incs.reduce((a,i)=>a+(i.court_documents||[]).length,0)} official court documents are on record for these cases. Each case report lists them.`,
+    ...preserveBlock(fin),
+    '## 3. AI’s role',
+    `- **NETRA stage 7 (AI role and causation) across these cases:** ${Object.entries(s7).map(([k,v])=>`${v} ${STATE_WORD[k]||k}`).join(', ') || 'none'}`,
+    `- **Caused by:** ${['AI','Human','Other'].map(e=>`${e} ${incs.filter(i=>i.entity===e).length}`).join(', ')}`,
+    '## 4. Laws that may apply',
+    'Labels: **Possible** means the law may apply; applicability has not been decided. **Interpretive question** means it is unsettled how the law applies. **Gap** means the law does not yet answer the problem.',
+    '### Possible', ...(ins.length ? ins.map(x=>`- ${insLine(x)}`) : ['- No instrument is tagged to this area.']),
+    '### Interpretive questions', ...(interp.length ? interp.map(g=>`- ${g.id} ${g.title}: ${g.basis}`) : ['- None recorded.']),
+    '### Gaps', ...(real.length ? real.map(g=>`- ${g.id} ${g.title} (${g.type}): ${g.basis}`) : ['- None recorded.']),
+    '## 5. Authorities to approach',
+    ...(fin ? ['For financial cyber fraud, the first step is **1930** or cybercrime.gov.in.'] : []),
+    ...(Object.keys(auth).length ? Object.entries(auth).sort((a,b)=>b[1]-a[1]).map(([a,c])=>`- **${AUTH[a].name}**: ${AUTH[a].role} (named in ${c} case${c>1?'s':''}; ${VLABEL[AUTH[a].verified]})`) : ['- None recorded.']),
+    '## 6. What NETRA does not know',
+    '- How often this harm happens in India: the cases are a small, non-random sample.',
+    ...incs.flatMap(i=>i.netra.unknowns.map(u=>`- ${i.id}: ${u}`)),
+    '## 7. Overclaim check',
+    ...(incs.length ? incs.map(i=>`- ${i.id}: ${i.netra.overclaim}`) : ['- No cases to check.']),
+    '## 8. NIST AI RMF view',
+    `Mapped by NETRA to the four functions of the ${mdLink('NIST AI Risk Management Framework 1.0', NIST_RMF)} (NIST AI 100-1, 2023). The mapping is NETRA’s and is unreviewed.`,
+    `- **Govern:** binding instruments ${ins.filter(isHard).length}; soft law and proposals ${ins.filter(x=>!isHard(x)).length}.`,
+    `- **Map:** sectors affected: ${[...new Set(incs.flatMap(i=>i.sectors))].join(', ') || 'none'}.`,
+    `- **Measure:** severity of recorded cases: ${[1,2,3,4,5].map(k=>`${k}: ${incs.filter(i=>i.severity===k).length}`).join(', ')} (pilot coding).`,
+    `- **Manage:** ${mits.length} measures required or recommended for this area${mits.length?`, for example: ${mits.slice(0,3).map(m=>m.quote).join(' · ')}`:''}.`,
+    '## 9. Cyber AI Profile',
+    `Based on the ${mdLink('NIST Cyber AI Profile, NIST IR 8596 (preliminary draft, December 2025)', NIST_CYBER_AI)}, which builds on ${mdLink('NIST CSF 2.0', NIST_CSF)}. The draft may change.`,
+    `- **Focus-area tags (NETRA’s):** ${tags.length ? tags.join('; ') : 'none of these cases is tagged under the draft’s Secure, Defend or Thwart focus areas'}`,
+    'Evidence checklist for each case (CSF 2.0 incident analysis, paraphrased):',
+    ...CSF_AN.map(([k,t])=>`- [ ] ${k}: ${t}.`),
+    '## 10. Sources and credits',
+    ...incs.flatMap(i=>i.sources.map(s=>`- ${i.id}: ${mdLink(s.title, s.url)}`)),
+    `- NETRA India AI Risk Observatory, maintained by ${D.meta.maintainer}: ${mdLink('code and data', REPO)} (data CC BY 4.0, code MIT).`,
+    `- Risk taxonomies adapted from the ${mdLink('MIT AI Risk Initiative', 'https://airisk.mit.edu/')} (CC BY 4.0). Not affiliated with or endorsed by MIT.`,
+    '- NIST AI RMF 1.0, NIST IR 8596 (preliminary draft) and NIST CSF 2.0 are paraphrased, not quoted.',
+    '## 11. Review status',
+    `- **Cases:** ${nRev} of ${incs.length} reviewed by a person; ${incs.length-nRev} unreviewed.`,
+    '- **This report** was generated automatically from the records and has not itself been reviewed.',
+    '**Not legal advice.** Research and decision-support material only. Consult a lawyer before acting.'
+  ].join('\n\n').replace(/\n\n(?=- |\d+\. )/g, '\n');
+}
+const REPORT_KINDS = {incident: {label:'Incident', make: id => INC[id] && reportIncident(INC[id]), items: () => D.incidents.map(i=>[i.id, `${i.id} ${i.title}`])},
+  area: {label:'Risk area', make: id => SUB[id] && reportArea(id), items: () => Object.keys(SUB).map(s=>[s, subName(s)])}};
+function reportMd(kind, id){ return REPORT_KINDS[kind]?.make(id) || ''; }
+/* A small Markdown renderer for the reports above (headings, lists, checklists, quotes, bold, code, links) */
+function mdInline(s){ return esc(s).replace(/`([^`]+)`/g,'<code>$1</code>').replace(/\*\*([^*]+)\*\*/g,'<b>$1</b>').replace(/\[([^\]]+)\]\((https:\/\/[^)\s]+)\)/g,'<a href="$2" target="_blank" rel="noopener">$1</a>'); }
+function mdToHtml(md){
+  const out = []; let list = null;
+  const close = () => { if(list){ out.push(`<${list.t}>${list.items.map(x=>`<li>${x}</li>`).join('')}</${list.t}>`); list = null; } };
+  for(const line of md.split('\n')){
+    let m;
+    if(!line.trim()){ close(); continue; }
+    if((m = line.match(/^(#{1,3}) (.*)$/))){ close(); const lv = m[1].length + 1; out.push(`<h${lv} class="rh">${mdInline(m[2])}</h${lv}>`); continue; }
+    if((m = line.match(/^> (.*)$/))){ close(); out.push(`<p class="rnote">${mdInline(m[1])}</p>`); continue; }
+    if((m = line.match(/^- \[ \] (.*)$/))){ if(list?.t!=='ul'){ close(); list = {t:'ul', items:[]}; } list.items.push(`<span aria-hidden="true">☐</span> ${mdInline(m[1])}`); continue; }
+    if((m = line.match(/^- (.*)$/))){ if(list?.t!=='ul'){ close(); list = {t:'ul', items:[]}; } list.items.push(mdInline(m[1])); continue; }
+    if((m = line.match(/^\d+\. (.*)$/))){ if(list?.t!=='ol'){ close(); list = {t:'ol', items:[]}; } list.items.push(mdInline(m[1])); continue; }
+    close(); out.push(`<p>${mdInline(line)}</p>`);
+  }
+  close(); return out.join('');
+}
+const reportBtn = (kind, id, label='Generate report') => `<button type="button" class="btn" data-report="${kind}:${esc(id)}">${svgIcon('report',16)} ${label}</button>`;
+V['analysis-report'] = () => {
+  const r = state.report, K = REPORT_KINDS[r.kind];
+  const md = reportMd(r.kind, r.id);
+  return `<div class="no-print">${head('Report generator','Turn a record into a plain report','Built in your browser from the stored data, with no AI. Preview it, copy it, download it as Markdown, or print it as a PDF. Every report carries its review status and a “not legal advice” notice.','report','var(--d5)')}
+  <section class="sheet">${H3('Choose what to report on','Pick a record type, then the record. Model reports arrive with the model register in Phase 5.')}
+   <div class="filters" style="margin-top:12px">
+    <label class="field">Record type<select id="rep-kind">${Object.entries(REPORT_KINDS).map(([k,v])=>`<option value="${k}" ${k===r.kind?'selected':''}>${v.label}</option>`).join('')}<option disabled>AI model (Phase 5)</option></select></label>
+    <label class="field" style="flex:1 1 320px;min-width:0;max-width:100%">Record<select id="rep-item" style="width:100%">${K.items().map(([v,l])=>`<option value="${esc(v)}" ${v===r.id?'selected':''}>${esc(l)}</option>`).join('')}</select></label></div>
+   <div class="row" style="margin-top:12px"><button type="button" class="btn primary" id="rep-copy">Copy report</button><button type="button" class="btn" id="rep-dl">Download Markdown</button><button type="button" class="btn" id="rep-print">Print or save as PDF</button><span class="status-msg" id="rep-msg" role="status"></span></div>
+   <textarea id="rep-md" readonly hidden aria-hidden="true">${esc(md)}</textarea></section></div>
+  <article class="sheet report" id="report" style="margin-top:14px">${md ? mdToHtml(md) : '<p class="note">Choose a record above.</p>'}</article>
+  <div class="no-print">${creditLine('NIST frameworks are paraphrased, not quoted. ')}</div>`;
+};
+function reportFile(){ const r = state.report; return `netra-report-${r.kind}-${String(r.id).replace(/[^\w.-]+/g,'_')}.md`; }
+async function copyReport(){ const md = reportMd(state.report.kind, state.report.id), m = document.getElementById('rep-msg');
+  try{ await navigator.clipboard.writeText(md); m.textContent = 'Copied as Markdown.'; m.className = 'status-msg ok'; }
+  catch(e){ const ta = document.getElementById('rep-md'); if(ta){ ta.hidden = false; ta.focus(); ta.select(); } m.textContent = 'Press Ctrl+C (or long-press and Copy) to copy the selected text.'; m.className = 'status-msg'; } }
+function downloadReport(){ const md = reportMd(state.report.kind, state.report.id), m = document.getElementById('rep-msg');
+  try{ const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([md], {type:'text/markdown;charset=utf-8'})); a.download = reportFile(); document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href), 4000);
+    m.textContent = `Downloading ${reportFile()}. If nothing happens, use Copy report instead.`; m.className = 'status-msg ok'; }
+  catch(e){ m.textContent = 'This browser blocked the download. Use Copy report instead.'; m.className = 'status-msg err'; } }
+function printReport(){ document.body.classList.add('print-report'); try{ window.print(); }catch(e){} setTimeout(()=>document.body.classList.remove('print-report'), 500); }
 V['analysis-models'] = () => head('Model register','AI models, what was tested, and Indian law touched','Planned for v0.2. One card per model, built only from sources whose licences allow it.','evidence','var(--d1)') +
   planned('Each card will show the developer, release date, what was tested and by whom, the results, linked incidents, and Indian law touched, with its source link and licence.', ['First set: the three METR reports already in Global evidence (cited and summarised only)','Further models from Epoch AI (CC BY 4.0), MITRE ATLAS (Apache 2.0) and AVID (MIT licence)','A test result is not evidence of real-world harm; each card will say so']) + creditLine();
 
@@ -912,7 +1117,7 @@ async function publishSummary(){
 const TOUR = [
   ['home','Home','The counter shows how many cases are tracked and how many a person has reviewed. Click any segment of the wheel to open that risk area.'],
   ['explore-incidents','Explore','One searchable list. The switch changes between risks, incidents, laws and measures. Filters stay hidden until you click the Filters button.'],
-  ['analysis-dossiers','Analysis','NETRA dossiers trace each incident through 14 stages: location, laws that may apply, where to report, gaps, and what is still unknown.'],
+  ['analysis-dossiers','Analysis','NETRA dossiers trace each incident through 14 stages: location, laws that may apply, where to report, gaps, and what is still unknown. Each dossier has a Generate report button.'],
   ['about-verification','Verification status','Which legal records have been checked against official texts, and what is still missing for the rest.'],
   ['about-credits','Sources and credits','Every outside source and licence. Spotted an error? Use “Suggest a correction” at the bottom of any page.']
 ];
@@ -948,8 +1153,11 @@ document.addEventListener('pointerover', e => { const t = e.target.closest?.('[d
 document.addEventListener('pointermove', e => { if(!$tip.classList.contains('show')) return; const w = $tip.offsetWidth, h = $tip.offsetHeight; let x = e.clientX+14, y = e.clientY+14; if(x+w>innerWidth-8) x = e.clientX-w-14; if(y+h>innerHeight-8) y = e.clientY-h-14; $tip.style.left = Math.max(8,x)+'px'; $tip.style.top = Math.max(8,y)+'px'; });
 document.addEventListener('click', e => {
   if(e.target.closest?.('#theme-btn')){ setTheme(document.documentElement.getAttribute('data-theme')==='light' ? 'dark' : 'light', true); return; }
-  const t = e.target.closest('[data-go],[data-sub],[data-dom],[data-inc],[data-law],[data-scroll],[data-pill],[data-clear],[data-filters],[data-tour],#sv-refresh,#sv-publish,#sv-copy,#sv-doimport');
+  const t = e.target.closest('[data-go],[data-sub],[data-dom],[data-inc],[data-law],[data-report],[data-scroll],[data-pill],[data-clear],[data-filters],[data-tour],#rep-copy,#rep-dl,#rep-print,#sv-refresh,#sv-publish,#sv-copy,#sv-doimport');
   if(!t) return;
+  if(t.id==='rep-copy'){ copyReport(); return; }
+  if(t.id==='rep-dl'){ downloadReport(); return; }
+  if(t.id==='rep-print'){ printReport(); return; }
   if(t.id==='sv-copy'){ copyCode(); return; }
   if(t.id==='sv-doimport'){ importCodes(); return; }
   if(t.id==='sv-refresh'){ loadAll().then(refreshResults); return; }
@@ -964,6 +1172,7 @@ document.addEventListener('click', e => {
   if(t.dataset.dom){ state.sub = DOM[t.dataset.dom].subs[0].id; return go('explore-area', state.view==='explore-area'); }
   if(t.dataset.inc){ state.inc = t.dataset.inc; return go('analysis-dossiers', state.view==='analysis-dossiers'); }
   if(t.dataset.law) return openLaw(t.dataset.law);
+  if(t.dataset.report){ const [kind, id] = t.dataset.report.split(/:(.*)/); state.report = {kind, id}; return go('analysis-report'); }
   if(t.dataset.scroll){ const el = document.getElementById(t.dataset.scroll); if(el){ const d = el.querySelector('details'); if(d) d.open = true; el.scrollIntoView({block:'start', behavior: reduce?'auto':'smooth'}); el.animate?.([{boxShadow:'0 0 0 4px var(--accent)'},{boxShadow:'0 0 0 0 transparent'}],{duration:1200}); } }
 });
 document.addEventListener('keydown', e => { if((e.key==='Enter'||e.key===' ') && e.target.matches?.('.brand')){ e.preventDefault(); go('home'); } if(e.key==='Escape' && state.tour>=0) tour(-1); });
@@ -973,7 +1182,11 @@ document.addEventListener('input', e => {
   const v = box.dataset.fview; state.f[v] = {...(state.f[v]||{}), [e.target.dataset.k]: e.target.value};
   render();
 });
-document.addEventListener('change', e => { if(e.target.id==='nav-sub' && e.target.value){ state.sub = e.target.value; render(); } });
+document.addEventListener('change', e => {
+  if(e.target.id==='nav-sub' && e.target.value){ state.sub = e.target.value; render(); }
+  if(e.target.id==='rep-kind'){ const k = e.target.value; state.report = {kind:k, id: REPORT_KINDS[k].items()[0][0]}; render(); }
+  if(e.target.id==='rep-item'){ state.report = {...state.report, id: e.target.value}; render(); }
+});
 document.addEventListener('submit', e => { if(e.target.id==='survey-form') submitSurvey(e); });
 window.addEventListener?.('hashchange', () => { const v = resolve((location.hash||'').slice(1)); if(v && v!==state.view) go(v); });
 (function logo(){ const g = document.getElementById('logo-iris'); if(!g) return; let s=''; for(let k=0;k<7;k++){ const a0=-Math.PI/2+k*2*Math.PI/7+0.06, a1=a0+2*Math.PI/7-0.12; s+=`<path d="${arc(19,19,5.4,9.6,a0,a1)}" fill="var(--d${k+1})"/>`; } g.innerHTML = s; })();
@@ -981,7 +1194,7 @@ document.getElementById('built').textContent = `Data updated ${D.meta.updated}; 
 for(const [id, href] of [['foot-correct', correctUrl('')], ['foot-code', REPO]]){ const a = document.getElementById(id); if(a) a.href = href; }
 if(h0 && LEGACY[h0]){ try{ history.replaceState(null,'','#'+state.view); }catch(e){} }
 renderTabs(); render(); initSurvey();
-window.__NETRA = {state, V, PAGES, LEGACY, resolve, page, go, aggregate, SV, encodeAnswers, decodeCodes, TOUR};
+window.__NETRA = {state, V, PAGES, LEGACY, resolve, page, go, aggregate, SV, encodeAnswers, decodeCodes, TOUR, reportMd, mdToHtml};
 })();
 </script>
 
