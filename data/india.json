@@ -343,11 +343,23 @@
         "1.2",
         "4.3"
       ],
-      "provisions": "Rule 3(1)(b) due diligence",
+      "provisions": "Rule 3(1)(b) due diligence (substituted by G.S.R. 794(E), 28 Oct 2022)",
       "summary": "Due-diligence duties for intermediaries, including not hosting listed unlawful or knowingly false content. Invoked by MeitY against an AI chatbot answer in Feb 2024.",
-      "url": "https://www.meity.gov.in/",
+      "url": "https://www.thc.nic.in/Central%20Governmental%20Rules/IT(Intermediary%20Guidelines%20and%20Digital%20Media%20Ethics%20Code)%20Rules,%202021.pdf",
       "verified": "partial",
-      "note": "Notification date from researcher knowledge; amendment years per S.S. Rana summary. Official Gazette link not located; URL is MeitY home page."
+      "note": "G.S.R. numbers and dates supplied by the project owner. URL is a copy in Gazette layout on a nic.in court website, found by web search; it has not been opened (host blocked from the AI-assisted session's sandbox) and is not the egazette.gov.in original. Missing for 'yes': open and confirm a Gazette copy of G.S.R. 139(E), or replace this link with the egazette.gov.in original. Amendment years 2023 and 2025 in 'status' still rest on the S.S. Rana summary.",
+      "notifications": [
+        {
+          "no": "G.S.R. 139(E)",
+          "date": "2021-02-25",
+          "what": "Principal rules"
+        },
+        {
+          "no": "G.S.R. 794(E)",
+          "date": "2022-10-28",
+          "what": "Amendment Rules, 2022; replaced rule 3(1)(b)"
+        }
+      ]
     },
     {
       "id": "G-ITR26",
