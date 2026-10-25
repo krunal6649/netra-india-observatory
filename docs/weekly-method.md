@@ -22,10 +22,10 @@ run reports whether each source answered.
 
 | Source | What it gives | Status |
 |---|---|---|
-| GDELT Project DOC 2.0 API | News articles from Indian outlets (English), past 7 days | To confirm on the first run |
-| PIB press-release RSS | Official Government of India releases | The address is listed on PIB's own RSS page. Its language is to confirm, so a Lang=1 variant is also tried |
+| GDELT Project DOC 2.0 API | News articles from Indian outlets (English), past 7 days | Reached on the first run (2026-10-25) but answered "too many requests"; the script now waits and retries (20, 45, 90 s) |
+| PIB press-release RSS | Official Government of India releases | **Off.** Answered 403 (forbidden) to GitHub's servers on the first run; NETRA does not work around a refusal |
 | CERT-In | Advisories | **Off.** No official feed address could be confirmed |
-| METR RSS | New METR publications (Model watch) | The address comes from a feed directory, so it is to confirm |
+| METR RSS | New METR publications (Model watch) | Working: 2 items on the first run (2026-10-25) |
 | MITRE ATLAS data (GitHub) | New case studies (Model watch) | Confirmed on 2026-10-25: release 2026.09, 73 case studies |
 
 ## Selection rules
