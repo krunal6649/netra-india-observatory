@@ -19,7 +19,7 @@ An open, India-focused map of AI risks, real incidents and the laws that apply t
 ## What is in it (pilot v0.1)
 18 risks quoted from government frameworks · 12 documented Indian incidents · 28 laws, rules, advisories and court orders · 28 mitigation measures · 10 reporting authorities · 6 legal and policy gaps.
 
-> **Status:** an independent research project. **Not legal advice.** All codings were drafted with AI assistance and are marked *unreviewed* until a person checks them. 26 legal items are still being verified against official texts (see CHANGELOG).
+> **Status:** an independent research project. **Not legal advice.** All codings were drafted with AI assistance and are marked *unreviewed* until a person checks them. 24 legal items are still being verified against official texts (see CHANGELOG).
 
 **Feedback:** corrections and suggestions are welcome through [GitHub Issues](https://github.com/krunal6649/netra-india-observatory/issues).
 
@@ -69,12 +69,14 @@ Edit `data/india.json` (incidents, instruments, risks, mitigations, gaps) and ru
 - an incident without an overclaim check and a "what we do not know" list
 - NETRA stage 11 (human review) marked done on an unreviewed record
 - unknown risk areas, sectors, instruments or authorities, and non-https sources
+- a verification status other than yes / partial / no, or "yes" on a site home page instead of a specific document
+- malformed Act numbers ("Act 45 of 2023"), Gazette notification numbers ("G.S.R. 139(E)", "S.O. 2351(E)"), dates, or case entries missing a citation, court, date, holding or verification note
 
 `data/taxonomy.json` holds MIT’s taxonomies (keep the attribution line). `data/global_evidence.json` is the earlier METR pilot.
 
 ## Verification to-do
 
-1. Read official texts for every instrument marked "verify" (26 warnings in the build output).
+1. Read official texts for every instrument marked "verify" (24 warnings in the build output; each note says what is missing).
 2. Read the PSA white paper in full — it proposes a national AI incident database, which overlaps this project.
 3. Capture primary evidence (court orders, public FIR details, platform notices) for each NETRA dossier.
 4. Add risks from RBI FREE-AI recommendations 15–26, ICMR and SEBI.
