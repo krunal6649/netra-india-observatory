@@ -67,7 +67,10 @@ header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background
 .brand{display:flex;align-items:center;gap:12px;cursor:pointer}
 .brand b{font-family:var(--f-deva);font-size:1.5rem;font-weight:600;line-height:1.1}
 .brand small{display:block;font-size:.8rem;color:var(--muted);font-weight:500}
-.toolbar{display:flex;flex-wrap:wrap;gap:6px}
+.toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.iconbtn{display:inline-grid;place-items:center;width:34px;height:34px;padding:0;border-radius:50%;border:1px solid var(--line);background:var(--sheet);color:var(--ink);cursor:pointer;transition:border-color .15s,background .15s}
+.iconbtn:hover{border-color:var(--accent);background:var(--soft)}
+.iconbtn svg{pointer-events:none}
 .btn.sm{font-size:.8rem;padding:5px 12px}
 nav.tabs{display:flex;gap:4px;padding-block:6px 8px}
 nav.tabs button{font:inherit;font-size:.9rem;font-weight:600;background:none;border:1px solid transparent;border-radius:999px;color:var(--muted);padding:6px 14px;cursor:pointer;white-space:nowrap;transition:background .15s,color .15s}
@@ -300,7 +303,7 @@ legend{font-family:var(--f-display);font-weight:650;font-size:1.05rem;padding:0 
       <div class="toolbar">
         <button type="button" class="btn sm" data-tour="start">Guided tour</button>
         <button type="button" class="btn sm" data-go="about-credits">Credits</button>
-        <button type="button" class="btn sm" id="theme-btn" aria-pressed="false">Light mode</button>
+        <button type="button" class="iconbtn" id="theme-btn" aria-label="Switch to day mode" title="Switch to day mode"></button>
       </div>
     </div>
     <nav class="tabs" id="tabs" aria-label="Sections"></nav>
@@ -345,7 +348,9 @@ const ICON = {
   gaps:'<path d="M4 12h5M15 12h5M9 8v8M15 8v8"/>',
   evidence:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/>',
   survey:'<path d="M5 19V9M12 19V5M19 19v-7"/>',
-  about:'<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/>'
+  about:'<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/>',
+  sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
+  moon:'<path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/>'
 };
 /* Four sections. Each page has a plain-token address (#explore-incidents) so it can be linked and shared. */
 const TABS = [
@@ -910,7 +915,8 @@ function openLaw(id){ state.q = ''; state.f.laws = {}; go('explore-laws'); const
 /* theme: dark by default; light is a per-reader choice, and is also used for printing */
 const $theme = document.getElementById('theme-btn');
 function setTheme(t, save){ const root = document.documentElement; if(root){ if(t==='light') root.setAttribute('data-theme','light'); else root.removeAttribute('data-theme'); }
-  if($theme){ $theme.textContent = t==='light' ? 'Dark mode' : 'Light mode'; $theme.setAttribute('aria-pressed', String(t==='light')); }
+  /* the icon shows the mode a click switches to: a sun at night, a moon by day */
+  if($theme){ const next = t==='light' ? 'night' : 'day'; $theme.innerHTML = svgIcon(t==='light' ? 'moon' : 'sun', 18); $theme.setAttribute('aria-label', `Switch to ${next} mode`); $theme.setAttribute('title', `Switch to ${next} mode`); }
   if(save){ try{ localStorage.setItem('netra-theme', t); }catch(e){} } }
 let savedTheme = 'dark'; try{ savedTheme = localStorage.getItem('netra-theme') || 'dark'; }catch(e){}
 setTheme(savedTheme==='light' ? 'light' : 'dark', false);
@@ -928,7 +934,7 @@ function hideTip(){ $tip && $tip.classList.remove('show'); }
 document.addEventListener('pointerover', e => { const t = e.target.closest?.('[data-tip]'); if(!t){ hideTip(); return; } $tip.innerHTML = t.dataset.tip; $tip.classList.add('show'); });
 document.addEventListener('pointermove', e => { if(!$tip.classList.contains('show')) return; const w = $tip.offsetWidth, h = $tip.offsetHeight; let x = e.clientX+14, y = e.clientY+14; if(x+w>innerWidth-8) x = e.clientX-w-14; if(y+h>innerHeight-8) y = e.clientY-h-14; $tip.style.left = Math.max(8,x)+'px'; $tip.style.top = Math.max(8,y)+'px'; });
 document.addEventListener('click', e => {
-  if(e.target.id==='theme-btn'){ setTheme(document.documentElement.getAttribute('data-theme')==='light' ? 'dark' : 'light', true); return; }
+  if(e.target.closest?.('#theme-btn')){ setTheme(document.documentElement.getAttribute('data-theme')==='light' ? 'dark' : 'light', true); return; }
   const t = e.target.closest('[data-go],[data-sub],[data-dom],[data-inc],[data-law],[data-scroll],[data-pill],[data-clear],[data-filters],[data-tour],#sv-refresh,#sv-publish,#sv-copy,#sv-doimport');
   if(!t) return;
   if(t.id==='sv-copy'){ copyCode(); return; }

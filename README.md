@@ -27,7 +27,7 @@ An open, India-focused map of AI risks, real incidents and the laws that apply t
 
 ## How the site is organised
 
-Four sections. Dark mode is the default; **Light mode** (top right) is also used when printing. Each page has its own link, such as `#explore-laws` or `#analysis-dossiers`.
+Four sections. Night (dark) mode is the default; the sun / moon button at the top right, beside **Guided tour** and **Credits**, switches to day mode. Printing always uses day colours. Each page has its own link, such as `#explore-laws` or `#analysis-dossiers`.
 
 | Section | What it holds now |
 |---|---|

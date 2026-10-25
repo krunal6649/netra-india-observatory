@@ -1,7 +1,8 @@
 # Changelog
 
 ## v0.2-dev (unreleased) — Phase 2: cleaner look and navigation
-- **Dark mode by default.** A Light mode button (top right) remains, and printing always uses the light colours.
+- **Dark mode by default.** A sun / moon icon at the top right, grouped with Guided tour and Credits, switches between
+  night and day; printing always uses the day colours.
 - **Title:** "नेत्र" with the eye icon, plus "India AI Risk Observatory". No other Devanagari on the site (checked by the smoke test).
 - **11 tabs replaced by 4:** Home, Explore, Analysis, About.
   - Explore: one searchable list with a Risks / Incidents / Laws / Measures switch, and one Filters button that hides the
