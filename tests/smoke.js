@@ -57,6 +57,7 @@ check(N.page('about-credits').includes('CC BY 4.0') && N.page('about-credits').i
 check(N.page('analysis-dossiers').includes('All sources and credits') && N.page('analysis-gaps').includes('All sources and credits'), 'analysis pages show credits');
 check(N.page('about-verification').includes('Partly verified') && N.page('about-method').includes('issues/new?template=correction.yml'), 'verification status and correction link render');
 check(N.TOUR.every(([p]) => N.PAGES[p]), 'every guided tour step points at a real page');
+check(N.TOUR.some(t => t[1] === 'Who to approach' && t[3] === 'directory') && !N.page('home').includes('Three ways in'), 'tour includes Who to approach; Three ways in is gone');
 // Phase 3: Who to approach directory
 const DIRD = JSON.parse(script.match(/const PAYLOAD = (\{[\s\S]*?\});\n\(function/)[1]).directory;
 const sq = N.squarify([{ w: 5 }, { w: 3 }, { w: 2 }, { w: 1 }, { w: 1 }], 0, 0, 100, 100);
@@ -70,6 +71,9 @@ check(hm.includes('Call <b>1930</b>') && hm.includes('What NETRA adds'), 'direct
 N.state.dir = { level: 'state', place: null, body: null };
 hm = N.page('home');
 check(D.states_uts.states.concat(D.states_uts.union_territories).every(p => hm.includes(`data-dir="place:state:${p}"`)), 'step 2 shows all 36 states and UTs');
+const cells = [...hm.matchAll(/grid-column:(\d+);grid-row:(\d+)/g)].map(m => m[1] + ',' + m[2]);
+check(cells.length === 36 && new Set(cells).size === 36, 'tile map gives each state and UT its own square');
+check(!/data-tip=""/.test(hm), 'no empty hover cards');
 check(!/\b\d+ (case|incident)s?\b/i.test(hm.slice(hm.indexOf('id="directory"'), hm.indexOf('Where incidents outrun'))), 'directory shows no case counts');
 N.state.dir = { level: 'state', place: 'Kerala', body: null };
 hm = N.page('home');
