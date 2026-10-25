@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.2.1-dev — first weekly run, fixes
+- First real run of the weekly update (2026-10-25, pull request #15): METR and MITRE ATLAS worked; GDELT answered
+  429 (too many requests) and PIB answered 403 (forbidden) to GitHub's servers, so no news items were found.
+- GDELT requests now wait 15 s between queries and retry after 20, 45 and 90 s on a 429, as GDELT's rate limit asks.
+- PIB feeds switched off: NETRA does not work around a site that refuses automated access. Method, Credits and
+  `scripts/weekly_sources.json` say so. Tests keep PIB feed reading covered with fixtures; new test for the retry.
+
 ## v0.2.0 — Phase 7: housekeeping and release files
 - **`CITATION.cff` 0.2.0** with repository, site, contact and references (MIT AI Risk Repository, MITRE ATLAS), and a
   matching **`.zenodo.json`** for archiving a release with a DOI. The frozen tag `v0.1.0-pilot` is untouched.

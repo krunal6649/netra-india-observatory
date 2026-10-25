@@ -87,11 +87,20 @@ def gdelt_date(s):
         return ""
 
 
-def gdelt(query, get, start, end):
+def gdelt(query, get, start, end, sleep=time.sleep):
+    """GDELT asks for one request every few seconds and answers 429 when busy; wait and try again a few times."""
     g = CONFIG["gdelt"]
     q = urllib.parse.urlencode({"query": query, "mode": "ArtList", "format": "json", "maxrecords": g["maxrecords"], "sort": "DateDesc",
                                 "startdatetime": start.strftime("%Y%m%d") + "000000", "enddatetime": end.strftime("%Y%m%d") + "235959"})
-    raw = get(g["url"] + "?" + q)
+    waits = list(g.get("retry_waits", []))
+    while True:
+        try:
+            raw = get(g["url"] + "?" + q)
+            break
+        except SourceError as e:
+            if "429" not in str(e) or not waits:
+                raise
+            sleep(waits.pop(0))
     try:
         data = json.loads(raw.decode("utf-8", "replace") or "{}")
     except json.JSONDecodeError:
@@ -231,7 +240,7 @@ def run(today, get=fetch, sleep=time.sleep):
     g = CONFIG["gdelt"]
     for label, q, bucket in (("GDELT: AI news", g["ai_query"], ai_items), ("GDELT: cyber news", g["cyber_query"], cyber_items)):
         try:
-            arts = gdelt(q, get, start, end)
+            arts = gdelt(q, get, start, end, sleep)
             bucket.extend(arts)
             report.append({"name": label, "url": g["url"], "status": "ok", "items": len(arts)})
         except SourceError as e:
