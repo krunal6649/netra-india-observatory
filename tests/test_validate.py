@@ -42,6 +42,35 @@ class Tests(unittest.TestCase):
         d = copy.deepcopy(self.india); d["incidents"][0]["severity"] = 7
         self.rejects(d, "severity must be 1–5")
 
+    def ins(self, d, iid):
+        return next(i for i in d["instruments"] if i["id"] == iid)
+
+    def test_verified_value(self):
+        d = copy.deepcopy(self.india); self.ins(d, "G-BNS")["verified"] = "probably"
+        self.rejects(d, "verified must be one of")
+
+    def test_verified_needs_specific_url(self):
+        d = copy.deepcopy(self.india); b = self.ins(d, "G-BNS")
+        b["verified"], b["url"] = "yes", "https://www.indiacode.nic.in/"
+        self.rejects(d, "not a home page")
+
+    def test_act_number_format(self):
+        d = copy.deepcopy(self.india); self.ins(d, "G-BNS")["act_no"] = "No. 45/2023"
+        self.rejects(d, "act_no must look like")
+
+    def test_notification_number_format(self):
+        d = copy.deepcopy(self.india); self.ins(d, "G-ITR21")["notifications"] = [{"no": "GSR 139", "what": "x"}]
+        self.rejects(d, "must look like 'G.S.R. 139(E)'")
+
+    def test_notification_date_format(self):
+        d = copy.deepcopy(self.india)
+        self.ins(d, "G-ITR21")["notifications"] = [{"no": "G.S.R. 139(E)", "date": "25 Feb 2021", "what": "x"}]
+        self.rejects(d, "date must be an ISO date")
+
+    def test_case_needs_fields(self):
+        d = copy.deepcopy(self.india); self.ins(d, "G-BSA")["cases"] = [{"name": "X v. Y"}]
+        self.rejects(d, "case X v. Y missing citation")
+
 
 if __name__ == "__main__":
     unittest.main()

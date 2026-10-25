@@ -8,9 +8,11 @@ Usage (from the netra-india folder):
 Standard library only. Nothing to install.
 """
 import json
+import re
 import sys
 from datetime import date
 from pathlib import Path
+from urllib.parse import urlparse
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data"
@@ -18,6 +20,55 @@ TEMPLATE = ROOT / "web" / "template.html"
 OUT = ROOT / "dist" / "index.html"
 PLACEHOLDER = "/*__DATA__*/null"
 STAGE_STATES = {"done", "secondary", "partial", "draft", "open", "contested", "possible", "n/a"}
+VERIFIED = {"yes", "partial", "no"}
+ACT_NO = re.compile(r"^Act \d+ of (19|20)\d\d$")
+NOTIFICATION_NO = re.compile(r"^(G\.S\.R\.|S\.O\.) \d+\(E\)$")
+ISO_DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+
+
+def is_date(s):
+    if not isinstance(s, str) or not ISO_DATE.match(s):
+        return False
+    try:
+        date.fromisoformat(s)
+    except ValueError:
+        return False
+    return True
+
+
+def check_instrument_detail(i, errors):
+    """Optional structured fields added in v0.2: act number, Gazette notifications, cases."""
+    iid = i["id"]
+    if i["verified"] not in VERIFIED:
+        errors.append(f"{iid}: verified must be one of {sorted(VERIFIED)}")
+    # A record marked verified must point at a specific document, not a site's home page
+    if i["verified"] == "yes" and urlparse(i["url"]).path.strip("/") == "":
+        errors.append(f"{iid}: verified 'yes' needs a specific document URL, not a home page")
+    if "act_no" in i and not ACT_NO.match(i["act_no"]):
+        errors.append(f"{iid}: act_no must look like 'Act 45 of 2023'")
+    if "checked" in i and not is_date(i["checked"]):
+        errors.append(f"{iid}: checked must be an ISO date")
+    if "gazette_url" in i and not i["gazette_url"].startswith("https://"):
+        errors.append(f"{iid}: gazette_url must be https")
+    for n in i.get("notifications", []):
+        if not NOTIFICATION_NO.match(n.get("no", "")):
+            errors.append(f"{iid}: notification number '{n.get('no')}' must look like 'G.S.R. 139(E)' or 'S.O. 2351(E)'")
+        for k in ("date", "effective"):
+            if k in n and not is_date(n[k]):
+                errors.append(f"{iid}: notification {n.get('no')} {k} must be an ISO date")
+        if not n.get("what"):
+            errors.append(f"{iid}: notification {n.get('no')} needs a 'what' description")
+    for c in i.get("cases", []):
+        for f in ("name", "citation", "court", "date", "holding", "verified", "note"):
+            if not c.get(f):
+                errors.append(f"{iid}: case {c.get('name', '?')} missing {f}")
+        if c.get("date") and not is_date(c["date"]):
+            errors.append(f"{iid}: case {c.get('name')} date must be an ISO date")
+        if c.get("verified") and c["verified"] not in VERIFIED:
+            errors.append(f"{iid}: case {c.get('name')} verified must be one of {sorted(VERIFIED)}")
+        for k in ("url", "report_url"):
+            if k in c and not c[k].startswith("https://"):
+                errors.append(f"{iid}: case {c.get('name')} {k} must be https")
 
 
 class ValidationError(Exception):
@@ -68,6 +119,7 @@ def validate(tax, india, glob):
                 errors.append(f"{i['id']}: missing {f}")
         if not i["url"].startswith("https://"):
             errors.append(f"{i['id']}: url must be https")
+        check_instrument_detail(i, errors)
         for d in i["domains"]:
             if d not in subs:
                 errors.append(f"{i['id']}: unknown subdomain {d}")
