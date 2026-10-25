@@ -53,6 +53,7 @@ check(N.page('about-credits').includes('CC BY 4.0') && N.page('about-credits').i
 check(N.page('analysis-dossiers').includes('All sources and credits') && N.page('analysis-gaps').includes('All sources and credits'), 'analysis pages show credits');
 check(N.page('about-verification').includes('Partly verified') && N.page('about-method').includes('issues/new?template=correction.yml'), 'verification status and correction link render');
 check(N.TOUR.every(([p]) => N.PAGES[p]), 'every guided tour step points at a real page');
+check(N.page('about-method').includes('chosen to cover risk areas that had few or no cases'), 'method page explains how batch 2 was chosen');
 check(!/Light mode|Dark mode/.test(html.slice(html.indexOf('<header'), html.indexOf('</header>'))) && /id="theme-btn"[^>]*aria-label="Switch to day mode"/.test(html), 'theme switch is an icon button with a spoken label, not a text tab');
 check(N.page('about-method').includes('Maintainer and contact') && N.page('about-method').includes(D.meta.contact_email) && N.page('about-method').includes(D.meta.maintainer) && N.page('about-credits').includes(D.meta.contact_email), 'About shows the maintainer and contact email');
 N.state.sub = '6.3';

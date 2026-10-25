@@ -710,7 +710,7 @@ V['about-method'] = () => head('Method','How this was built, and how far to trus
   contactBox() + `<div class="grid g-2" style="margin-top:14px">
   <section class="sheet">${H3('What each part contains','Where the records come from and how they were coded.')}<dl class="kv">
    <dt>Risks</dt><dd>Quoted from ${D.frameworks.filter(f=>D.risks.some(r=>r.framework===f.id)).map(f=>`<a href="${esc(f.url)}" target="_blank" rel="noopener">${esc(f.issuer.split(' (')[0])}</a>`).join(' and ')} documents read in full.</dd>
-   <dt>Incidents</dt><dd>${D.incidents.length} found through targeted searches and read in news and legal-analysis sources. Not a systematic sample.</dd>
+   <dt>Incidents</dt><dd>${D.incidents.length} found through targeted searches and read in news and legal-analysis sources. Not a systematic sample.${D.incidents.some(i=>i.batch==='B2')?` The ${D.incidents.filter(i=>i.batch==='B2').length} cases added in October 2026 (batch 2) were chosen to cover risk areas that had few or no cases, so the counts show coverage, not how common each harm is.`:''}</dd>
    <dt>Laws</dt><dd>${D.instruments.length} instruments; ${D.instruments.filter(i=>i.verified==='yes').length} verified against official texts, the rest flagged. <button type="button" class="linkbtn" data-go="about-verification">See verification status</button></dd>
    <dt>Measures</dt><dd>${D.mitigations.length} measures quoted or summarised from those instruments.</dd>
    <dt>Coding</dt><dd>Taxonomy, cause and severity codes were assigned with AI assistance and have not been checked by a second coder.</dd></dl></section>

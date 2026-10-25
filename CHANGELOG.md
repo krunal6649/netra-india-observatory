@@ -1,5 +1,20 @@
 # Changelog
 
+## v0.2-dev (unreleased) — Batch 2: ten more cases
+- **10 new incidents (IN-INC-13 to IN-INC-22), all unreviewed**, chosen to cover risk areas with few or no cases.
+  Each has at least two sources, NETRA stages, unknowns and an overclaim check. Batch is marked `B2`, and the Method
+  page says the batch was chosen for coverage, so counts do not show how common each harm is.
+  - Privacy & Security: Hyderabad police facial recognition challenge (Telangana HC) · WotNot chatbot file leak
+    (Gujarat) · CERT-In alert on AI agents reaching live systems
+  - Discrimination & toxicity: AI-generated explicit images of an Assam woman · Grok's Hindi abuse
+  - AI system failures: POSHAN Tracker face recognition denying rations · Bengaluru AI traffic camera wrong fines ·
+    Haryana family-ID system marking pensioners dead
+  - Overreliance: Bombay HC quashes tax order built on non-existent judgments (KMG Wires)
+  - Misinformation: Army Chief deepfake after Operation Sindoor
+- Cases by risk domain (old → new): 1: 3→7 · 2: 0→5 · 3: 4→6 · 4: 7→10 · 5: 2→4 · 6: 3→4 · 7: 1→6
+- Home now reads "22 cases tracked · 12 reviewed by a person · 10 unreviewed".
+- Build: `batch` must look like `B2`. 1 new unit test checks batch 2 is unreviewed, sourced, and covers all 7 domains.
+
 ## v0.2-dev (unreleased) — Owner review and court documents
 - **All 12 incidents human-reviewed** by the project owner on 2026-10-25, who reported that all looked correct.
   Each record now stores `reviewed_by` and `reviewed_on`, and NETRA stage 11 (Human review) is done. Home now reads

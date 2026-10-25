@@ -17,9 +17,9 @@ An open, India-focused map of AI risks, real incidents and the laws that apply t
 3. Open an incident's **NETRA dossier** (under **Analysis**): location, laws that may apply, authority, and "what NETRA does not know".
 
 ## What is in it (pilot v0.1)
-18 risks quoted from government frameworks · 12 documented Indian incidents · 28 laws, rules, advisories and court orders · 28 mitigation measures · 10 reporting authorities · 6 legal and policy gaps.
+18 risks quoted from government frameworks · 22 documented Indian incidents · 28 laws, rules, advisories and court orders · 28 mitigation measures · 10 reporting authorities · 6 legal and policy gaps.
 
-> **Status:** an independent research project. **Not legal advice.** All codings were drafted with AI assistance. The 12 incidents were reviewed by the maintainer on 2026-10-25; anything new arrives *unreviewed* until a person checks it. 24 legal items are still being verified against official texts (see CHANGELOG).
+> **Status:** an independent research project. **Not legal advice.** All codings were drafted with AI assistance. The first 12 incidents were reviewed by the maintainer on 2026-10-25; the 10 added later (batch 2) are *unreviewed* until a person checks them. 24 legal items are still being verified against official texts (see CHANGELOG).
 
 **Corrections:** use [Suggest a correction](https://github.com/krunal6649/netra-india-observatory/issues/new?template=correction.yml) (also linked at the bottom of every page). It asks only for a public source link, its date and the place. It is not for reporting live incidents, and nothing changes on the site until the maintainer reviews it. For financial cyber fraud, call 1930 or use cybercrime.gov.in.
 
@@ -32,7 +32,7 @@ Four sections. Night (dark) mode is the default; the sun / moon button at the to
 | Section | What it holds now |
 |---|---|
 | **Home** | Headline, one "cases tracked" counter (reviewed and unreviewed, with the data update date), the risk wheel, and where incidents outrun binding law |
-| **Explore** | One searchable list with a switch: **Risks** (18 quoted from MeitY’s 2025 AI Governance Guidelines and NITI Aayog’s Responsible AI Part 1) · **Incidents** (12 documented in India) · **Laws** (28 statutes, rules, advisories, policy papers, standards and court orders, with Act numbers, Gazette notifications and cases where known) · **Measures** (28, sorted into MIT’s 23 mitigation types). Filters stay hidden until you click **Filters**. Clicking the wheel opens one **risk area** with everything for it side by side |
+| **Explore** | One searchable list with a switch: **Risks** (18 quoted from MeitY’s 2025 AI Governance Guidelines and NITI Aayog’s Responsible AI Part 1) · **Incidents** (22 documented in India) · **Laws** (28 statutes, rules, advisories, policy papers, standards and court orders, with Act numbers, Gazette notifications and cases where known) · **Measures** (28, sorted into MIT’s 23 mitigation types). Filters stay hidden until you click **Filters**. Clicking the wheel opens one **risk area** with everything for it side by side |
 | **Analysis** | **NETRA dossiers**: each incident through the 14 NETRA stages (location and jurisdiction, legal issues T1, authority routing, gaps T2–T3, unknowns, overclaim check) · **Gap register**: 6 gaps tied to incidents and instruments · **Report generator** and **Model register**: planned for v0.2, not built yet |
 | **About** | **Method** · **Sources and credits** (every outside source and its licence) · **Verification status** (what has been checked against official texts and what is missing) · **Expert survey** · **Global evidence** (the three METR reports, mapped to Indian law) |
 
