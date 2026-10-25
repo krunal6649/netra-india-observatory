@@ -1,0 +1,4 @@
+{"articles": [
+ {"url": "https://news.example.in/c1", "title": "Ransomware attack hits Hyderabad hospital systems", "seendate": "20261021T080000Z", "domain": "news.example.in", "sourcecountry": "India"},
+ {"url": "https://news.example.in/c2", "title": "Phishing scam using AI chatbot targets Mumbai bank customers", "seendate": "20261021T090000Z", "domain": "news.example.in", "sourcecountry": "India"}
+]}

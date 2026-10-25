@@ -1,0 +1,8 @@
+{"articles": [
+ {"url": "https://news.example.in/a1", "title": "Pune police arrest gang using AI voice clone to cheat elderly of Rs 12 lakh", "seendate": "20261020T080000Z", "domain": "news.example.in", "sourcecountry": "India"},
+ {"url": "https://daily.example.in/b1", "title": "AI voice clone gang that cheated elderly in Pune arrested", "seendate": "20261021T080000Z", "domain": "daily.example.in", "sourcecountry": "India"},
+ {"url": "https://news.example.in/a2", "title": "Deepfake video of Kerala minister: cyber police register FIR", "seendate": "20261022T080000Z", "domain": "news.example.in", "sourcecountry": "India"},
+ {"url": "https://news.example.in/a3", "title": "Startup launches new generative AI app for farmers", "seendate": "20261022T090000Z", "domain": "news.example.in", "sourcecountry": "India"},
+ {"url": "https://news.example.in/a4", "title": "US court fines chatbot maker over fake citations", "seendate": "20261023T090000Z", "domain": "news.example.in", "sourcecountry": "India"},
+ {"url": "https://news.example.in/a5", "title": "Deepfake video of Rashmika Mandanna goes viral, Delhi Police probe", "seendate": "20261023T100000Z", "domain": "news.example.in", "sourcecountry": "India"}
+]}

@@ -1,0 +1,16 @@
+format-version: 6.0.0
+collection:
+  name: ATLAS
+  version: '2026.10'
+  id: ATLAS-collection
+case-studies:
+  AML.CS0021:
+    name: ChatGPT Plugin Privacy Leak
+    created-date: '2023-03-01'
+    id: AML.CS0021
+  AML.CS0099:
+    name: Test Case Study For Fixtures
+    created-date: '2026-10-20'
+    target: Test Target
+    id: AML.CS0099
+relationships: []
