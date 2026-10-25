@@ -90,6 +90,9 @@ check(su.startsWith('https://github.com/krunal6649/netra-india-observatory/issue
 N.state.showUpload = false; A.UP.text = ''; A.UP.result = null;
 const mv = N.page('analysis-models'); N.state.mview = 'reports'; const ev = N.page('analysis-models'); N.state.mview = 'models';
 check(mv.includes('By evaluation report') && ev.includes('TR-001') && ev.includes('Indian provisions, limits and source') && !N.PAGES['about-evidence'] && N.page('home').includes('data-go="analysis-models"'), 'Global evidence now sits inside Models and evaluations, with a card on Home');
+const hw = N.page('home');
+check(hw.includes('This week in India') && (hw.includes('after the first Saturday run') || hw.includes('Auto-selected, unreviewed')) && hw.includes('GDELT'), 'Home has This week in India, labelled auto-selected and unreviewed, with the GDELT credit');
+check(N.page('about-credits').includes('CERT-In: not used yet'), 'Credits list the weekly sources and say CERT-In is not used yet');
 const zipbuf = fs.readFileSync(path.join(__dirname, 'fixtures', 'sample.docx'));
 check(N.TOUR.some(t => t[1] === 'Who to approach' && t[3] === 'directory') && !N.page('home').includes('Three ways in'), 'tour includes Who to approach; Three ways in is gone');
 // Phase 3: Who to approach directory
