@@ -157,6 +157,7 @@ button.chip:hover{border-color:var(--c,var(--accent))}
 .chip.hard{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
 .chip.soft{border-style:dashed}
 .rev{font-size:.72rem;font-weight:600;color:var(--part);background:color-mix(in srgb,var(--part) 14%,transparent);padding:2px 8px;border-radius:999px;white-space:nowrap}
+.rev.done{color:var(--ok);background:color-mix(in srgb,var(--ok) 14%,transparent)}
 .verify{color:var(--open);font-weight:600;font-size:.74rem}
 .sevm{display:inline-flex;align-items:center;gap:2px;font-size:.74rem;font-weight:600;color:var(--muted)}
 .sevm span{width:7px;height:14px;border-radius:2px;background:var(--soft)}
@@ -311,7 +312,7 @@ legend{font-family:var(--f-display);font-weight:650;font-size:1.05rem;padding:0 
 </header>
 <main class="wrap"><div class="inner" id="view"></div></main>
 <footer class="wrap"><div class="inner">
-  <span><b>Pilot research, not legal advice.</b> Codings were drafted with AI assistance and are unreviewed; items marked <span class="verify">to verify</span> rest on secondary sources.</span>
+  <span><b>Pilot research, not legal advice.</b> Codings were drafted with AI assistance; each record says whether a person has reviewed it. Items marked <span class="verify">to verify</span> rest on secondary sources.</span>
   <span>Uses the MIT AI Risk Initiative’s causal, domain and mitigation taxonomies under CC BY 4.0. Independent project; not affiliated with or endorsed by MIT.</span>
   <span class="links"><button type="button" class="linkbtn" data-go="about-method">Contact the maintainer</button><a id="foot-correct" href="#" target="_blank" rel="noopener">Suggest a correction</a><button type="button" class="linkbtn" data-go="about-credits">Sources and credits</button><a id="foot-code" href="#" target="_blank" rel="noopener">Code and data on GitHub</a></span>
   <span id="built"></span>
@@ -390,7 +391,7 @@ const h0 = (location.hash||'').slice(1); if(resolve(h0)) state.view = resolve(h0
 /* ---------- shared bits ---------- */
 const svgIcon = (k, size=22) => `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICON[k]||''}</svg>`;
 const domChip = sid => `<button type="button" class="chip dom" style="--c:${dc(sid)}" data-sub="${esc(sid)}" data-tip="<b>${esc(SUB[sid]?.dname)}</b>Open this risk area"><i></i>${esc(sid)} ${esc(SUB[sid]?.name)}</button>`;
-const rev = r => `<span class="rev">${esc(D.review_statuses[r]||r)}</span>`;
+const rev = r => `<span class="rev${r==='human_reviewed'||r==='published'?' done':''}">${esc(D.review_statuses[r]||r)}</span>`;
 const ver = v => v==='yes' ? '' : ' <span class="verify">to verify</span>';
 const VLABEL = {yes:'Verified', partial:'Partly verified', no:'To verify'};
 const vtag = v => `<span class="vtag ${esc(v)}">${esc(VLABEL[v]||v)}</span>`;
@@ -657,12 +658,15 @@ V['analysis-dossiers'] = () => {
 
   <section class="sheet" style="margin-top:14px;border-top:6px solid ${col}">
    <div class="row" style="justify-content:space-between;align-items:flex-start"><div style="min-width:0;flex:1 1 300px"><div class="row"><span class="id">${i.id}</span>${sevm(i.severity)}${rev(i.review)}</div>
-     <h2 style="margin-top:8px">${esc(i.title)}</h2><p class="hint">${esc(i.date)} · ${esc(i.state)}</p></div>
+     <h2 style="margin-top:8px">${esc(i.title)}</h2><p class="hint">${esc(i.date)} · ${esc(i.state)}${i.reviewed_by?` · reviewed by ${esc(i.reviewed_by)} on ${esc(i.reviewed_on)}`:''}</p></div>
      <div style="text-align:center">${ring(pct)}<div class="note">stages done from sources</div></div></div>
    <div class="pipe">${T.netra_stages.map(s=>`<div class="node s-${n.stages[s.id]}" data-tip="<b>${esc(s.name)}</b>${esc(n.stages[s.id])}"><div class="c">${s.id.slice(1)}</div><b>${esc(s.name)}</b>${esc(n.stages[s.id])}</div>`).join('')}</div>
    <div class="grid g-2" style="margin-top:18px">
     <div>${H3('Location & jurisdiction','Kept separate, as NETRA requires; one incident can touch several jurisdictions.')}
-     <div class="loc">${Object.entries(n.locations).map(([k,v])=>`<div><span>${esc(lbl[k]||k)}</span>${esc(v)}</div>`).join('')}</div></div>
+     <div class="loc">${Object.entries(n.locations).map(([k,v])=>`<div><span>${esc(lbl[k]||k)}</span>${esc(v)}</div>`).join('')}</div>
+     <h4 class="ctitle" style="font-size:1rem;margin-top:16px">Official court documents</h4>
+     ${(i.court_documents||[]).length ? `<div class="route">${i.court_documents.map(c=>`<div><span class="num" aria-hidden="true">§</span><div><a href="${esc(c.url)}" target="_blank" rel="noopener"><b>${esc(c.title)}</b></a><div class="note">${esc(c.court)} · ${esc(c.kind)} · ${esc(c.date)} · ${c.host==='official'?'court website':'other copy'} ${c.opened==='yes'?vtag('yes'):'<span class="vtag partial">Link not yet opened</span>'}</div><div class="note">${esc(c.note)}</div></div></div>`).join('')}</div>`
+       : `<p class="note" style="margin-top:6px">No official court document has been located for this case. Petitions filed by parties are usually not published by Indian courts; orders and judgments are added here when found on a court website.</p>`}</div>
     <div>${H3('Where to report or seek relief','Information only. NETRA never files reports automatically.')}
      <div class="route">${n.authorities.map((a,k)=>`<div><span class="num">${k+1}</span><div><b>${esc(AUTH[a].name)}</b>${AUTH[a].verified!=='yes'?' <span class="verify">to verify</span>':''}<div class="note">${esc(AUTH[a].role)} · <a href="${esc(AUTH[a].url)}" target="_blank" rel="noopener">${esc(new URL(AUTH[a].url).hostname)}</a></div></div></div>`).join('')}</div></div>
    </div>

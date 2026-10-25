@@ -19,7 +19,7 @@ An open, India-focused map of AI risks, real incidents and the laws that apply t
 ## What is in it (pilot v0.1)
 18 risks quoted from government frameworks · 12 documented Indian incidents · 28 laws, rules, advisories and court orders · 28 mitigation measures · 10 reporting authorities · 6 legal and policy gaps.
 
-> **Status:** an independent research project. **Not legal advice.** All codings were drafted with AI assistance and are marked *unreviewed* until a person checks them. 24 legal items are still being verified against official texts (see CHANGELOG).
+> **Status:** an independent research project. **Not legal advice.** All codings were drafted with AI assistance. The 12 incidents were reviewed by the maintainer on 2026-10-25; anything new arrives *unreviewed* until a person checks it. 24 legal items are still being verified against official texts (see CHANGELOG).
 
 **Corrections:** use [Suggest a correction](https://github.com/krunal6649/netra-india-observatory/issues/new?template=correction.yml) (also linked at the bottom of every page). It asks only for a public source link, its date and the place. It is not for reporting live incidents, and nothing changes on the site until the maintainer reviews it. For financial cyber fraud, call 1930 or use cybercrime.gov.in.
 

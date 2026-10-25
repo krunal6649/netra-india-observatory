@@ -24,6 +24,8 @@ VERIFIED = {"yes", "partial", "no"}
 ACT_NO = re.compile(r"^Act \d+ of (19|20)\d\d$")
 NOTIFICATION_NO = re.compile(r"^(G\.S\.R\.|S\.O\.) \d+\(E\)$")
 ISO_DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+DOC_KINDS = {"order", "judgment", "petition", "notice"}
+REVIEWED = {"human_reviewed", "published"}
 EMAIL = re.compile(r"^[^@\s<>\"]+@[^@\s<>\"]+\.[A-Za-z]{2,}$")
 
 
@@ -35,6 +37,26 @@ def is_date(s):
     except ValueError:
         return False
     return True
+
+
+def check_documents(inc, errors):
+    """Official court documents shown under Location & jurisdiction."""
+    for doc in inc.get("court_documents", []):
+        label = f"{inc['id']}: court document {doc.get('title', '?')}"
+        for f in ("title", "court", "date", "kind", "url", "host", "opened", "note"):
+            if not doc.get(f):
+                errors.append(f"{label} missing {f}")
+        if doc.get("kind") and doc["kind"] not in DOC_KINDS:
+            errors.append(f"{label} kind must be one of {sorted(DOC_KINDS)}")
+        if doc.get("date") and not is_date(doc["date"]):
+            errors.append(f"{label} date must be an ISO date")
+        if doc.get("url") and not doc["url"].startswith("https://"):
+            errors.append(f"{label} url must be https")
+        if doc.get("opened") and doc["opened"] not in ("yes", "no"):
+            errors.append(f"{label} opened must be 'yes' or 'no'")
+        # Only court websites count as official copies
+        if doc.get("host") == "official" and doc.get("url") and not urlparse(doc["url"]).hostname.endswith((".nic.in", ".gov.in")):
+            errors.append(f"{label} is marked official but is not on a .nic.in or .gov.in court site")
 
 
 def check_instrument_detail(i, errors):
@@ -180,6 +202,15 @@ def validate(tax, india, glob):
         # Safeguard: the human-review stage may never be marked done while the record is unreviewed
         if n["stages"]["S11"] == "done" and inc["review"] == "unreviewed":
             errors.append(f"{inc['id']}: S11 Human review cannot be 'done' on an unreviewed record")
+        # A human review must say who did it and when, and must close stage S11
+        if inc["review"] in REVIEWED:
+            if not inc.get("reviewed_by") or not is_date(inc.get("reviewed_on")):
+                errors.append(f"{inc['id']}: a reviewed record needs reviewed_by and an ISO reviewed_on date")
+            if n["stages"]["S11"] != "done":
+                errors.append(f"{inc['id']}: a reviewed record must have S11 Human review 'done'")
+        elif inc.get("reviewed_by") or inc.get("reviewed_on"):
+            errors.append(f"{inc['id']}: reviewed_by / reviewed_on set on a record that is not reviewed")
+        check_documents(inc, errors)
         for a in n["authorities"]:
             if a not in auth:
                 errors.append(f"{inc['id']}: unknown authority {a}")
