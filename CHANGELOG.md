@@ -1,5 +1,19 @@
 # Changelog
 
+## v0.2-dev (unreleased) — Phase 6: This week in India
+- **`scripts/weekly_top5.py`** (standard library, no AI, no key): up to five AI incidents in India from the past seven
+  days, a separate **Cyber watch** (never counted as AI) and a **Model watch** (new MITRE ATLAS case studies and METR
+  publications). Stories already in NETRA or in an earlier week are left out; fewer than five are shown if fewer
+  qualify. NETRA's own summaries; headlines only as link titles; no article text stored.
+- Sources in `scripts/weekly_sources.json`: GDELT DOC 2.0 API, PIB press-release RSS, METR RSS, MITRE ATLAS data on
+  GitHub. CERT-In is off until an official feed address is confirmed. Each run reports which sources answered.
+- **`.github/workflows/weekly.yml`**: every Saturday at 00:00 IST, opens a pull request; never merges.
+- **Home: "This week in India"**, with cards labelled "Auto-selected, unreviewed", Cyber watch, Model watch, source
+  status, earlier weeks and the GDELT credit. Credits page lists the weekly sources.
+- Build validates `data/weekly.json` (at most 5, unreviewed, short own summary, source links, no article text, cyber
+  kept apart). `docs/weekly-method.md` explains the rules and limits. Tests: 11 new unit tests with fixture feeds.
+- Label `report-suggestion` created for the "Send to NETRA for review" form.
+
 ## v0.2-dev (unreleased) — Phase 5 changes after owner feedback
 - **Add a report no longer asks visitors for an API key.** The provider, model and key boxes and all browser AI calls
   are removed. Instead the **NETRA check** runs in the browser: keyword matching against the new

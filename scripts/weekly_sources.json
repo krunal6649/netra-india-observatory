@@ -1,0 +1,57 @@
+{
+  "note": "Sources for scripts/weekly_top5.py. Official feeds and APIs only; no scraping. 'checked' says how each address was confirmed. The weekly workflow log reports whether each one answered.",
+  "window_days": 7,
+  "keep_weeks": 12,
+  "gdelt": {
+    "name": "GDELT Project DOC 2.0 API",
+    "url": "https://api.gdeltproject.org/api/v2/doc/doc",
+    "credit": "News discovery by the GDELT Project (gdeltproject.org). GDELT data is free and open; NETRA cites it as the discovery source.",
+    "ai_query": "(\"artificial intelligence\" OR deepfake OR deepfakes OR \"AI-generated\" OR chatbot OR \"voice clone\" OR \"voice cloning\" OR \"generative AI\" OR ChatGPT OR \"AI tool\" OR \"AI app\") sourcecountry:IN sourcelang:english",
+    "cyber_query": "(ransomware OR \"data breach\" OR \"cyber attack\" OR cyberattack OR phishing OR \"CERT-In\" OR hacked OR malware OR \"data leak\") sourcecountry:IN sourcelang:english",
+    "maxrecords": 250,
+    "pause_seconds": 6,
+    "checked": "Endpoint and parameters as documented by GDELT; not reachable from the build session, so confirmed on the first workflow run."
+  },
+  "feeds": [
+    {
+      "id": "pib",
+      "name": "Press Information Bureau: press releases (RSS, as listed)",
+      "url": "https://pib.gov.in/RssMain.aspx?ModId=6&Lang=2&Regid=3",
+      "kind": "india_official",
+      "enabled": true,
+      "checked": "Exact address listed on PIB's own RSS page (pib.gov.in/ViewRss.aspx). That page is in Hindi, so the language of this feed is to confirm on the first workflow run."
+    },
+    {
+      "id": "pib-lang1",
+      "name": "Press Information Bureau: press releases (RSS, Lang=1)",
+      "url": "https://pib.gov.in/RssMain.aspx?ModId=6&Lang=1&Regid=3",
+      "kind": "india_official",
+      "enabled": true,
+      "checked": "Same feed with Lang=1, tried in case it is the English edition. Not confirmed; if it fails or repeats the other feed, the run report says so and it can be switched off."
+    },
+    {
+      "id": "certin",
+      "name": "CERT-In advisories",
+      "url": "",
+      "kind": "india_official",
+      "enabled": false,
+      "checked": "No official CERT-In RSS or API address could be confirmed. Left off until the owner confirms one; NETRA does not scrape the CERT-In site."
+    },
+    {
+      "id": "metr",
+      "name": "METR publications (RSS)",
+      "url": "https://metr.org/feed.xml",
+      "kind": "model_tests",
+      "enabled": true,
+      "checked": "Address from a feed directory listing, not from METR itself. To confirm on the first workflow run. Titles and links only (cite and summarise)."
+    }
+  ],
+  "atlas": {
+    "name": "MITRE ATLAS case studies",
+    "pointer": "https://raw.githubusercontent.com/mitre-atlas/atlas-data/main/dist/v6/ATLAS-latest.yaml",
+    "base": "https://raw.githubusercontent.com/mitre-atlas/atlas-data/main/dist/v6/",
+    "study_url": "https://atlas.mitre.org/studies/",
+    "licence": "Apache 2.0, © MITRE",
+    "checked": "Public GitHub repository mitre-atlas/atlas-data, read on 2026-10-25: ATLAS-latest.yaml points to ATLAS-2026.09.yaml; case studies carry created-date."
+  }
+}
