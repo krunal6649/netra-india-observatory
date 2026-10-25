@@ -1725,7 +1725,19 @@
       },
       "review": "human_reviewed",
       "reviewed_by": "Krunal (project owner)",
-      "reviewed_on": "2026-10-25"
+      "reviewed_on": "2026-10-25",
+      "court_documents": [
+        {
+          "title": "Anil Kapoor v. Simply Life India & Ors, CS(COMM) 652/2023 — order of 20 Sep 2023",
+          "court": "Delhi High Court",
+          "date": "2023-09-20",
+          "kind": "order",
+          "url": "https://delhihighcourt.nic.in/app/downloadOrderbByDate/CS(COMM)/652/2023/20-09-2023",
+          "host": "official",
+          "opened": "no",
+          "note": "Link to the court's own order download, found by web search. Not opened yet (the court site is blocked from the AI-assisted session). Search listings describe a 21-page order by Justice Prathiba M. Singh; check that the link opens and the details match before relying on it."
+        }
+      ]
     },
     {
       "id": "IN-INC-03",
@@ -2204,7 +2216,19 @@
       },
       "review": "human_reviewed",
       "reviewed_by": "Krunal (project owner)",
-      "reviewed_on": "2026-10-25"
+      "reviewed_on": "2026-10-25",
+      "court_documents": [
+        {
+          "title": "ANI Media Pvt. Ltd. v. OpenAI, CS(COMM) 1028/2024 — order of 27 Jul 2026",
+          "court": "Delhi High Court",
+          "date": "2026-07-27",
+          "kind": "order",
+          "url": "https://delhihighcourt.nic.in/app/downloadOrderbByDate/CS(COMM)/1028/2024/27-07-2026",
+          "host": "official",
+          "opened": "no",
+          "note": "Link to the court's own order download, found by web search. Not opened yet. Search listings describe it as a corrigendum to the 24 July 2026 judgment (correcting a citation in paragraph 80). The judgment itself was not located on the court site."
+        }
+      ]
     },
     {
       "id": "IN-INC-09",
