@@ -1,5 +1,26 @@
 # Changelog
 
+## v0.2.0 — Phase 7: housekeeping and release files
+- **`CITATION.cff` 0.2.0** with repository, site, contact and references (MIT AI Risk Repository, MITRE ATLAS), and a
+  matching **`.zenodo.json`** for archiving a release with a DOI. The frozen tag `v0.1.0-pilot` is untouched.
+- **README** brought up to date: v0.2 figures with review status, seven-step tour, Who to approach and This week in
+  India, contact, how to cite, Sources and credits, Planned for v0.3, a table of documents, and version-tag notes.
+- **`docs/roadmap.md`: Planned for v0.3**: live reporting (only with a safe, agreed route), MIT AI Risk Repository
+  import, further sources (Epoch AI, AVID, OWASP, system cards, UK AISI, CERT-In, Indian-language news) and
+  record-quality work. The old README verification to-do list moved here.
+- **About › Method** now shows "Planned for v0.3", with counts computed from the data. Link-preview text updated
+  (22 incidents, 391 bodies, 12 model cards, v0.2).
+- `LICENSE-DATA.md` covers every data file, including the weekly update and its GDELT credit; `docs/model-sources.md`
+  has a status note after Phase 6.
+- Tests: `tests/test_release.py` (6 tests) checks that the citation and Zenodo files agree, that the README and
+  citation figures match the data, and that every linked document exists; 2 new smoke checks.
+
+### v0.2 in one paragraph
+Phases 1–7: law records verified where possible and labelled where not (1); new look and navigation (2); a
+Who to approach directory of 391 bodies on an India tile map (3); a report generator with no AI (4); Models and
+evaluations with Add a report and the NETRA check (5); a weekly, auto-selected and unreviewed update (6); release
+files and documentation (7).
+
 ## v0.2-dev (unreleased) — Phase 6: This week in India
 - **`scripts/weekly_top5.py`** (standard library, no AI, no key): up to five AI incidents in India from the past seven
   days, a separate **Cyber watch** (never counted as AI) and a **Model watch** (new MITRE ATLAS case studies and METR

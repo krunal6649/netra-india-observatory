@@ -93,6 +93,9 @@ check(mv.includes('By evaluation report') && ev.includes('TR-001') && ev.include
 const hw = N.page('home');
 check(hw.includes('This week in India') && (hw.includes('after the first Saturday run') || hw.includes('Auto-selected, unreviewed')) && hw.includes('GDELT'), 'Home has This week in India, labelled auto-selected and unreviewed, with the GDELT credit');
 check(N.page('about-credits').includes('CERT-In: not used yet'), 'Credits list the weekly sources and say CERT-In is not used yet');
+const mt = N.page('about-method');
+check(mt.includes('Planned for v0.3') && mt.includes('Live reporting') && mt.includes('MIT AI Risk Repository import') && mt.includes('Further sources') && !/undefined|NaN/.test(mt), 'About › Method lists what is planned for v0.3, with counts from the data');
+check(!html.includes('pilot v0.1') && html.includes('content="22 India AI incidents'), 'link-preview text is current');
 const zipbuf = fs.readFileSync(path.join(__dirname, 'fixtures', 'sample.docx'));
 check(N.TOUR.some(t => t[1] === 'Who to approach' && t[3] === 'directory') && !N.page('home').includes('Three ways in'), 'tour includes Who to approach; Three ways in is gone');
 // Phase 3: Who to approach directory

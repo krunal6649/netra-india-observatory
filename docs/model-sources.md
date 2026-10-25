@@ -25,3 +25,10 @@ Not used: AVID's Hugging Face organisation has no public datasets.
 
 Rules carried over from v0.1: every imported record arrives unreviewed; nothing is shown as a legal conclusion
 without human review; each record keeps its source link and licence.
+
+## Status after Phase 6 (2026-10-25)
+
+- The weekly update (`scripts/weekly_top5.py`) now lists **new** MITRE ATLAS case studies and METR publications each
+  Saturday under Model watch, unreviewed. MITRE ATLAS has moved to release 2026.09 (format v6, 73 case studies);
+  NETRA's twelve cards still use the eight v5.6.0 case studies until they are reviewed and updated.
+- Epoch AI, AVID and OWASP remain planned for v0.3 (see `docs/roadmap.md`).

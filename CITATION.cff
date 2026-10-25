@@ -1,11 +1,40 @@
 cff-version: 1.2.0
 title: "NETRA India AI Risk Observatory"
-version: "0.1.0-pilot"
-date-released: "2026-10-22"
+version: "0.2.0"
+date-released: "2026-10-25"
 message: "If you use this data or software, please cite it as below."
 type: dataset
 authors:
   - given-names: "Krunal"
-abstract: "Pilot observatory of AI risks, incidents, laws and mitigations in India, coded to the MIT AI Risk Initiative taxonomies and traced through the NETRA evidence and accountability pipeline. All codings unreviewed."
+    email: "krunal.maheshwari@gmail.com"
+    affiliation: "Independent researcher; Advocate, Bar Council of Gujarat"
+repository-code: "https://github.com/krunal6649/netra-india-observatory"
+url: "https://krunal6649.github.io/netra-india-observatory/"
+abstract: >-
+  An open record of AI harms in India, the Indian laws that may apply to them, and the authorities that can act.
+  Version 0.2 holds 22 documented Indian incidents (all reviewed by the maintainer), 28 laws, rules, advisories and
+  court orders (4 fully verified against official texts, 24 partly verified), 18 risks quoted from Indian government
+  frameworks, 28 measures, 6 governance gaps, a directory of 391 Union and state bodies, 12 AI model cards (unreviewed)
+  and a weekly, auto-selected and unreviewed update. Incidents are traced through the 14-stage NETRA method. Not legal advice.
 license: CC-BY-4.0
-keywords: [AI governance, AI incidents, India, AI risk, evidence law, NETRA]
+keywords:
+  - AI governance
+  - AI incidents
+  - India
+  - AI risk
+  - technology law
+  - evidence law
+  - NETRA
+references:
+  - type: dataset
+    title: "MIT AI Risk Repository (causal taxonomy, domain taxonomy and mitigation taxonomy)"
+    authors:
+      - name: "MIT AI Risk Initiative (MIT FutureTech)"
+    url: "https://airisk.mit.edu/"
+    license: CC-BY-4.0
+  - type: dataset
+    title: "MITRE ATLAS"
+    authors:
+      - name: "The MITRE Corporation"
+    url: "https://atlas.mitre.org/"
+    license: Apache-2.0

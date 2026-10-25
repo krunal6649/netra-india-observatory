@@ -9,7 +9,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="NETRA India">
 <meta property="og:title" content="NETRA India AI Risk Observatory">
-<meta property="og:description" content="12 India AI incidents, 28 laws and orders, 18 risks and 28 safety measures, mapped to a shared risk taxonomy and traced through the NETRA pipeline. Open pilot v0.1.">
+<meta property="og:description" content="22 India AI incidents, 28 laws and orders, a directory of 391 bodies and 12 AI model cards, mapped to a shared risk taxonomy and traced through the NETRA pipeline. Open pilot v0.2.">
 <meta property="og:url" content="https://krunal6649.github.io/netra-india-observatory/">
 <meta property="og:image" content="https://krunal6649.github.io/netra-india-observatory/docs/screens/og-image.png">
 <meta property="og:image:width" content="1200">
@@ -17,7 +17,7 @@
 <meta property="og:image:alt" content="NETRA India AI Risk Observatory: a coloured risk wheel beside the headline that India's AI harms are reached only through general statutes">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="NETRA India AI Risk Observatory">
-<meta name="twitter:description" content="India AI incidents, laws, risks and safety measures, traced through the NETRA accountability pipeline. Open pilot v0.1.">
+<meta name="twitter:description" content="India AI incidents, laws, risks and safety measures, traced through the NETRA accountability pipeline. Open pilot v0.2.">
 <meta name="twitter:image" content="https://krunal6649.github.io/netra-india-observatory/docs/screens/og-image.png">
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1406,8 +1406,12 @@ V['about-method'] = () => head('Method','How this was built, and how far to trus
    <dt>Laws</dt><dd>${D.instruments.length} instruments; ${D.instruments.filter(i=>i.verified==='yes').length} verified against official texts, the rest flagged. <button type="button" class="linkbtn" data-go="about-verification">See verification status</button></dd>
    <dt>Measures</dt><dd>${D.mitigations.length} measures quoted or summarised from those instruments.</dd>
    <dt>Coding</dt><dd>Taxonomy, cause and severity codes were assigned with AI assistance and have not been checked by a second coder.</dd></dl></section>
-  <section class="sheet">${H3('Next steps','What has to happen before any record can be called reviewed.')}<ol style="margin:8px 0 0;padding-left:20px">
-   <li>Read official texts for every item marked “to verify”.</li><li>Capture primary evidence for each NETRA dossier.</li><li>Add risks from RBI FREE-AI, ICMR and SEBI documents.</li><li>Have a second coder check codes.</li><li>Publish survey results after 5+ responses.</li></ol></section>
+  <section class="sheet" id="planned">${H3('Planned for v0.3','Planned, not promised. Every new record will start as unreviewed.')}<ul style="margin:8px 0 0;padding-left:18px">
+   <li><b>Live reporting</b>, only if a safe and lawful route is agreed with a relevant authority. Until then, victims of cyber fraud should call 1930 or use cybercrime.gov.in.</li>
+   <li><b>MIT AI Risk Repository import</b> (CC BY 4.0, with credit), kept in its own file and mapped to NETRA’s risk areas. NETRA’s 14 stages stay as they are.</li>
+   <li><b>Further sources:</b> Epoch AI (CC BY 4.0), AVID (MIT), OWASP Top 10 for LLM Applications (CC BY-SA 4.0, separate file), developer system cards and UK AI Security Institute (cite and summarise only), CERT-In once an official feed is confirmed, and Indian-language news.</li>
+   <li><b>Record quality:</b> check the ${D.instruments.filter(i=>i.verified!=='yes').length} partly verified legal records against official texts; add links for the ${DIR.bodies.filter(b=>!b.url).length} directory bodies without one; a second coder for risk codes; review the ${MODELS.models.length} model cards; publish survey results after 5+ responses.</li></ul>
+   <p class="note" style="margin-top:8px"><a href="${REPO}/blob/main/docs/roadmap.md" target="_blank" rel="noopener">Full list</a></p></section>
   <section class="sheet">${H3('Relation to NETRA','How this site uses the NETRA method.')}<p style="margin-top:6px">${esc(T.netra_note)}</p></section>
   <section class="sheet">${H3('Corrections','Found an error? Send a public source. Nothing changes until the maintainer reviews it.')}<p style="margin-top:6px">The form asks only for a public source link, its date and the place it concerns. It is not a way to report a live incident: for financial cyber fraud, call 1930 or use cybercrime.gov.in.</p><p style="margin-top:10px"><a class="btn primary" href="${esc(correctUrl(''))}" target="_blank" rel="noopener">Suggest a correction</a></p></section></div>`;
 
