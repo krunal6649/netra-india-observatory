@@ -593,11 +593,13 @@
         "4.3",
         "4.1"
       ],
-      "provisions": "Cheating, cheating by personation, forgery, defamation (section numbers to verify)",
+      "provisions": "s.77 voyeurism; s.308 extortion; s.318 cheating; s.319 cheating by personation; s.335 making a false document; s.336 forgery; s.340 forged document or electronic record; s.351 criminal intimidation; s.353 statements conducing to public mischief; s.356 defamation",
       "summary": "General criminal code that replaced the IPC. Relevant to deepfake fraud and impersonation where the human user is the offender.",
-      "url": "https://www.indiacode.nic.in/",
-      "verified": "no",
-      "note": "Researcher knowledge only. Section numbers not verified in this session."
+      "url": "https://www.indiacode.nic.in/bitstream/123456789/20062/1/a202345.pdf",
+      "verified": "yes",
+      "note": "Act number and section numbers checked by the project owner against the India Code copy linked here. The AI-assisted session that entered them could not open India Code (host blocked from its sandbox), so the entry rests on the owner's check.",
+      "act_no": "Act 45 of 2023",
+      "checked": "2026-10-25"
     },
     {
       "id": "G-CPA",
