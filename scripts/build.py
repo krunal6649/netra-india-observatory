@@ -263,6 +263,15 @@ def validate(tax, india, glob):
         if not n.get("overclaim") or not n.get("unknowns"):
             errors.append(f"{inc['id']}: needs an overclaim check and a 'what we do not know' list")
 
+    for a in india["authorities"]:
+        if a.get("verified") not in VERIFIED:
+            errors.append(f"{a['id']}: verified must be one of {sorted(VERIFIED)}")
+        if not a.get("url", "").startswith("https://"):
+            errors.append(f"{a['id']}: url must be https")
+        # A contact route shown as checked must say who checked it and when
+        if a.get("verified") == "yes" and (not a.get("checked_by") or not is_date(a.get("checked_on"))):
+            errors.append(f"{a['id']}: verified 'yes' needs checked_by and an ISO checked_on date")
+
     check_duplicates(india["incidents"], errors)
 
     for g in india["gaps"]:

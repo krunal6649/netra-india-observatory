@@ -1536,7 +1536,9 @@
       "name": "National Cyber Crime Reporting Portal / helpline 1930",
       "role": "Citizen reporting of cybercrime, including financial fraud",
       "url": "https://cybercrime.gov.in",
-      "verified": "partial"
+      "verified": "yes",
+      "checked_by": "Krunal (project owner)",
+      "checked_on": "2026-10-25"
     },
     {
       "id": "A-POLICE",
@@ -1557,14 +1559,18 @@
       "name": "Grievance Appellate Committee",
       "role": "Appeal against a platform grievance decision",
       "url": "https://www.gac.gov.in/",
-      "verified": "no"
+      "verified": "yes",
+      "checked_by": "Krunal (project owner)",
+      "checked_on": "2026-10-25"
     },
     {
       "id": "A-CERTIN",
       "name": "CERT-In",
       "role": "Mandatory cyber incident reports by covered entities",
       "url": "https://www.cert-in.org.in/",
-      "verified": "partial"
+      "verified": "yes",
+      "checked_by": "Krunal (project owner)",
+      "checked_on": "2026-10-25"
     },
     {
       "id": "A-DPB",
@@ -1578,21 +1584,26 @@
       "name": "Election Commission of India",
       "role": "Model Code of Conduct complaints about campaign content",
       "url": "https://www.eci.gov.in/",
-      "verified": "no"
+      "verified": "yes",
+      "checked_by": "Krunal (project owner)",
+      "checked_on": "2026-10-25"
     },
     {
       "id": "A-COURT",
       "name": "Civil courts / High Courts",
       "role": "Injunctions (personality rights, copyright, defamation)",
-      "url": "https://www.indiacode.nic.in/",
-      "verified": "partial"
+      "url": "https://indiacode.gov.in/home",
+      "verified": "partial",
+      "note": "Link changed to India Code (indiacode.gov.in) at the project owner's request on 2026-10-25. Still to be replaced by each High Court's own site in Phase 3."
     },
     {
       "id": "A-SC",
       "name": "Supreme Court of India",
       "role": "Writ and public-interest relief, e.g. welfare exclusion",
       "url": "https://www.sci.gov.in/",
-      "verified": "no"
+      "verified": "yes",
+      "checked_by": "Krunal (project owner)",
+      "checked_on": "2026-10-25"
     },
     {
       "id": "A-REG",

@@ -99,6 +99,15 @@ class Tests(unittest.TestCase):
         su = self.india["states_uts"]
         self.assertEqual((len(su["states"]), len(su["union_territories"])), (28, 8))
 
+    def test_verified_authority_needs_checker(self):
+        d = copy.deepcopy(self.india)
+        a = next(x for x in d["authorities"] if x["verified"] == "yes"); a.pop("checked_by")
+        self.rejects(d, "needs checked_by")
+
+    def test_owner_checked_authorities(self):
+        yes = {a["id"] for a in self.india["authorities"] if a["verified"] == "yes"}
+        self.assertEqual(yes, {"A-NCRP", "A-GAC", "A-CERTIN", "A-ECI", "A-SC"})
+
     def test_document_kind(self):
         d = copy.deepcopy(self.india)
         d["incidents"][0]["court_documents"] = [{"title": "Order", "court": "Delhi High Court", "date": "2023-09-20", "kind": "memo",
