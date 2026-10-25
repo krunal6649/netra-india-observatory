@@ -33,8 +33,8 @@ Four sections. Night (dark) mode is the default; the sun / moon button at the to
 |---|---|
 | **Home** | Headline, one "cases tracked" counter (reviewed and unreviewed, with the data update date), then **Who to approach**: a drill-down directory (Level → Authority → Bodies → body page) of 31 Union bodies and 10 standard bodies for each of the 36 states and UTs, coloured by role (enforces, adjudicates, regulates, supports victims). States and UTs appear on a tile map of India that includes Jammu and Kashmir, Ladakh and Arunachal Pradesh. Then the risk wheel and where incidents outrun binding law |
 | **Explore** | One searchable list with a switch: **Risks** (18 quoted from MeitY’s 2025 AI Governance Guidelines and NITI Aayog’s Responsible AI Part 1) · **Incidents** (22 documented in India) · **Laws** (28 statutes, rules, advisories, policy papers, standards and court orders, with Act numbers, Gazette notifications and cases where known) · **Measures** (28, sorted into MIT’s 23 mitigation types). Filters stay hidden until you click **Filters**. Incidents and laws show as a compact list (one line each, click to expand; a **List / Cards** switch keeps the full cards), can be sorted, show 20 at a time with **Show more**, and list active filters as chips you can remove. Incidents can also be filtered by state or UT, year and review status. Clicking the wheel opens one **risk area** with everything for it side by side |
-| **Analysis** | **NETRA dossiers**: each incident through the 14 NETRA stages (location and jurisdiction, legal issues T1, authority routing, gaps T2–T3, unknowns, overclaim check) · **Gap register**: 6 gaps tied to incidents and instruments · **Report generator**: a plain report for any incident or risk area, built in the browser from the stored data with no AI; preview, copy, download as Markdown, or print / save as PDF. Each dossier, incident card and risk area has a **Generate report** button · **Model register**: 12 AI models; each card keeps what the testers found (METR, MITRE ATLAS) apart from NETRA's India analysis, with a Generate report button. **Add a report** (on Model register and Report generator) reads a PDF, Word, text or Markdown file in your browser only, and can make AI-assisted Extract, Triage and Draft notes with your own API key (unreviewed drafts) |
-| **About** | **Method** · **Sources and credits** (every outside source and its licence) · **Verification status** (what has been checked against official texts and what is missing) · **Expert survey** · **Global evidence** (the three METR reports, mapped to Indian law) |
+| **Analysis** | **NETRA dossiers**: each incident through the 14 NETRA stages (location and jurisdiction, legal issues T1, authority routing, gaps T2–T3, unknowns, overclaim check) · **Gap register**: 6 gaps tied to incidents and instruments · **Report generator**: a plain report for any incident or risk area, built in the browser from the stored data with no AI; preview, copy, download as Markdown, or print / save as PDF. Each dossier, incident card and risk area has a **Generate report** button · **Models and evaluations**: 12 AI models (by model) and the three METR reports mapped to Indian law (by evaluation report); each model card keeps what the testers found (METR, MITRE ATLAS) apart from NETRA's India analysis, with a Generate report button. **Add a report** (on Models and evaluations and Report generator) reads a PDF, Word, text or Markdown file in your browser only and runs the **NETRA check**: keyword matching against NETRA's own lists (no AI, no key), showing risk areas, Indian laws named or linked, who could act, related gaps and similar India cases, with word-for-word passages. **Send to NETRA for review** opens a prefilled GitHub form or an email |
+| **About** | **Method** · **Sources and credits** (every outside source and its licence) · **Verification status** (what has been checked against official texts and what is missing) · **Expert survey** |
 
 Links from v0.1 still work: `#navigator`, `#risks`, `#incidents`, `#governance`, `#mitigations`, `#netra`, `#gaps`, `#evidence`, `#survey` and `#about` open the matching new page.
 
@@ -74,23 +74,26 @@ Edit `data/india.json` (incidents, instruments, risks, mitigations, gaps) or `da
 
 `data/taxonomy.json` holds MIT’s taxonomies (keep the attribution line). `data/global_evidence.json` is the earlier METR pilot.
 
-## AI-assisted drafts
+## Add a report and the NETRA check
 
-Two ways, both producing **unreviewed drafts** that never change NETRA's data by themselves:
+On the public site, **Add a report** reads the file in the visitor's browser and runs the **NETRA check**: plain keyword
+matching against `data/check_terms.json` (NETRA's own term lists for the 24 risk areas and 28 Indian instruments).
+No AI is used, no key is needed and nothing is sent. Every passage shown is copied word for word from the file, and
+results are labelled auto-matched, unreviewed and "possible only". **Send to NETRA for review** opens the
+`report.yml` issue form (or an email) prefilled with the title, link and check summary, never the file.
 
-- **In the browser (anyone):** Analysis › Model register › **Add a report**. Your file is read in the browser only. If you
-  use the AI steps, you paste your own key; a notice tells you the document goes straight from your browser to the
-  provider you chose. The key stays in the tab's memory and is never stored or logged.
-- **Owner-only workflow:** commit a `.txt`, `.md` or `.docx` file, then run **Actions › AI draft (unreviewed)**. It runs
-  `scripts/ai_draft.py` and opens a draft pull request with `data/drafts/<date>-<title>.json`. Set it up once:
-  add the repository secret `NETRA_AI_KEY` (optionally the variables `NETRA_AI_PROVIDER`, `NETRA_AI_MODEL`,
-  `NETRA_AI_BASE`), and turn on *Settings › Actions › General › Allow GitHub Actions to create and approve pull requests*.
-  Never put a key in the repository.
+## AI-assisted drafts (owner only)
 
-Safeguards in both: every quote must appear word for word in the source (and on the stated page), or it is removed;
+Commit a `.txt`, `.md` or `.docx` file, then run **Actions › AI draft (unreviewed)**. It runs `scripts/ai_draft.py`
+and opens a draft pull request with `data/drafts/<date>-<title>.json`. Title, source, date and licence are optional.
+Set it up once: add the repository secret `NETRA_AI_KEY` (optionally the variables `NETRA_AI_PROVIDER`,
+`NETRA_AI_MODEL`, `NETRA_AI_BASE`), and turn on *Settings › Actions › General › Allow GitHub Actions to create and
+approve pull requests*. Never put a key in the repository or the page.
+
+Safeguards: every quote must appear word for word in the source (and on the stated page), or it is removed;
 sentences that read as a legal conclusion, an accusation or a review claim are removed; suggestions that do not match
 NETRA's own lists of risk areas, laws and bodies are dropped; and the build refuses any draft marked reviewed.
-The instructions and safeguard rules live in `scripts/ai_prompts.json`, shared by both.
+The instructions and safeguard rules live in `scripts/ai_prompts.json`.
 
 ## Verification to-do
 

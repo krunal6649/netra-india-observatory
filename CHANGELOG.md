@@ -1,5 +1,20 @@
 # Changelog
 
+## v0.2-dev (unreleased) — Phase 5 changes after owner feedback
+- **Add a report no longer asks visitors for an API key.** The provider, model and key boxes and all browser AI calls
+  are removed. Instead the **NETRA check** runs in the browser: keyword matching against the new
+  `data/check_terms.json` (NETRA's own lists; validated by the build), showing risk areas with word-for-word passages
+  and page numbers, Indian laws named in the report, laws linked in NETRA to the top risk areas (possible only), who
+  could act, related gaps and similar India cases. Labelled auto-matched and unreviewed; not an AI, not a legal analysis.
+- **Send to NETRA for review**: opens the new `.github/ISSUE_TEMPLATE/report.yml` form prefilled with the title, link
+  and check summary (never the file), or an email. AI drafting stays owner-only through the GitHub workflow.
+- **Choose file** is a styled button; the file is read as soon as it is chosen and is no longer lost when the form
+  redraws. Title, source, date and licence are optional in the page, the script and the workflow.
+- **Global evidence moved** from About into Analysis › **Models and evaluations** (formerly Model register), as the
+  "By evaluation report" view next to "By model"; a Home card and a tour step point to it. Old `#evidence` and
+  `#about-evidence` links open it.
+- Fixed a 1-pixel horizontal scroll on phones in two-column forms.
+
 ## v0.2-dev (unreleased) — Phase 5: model register and report upload
 - **`data/models.json`: 12 model cards** (all unreviewed): GPT-5.6 Sol, HPIM (OpenAI internal), Claude Opus 4.6,
   o3, Claude Opus 4, DeepSeek-R1, Gemini 2.5 Pro (preview), ChatGPT, Gemini (formerly Bard), Microsoft 365 Copilot and
