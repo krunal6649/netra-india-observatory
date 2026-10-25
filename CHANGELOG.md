@@ -10,7 +10,15 @@
 - **Active-filter chips** above the list, each removable with ×, plus Clear all.
 - **20 records at a time** with "Show N more", so long lists stay fast. Timeline dots and law links still find records
   beyond the first page.
-- Smoke test: 8 new checks (paging, sorting, state, year and review filters, chips, cards view, law rows); 97 in total.
+- **State or UT filter lists all 28 states and 8 union territories** (plus "National or several states"), each with
+  its case count, so places with no case yet can still be chosen. The names are stored once in `data/india.json`
+  (`states_uts`) for the Phase 3 treemap, match `docs/authorities-plan.md`, and the build rejects a case whose place
+  does not start with one of them.
+- **Home banner:** removed the "Explore the cases" and "Guided tour" buttons, which repeated the header and tabs.
+- **Batch 2 (IN-INC-13 to 22) human-reviewed** by the project owner on 2026-10-25. Home now reads "22 cases tracked ·
+  22 reviewed by a person · 0 unreviewed".
+- Smoke test: 10 new checks (paging, sorting, filters, all states listed, chips, cards view, law rows, banner);
+  99 in total. 2 new unit tests.
 
 ## v0.2-dev (unreleased) — Phase 4: report generator
 - **Generate report** button on every NETRA dossier, incident card and risk-area page, plus a working
