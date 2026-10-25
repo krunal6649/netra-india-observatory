@@ -1,8 +1,29 @@
-# NETRA India AI Risk Observatory (pilot v0.1)
+# NETRA India AI Risk Observatory
 
-An India-focused counterpart to the MIT AI Risk Initiative’s tools, joined to the NETRA incident pipeline. It is an independent research project. It reuses MIT’s **taxonomies** under CC BY 4.0 with credit, and does not copy MIT’s name, logo, design, text or code.
+**🔗 Live site: https://krunal6649.github.io/netra-india-observatory/**  ·  Pilot v0.1 (open data, open code)
 
-**Not legal advice.** All codings were drafted with AI assistance and are unreviewed.
+An open, India-focused map of AI risks, real incidents and the laws that apply to them. For each incident it shows what happened, which laws may apply, which authority could act, and what is still unknown, using NETRA, a 14-stage method for analysing AI harm.
+
+![NETRA India AI Risk Observatory](docs/screens/netra-hero.png)
+
+## Who it is for
+- **Lawyers and policy researchers:** find incidents, laws and gaps in one place, each with a source link.
+- **Journalists and civil society:** see how deepfakes, voice cloning, fake citations and automated decisions map to Indian law.
+- **Government bodies and regulators:** see where complaints currently have no clear authority, and tell us what is wrong or missing.
+
+## Start here (three minutes)
+1. Open the [live site](https://krunal6649.github.io/netra-india-observatory/) and look at the **risk wheel** on the home page.
+2. Click any risk area to see India's related **incidents, laws and gaps** side by side.
+3. Open an incident and read its **NETRA dossier**: location, applicable law, authority, and "what NETRA does not know".
+
+## What is in it (pilot v0.1)
+18 risks quoted from government frameworks · 12 documented Indian incidents · 28 laws, rules, advisories and court orders · 28 mitigation measures · 10 reporting authorities · 6 legal and policy gaps.
+
+> **Status:** an independent research project. **Not legal advice.** All codings were drafted with AI assistance and are marked *unreviewed* until a person checks them. 26 legal items are still being verified against official texts (see CHANGELOG).
+
+**Feedback:** corrections and suggestions are welcome through [GitHub Issues](https://github.com/krunal6649/netra-india-observatory/issues).
+
+**Cite as:** see `CITATION.cff`. Data: CC BY 4.0. Code: MIT. Risk taxonomies adapted from the MIT AI Risk Repository (CC BY 4.0), with credit; this project is not affiliated with MIT.
 
 ## The tools
 
