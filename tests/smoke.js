@@ -57,6 +57,36 @@ check(N.page('about-credits').includes('CC BY 4.0') && N.page('about-credits').i
 check(N.page('analysis-dossiers').includes('All sources and credits') && N.page('analysis-gaps').includes('All sources and credits'), 'analysis pages show credits');
 check(N.page('about-verification').includes('Partly verified') && N.page('about-method').includes('issues/new?template=correction.yml'), 'verification status and correction link render');
 check(N.TOUR.every(([p]) => N.PAGES[p]), 'every guided tour step points at a real page');
+// Phase 5: model register, model reports, reading uploads, AI safeguards
+const MODS = JSON.parse(script.match(/const PAYLOAD = (\{[\s\S]*?\});\n\(function/)[1]).models.models;
+const mr = N.page('analysis-models');
+check(MODS.length >= 10 && MODS.length <= 15 && MODS.every(m => mr.includes(`id="${m.id}"`)) && mr.includes('What the testers found') && mr.includes('NETRA’s India analysis'), `model register lists ${MODS.length} models with testers' findings and NETRA's analysis apart`);
+let modBad = [];
+for (const m of MODS) {
+  const md = N.reportMd('model', m.id);
+  const a = md.indexOf('## Part A.'), b = md.indexOf('## Part B. NETRA’s India analysis');
+  if (!(a > 0 && b > a)) modBad.push(`${m.id} parts`);
+  if (m.tests.length && m.tests.every(t => t.report) && !md.includes('## Part A. What METR found')) modBad.push(`${m.id} METR heading`);
+  if (!md.includes('A test result is not evidence of real-world harm') || !md.includes('Not legal advice') || /undefined|null\b|\[object/.test(md.replace(/release date not recorded|Release:\*\* not recorded/g, ''))) modBad.push(`${m.id} content`);
+}
+check(modBad.length === 0, `model reports separate what testers found from NETRA's India analysis (${MODS.length} checked)${modBad.length ? ': ' + modBad.join(', ') : ''}`);
+check(mr.includes('data-report="model:MOD-01"') && mr.includes('data-upload="1"'), 'model cards have Generate report; register has Add a report');
+const A = N.ai;
+const doc = '[Page 1]\nThe agents used credentials found exposed online.\n[Page 2]\nAbout 7% of transcripts had spoofed tool calls.';
+const vq = A.verifyQuotes([{ text: 'The  agents used credentials', page: 1 }, { text: 'The developer admitted it.', page: 1 }, { text: 'About 7% of transcripts', page: 1 }], doc);
+check(vq.kept.length === 1 && vq.removed.length === 2, 'AI quotes are kept only if they appear word for word (on the stated page)');
+const rb = A.redactBlocked('Background. The company is liable under s.43. Mr X has committed fraud. Next.');
+check(!/liable|committed/.test(rb.text) && rb.flags.length === 2 && rb.text.includes('Background.'), 'AI sentences stating legal conclusions or accusations are removed');
+check(A.redactBlocked('Background. The firm is liable under s.43. Next.').text === 'Background. [Removed by NETRA safeguard: possible legal conclusion or accusation.] Next.', 'redaction keeps section numbers like s.43 inside the removed sentence');
+const ft = A.filterTriage({ risk_areas: ['4.3', '9.9'], possible_laws: [{ instrument_id: 'G-ITA', label: 'possible', why: 'w' }, { instrument_id: 'G-NOPE', label: 'possible', why: 'w' }, { instrument_id: 'G-BNS', label: 'guilty', why: 'w' }], authorities: ['U-CERTIN', 'S-kerala-POLICE', 'U-NOPE'], gaps: [] });
+check(ft.risk_areas.join() === '4.3' && ft.possible_laws.length === 1 && ft.authorities.join() === 'U-CERTIN' && ft.dropped.length === 5, 'AI triage keeps only NETRA ids and allowed labels');
+check(A.validateMeta({ title: '', source: 'http://x', date: '25 Oct', licence: '' }).length === 4 && A.validateMeta({ title: 'T', source: 'https://x.org', date: '2026-10-25', licence: 'MIT' }).length === 0, 'Add a report checks title, source, date and licence');
+N.state.showUpload = true; N.ai.UP.text = 'x'; N.ai.UP.file = 'a.txt';
+const up = N.page('analysis-models');
+check(up.includes('Nothing is uploaded or stored') && up.includes('will be sent from this browser directly to') && up.includes('id="ai-ok"') && up.includes('type="password"'), 'upload panel discloses where the document goes before any AI call');
+check(!/localStorage[^;]*AIKEY|AIKEY[^;]*localStorage|console\.[a-z]+\([^)]*AIKEY/.test(script) && !N.ai.keyHeld(), 'API key is never stored or logged, and starts empty');
+N.state.showUpload = false; N.ai.UP.text = '';
+const zipbuf = fs.readFileSync(path.join(__dirname, 'fixtures', 'sample.docx'));
 check(N.TOUR.some(t => t[1] === 'Who to approach' && t[3] === 'directory') && !N.page('home').includes('Three ways in'), 'tour includes Who to approach; Three ways in is gone');
 // Phase 3: Who to approach directory
 const DIRD = JSON.parse(script.match(/const PAYLOAD = (\{[\s\S]*?\});\n\(function/)[1]).directory;
@@ -150,7 +180,7 @@ const evil = N.mdToHtml('# x\n\n- <script>alert(1)</script> [a](javascript:alert
 check(!/<script|<img|href="javascript/i.test(evil) && evil.includes('&lt;script&gt;'), 'report renderer escapes HTML and refuses non-https links');
 N.state.report = { kind: 'area', id: '2.2' };
 const rp = N.page('analysis-report');
-check(rp.includes('NETRA risk-area report: 2.2') && rp.includes('id="rep-copy"') && rp.includes('id="rep-dl"') && rp.includes('id="rep-print"') && rp.includes('AI model (Phase 5)'), 'report page previews the chosen record, with copy, download and print');
+check(rp.includes('NETRA risk-area report: 2.2') && rp.includes('id="rep-copy"') && rp.includes('id="rep-dl"') && rp.includes('id="rep-print"') && rp.includes('>AI model</option>'), 'report page previews the chosen record, with copy, download and print');
 N.state.inc = 'IN-INC-05'; N.state.sub = '4.3';
 check(N.page('analysis-dossiers').includes('data-report="incident:IN-INC-05"') && N.page('explore-area').includes('data-report="area:4.3"') && N.page('explore-incidents').includes('data-report="incident:'), 'Generate report buttons on dossiers, risk areas and incident cards');
 check(N.page('about-method').includes('chosen to cover risk areas that had few or no cases'), 'method page explains how batch 2 was chosen');
@@ -182,6 +212,9 @@ check(N.decodeCodes(code.slice(0, -6) + 'AAAA==').ok.length === 0, 'corrupted co
 const evil = 'NETRA-IND-S1:' + Buffer.from(JSON.stringify({ ...ans, role: '<script>', top: ['9.9'] })).toString('base64');
 check(N.decodeCodes(evil).ok.length === 0, 'code with invalid values is rejected');
 check(sv.includes('No results have been published yet'), 'no fake results are shown before real answers');
+const ab = zipbuf.buffer.slice(zipbuf.byteOffset, zipbuf.byteOffset + zipbuf.byteLength);
+const dx = A.docxText(await A.unzipEntry(ab, 'word/document.xml'));
+check(dx === 'Test report on AI agents\nAgents used credentials found exposed online.\nMonitors caught most cases & missed some.', 'Word (.docx) files are read in the browser without any library');
 console.log(fail ? `\n${fail} check(s) failed` : '\nAll smoke checks passed');
 process.exit(fail ? 1 : 0);
 })();

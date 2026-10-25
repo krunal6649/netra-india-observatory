@@ -109,6 +109,10 @@ details.stages>summary::-webkit-details-marker{display:none}
 .dtabs button:hover{color:var(--ink)}
 .dtabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent)}
 .vtag.pending{color:var(--muted);background:var(--soft)}
+.ttest{border-left:3px solid var(--line);padding:4px 0 4px 10px;margin-top:10px}
+pre.uptext{white-space:pre-wrap;max-height:240px;overflow:auto;font-family:var(--f-mono);font-size:.78rem;background:var(--paper);padding:10px;border-radius:8px;border:1px solid var(--line)}
+.aiout{margin-top:12px;border-top:1px solid var(--line);padding-top:12px}
+input[type=text],input[type=password]{font:inherit;font-size:.9rem;color:var(--ink);background:var(--sheet);border:1px solid var(--line);border-radius:8px;padding:7px 10px;width:100%;min-width:0}
 .tm{position:relative;width:100%;height:clamp(240px,30vw,380px);margin-top:10px}
 .tile{position:absolute;box-sizing:border-box;border:2px solid var(--paper);border-left:5px solid var(--c);background:color-mix(in srgb,var(--c) 24%,var(--sheet));color:var(--ink);font:inherit;text-align:left;padding:8px 10px;cursor:pointer;overflow:hidden;display:flex;flex-direction:column;gap:2px;border-radius:6px;transition:background .15s}
 .tile:hover,.tile:focus-visible{background:color-mix(in srgb,var(--c) 42%,var(--sheet))}
@@ -1082,15 +1086,277 @@ V['analysis-report'] = () => {
   const r = state.report, K = REPORT_KINDS[r.kind];
   const md = reportMd(r.kind, r.id);
   return `<div class="no-print">${head('Report generator','Turn a record into a plain report','Built in your browser from the stored data, with no AI. Preview it, copy it, download it as Markdown, or print it as a PDF. Every report carries its review status and a “not legal advice” notice.','report','var(--d5)')}
-  <section class="sheet">${H3('Choose what to report on','Pick a record type, then the record. Model reports arrive with the model register in Phase 5.')}
+  <div class="row" style="margin-bottom:12px;justify-content:flex-end"><button type="button" class="btn" data-upload="1" aria-expanded="${!!state.showUpload}">${svgIcon('report',16)} Add a report</button></div>
+  ${state.showUpload ? uploadPanel() : ''}
+  <section class="sheet">${H3('Choose what to report on','Pick a record type (incident, risk area or AI model), then the record.')}
    <div class="filters" style="margin-top:12px">
-    <label class="field">Record type<select id="rep-kind">${Object.entries(REPORT_KINDS).map(([k,v])=>`<option value="${k}" ${k===r.kind?'selected':''}>${v.label}</option>`).join('')}<option disabled>AI model (Phase 5)</option></select></label>
+    <label class="field">Record type<select id="rep-kind">${Object.entries(REPORT_KINDS).map(([k,v])=>`<option value="${k}" ${k===r.kind?'selected':''}>${v.label}</option>`).join('')}</select></label>
     <label class="field" style="flex:1 1 320px;min-width:0;max-width:100%">Record<select id="rep-item" style="width:100%">${K.items().map(([v,l])=>`<option value="${esc(v)}" ${v===r.id?'selected':''}>${esc(l)}</option>`).join('')}</select></label></div>
    <div class="row" style="margin-top:12px"><button type="button" class="btn primary" id="rep-copy">Copy report</button><button type="button" class="btn" id="rep-dl">Download Markdown</button><button type="button" class="btn" id="rep-print">Print or save as PDF</button><span class="status-msg" id="rep-msg" role="status"></span></div>
    <textarea id="rep-md" readonly hidden aria-hidden="true">${esc(md)}</textarea></section></div>
   <article class="sheet report" id="report" style="margin-top:14px">${md ? mdToHtml(md) : '<p class="note">Choose a record above.</p>'}</article>
   <div class="no-print">${creditLine('NIST frameworks are paraphrased, not quoted. ')}</div>`;
 };
+/* ---------- Model register (Phase 5): what testers found, kept apart from NETRA's India analysis ---------- */
+const MODELS = PAYLOAD.models, MOD = byId(MODELS.models), PROMPTS = PAYLOAD.prompts;
+const GAPS_ALL = byId([...D.gaps, ...(G.gaps||[])]);
+const MAPS = byId(G.mappings);
+const LAW_LABEL = MODELS.meta.labels;
+const lawTag = l => `<span class="vtag ${l==='possible'?'yes':l==='interpretive'?'partial':'no'}">${esc(LAW_LABEL[l]||l)}</span>`;
+function modelRow(m){
+  const testers = [...new Set(m.tests.map(t=>t.by.replace(/\s*\(via MITRE ATLAS.*\)$/,'').replace(/, reported in MITRE ATLAS.*$/,'')))].join('; ') || 'No test in the licensed sources yet';
+  return `<details class="lrow" id="${m.id}" style="--edge:var(--d1)"><summary><span class="id">${m.id}</span><span class="lt"><b>${esc(m.name)}</b><span class="note">${esc(m.developer)} · ${m.release_date?esc(m.release_date):'release date not recorded'} · tested by ${esc(testers)}</span></span>${domDots(m.netra.risk_areas)}${rev(m.review)}</summary>
+  <div class="lbody"><div class="grid g-2" style="align-items:start">
+   <section>${H3('What the testers found','Cited and summarised from the tester’s own report. Not NETRA’s finding.')}
+    ${m.tests.length ? m.tests.map(t=>`<div class="ttest"><div class="row"><b>${esc(t.by)}</b><span class="note">${esc(t.date)}</span></div><p style="margin-top:4px"><span class="muted">Tested:</span> ${esc(t.what)}</p><p style="margin-top:4px"><span class="muted">Found:</span> ${esc(t.found)}</p>
+      <p class="note" style="margin-top:4px">${t.report?(()=>{ const r = G.reports.find(x=>x.id===t.report), s = G.sources.find(x=>x.id===r.source); return `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(r.title)}</a>`; })():`<a href="${esc(t.url)}" target="_blank" rel="noopener">${esc(t.atlas||'Source')}</a>`} · ${esc(t.licence)}</p></div>`).join('') : '<p class="note" style="margin-top:6px">No evaluation in the licensed sources yet.</p>'}
+    <p class="note" style="margin-top:8px">Release: ${esc(m.release_note)}${m.release_source?` <a href="${esc(m.release_source.url)}" target="_blank" rel="noopener">Source</a>`:''}</p></section>
+   <section>${H3('NETRA’s India analysis','Unreviewed. What may matter in India, kept separate from the test results.')}
+    <dl class="kv"><dt>Risk areas</dt><dd><div class="row">${m.netra.risk_areas.map(domChip).join('')}</div></dd>
+     <dt>Laws that may apply</dt><dd>${m.netra.laws.map(l=>`<div style="margin-bottom:6px">${insChip(l.instrument)} ${lawTag(l.label)}<div class="note">${esc(l.why)}</div></div>`).join('')}</dd>
+     <dt>Who could act</dt><dd>${m.netra.authorities.map(a=>`<button type="button" class="linkbtn" data-dir="body:${esc(a)}">${esc(BODY[a].name)}</button>`).join(' · ')}</dd>
+     ${m.netra.gaps.length?`<dt>Gaps</dt><dd>${m.netra.gaps.map(g=>`<div><span class="id">${esc(g)}</span> ${esc(GAPS_ALL[g]?.title||'')}</div>`).join('')}</dd>`:''}
+     ${m.incidents.length?`<dt>India cases</dt><dd>${m.incidents.map(x=>`<button type="button" class="chip" data-inc="${x}">${x} ${esc(INC[x].title.slice(0,48))}</button>`).join(' ')}</dd>`:''}
+     <dt>Not known</dt><dd><ul style="margin:0;padding-left:18px">${m.netra.unknowns.map(u=>`<li>${esc(u)}</li>`).join('')}</ul></dd>
+     <dt>Overclaim check</dt><dd>${esc(m.netra.overclaim)}</dd></dl></section></div>
+   <div class="row" style="margin-top:12px">${reportBtn('model', m.id)}<span class="note">${correctLink(m.id)}</span></div></div></details>`;
+}
+V['analysis-models'] = () => head('Model register','AI models, what was tested, and Indian law touched','One card per model. “What the testers found” is cited from the tester; “NETRA’s India analysis” is NETRA’s own unreviewed view. A test result is not evidence of real-world harm.','evidence','var(--d1)') +
+  `<div class="row" style="margin-bottom:12px;justify-content:space-between"><span class="note">${MODELS.models.length} models · all unreviewed</span><button type="button" class="btn" data-upload="1" aria-expanded="${!!state.showUpload}">${svgIcon('report',16)} Add a report</button></div>
+  ${state.showUpload ? uploadPanel() : ''}
+  <div class="lstack">${MODELS.models.map(modelRow).join('')}</div>` +
+  creditLine(`Model tests from METR (cite and summarise only) and MITRE ATLAS v5.6.0 (Apache 2.0, © MITRE). `);
+
+function reportModel(m){
+  const fromMetr = m.tests.some(t=>t.report);
+  const tags = [...new Set([...(m.netra.risk_areas.includes('2.2')?['Secure (securing AI system components)']:[]), ...(m.netra.risk_areas.some(d=>/^4\./.test(d))?['Thwart (resisting AI-enabled attacks)']:[])])];
+  const maps = m.netra.mappings.map(id=>MAPS[id]).filter(Boolean);
+  return [
+    `# NETRA model report: ${m.name}`,
+    `**Record:** ${m.id} · **Developer:** ${m.developer} · **Release:** ${m.release_date||'not recorded'} · **Review status:** ${D.review_statuses[m.review]} (AI-assisted draft) · **Report generated:** ${today()}`,
+    '> Not legal advice. Generated in the browser from NETRA’s stored record, with no AI. Part A is what the testers reported; Part B is NETRA’s own India analysis. A test result is not evidence of real-world harm.',
+    `## Part A. ${fromMetr && m.tests.every(t=>t.report) ? 'What METR found' : 'What the testers found'} (cited and summarised)`,
+    '### 1. What was tested',
+    ...(m.tests.length ? m.tests.map(t=>`- **${t.by}** (${t.date}): ${t.what}`) : ['- No evaluation in the licensed sources yet.']),
+    '### 2. What they found',
+    ...(m.tests.length ? m.tests.map(t=>`- ${t.found} Source licence: ${t.licence}.`) : ['- Nothing recorded.']),
+    `## Part B. NETRA’s India analysis (unreviewed)`,
+    '### 3. Evidence and how to preserve it',
+    `Sources: ${m.tests.map(t=>{ if(t.report){ const r = G.reports.find(x=>x.id===t.report), s = G.sources.find(x=>x.id===r.source); return mdLink(r.title, s.url); } return mdLink(t.atlas||t.by, t.url); }).join('; ') || 'none'}.`,
+    ...preserveBlock(false),
+    '### 4. AI’s role',
+    `- **Risk areas:** ${m.netra.risk_areas.map(subName).join('; ')}`,
+    ...(m.incidents.length ? [`- **Indian cases involving this model:** ${m.incidents.map(x=>`${x} ${INC[x].title}`).join('; ')}`] : ['- **Indian cases involving this model:** none on record.']),
+    '### 5. Laws that may apply',
+    'Labels: **Possible** means the law may apply; applicability has not been decided. **Interpretive question** means it is unsettled how the law applies. **Gap** means the law does not yet answer the problem.',
+    ...m.netra.laws.map(l=>`- **${LAW_LABEL[l.label]}:** ${insLine(INS[l.instrument])} Why: ${l.why}`),
+    ...(maps.length ? ['Earlier mapping of the tester’s report to Indian provisions (unreviewed):', ...maps.map(x=>{ const ii = G.instruments.find(y=>y.id===x.instrument); return `- ${ii.instrument} ${ii.provision}: ${G.classifications[x.classification]}. ${x.explanation}`; })] : []),
+    ...(m.netra.gaps.length ? ['Gaps:', ...m.netra.gaps.map(g=>`- ${g} ${GAPS_ALL[g]?.title||''}`)] : []),
+    '### 6. Authority to approach',
+    ...m.netra.authorities.map((a,k)=>`${k+1}. **${BODY[a].name}**: ${BODY[a].can_do}${BODY[a].url?` ${mdLink(new URL(BODY[a].url).hostname, BODY[a].url)}`:''} (${VLABEL[BODY[a].verified]})`),
+    '### 7. What NETRA does not know', ...m.netra.unknowns.map(u=>`- ${u}`),
+    '### 8. Overclaim check', m.netra.overclaim,
+    '### 9. NIST AI RMF view',
+    `Mapped by NETRA to the ${mdLink('NIST AI Risk Management Framework 1.0', NIST_RMF)} (NIST AI 100-1, 2023); unreviewed.`,
+    `- **Govern:** developer ${m.developer}; Indian policy instruments touched: ${m.netra.laws.filter(l=>!isHard(INS[l.instrument])).map(l=>shortIns(INS[l.instrument])).join('; ') || 'none'}.`,
+    `- **Map:** risk areas ${m.netra.risk_areas.join(', ')}; Indian cases ${m.incidents.join(', ') || 'none'}.`,
+    `- **Measure:** ${m.tests.length} test record${m.tests.length===1?'':'s'} from ${[...new Set(m.tests.map(t=>t.by))].join('; ') || 'no tester yet'}.`,
+    `- **Manage:** bodies that could act: ${m.netra.authorities.map(a=>BODY[a].name).join('; ')}.`,
+    '### 10. Cyber AI Profile',
+    `Based on the ${mdLink('NIST Cyber AI Profile, NIST IR 8596 (preliminary draft, December 2025)', NIST_CYBER_AI)}, which builds on ${mdLink('NIST CSF 2.0', NIST_CSF)}. The draft may change.`,
+    `- **Focus-area tag (NETRA’s):** ${tags.length ? tags.join('; ') : 'not tagged under the draft’s Secure, Defend or Thwart focus areas'}`,
+    ...CSF_AN.map(([k,t])=>`- [ ] ${k}: ${t}.`),
+    '### 11. Sources and credits',
+    ...m.tests.map(t=>`- ${t.by}: ${t.report?(()=>{ const r = G.reports.find(x=>x.id===t.report), s = G.sources.find(x=>x.id===r.source); return mdLink(r.title, s.url); })():mdLink(t.atlas||'source', t.url)} (${t.licence})`),
+    ...(m.release_source ? [`- Release date: ${mdLink(m.release_source.title, m.release_source.url)} (${m.release_source.licence})`] : []),
+    `- NETRA India AI Risk Observatory, maintained by ${D.meta.maintainer}: ${mdLink('code and data', REPO)} (data CC BY 4.0, code MIT).`,
+    '- MITRE ATLAS content is used under Apache 2.0 (© MITRE). METR material is cited and summarised only.',
+    '### 12. Review status',
+    `- **This record:** ${D.review_statuses[m.review]}. It is an AI-assisted draft until a person reviews it.`,
+    '- **This report** was generated automatically from the record and has not itself been reviewed.',
+    '**Not legal advice.** Research and decision-support material only. Consult a lawyer before acting.'
+  ].join('\n\n').replace(/\n\n(?=- |\d+\. )/g, '\n');
+}
+
+/* ---------- Add a report: read in this browser only; optional AI-assisted drafts with the visitor's own key ---------- */
+const PDFJS = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/';
+const LICENCE_OPTS = ['CC BY 4.0','CC BY-SA 4.0','Apache 2.0','MIT','Public domain','Cite and summarise only','Unknown'];
+const UP = {meta:{title:'', source:'', date:'', licence:''}, text:'', file:'', pages:0, errors:[], msg:'', steps:{}, ok:false, busy:false};
+let AIKEY = '';   // held in this tab's memory only: never stored, logged or sent anywhere except the chosen provider
+const normQ = s => String(s).replace(/[‘’]/g,"'").replace(/[“”]/g,'"').replace(/[–—]/g,'-').replace(/­/g,'').replace(/\s+/g,' ').trim();
+function pagesOf(text){ const parts = String(text).split(/\[Page (\d+)\]/), out = {}; for(let k=1;k<parts.length-1;k+=2) out[+parts[k]] = parts[k+1]; return out; }
+function verifyQuotes(quotes, text){
+  const whole = normQ(text), pages = Object.fromEntries(Object.entries(pagesOf(text)).map(([k,v])=>[k, normQ(v)])), hasPages = Object.keys(pages).length>0;
+  const kept = [], removed = [];
+  (quotes||[]).forEach(q=>{ const t = normQ(q.text||''); const ok = !!t && whole.includes(t) && (!hasPages || q.page==null || (pages[q.page]||'').includes(t)); (ok?kept:removed).push({text:q.text||'', page:q.page??null, verified:ok}); });
+  return {kept, removed};
+}
+function redactBlocked(md){
+  let out = String(md||''); const flags = [];
+  // A sentence ends at a full stop that is not part of a section number such as s.43
+  const part = '(?:[^.\\n]|\\.(?=\\d))*';
+  PROMPTS.blocked_patterns.forEach(p=>{ const re = new RegExp('(^|\\s*)(' + part + p + part + '(?:\\.(?!\\d))?)','gim'); (out.match(re)||[]).forEach(m=>flags.push(m.trim())); out = out.replace(re, '$1[Removed by NETRA safeguard: possible legal conclusion or accusation.]'); });
+  return {text:out, flags};
+}
+function filterTriage(t){
+  const dropped = [], keep = (list, ok) => (list||[]).filter(x=>{ const y = ok(x); if(!y) dropped.push(x?.instrument_id||x); return y; });
+  return {risk_areas: keep(t.risk_areas, x=>!!SUB[x]), possible_laws: keep(t.possible_laws, l=>!!INS[l.instrument_id] && ['possible','interpretive','gap'].includes(l.label)),
+          authorities: keep(t.authorities, x=>!!BODY[x] && BODY[x].level==='union'), gaps: (t.gaps||[]).filter(g=>g && g.title), dropped};
+}
+function validateMeta(m){
+  const e = [];
+  if(!m.title.trim()) e.push('Add a title.');
+  if(!m.source.trim() || (/^[a-z]+:\/\//i.test(m.source) && !/^https:\/\//i.test(m.source))) e.push('Source must be an https link or a plain name.');
+  if(!/^\d{4}-\d{2}-\d{2}$/.test(m.date) || isNaN(new Date(m.date))) e.push('Date must be YYYY-MM-DD.');
+  if(!LICENCE_OPTS.includes(m.licence)) e.push('Choose a licence.');
+  return e;
+}
+async function unzipEntry(buf, name){
+  const v = new DataView(buf); let eocd = -1;
+  for(let i=buf.byteLength-22; i>=Math.max(0, buf.byteLength-66000); i--) if(v.getUint32(i,true)===0x06054b50){ eocd = i; break; }
+  if(eocd<0) throw new Error('This is not a valid Word (.docx) file.');
+  let p = v.getUint32(eocd+16,true); const n = v.getUint16(eocd+10,true), dec = new TextDecoder();
+  for(let k=0;k<n;k++){
+    const method = v.getUint16(p+10,true), csize = v.getUint32(p+20,true), nlen = v.getUint16(p+28,true), xlen = v.getUint16(p+30,true), clen = v.getUint16(p+32,true), off = v.getUint32(p+42,true);
+    const fname = dec.decode(new Uint8Array(buf, p+46, nlen));
+    if(fname===name){
+      const start = off + 30 + v.getUint16(off+26,true) + v.getUint16(off+28,true), data = new Uint8Array(buf, start, csize);
+      if(method===0) return dec.decode(data);
+      if(method!==8) throw new Error('Unsupported compression in this Word file.');
+      return await new Response(new Blob([data]).stream().pipeThrough(new DecompressionStream('deflate-raw'))).text();
+    }
+    p += 46 + nlen + xlen + clen;
+  }
+  throw new Error('This Word file has no document text.');
+}
+function docxText(xml){
+  return xml.replace(/<w:tab\/>/g,'\t').split(/<\/w:p>/).map(p=>(p.match(/<w:t(?:\s[^>]*)?>([^<]*)<\/w:t>/g)||[]).map(t=>t.replace(/<[^>]+>/g,'')).join('')).map(s=>s.replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"').replace(/&apos;/g,"'").replace(/&amp;/g,'&')).filter(s=>s.trim()).join('\n');
+}
+function loadPdfJs(){
+  if(window.pdfjsLib) return Promise.resolve(window.pdfjsLib);
+  return new Promise((ok, fail)=>{ const s = document.createElement('script'); s.src = PDFJS + 'pdf.min.js';
+    s.onload = ()=>{ window.pdfjsLib.GlobalWorkerOptions.workerSrc = PDFJS + 'pdf.worker.min.js'; ok(window.pdfjsLib); };
+    s.onerror = ()=>fail(new Error('Could not load the PDF reader (pdf.js). Check your connection, or save the PDF as text.')); document.head.appendChild(s); });
+}
+async function readUpload(file){
+  const ext = (file.name.split('.').pop()||'').toLowerCase();
+  if(file.size > 25*1024*1024) throw new Error('The file is larger than 25 MB.');
+  if(['txt','md','markdown'].includes(ext)) return {text: await file.text(), pages: 0};
+  if(ext==='docx') return {text: docxText(await unzipEntry(await file.arrayBuffer(), 'word/document.xml')), pages: 0};
+  if(ext==='pdf'){
+    const lib = await loadPdfJs(), pdf = await lib.getDocument({data: new Uint8Array(await file.arrayBuffer())}).promise, parts = [];
+    for(let k=1;k<=pdf.numPages;k++){ const c = await (await pdf.getPage(k)).getTextContent(); parts.push(`[Page ${k}]\n` + c.items.map(it=>it.str + (it.hasEOL?'\n':' ')).join('')); }
+    return {text: parts.join('\n'), pages: pdf.numPages};
+  }
+  if(ext==='doc') throw new Error('Old .doc files cannot be read here. Save it as .docx or PDF first.');
+  throw new Error('Choose a PDF, Word (.docx), text or Markdown file.');
+}
+const providerHost = () => { try{ return UP.provider==='openai' ? new URL(UP.base || PROMPTS.openai_compatible.default_base).host : new URL(PROMPTS.anthropic.url).host; }catch(e){ return 'the provider'; } };
+function contextText(){
+  const f = o => Object.entries(o).map(([k,v])=>`- ${k}: ${v}`).join('\n');
+  return `Risk areas:\n${f(Object.fromEntries(Object.entries(SUB).map(([k,s])=>[k,s.name])))}\n\nIndian instruments:\n${f(Object.fromEntries(D.instruments.map(i=>[i.id,i.title])))}\n\nDirectory bodies (Union):\n${f(Object.fromEntries(DIR.bodies.filter(b=>b.level==='union').map(b=>[b.id,b.name])))}`;
+}
+async function aiCall(user, schema){
+  const system = PROMPTS.system + '\n\n' + contextText();
+  if(UP.provider==='openai'){
+    const base = (UP.base || PROMPTS.openai_compatible.default_base).replace(/\/$/,'');
+    const r = await fetch(base + '/chat/completions', {method:'POST', headers:{'content-type':'application/json', authorization:`Bearer ${AIKEY}`},
+      body: JSON.stringify({model: UP.model, max_tokens: PROMPTS.openai_compatible.max_tokens, messages:[{role:'system', content: system + (schema?'\nReply with one JSON object only.':'')}, {role:'user', content:user}], ...(schema?{response_format:{type:'json_object'}}:{})})});
+    if(!r.ok) throw new Error(`The provider returned an error (HTTP ${r.status}).`);
+    const t = (await r.json()).choices?.[0]?.message?.content || '';
+    return schema ? JSON.parse(t.replace(/^```(?:json)?\s*|\s*```$/g,'')) : t;
+  }
+  const c = PROMPTS.anthropic;
+  const r = await fetch(c.url, {method:'POST', headers:{'content-type':'application/json', 'x-api-key':AIKEY, 'anthropic-version':c.version, 'anthropic-beta':c.fallback_beta, 'anthropic-dangerous-direct-browser-access':'true'},
+    body: JSON.stringify({model: UP.model || c.default_model, max_tokens: c.max_tokens, system, messages:[{role:'user', content:user}], fallbacks:'default', output_config:{effort:c.effort, ...(schema?{format:{type:'json_schema', schema}}:{})}})});
+  if(!r.ok) throw new Error(`The provider returned an error (HTTP ${r.status}). Check the key and model.`);
+  const j = await r.json();
+  if(j.stop_reason==='refusal') throw new Error('The model declined this request.');
+  if(j.stop_reason==='max_tokens') throw new Error('The reply was cut off. Try a shorter document.');
+  const t = (j.content||[]).filter(b=>b.type==='text').map(b=>b.text).join('');
+  return schema ? JSON.parse(t) : t;
+}
+async function runStep(step){
+  const doc = `<document>\n${UP.text}\n</document>`, S = PROMPTS.steps;
+  if(step==='extract'){
+    const ex = await aiCall(`${doc}\n\n${S.extract.instruction}`, S.extract.schema);
+    const v = verifyQuotes(ex.quotes, UP.text), s = redactBlocked(ex.summary), f = (ex.findings||[]).map(x=>redactBlocked(x));
+    UP.steps.extract = {summary:s.text, findings:f.map(x=>x.text), quotes:v.kept, removed:v.removed, flags:[...s.flags, ...f.flatMap(x=>x.flags)]};
+  } else if(step==='triage'){
+    const ex = UP.steps.extract;
+    UP.steps.triage = filterTriage(await aiCall(`Extraction:\n${JSON.stringify(ex)}\n\n${S.triage.instruction}`, S.triage.schema));
+  } else {
+    const r = redactBlocked(await aiCall(`Extraction:\n${JSON.stringify(UP.steps.extract)}\n\nTriage:\n${JSON.stringify(UP.steps.triage)}\n\n${S.draft.instruction}`, null));
+    UP.steps.draft = {markdown: r.text, flags: r.flags};
+  }
+}
+function aiResults(){
+  const ex = UP.steps.extract, tr = UP.steps.triage, dr = UP.steps.draft;
+  if(!ex) return '';
+  return `<div class="aiout"><p class="rnote">AI-assisted draft. Unreviewed. Not legal advice. Nothing here has been checked by a person.</p>
+   <h4 class="ctitle" style="font-size:1rem">Extract</h4><p>${esc(ex.summary)}</p>${ex.findings.length?`<ul>${ex.findings.map(f=>`<li>${esc(f)}</li>`).join('')}</ul>`:''}
+   <p class="note"><b>${ex.quotes.length} quote${ex.quotes.length===1?'':'s'} checked word for word against your file.</b></p>${ex.quotes.map(q=>`<blockquote>“${esc(q.text)}”${q.page!=null?` (page ${q.page})`:''}</blockquote>`).join('')}
+   ${ex.removed.length?`<p class="callout red" style="margin-top:8px"><b>${ex.removed.length} quote${ex.removed.length===1?' was':'s were'} removed</b> because ${ex.removed.length===1?'it does':'they do'} not appear word for word in your file${ex.removed.some(q=>q.page!=null)?' (or not on the stated page)':''}: ${ex.removed.map(q=>`“${esc(q.text.slice(0,90))}”`).join('; ')}</p>`:''}
+   ${tr?`<h4 class="ctitle" style="font-size:1rem;margin-top:12px">Triage</h4><dl class="kv"><dt>Risk areas</dt><dd><div class="row">${tr.risk_areas.map(domChip).join('')||'none'}</div></dd>
+     <dt>Laws that may apply</dt><dd>${tr.possible_laws.map(l=>`<div>${insChip(l.instrument_id)} ${lawTag(l.label)} <span class="note">${esc(redactBlocked(l.why).text)}</span></div>`).join('')||'none'}</dd>
+     <dt>Who could act</dt><dd>${tr.authorities.map(a=>esc(BODY[a].name)).join(' · ')||'none'}</dd><dt>Gaps</dt><dd>${tr.gaps.map(g=>`<div><b>${esc(g.title)}</b> <span class="note">${esc(redactBlocked(g.why||'').text)}</span></div>`).join('')||'none'}</dd></dl>
+     ${tr.dropped.length?`<p class="note">Dropped ${tr.dropped.length} suggestion${tr.dropped.length===1?'':'s'} that did not match NETRA’s lists: ${tr.dropped.map(x=>esc(String(x))).join(', ')}</p>`:''}`:''}
+   ${dr?`<h4 class="ctitle" style="font-size:1rem;margin-top:12px">Draft governance note</h4><article class="report" style="max-width:none">${mdToHtml(dr.markdown)}</article><textarea id="ai-md" readonly hidden>${esc(dr.markdown)}</textarea><div class="row" style="margin-top:8px"><button type="button" class="btn" id="ai-copy">Copy draft</button></div>`:''}
+   ${[...ex.flags, ...(dr?.flags||[])].length?`<p class="callout red" style="margin-top:10px">NETRA removed ${[...ex.flags, ...(dr?.flags||[])].length} sentence(s) that read as a legal conclusion, an accusation or a review claim.</p>`:''}</div>`;
+}
+function uploadPanel(){
+  const m = UP.meta, ready = UP.text.length > 0;
+  return `<section class="sheet" id="upload" style="margin-bottom:14px;border:2px solid var(--accent)">${H3('Add a report','Read a PDF, Word (.docx), text or Markdown file in this browser. Nothing is uploaded or stored.')}
+   <p class="note" style="margin-top:6px">The file is read only in this tab and is forgotten when you close or reload it. NETRA has no server and keeps no copy.</p>
+   <div class="grid g-2" style="margin-top:12px">
+    <label class="field">File<input type="file" id="up-file" accept=".pdf,.docx,.txt,.md,.markdown"></label>
+    <label class="field">Title<input type="text" id="up-title" value="${esc(m.title)}" autocomplete="off"></label>
+    <label class="field">Source (https link or publisher)<input type="text" id="up-source" value="${esc(m.source)}" autocomplete="off"></label>
+    <label class="field">Date (YYYY-MM-DD)<input type="text" id="up-date" value="${esc(m.date)}" placeholder="2026-10-25" autocomplete="off"></label>
+    <label class="field">Licence<select id="up-licence"><option value="">Choose</option>${LICENCE_OPTS.map(x=>`<option ${x===m.licence?'selected':''}>${esc(x)}</option>`).join('')}</select></label></div>
+   <div class="row" style="margin-top:10px"><button type="button" class="btn primary" id="up-read">Read file</button><span class="status-msg ${UP.errors.length?'err':UP.ok?'ok':''}" id="up-msg" role="status">${esc(UP.errors.join(' ') || UP.msg)}</span></div>
+   ${ready?`<details class="more" style="margin-top:10px"><summary>Show the text read from ${esc(UP.file)}</summary><pre class="uptext">${esc(UP.text.slice(0,4000))}${UP.text.length>4000?'\n…':''}</pre></details>
+   <section style="margin-top:14px">${H3('AI-assisted draft (optional)','Extract, Triage and Draft with your own API key. Results are unreviewed drafts and never change NETRA’s data.')}
+    <div class="grid g-2" style="margin-top:10px">
+     <label class="field">Provider<select id="ai-provider"><option value="anthropic" ${UP.provider!=='openai'?'selected':''}>Anthropic (Claude)</option><option value="openai" ${UP.provider==='openai'?'selected':''}>Any OpenAI-compatible service</option></select></label>
+     <label class="field">Model<input type="text" id="ai-model" value="${esc(UP.model || (UP.provider==='openai'?'':PROMPTS.anthropic.default_model))}" autocomplete="off"></label>
+     ${UP.provider==='openai'?`<label class="field">Base URL<input type="text" id="ai-base" value="${esc(UP.base||PROMPTS.openai_compatible.default_base)}" autocomplete="off"></label>`:''}
+     <label class="field">Your API key<input type="password" id="ai-key" autocomplete="off" placeholder="${AIKEY?'Key held in memory for this tab':'Paste your key'}"></label></div>
+    <div class="callout" style="margin-top:10px"><b>Before you continue:</b> the text of your file and your key will be sent from this browser directly to <b>${esc(providerHost())}</b>, under that provider’s terms. NETRA never sees, stores or logs them. The key stays in this tab’s memory and is forgotten when you close or reload the page.
+     <label style="display:flex;gap:8px;margin-top:8px;align-items:center"><input type="checkbox" id="ai-ok" ${UP.consent?'checked':''}> I understand and want to send this document to ${esc(providerHost())}.</label></div>
+    <div class="row" style="margin-top:10px"><button type="button" class="btn" id="ai-extract" ${UP.busy?'disabled':''}>1. Extract</button><button type="button" class="btn" id="ai-triage" ${UP.busy||!UP.steps.extract?'disabled':''}>2. Triage</button><button type="button" class="btn" id="ai-draft" ${UP.busy||!UP.steps.triage?'disabled':''}>3. Draft</button>${AIKEY?'<button type="button" class="linkbtn" id="ai-forget">Forget key</button>':''}<span class="status-msg" id="ai-msg" role="status">${esc(UP.aimsg||'')}</span></div>
+    <div id="ai-out">${aiResults()}</div></section>`:''}
+  </section>`;
+}
+function readUpMeta(){ const g = id => document.getElementById(id)?.value ?? ''; UP.meta = {title:g('up-title'), source:g('up-source'), date:g('up-date').trim(), licence:g('up-licence')}; }
+async function doRead(){
+  readUpMeta(); UP.errors = validateMeta(UP.meta); UP.ok = false;
+  const f = document.getElementById('up-file')?.files?.[0];
+  if(!f) UP.errors.push('Choose a file.');
+  if(UP.errors.length) return render();
+  UP.msg = 'Reading…'; UP.errors = []; const msg = document.getElementById('up-msg'); if(msg) msg.textContent = UP.msg;
+  try{ const r = await readUpload(f); if(!r.text.trim()) throw new Error('No text was found in this file. A scanned PDF needs OCR first.');
+    Object.assign(UP, {text:r.text, file:f.name, pages:r.pages, steps:{}, ok:true, msg:`Read ${f.name}: ${r.text.length.toLocaleString()} characters${r.pages?` from ${r.pages} pages`:''}. Kept in this tab only.`}); }
+  catch(e){ UP.errors = [e.message]; UP.text = ''; }
+  render();
+}
+async function doAi(step){
+  const keyEl = document.getElementById('ai-key'); if(keyEl && keyEl.value){ AIKEY = keyEl.value.trim(); keyEl.value = ''; }
+  UP.provider = document.getElementById('ai-provider')?.value || 'anthropic'; UP.model = document.getElementById('ai-model')?.value.trim() || '';
+  UP.base = document.getElementById('ai-base')?.value.trim() || UP.base; UP.consent = !!document.getElementById('ai-ok')?.checked;
+  const fail = t => { UP.aimsg = t; render(); };
+  if(!UP.consent) return fail('Tick the box to confirm you want to send the document.');
+  if(!AIKEY) return fail('Paste your API key.');
+  if(UP.provider==='openai' && !UP.model) return fail('Enter the model name for your provider.');
+  if(UP.provider==='openai' && !/^https:\/\//.test(UP.base||PROMPTS.openai_compatible.default_base)) return fail('The base URL must start with https://');
+  if(UP.text.length > PROMPTS.max_chars) return fail(`This document is ${UP.text.length.toLocaleString()} characters; the limit is ${PROMPTS.max_chars.toLocaleString()}. Split it first.`);
+  UP.busy = true; UP.aimsg = 'Working…'; render();
+  try{ await runStep(step); UP.aimsg = 'Done. Review every point before using it.'; }
+  catch(e){ UP.aimsg = e instanceof SyntaxError ? 'The model did not return valid JSON. Try again.' : e.message; }
+  UP.busy = false; render();
+}
+
+REPORT_KINDS.model = {label:'AI model', make: id => MOD[id] && reportModel(MOD[id]), items: () => MODELS.models.map(m=>[m.id, `${m.id} ${m.name} (${m.developer})`])};
 function reportFile(){ const r = state.report; return `netra-report-${r.kind}-${String(r.id).replace(/[^\w.-]+/g,'_')}.md`; }
 async function copyReport(){ const md = reportMd(state.report.kind, state.report.id), m = document.getElementById('rep-msg');
   try{ await navigator.clipboard.writeText(md); m.textContent = 'Copied as Markdown.'; m.className = 'status-msg ok'; }
@@ -1100,9 +1366,6 @@ function downloadReport(){ const md = reportMd(state.report.kind, state.report.i
     m.textContent = `Downloading ${reportFile()}. If nothing happens, use Copy report instead.`; m.className = 'status-msg ok'; }
   catch(e){ m.textContent = 'This browser blocked the download. Use Copy report instead.'; m.className = 'status-msg err'; } }
 function printReport(){ document.body.classList.add('print-report'); try{ window.print(); }catch(e){} setTimeout(()=>document.body.classList.remove('print-report'), 500); }
-V['analysis-models'] = () => head('Model register','AI models, what was tested, and Indian law touched','Planned for v0.2. One card per model, built only from sources whose licences allow it.','evidence','var(--d1)') +
-  planned('Each card will show the developer, release date, what was tested and by whom, the results, linked incidents, and Indian law touched, with its source link and licence.', ['First set: the three METR reports already in Global evidence (cited and summarised only)','Further models from Epoch AI (CC BY 4.0), MITRE ATLAS (Apache 2.0) and AVID (MIT licence)','A test result is not evidence of real-world harm; each card will say so']) + creditLine();
-
 V['about-evidence'] = () => {
   const cls = G.classifications;
   return head('Global evidence','What frontier-AI evaluations mean for Indian law','Findings from three METR reports, mapped to Indian provisions in the earlier pilot. None of these reports identifies an Indian computer, user or entity, so every mapping is conditional.','evidence','var(--d1)') +
@@ -1140,8 +1403,15 @@ V['about-credits'] = () => {
   <section class="sheet">${H3('Global evidence','Technical reports cited and summarised, never copied in bulk.')}<ul style="margin:8px 0 0;padding-left:18px">${G.sources.map(s=>`<li><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a></li>`).join('')}</ul><p class="note" style="margin-top:6px">METR: cite and summarise only, with links. METR retains its rights.</p></section>
   <section class="sheet">${H3('Who to approach directory','Where the directory entries come from.')}<p style="margin-top:6px">${DIR.bodies.length} bodies: ${DIR.bodies.filter(b=>b.level==='union').length} Union bodies and 10 standard bodies for each of the 36 states and UTs. Groups and High Court names follow the project’s authorities plan. Links come from the bodies’ official sites; each entry says whether it has been checked (${DIR.bodies.filter(b=>b.verified==='yes').length} so far).</p></section>
   <section class="sheet">${H3('Fonts','Typefaces served by Google Fonts.')}<p style="margin-top:6px">Newsreader, IBM Plex Sans, IBM Plex Mono and Noto Serif Devanagari, under the SIL Open Font License 1.1.</p></section>
+  <section class="sheet">${H3('Model register','Sources behind the model cards.')}<ul style="margin:8px 0 0;padding-left:18px">
+   <li><a href="https://atlas.mitre.org/" target="_blank" rel="noopener">MITRE ATLAS</a> v5.6.0 case studies, summarised by NETRA. Apache License 2.0, © MITRE.</li>
+   <li><a href="https://metr.org/" target="_blank" rel="noopener">METR</a> reports: cited and summarised only, with links. METR retains its rights.</li>
+   <li>Release dates: developer and press pages, cited only.</li></ul></section>
+  <section class="sheet">${H3('Tools used in your browser','Loaded only when you use the feature.')}<ul style="margin:8px 0 0;padding-left:18px">
+   <li><a href="https://mozilla.github.io/pdf.js/" target="_blank" rel="noopener">pdf.js</a> 3.11.174 (Apache 2.0, Mozilla), loaded from cdnjs only when you add a PDF under “Add a report”.</li>
+   <li>AI-assisted drafts call the provider you choose, with your own key, straight from your browser. NETRA does not see or store the document or the key.</li></ul></section>
   <section class="sheet">${H3('Planned sources, not used yet','Checked for reuse terms; nothing from them is on the site yet.')}<ul style="margin:8px 0 0;padding-left:18px">
-   <li>Epoch AI benchmark data (CC BY 4.0)</li><li>MITRE ATLAS (Apache 2.0)</li><li>AVID vulnerability database (MIT licence)</li><li>OWASP Top 10 for LLM Applications (CC BY-SA 4.0, kept in its own file)</li><li>Developer system cards and UK AI Security Institute reports (cite and summarise only)</li></ul></section>
+   <li>Epoch AI benchmark data (CC BY 4.0)</li><li>AVID vulnerability database (MIT licence)</li><li>OWASP Top 10 for LLM Applications (CC BY-SA 4.0, kept in its own file)</li><li>Developer system cards and UK AI Security Institute reports (cite and summarise only)</li></ul></section>
   <section class="sheet">${H3('This project','Data, code and how to cite it.')}<p style="margin-top:6px">Maintained by ${esc(D.meta.maintainer)}${D.meta.contact_email?` (<a href="mailto:${esc(D.meta.contact_email)}">${esc(D.meta.contact_email)}</a>)`:''}. Data CC BY 4.0, code MIT licence. <a href="${REPO}" target="_blank" rel="noopener">Code and data on GitHub</a> · cite using CITATION.cff in the repository.</p></section>
   </div>`;
 };
@@ -1323,7 +1593,7 @@ function subnav(){ const tab = PAGES[state.view].tab; const pages = Object.entri
   return pages.length ? `<nav class="subnav" aria-label="${esc(tab)} pages">${pages.map(([k,p])=>`<button type="button" data-go="${k}" ${k===state.view?'aria-current="page"':''}>${esc(p.label)}</button>`).join('')}</nav>` : ''; }
 function countUp(){ if(reduce) return; document.querySelectorAll('[data-count]').forEach(el=>{ const n=+el.dataset.count, t0=performance.now(); const tick=t=>{ const p=Math.min(1,(t-t0)/700); el.textContent=Math.round(n*(1-Math.pow(1-p,3))); if(p<1) requestAnimationFrame(tick); }; requestAnimationFrame(tick); }); }
 function page(v){ return subnav() + V[v](); }
-function render(){ $view.innerHTML = `<div class="view">${page(state.view)}</div>`; if(state.view==='home' && typeof requestAnimationFrame!=='undefined') countUp(); }
+function render(){ if(document.getElementById('up-title')) readUpMeta(); $view.innerHTML = `<div class="view">${page(state.view)}</div>`; if(state.view==='home' && typeof requestAnimationFrame!=='undefined') countUp(); }
 function go(v, keepScroll){ v = resolve(v) || 'home'; state.view = v; if(state.tour>=0 && TOUR[state.tour][0]!==v) state.tour = -1; try{ history.replaceState(null,'','#'+v); }catch(e){} renderTabs(); render(); hideTip(); if(!keepScroll) window.scrollTo(0,0); renderTour(); }
 function openLaw(id){ state.q = ''; state.f.laws = {}; state.limit = Infinity; go('explore-laws'); const el = document.getElementById('ins-'+id); if(el){ const d = el.querySelector('details'); if(d) d.open = true; el.scrollIntoView?.({block:'start'}); } }
 
@@ -1350,8 +1620,13 @@ document.addEventListener('pointerover', e => { const t = e.target.closest?.('[d
 document.addEventListener('pointermove', e => { if(!$tip.classList.contains('show')) return; const w = $tip.offsetWidth, h = $tip.offsetHeight; let x = e.clientX+14, y = e.clientY+14; if(x+w>innerWidth-8) x = e.clientX-w-14; if(y+h>innerHeight-8) y = e.clientY-h-14; $tip.style.left = Math.max(8,x)+'px'; $tip.style.top = Math.max(8,y)+'px'; });
 document.addEventListener('click', e => {
   if(e.target.closest?.('#theme-btn')){ setTheme(document.documentElement.getAttribute('data-theme')==='light' ? 'dark' : 'light', true); return; }
-  const t = e.target.closest('[data-dir],[data-dtab],[data-mode],[data-more],[data-unfilter],[data-unq],[data-go],[data-sub],[data-dom],[data-inc],[data-law],[data-report],[data-scroll],[data-pill],[data-clear],[data-filters],[data-tour],#rep-copy,#rep-dl,#rep-print,#sv-refresh,#sv-publish,#sv-copy,#sv-doimport');
+  const t = e.target.closest('[data-upload],#up-read,#ai-extract,#ai-triage,#ai-draft,#ai-forget,#ai-copy,[data-dir],[data-dtab],[data-mode],[data-more],[data-unfilter],[data-unq],[data-go],[data-sub],[data-dom],[data-inc],[data-law],[data-report],[data-scroll],[data-pill],[data-clear],[data-filters],[data-tour],#rep-copy,#rep-dl,#rep-print,#sv-refresh,#sv-publish,#sv-copy,#sv-doimport');
   if(!t) return;
+  if(t.dataset.upload){ state.showUpload = !state.showUpload; return render(); }
+  if(t.id==='up-read'){ doRead(); return; }
+  if(t.id==='ai-extract' || t.id==='ai-triage' || t.id==='ai-draft'){ doAi(t.id.slice(3)); return; }
+  if(t.id==='ai-forget'){ AIKEY = ''; UP.aimsg = 'Key forgotten.'; return render(); }
+  if(t.id==='ai-copy'){ const ta = document.getElementById('ai-md'); navigator.clipboard?.writeText(ta.value).then(()=>{ UP.aimsg='Copied.'; render(); }, ()=>{ ta.hidden = false; ta.select(); }); return; }
   if(t.id==='rep-copy'){ copyReport(); return; }
   if(t.id==='rep-dl'){ downloadReport(); return; }
   if(t.id==='rep-print'){ printReport(); return; }
@@ -1395,6 +1670,7 @@ document.addEventListener('change', e => {
   if(e.target.id==='nav-sub' && e.target.value){ state.sub = e.target.value; render(); }
   if(e.target.id==='dossier-pick'){ state.inc = e.target.value; state.dtab = 'overview'; return render(); }
   if(e.target.dataset?.sort){ state.sort[e.target.dataset.sort] = e.target.value; state.limit = PAGE_SIZE; return render(); }
+  if(e.target.id==='ai-provider'){ UP.provider = e.target.value; UP.model = ''; readUpMeta(); return render(); }
   if(e.target.id==='rep-kind'){ const k = e.target.value; state.report = {kind:k, id: REPORT_KINDS[k].items()[0][0]}; render(); }
   if(e.target.id==='rep-item'){ state.report = {...state.report, id: e.target.value}; render(); }
 });
@@ -1405,6 +1681,6 @@ document.getElementById('built').textContent = `Data updated ${D.meta.updated}; 
 for(const [id, href] of [['foot-correct', correctUrl('')], ['foot-code', REPO]]){ const a = document.getElementById(id); if(a) a.href = href; }
 if(h0 && LEGACY[h0]){ try{ history.replaceState(null,'','#'+state.view); }catch(e){} }
 renderTabs(); render(); initSurvey();
-window.__NETRA = {state, squarify, BODY, V, PAGES, LEGACY, resolve, page, go, aggregate, SV, encodeAnswers, decodeCodes, TOUR, reportMd, mdToHtml};
+window.__NETRA = {state, ai:{verifyQuotes, redactBlocked, filterTriage, validateMeta, unzipEntry, docxText, UP, keyHeld:()=>AIKEY.length>0}, squarify, BODY, V, PAGES, LEGACY, resolve, page, go, aggregate, SV, encodeAnswers, decodeCodes, TOUR, reportMd, mdToHtml};
 })();
 </script>
