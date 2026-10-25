@@ -20,7 +20,9 @@ for (const v of Object.keys(N.PAGES)) {
   let out = '';
   try { out = N.page(v); } catch (e) { check(false, `page "${v}" threw ${e.message}`); continue; }
   check(out.length > 300 && !/[>"(]undefined[<")]/.test(out) && !/>null</.test(out), `page "${v}" renders (${out.length} chars)`);
-  const bare = (out.match(/<\/h[23]>(?!\s*<p class="hint")/g) || []).length;
+  // The generated report document has its own section headings; page headings are checked outside it
+  const pageOnly = out.replace(/<article class="sheet report"[\s\S]*?<\/article>/, '');
+  const bare = (pageOnly.match(/<\/h[23]>(?!\s*<p class="hint")/g) || []).length;
   check(bare === 0, `page "${v}": every heading has a one-line explanation`);
   check(!/[ऀ-ॿ]/.test(out), `page "${v}": no Devanagari outside the title`);
 }
@@ -53,6 +55,29 @@ check(N.page('about-credits').includes('CC BY 4.0') && N.page('about-credits').i
 check(N.page('analysis-dossiers').includes('All sources and credits') && N.page('analysis-gaps').includes('All sources and credits'), 'analysis pages show credits');
 check(N.page('about-verification').includes('Partly verified') && N.page('about-method').includes('issues/new?template=correction.yml'), 'verification status and correction link render');
 check(N.TOUR.every(([p]) => N.PAGES[p]), 'every guided tour step points at a real page');
+// Phase 4: reports, built from stored data for every incident and every risk area
+const SECTIONS = ['What happened', 'Evidence and how to preserve it', 'AI’s role', 'Laws that may apply', 'What NETRA does not know', 'Overclaim check', 'NIST AI RMF view', 'Cyber AI Profile', 'Sources and credits', 'Review status'];
+let repBad = [];
+for (const i of D.incidents) {
+  const md = N.reportMd('incident', i.id);
+  const miss = SECTIONS.filter(s => !md.includes(s)).concat(['Authority to approach', 'Not legal advice', 's.63(4)', 'hash value', 'Govern', 'Map', 'Measure', 'Manage', 'RS.AN-03', 'RS.AN-06', 'RS.AN-07', 'NIST IR 8596', '### Possible', '### Interpretive questions', '### Gaps', i.netra.overclaim].filter(s => !md.includes(s)));
+  if (miss.length || /undefined|null|\[object/.test(md)) repBad.push(`${i.id}: ${miss.join(', ') || 'undefined/null in text'}`);
+  if (i.review === 'unreviewed' && !md.includes('Unreviewed (AI-assisted draft')) repBad.push(`${i.id}: review status missing`);
+  if (i.harm_types.includes('Financial loss') && !md.includes('1930')) repBad.push(`${i.id}: no 1930 note`);
+}
+check(repBad.length === 0, `incident reports have every required section (${D.incidents.length} checked)${repBad.length ? ': ' + repBad.join(' | ') : ''}`);
+const subs = JSON.parse(script.match(/const PAYLOAD = (\{[\s\S]*?\});\n\(function/)[1]).tax.domains.flatMap(d => d.subs.map(s => s.id));
+const areaBad = subs.filter(s => { const md = N.reportMd('area', s); return !SECTIONS.every(x => md.includes(x)) || !md.includes('Authorities to approach') || /undefined|null|\[object/.test(md); });
+check(areaBad.length === 0, `risk-area reports have every required section (${subs.length} checked)${areaBad.length ? ': ' + areaBad.join(', ') : ''}`);
+const kmd = N.reportMd('incident', 'IN-INC-02');
+check(kmd.includes('CS%28COMM%29/652/2023') && N.mdToHtml(kmd).includes('href="https://delhihighcourt.nic.in/app/downloadOrderbByDate/CS%28COMM%29/652/2023/20-09-2023"'), 'report links keep working when a court URL contains brackets');
+const evil = N.mdToHtml('# x\n\n- <script>alert(1)</script> [a](javascript:alert(1)) <img src=x onerror=1>');
+check(!/<script|<img|href="javascript/i.test(evil) && evil.includes('&lt;script&gt;'), 'report renderer escapes HTML and refuses non-https links');
+N.state.report = { kind: 'area', id: '2.2' };
+const rp = N.page('analysis-report');
+check(rp.includes('NETRA risk-area report: 2.2') && rp.includes('id="rep-copy"') && rp.includes('id="rep-dl"') && rp.includes('id="rep-print"') && rp.includes('AI model (Phase 5)'), 'report page previews the chosen record, with copy, download and print');
+N.state.inc = 'IN-INC-05'; N.state.sub = '4.3';
+check(N.page('analysis-dossiers').includes('data-report="incident:IN-INC-05"') && N.page('explore-area').includes('data-report="area:4.3"') && N.page('explore-incidents').includes('data-report="incident:'), 'Generate report buttons on dossiers, risk areas and incident cards');
 check(N.page('about-method').includes('chosen to cover risk areas that had few or no cases'), 'method page explains how batch 2 was chosen');
 check(!/Light mode|Dark mode/.test(html.slice(html.indexOf('<header'), html.indexOf('</header>'))) && /id="theme-btn"[^>]*aria-label="Switch to day mode"/.test(html), 'theme switch is an icon button with a spoken label, not a text tab');
 check(N.page('about-method').includes('Maintainer and contact') && N.page('about-method').includes(D.meta.contact_email) && N.page('about-method').includes(D.meta.maintainer) && N.page('about-credits').includes(D.meta.contact_email), 'About shows the maintainer and contact email');
