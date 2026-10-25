@@ -5,9 +5,10 @@
   Each record now stores `reviewed_by` and `reviewed_on`, and NETRA stage 11 (Human review) is done. Home now reads
   "12 reviewed by a person · 0 unreviewed".
 - **Official court documents** under Location & jurisdiction in each dossier. Only links on a court's own website
-  count as official. Added, found by web search but **not yet opened**:
+  count as official. Found by web search, then opened and checked by the project owner on 2026-10-25:
   IN-INC-02 Delhi High Court order of 20 Sep 2023 in CS(COMM) 652/2023 · IN-INC-08 Delhi High Court order of
-  27 Jul 2026 in CS(COMM) 1028/2024. Cases with no document located say so. Petitions filed by parties are usually
+  27 Jul 2026 in CS(COMM) 1028/2024. A document shown as checked must name who checked it and when.
+  Cases with no document located say so. Petitions filed by parties are usually
   not published by Indian courts, so none are listed.
 - Build: a reviewed case needs a reviewer, an ISO review date and S11 done; reviewer fields on an unreviewed case,
   and court documents marked official but not on a .nic.in or .gov.in site, fail the build. 4 new unit tests,

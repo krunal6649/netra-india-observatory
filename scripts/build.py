@@ -54,6 +54,9 @@ def check_documents(inc, errors):
             errors.append(f"{label} url must be https")
         if doc.get("opened") and doc["opened"] not in ("yes", "no"):
             errors.append(f"{label} opened must be 'yes' or 'no'")
+        # A document can only be shown as checked when someone says who opened it and when
+        if doc.get("opened") == "yes" and (not doc.get("checked_by") or not is_date(doc.get("checked_on"))):
+            errors.append(f"{label} opened 'yes' needs checked_by and an ISO checked_on date")
         # Only court websites count as official copies
         if doc.get("host") == "official" and doc.get("url") and not urlparse(doc["url"]).hostname.endswith((".nic.in", ".gov.in")):
             errors.append(f"{label} is marked official but is not on a .nic.in or .gov.in court site")

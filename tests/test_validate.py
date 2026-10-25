@@ -46,6 +46,12 @@ class Tests(unittest.TestCase):
             "url": "https://example.com/order.pdf", "host": "official", "opened": "no", "note": "x"}]
         self.rejects(d, "not on a .nic.in or .gov.in court site")
 
+    def test_checked_document_needs_checker(self):
+        d = copy.deepcopy(self.india)
+        doc = next(i for i in d["incidents"] if i.get("court_documents"))["court_documents"][0]
+        doc.pop("checked_by")
+        self.rejects(d, "needs checked_by")
+
     def test_document_kind(self):
         d = copy.deepcopy(self.india)
         d["incidents"][0]["court_documents"] = [{"title": "Order", "court": "Delhi High Court", "date": "2023-09-20", "kind": "memo",
