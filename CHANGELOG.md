@@ -1,5 +1,15 @@
 # Changelog
 
+## v0.2.1-dev — weekly selection tuned on the second real run
+- Second run (pull request #17): GDELT answered (250 AI and 181 cyber articles) but only 1 AI item qualified, the
+  SBI breach story appeared three times, and "hacked to death" was counted as cyber.
+- GDELT's spaced punctuation is cleaned ("AI - generated" → "AI-generated", "3 . 75" → "3.75").
+- A headline from an Indian outlet now counts as about India unless it names another country ("US" only in capitals).
+- Same-story grouping also uses shared key words with figures and specific three-word phrases; phrases made only of
+  topic words do not merge different stories.
+- Cyber watch ignores violence ("hacked to death"); more harm words (fraudster, swindled, blackmail, morphing and others).
+- 6 new unit tests built on invented headlines like the real ones.
+
 ## v0.2.1-dev — first weekly run, fixes
 - First real run of the weekly update (2026-10-25, pull request #15): METR and MITRE ATLAS worked; GDELT answered
   429 (too many requests) and PIB answered 403 (forbidden) to GitHub's servers, so no news items were found.
