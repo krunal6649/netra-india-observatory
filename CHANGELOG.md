@@ -1,5 +1,26 @@
 # Changelog
 
+## v0.2-dev (unreleased) — Phase 3 (a): Who to approach directory
+- **New `data/authorities.json`: 391 bodies.** 31 Union bodies in the plan's groups (ministries and policy, cyber
+  security, platforms and data, courts and legal aid, rights commissions, elections, sector regulators, standards,
+  fact-checking), and 10 standard bodies for each of the 28 states and 8 UTs (police and cyber crime, High Court, State
+  Legal Services Authority, human rights, women's, child rights and consumer commissions, IT department, state CERT,
+  State Election Commission). High Court names come from `docs/authorities-plan.md`.
+- **Verification:** 5 bodies are checked by the project owner (NCRP / 1930, GAC, CERT-In, ECI, Supreme Court). 9 have
+  links that appeared on official domains in web search (partial). Everything else is "to verify", with a visible
+  label; 355 have no link yet rather than a guessed one. The Union and the six states and UTs in cases come first.
+- **Home › Who to approach:** drill-down in four steps (Level → Authority → Bodies → body page) with a step indicator,
+  breadcrumb and "Back to treemap". Union groups and each place's bodies are squarified treemaps; the 36 states and
+  UTs are a grid in alphabetical order. Bodies are coloured by role (enforces, adjudicates, regulates or sets policy,
+  supports victims); hovering shows a small card. No case counts are shown, and places are not coloured by cases.
+- Each body page: what it can do, laws it may apply, how to report (with phone numbers such as 1930, 14490, 15100,
+  1915 where found), official website, date checked, status and source, and a correction link.
+- A note puts **1930 / cybercrime.gov.in first for financial cyber fraud** and says what NETRA adds.
+- Dossiers: each "Where to report" route has **Open in directory**.
+- Build: validates the directory (roles, places, groups, laws, links, verification) and checks that every case's
+  reporting route resolves to a body, including state routes such as "Kerala police". 7 new unit tests, 8 new smoke
+  checks (all 391 body pages render; treemap tiles fill the box without overlap; no case counts).
+
 ## v0.2-dev (unreleased) — Shorter NETRA dossier
 - **One case at a time.** The 14-column table of every case no longer sits above the dossier. A **Choose a case**
   drop-down and **Newer / Older** buttons switch cases; "All cases in Explore" goes back to the list.
