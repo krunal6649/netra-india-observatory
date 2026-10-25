@@ -1,6 +1,7 @@
 # Data licence
 
-The data in `data/india.json`, `data/global_evidence.json`, the research text and screenshots are licensed under the
+The data in `data/india.json`, `data/global_evidence.json`, `data/authorities.json`, `data/models.json`,
+`data/check_terms.json`, `data/weekly.json`, the research text and screenshots are licensed under the
 Creative Commons Attribution 4.0 International licence (CC BY 4.0): https://creativecommons.org/licenses/by/4.0/
 
 Attribution: Krunal, NETRA India AI Risk Observatory (2026).
@@ -12,6 +13,11 @@ not affiliated with or endorsed by MIT. India codings applied to those taxonomie
 `data/models.json` includes NETRA's own summaries of MITRE ATLAS case studies (https://atlas.mitre.org/, ATLAS data
 © MITRE, Apache License 2.0). METR material in `data/global_evidence.json` and `data/models.json` is cited and summarised
 only; METR retains its rights. `data/authorities.json` is NETRA's own compilation; linked sites keep their own terms.
+
+`data/weekly.json` is produced by `scripts/weekly_top5.py`. It holds NETRA's own short summaries and links; headlines are
+kept only as link titles. News discovery is by the GDELT Project (https://www.gdeltproject.org/), which is credited
+wherever the weekly update is shown. PIB releases remain © Government of India. New MITRE ATLAS case studies listed
+there are © MITRE (Apache License 2.0); METR publications are linked only.
 
 Quotes from Indian government documents and linked news or legal sources remain with their original authors.
 Nothing in this repository is legal advice.
