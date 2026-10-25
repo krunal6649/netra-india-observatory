@@ -1,5 +1,23 @@
 # Changelog
 
+## v0.2-dev (unreleased) — Phase 4: report generator
+- **Generate report** button on every NETRA dossier, incident card and risk-area page, plus a working
+  Analysis › Report generator page (record type and record pickers). Model reports come with Phase 5.
+- Reports are **built in the browser from stored data, with no AI**: preview, **Copy report**, **Download Markdown**
+  (`netra-report-incident-IN-INC-12.md`) and **Print or save as PDF** (print view hides menus and controls).
+- Sections: 1 What happened · 2 Evidence and how to preserve it (sources, court documents, general preservation
+  steps, SHA-256 commands, BSA s.63(4) certificate Part A / Part B with hash value from the verified G-BSA record, the
+  Pune Bar Assn. case flagged as report-only) · 3 AI's role · 4 Laws that may apply, labelled **Possible**,
+  **Interpretive question** or **Gap** · 5 Authority to approach (with the 1930 / cybercrime.gov.in first step for
+  financial fraud) · 6 What NETRA does not know · 7 Overclaim check · 8 NIST AI RMF view (Govern, Map, Measure, Manage;
+  NETRA's mapping, unreviewed) · 9 Cyber AI Profile: focus-area tag (Secure / Thwart; Defend never auto-tagged) and an
+  evidence checklist for CSF 2.0 RS.AN-03, RS.AN-06, RS.AN-07 · 10 Sources and credits · 11 Review status (of the
+  record, and a note that the report itself is unreviewed) · "Not legal advice".
+- The Cyber AI Profile is cited as **NIST IR 8596, preliminary draft (iprd), December 2025**. NIST text is paraphrased,
+  not quoted; the RS.AN wording was checked only against secondary summaries.
+- Smoke test: every incident (22) and every risk area (24) report has all required sections and no blank values;
+  court links with brackets survive; the renderer escapes HTML and refuses non-https links (89 checks).
+
 ## v0.2-dev (unreleased) — Batch 2: ten more cases
 - **10 new incidents (IN-INC-13 to IN-INC-22), all unreviewed**, chosen to cover risk areas with few or no cases.
   Each has at least two sources, NETRA stages, unknowns and an overclaim check. Batch is marked `B2`, and the Method
@@ -17,6 +35,10 @@
   case (ignoring `www.`, `/amp/` and trailing slashes), or whose title is 75% or more alike, unless a person lists it
   in `distinct_from`. The current 22 cases pass; the closest pair (IN-INC-09 and IN-INC-19) is 54% alike and is two
   different cases. 4 new unit tests.
+- **IN-INC-19 (KMG Wires) expanded** from sources supplied by the owner: AY 2023-24, ss.143(3) r/w 144B, about ₹22 crore
+  demand, penalty notice under s.274 r/w s.271AAC, suppliers' s.133(6) replies ignored, bench Colabawalla and
+  Amit S. Jamsandekar JJ. AI involvement stays 'as reported': summaries differ on whether the court itself found the
+  citations AI-generated, and the order has not been read. Case cards now show a `notes` line where present.
 - Build: `batch` must look like `B2`. 1 new unit test checks batch 2 is unreviewed, sourced, and covers all 7 domains.
 
 ## v0.2-dev (unreleased) — Owner review and court documents
