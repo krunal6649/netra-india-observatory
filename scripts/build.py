@@ -24,6 +24,7 @@ VERIFIED = {"yes", "partial", "no"}
 ACT_NO = re.compile(r"^Act \d+ of (19|20)\d\d$")
 NOTIFICATION_NO = re.compile(r"^(G\.S\.R\.|S\.O\.) \d+\(E\)$")
 ISO_DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+EMAIL = re.compile(r"^[^@\s<>\"]+@[^@\s<>\"]+\.[A-Za-z]{2,}$")
 
 
 def is_date(s):
@@ -97,6 +98,9 @@ def validate(tax, india, glob):
     # The home page shows this date beside the cases-tracked counter
     if not is_date(india["meta"].get("updated")):
         errors.append("meta.updated must be the ISO date the data was last changed")
+
+    if "contact_email" in india["meta"] and not EMAIL.match(india["meta"]["contact_email"]):
+        errors.append("meta.contact_email must be a plain email address")
 
     seen = set()
     for coll in ("risks", "instruments", "mitigations", "incidents", "gaps", "authorities", "frameworks"):

@@ -21,7 +21,10 @@
   reporting; nothing changes until the maintainer reviews it.
 - Credits line on Analysis pages and Global evidence; README, link-preview image (`og-image.png`) and README
   screenshot (`netra-hero.png`) updated. `netra-x-16x9.png` and `netra-timeline.png` still show the v0.1 look.
-- Build: `meta.updated` must be an ISO date. Smoke test rewritten for the new pages (78 checks); 1 new unit test.
+- **Maintainer and contact** box at the top of About › Method (name, title, email, corrections, GitHub), the same
+  details under Sources and credits, and a "Contact the maintainer" link in the footer. Email stored as `meta.contact_email`.
+- Build: `meta.updated` must be an ISO date and `meta.contact_email` a plain email address. Smoke test rewritten for
+  the new pages (79 checks); 2 new unit tests.
 
 ## v0.2-dev (unreleased) — Phase 1: verification (data only)
 - **Verified (owner checked against the India Code PDF):** G-BNS (Act 45 of 2023; ss.77, 308, 318, 319, 335, 336,

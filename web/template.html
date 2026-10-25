@@ -162,7 +162,7 @@ button.chip:hover{border-color:var(--c,var(--accent))}
 blockquote{margin:8px 0 0;padding:4px 0 4px 14px;border-left:3px solid var(--c,var(--accent));font-family:var(--f-display);font-size:1.08rem;font-style:italic;max-width:70ch}
 .kv{display:grid;grid-template-columns:minmax(110px,170px) minmax(0,1fr);gap:7px 16px;margin-top:14px}
 .kv dt{font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600;padding-top:2px}
-.kv dd{margin:0;max-width:72ch;min-width:0}
+.kv dd{margin:0;max-width:72ch;min-width:0;overflow-wrap:anywhere}
 details.more summary{cursor:pointer;color:var(--accent);font-weight:500;font-size:.88rem;margin-top:10px;list-style:none}
 details.more summary::-webkit-details-marker{display:none}
 details.more summary::before{content:"+ ";font-weight:700}
@@ -310,7 +310,7 @@ legend{font-family:var(--f-display);font-weight:650;font-size:1.05rem;padding:0 
 <footer class="wrap"><div class="inner">
   <span><b>Pilot research, not legal advice.</b> Codings were drafted with AI assistance and are unreviewed; items marked <span class="verify">to verify</span> rest on secondary sources.</span>
   <span>Uses the MIT AI Risk Initiative’s causal, domain and mitigation taxonomies under CC BY 4.0. Independent project; not affiliated with or endorsed by MIT.</span>
-  <span class="links"><a id="foot-correct" href="#" target="_blank" rel="noopener">Suggest a correction</a><button type="button" class="linkbtn" data-go="about-credits">Sources and credits</button><a id="foot-code" href="#" target="_blank" rel="noopener">Code and data on GitHub</a></span>
+  <span class="links"><button type="button" class="linkbtn" data-go="about-method">Contact the maintainer</button><a id="foot-correct" href="#" target="_blank" rel="noopener">Suggest a correction</a><button type="button" class="linkbtn" data-go="about-credits">Sources and credits</button><a id="foot-code" href="#" target="_blank" rel="noopener">Code and data on GitHub</a></span>
   <span id="built"></span>
 </div></footer>
 <div id="tour" role="dialog" aria-modal="false" aria-labelledby="tour-title" hidden></div>
@@ -390,6 +390,12 @@ const ver = v => v==='yes' ? '' : ' <span class="verify">to verify</span>';
 const VLABEL = {yes:'Verified', partial:'Partly verified', no:'To verify'};
 const vtag = v => `<span class="vtag ${esc(v)}">${esc(VLABEL[v]||v)}</span>`;
 const H3 = (t, hint, style='') => `<h3${style?` style="${style}"`:''}>${t}</h3><p class="hint">${hint}</p>`;
+const contactBox = () => `<section class="sheet" id="contact">${H3('Maintainer and contact','Who runs this observatory and how to reach them.')}<dl class="kv">
+   <dt>Maintainer</dt><dd>${esc(D.meta.maintainer)}</dd>
+   ${D.meta.contact_email?`<dt>Email</dt><dd><a href="mailto:${esc(D.meta.contact_email)}">${esc(D.meta.contact_email)}</a></dd>`:''}
+   <dt>Corrections</dt><dd><a href="${esc(correctUrl(''))}" target="_blank" rel="noopener">Suggest a correction</a> (public source link, date and place)</dd>
+   <dt>Code and data</dt><dd><a href="${REPO}" target="_blank" rel="noopener">GitHub repository</a></dd></dl>
+   <p class="note" style="margin-top:10px">This is a research project, not a helpline, and it cannot give legal advice. For financial cyber fraud, call 1930 or use cybercrime.gov.in.</p></section>`;
 const correctLink = rec => `<a href="${esc(correctUrl(rec))}" target="_blank" rel="noopener" class="note">Suggest a correction</a>`;
 const shortIns = i => i.title.replace(/\s*\(.*?\)\s*/g,' ').replace(/,? (\d{4})$/,' $1').trim().slice(0,58);
 const insChip = id => { const i = INS[id]; return i ? `<span class="chip ${isHard(i)?'hard':'soft'}" data-tip="<b>${esc(i.title)}</b>${esc(i.force)} · ${esc(i.status)}">${esc(shortIns(i))}</span>` : esc(id); };
@@ -692,7 +698,7 @@ V['about-evidence'] = () => {
 };
 
 V['about-method'] = () => head('Method','How this was built, and how far to trust it','Everything here is open to correction.','about','var(--d7)') +
-  `<div class="grid g-2">
+  contactBox() + `<div class="grid g-2" style="margin-top:14px">
   <section class="sheet">${H3('What each part contains','Where the records come from and how they were coded.')}<dl class="kv">
    <dt>Risks</dt><dd>Quoted from ${D.frameworks.filter(f=>D.risks.some(r=>r.framework===f.id)).map(f=>`<a href="${esc(f.url)}" target="_blank" rel="noopener">${esc(f.issuer.split(' (')[0])}</a>`).join(' and ')} documents read in full.</dd>
    <dt>Incidents</dt><dd>${D.incidents.length} found through targeted searches and read in news and legal-analysis sources. Not a systematic sample.</dd>
@@ -717,7 +723,7 @@ V['about-credits'] = () => {
   <section class="sheet">${H3('Fonts','Typefaces served by Google Fonts.')}<p style="margin-top:6px">Newsreader, IBM Plex Sans, IBM Plex Mono and Noto Serif Devanagari, under the SIL Open Font License 1.1.</p></section>
   <section class="sheet">${H3('Planned sources, not used yet','Checked for reuse terms; nothing from them is on the site yet.')}<ul style="margin:8px 0 0;padding-left:18px">
    <li>Epoch AI benchmark data (CC BY 4.0)</li><li>MITRE ATLAS (Apache 2.0)</li><li>AVID vulnerability database (MIT licence)</li><li>OWASP Top 10 for LLM Applications (CC BY-SA 4.0, kept in its own file)</li><li>Developer system cards and UK AI Security Institute reports (cite and summarise only)</li></ul></section>
-  <section class="sheet">${H3('This project','Data, code and how to cite it.')}<p style="margin-top:6px">Data CC BY 4.0, code MIT licence. <a href="${REPO}" target="_blank" rel="noopener">Code and data on GitHub</a> · cite using CITATION.cff in the repository.</p></section>
+  <section class="sheet">${H3('This project','Data, code and how to cite it.')}<p style="margin-top:6px">Maintained by ${esc(D.meta.maintainer)}${D.meta.contact_email?` (<a href="mailto:${esc(D.meta.contact_email)}">${esc(D.meta.contact_email)}</a>)`:''}. Data CC BY 4.0, code MIT licence. <a href="${REPO}" target="_blank" rel="noopener">Code and data on GitHub</a> · cite using CITATION.cff in the repository.</p></section>
   </div>`;
 };
 

@@ -53,6 +53,7 @@ check(N.page('about-credits').includes('CC BY 4.0') && N.page('about-credits').i
 check(N.page('analysis-dossiers').includes('All sources and credits') && N.page('analysis-gaps').includes('All sources and credits'), 'analysis pages show credits');
 check(N.page('about-verification').includes('Partly verified') && N.page('about-method').includes('issues/new?template=correction.yml'), 'verification status and correction link render');
 check(N.TOUR.every(([p]) => N.PAGES[p]), 'every guided tour step points at a real page');
+check(N.page('about-method').includes('Maintainer and contact') && N.page('about-method').includes(D.meta.contact_email) && N.page('about-method').includes(D.meta.maintainer) && N.page('about-credits').includes(D.meta.contact_email), 'About shows the maintainer and contact email');
 N.state.sub = '6.3';
 const nav = N.page('explore-area');
 check(nav.includes('IN-INC-07') && nav.includes('IN-INC-08'), 'risk area 6.3 links voice-clone and ANI incidents');

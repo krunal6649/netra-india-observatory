@@ -88,6 +88,10 @@ class Tests(unittest.TestCase):
         d = copy.deepcopy(self.india); d["meta"]["updated"] = "last week"
         self.rejects(d, "meta.updated")
 
+    def test_contact_email_format(self):
+        d = copy.deepcopy(self.india); d["meta"]["contact_email"] = "krunal at gmail"
+        self.rejects(d, "contact_email")
+
     def test_case_needs_fields(self):
         d = copy.deepcopy(self.india); self.ins(d, "G-BSA")["cases"] = [{"name": "X v. Y"}]
         self.rejects(d, "case X v. Y missing citation")
