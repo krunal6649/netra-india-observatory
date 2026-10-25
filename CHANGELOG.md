@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.2.1-dev — Who to approach opens on the India map
+- Step 1 of **Who to approach** is now the India tile map of all 28 states and 8 union territories, with a **Union:
+  national bodies** button above it. The two large Level boxes are gone, saving a click.
+- Steps follow the path: a state goes **Place › Bodies › Body**; Union goes **Place › Group › Bodies › Body**.
+  "Back to map" returns to step 1. Smoke checks updated for both paths.
+
 ## v0.2.0 — Phase 7: housekeeping and release files
 - **`CITATION.cff` 0.2.0** with repository, site, contact and references (MIT AI Risk Repository, MITRE ATLAS), and a
   matching **`.zenodo.json`** for archiving a release with a DOI. The frozen tag `v0.1.0-pilot` is untouched.
