@@ -91,6 +91,14 @@ class Tests(unittest.TestCase):
         d["incidents"].append(new)
         build.validate(self.tax, d, self.glob)
 
+    def test_incident_state_must_be_known(self):
+        d = copy.deepcopy(self.india); d["incidents"][0]["state"] = "Bombay"
+        self.rejects(d, "state must start with one of")
+
+    def test_all_states_and_uts_listed(self):
+        su = self.india["states_uts"]
+        self.assertEqual((len(su["states"]), len(su["union_territories"])), (28, 8))
+
     def test_document_kind(self):
         d = copy.deepcopy(self.india)
         d["incidents"][0]["court_documents"] = [{"title": "Order", "court": "Delhi High Court", "date": "2023-09-20", "kind": "memo",

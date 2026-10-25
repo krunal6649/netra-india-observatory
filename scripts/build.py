@@ -152,6 +152,10 @@ def validate(tax, india, glob):
     auth = {a["id"] for a in india["authorities"]}
     incs = {i["id"] for i in india["incidents"]}
     statuses = set(india["review_statuses"])
+    su = india["states_uts"]
+    places = set(su["states"]) | set(su["union_territories"]) | {"National"}
+    if len(su["states"]) != 28 or len(su["union_territories"]) != 8:
+        errors.append("states_uts must list 28 states and 8 union territories")
     causal = tax["causal"]
 
     # The home page shows this date beside the cases-tracked counter
@@ -247,6 +251,9 @@ def validate(tax, india, glob):
                 errors.append(f"{inc['id']}: a reviewed record must have S11 Human review 'done'")
         elif inc.get("reviewed_by") or inc.get("reviewed_on"):
             errors.append(f"{inc['id']}: reviewed_by / reviewed_on set on a record that is not reviewed")
+        # The state filter and the authorities treemap rely on the place starting with a known state or UT
+        if inc["state"].split(" (")[0] not in places:
+            errors.append(f"{inc['id']}: state must start with one of the 28 states, 8 UTs or 'National', not '{inc['state']}'")
         check_documents(inc, errors)
         if "batch" in inc and not re.match(r"^B\d+$", str(inc["batch"])):
             errors.append(f"{inc['id']}: batch must look like 'B2'")
