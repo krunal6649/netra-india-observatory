@@ -91,7 +91,7 @@ N.state.showUpload = false; A.UP.text = ''; A.UP.result = null;
 const mv = N.page('analysis-models'); N.state.mview = 'reports'; const ev = N.page('analysis-models'); N.state.mview = 'models';
 check(mv.includes('By evaluation report') && ev.includes('TR-001') && ev.includes('Indian provisions, limits and source') && !N.PAGES['about-evidence'] && N.page('home').includes('data-go="analysis-models"'), 'Global evidence now sits inside Models and evaluations, with a card on Home');
 const hw = N.page('home');
-check(hw.includes('This week in India') && (hw.includes('after the first Saturday run') || hw.includes('Auto-selected, unreviewed')) && hw.includes('GDELT'), 'Home has This week in India, labelled auto-selected and unreviewed, with the GDELT credit');
+check(hw.includes('This week in India') && (hw.includes('after the first Saturday run') || hw.includes('picked automatically and not yet checked by a person')) && hw.includes('GDELT'), 'Home has This week in India, labelled auto-selected and unreviewed, with the GDELT credit');
 check(N.page('about-credits').includes('CERT-In: not used yet'), 'Credits list the weekly sources and say CERT-In is not used yet');
 const mt = N.page('about-method');
 check(mt.includes('Planned for v0.3') && mt.includes('Live reporting') && mt.includes('MIT AI Risk Repository import') && mt.includes('Further sources') && !/undefined|NaN/.test(mt), 'About › Method lists what is planned for v0.3, with counts from the data');

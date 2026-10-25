@@ -118,6 +118,28 @@ class Tests(unittest.TestCase):
         with self.assertRaises(wk.SourceError):
             wk.gdelt("x", always_busy, date(2026, 10, 17), date(2026, 10, 23), sleep=lambda s: None)
 
+    def test_gdelt_spacing_is_cleaned(self):
+        self.assertEqual(wk.clean_title("SBI data breach claim : Hackers access 3 . 75 lakh accounts"), "SBI data breach claim: Hackers access 3.75 lakh accounts")
+        self.assertEqual(wk.clean_title("ID card made with AI - generated photo , police say"), "ID card made with AI-generated photo, police say")
+
+    def test_violence_is_not_cyber_and_same_story_is_grouped(self):
+        arts = [{"title": t, "url": f"https://x.example/{k}", "domain": d, "date": "2026-10-21", "via": "GDELT"} for k, (t, d) in enumerate([
+            ("Bank data breach claim: hackers access 3.75 lakh accounts", "a.example"),
+            ("Bank data exposure: what the dark-web breach means for 3.75 lakh accounts", "b.example"),
+            ("Elderly man hacked to death in village over land dispute", "c.example")])]
+        cyber, _ = wk.select(arts, "cyber", [], set(), [], {"risk_areas": {}}, {})
+        self.assertEqual(len(cyber), 1)
+        self.assertEqual(len(cyber[0]["sources"]), 2)
+
+    def test_two_different_scams_with_the_same_topic_words_stay_apart(self):
+        self.assertFalse(wk.same_story("Gang uses AI voice clone to cheat Surat trader", "AI voice clone used to cheat retired teacher in Nagpur"))
+        self.assertTrue(wk.same_story("Bank data breach: hackers access 3.75 lakh accounts", "MP seeks probe into bank data breach affecting customers"))
+
+    def test_indian_outlet_headline_without_a_place_counts_unless_it_names_another_country(self):
+        self.assertTrue(wk.india_nexus("Deepfake scam: fraudsters fool us with cloned voice", [], indian_outlet=True))
+        self.assertFalse(wk.india_nexus("US court fines chatbot maker over fake citations", [], indian_outlet=True))
+        self.assertFalse(wk.india_nexus("Deepfake scam hits elderly", [], indian_outlet=False))
+
     def test_old_feed_items_are_outside_the_window(self):
         urls = {s["url"] for c in self.week["cyber"] + self.week["top"] for s in c["sources"]}
         self.assertNotIn("https://pib.gov.in/PressReleasePage.aspx?PRID=2", urls)
