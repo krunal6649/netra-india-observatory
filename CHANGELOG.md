@@ -1,5 +1,19 @@
 # Changelog
 
+## v0.2-dev (unreleased) — Shorter NETRA dossier
+- **One case at a time.** The 14-column table of every case no longer sits above the dossier. A **Choose a case**
+  drop-down and **Newer / Older** buttons switch cases; "All cases in Explore" goes back to the list.
+- **Stage strip:** the 14 NETRA stages collapse into one coloured strip ("7 of 13 done"); click it for the full
+  stage-by-stage view.
+- **Four tabs:** Overview (what happened, AI's role, what NETRA does not know, overclaim check) · Laws and gaps ·
+  Where to report (authorities, 1930 first for financial fraud, location and jurisdiction, court documents) ·
+  Evidence (sources and court documents).
+- **"Compare all cases by stage"** keeps the old all-cases table, folded away at the bottom.
+- **Authorities:** the red "to verify" on every line is replaced by one note above the list and a grey
+  "not yet checked" tag. None of the 10 contact routes has been checked against an official site yet.
+- The long NETRA method paragraph is no longer repeated here; it remains under About › Method.
+- Smoke test: 5 new checks; 104 in total.
+
 ## v0.2-dev (unreleased) — Easier Explore for a growing database
 - **Compact list** for incidents and laws: one line per record (ID, title, date and place, risk-area dots, severity,
   review or verification status). Click a line to expand a summary with Open dossier and Generate report.
