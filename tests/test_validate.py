@@ -84,6 +84,10 @@ class Tests(unittest.TestCase):
             self.assertEqual(self.ins(self.india, iid)["verified"], "partial", iid)
         self.assertEqual(len(build.validate(self.tax, self.india, self.glob)), 24)
 
+    def test_meta_updated_date(self):
+        d = copy.deepcopy(self.india); d["meta"]["updated"] = "last week"
+        self.rejects(d, "meta.updated")
+
     def test_case_needs_fields(self):
         d = copy.deepcopy(self.india); self.ins(d, "G-BSA")["cases"] = [{"name": "X v. Y"}]
         self.rejects(d, "case X v. Y missing citation")

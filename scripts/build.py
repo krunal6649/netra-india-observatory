@@ -94,6 +94,10 @@ def validate(tax, india, glob):
     statuses = set(india["review_statuses"])
     causal = tax["causal"]
 
+    # The home page shows this date beside the cases-tracked counter
+    if not is_date(india["meta"].get("updated")):
+        errors.append("meta.updated must be the ISO date the data was last changed")
+
     seen = set()
     for coll in ("risks", "instruments", "mitigations", "incidents", "gaps", "authorities", "frameworks"):
         for item in india[coll]:
@@ -230,7 +234,7 @@ def write_pages(page):
     head, body = page[:cut], page[cut:]
     doc = ("<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n"
            "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1,viewport-fit=cover\">\n"
-           "<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}"
+           "<style>:root{color-scheme:dark;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}"
            "body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>\n"
            + head + "\n</head>\n<body>\n" + body + "\n</body>\n</html>\n")
     (ROOT / "index.html").write_text(doc, encoding="utf-8")
