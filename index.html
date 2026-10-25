@@ -115,7 +115,7 @@ details.stages>summary::-webkit-details-marker{display:none}
 .dtabs button:hover{color:var(--ink)}
 .dtabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent)}
 .vtag.pending{color:var(--muted);background:var(--soft)}
-.tm{position:relative;width:100%;aspect-ratio:16/7;margin-top:10px}
+.tm{position:relative;width:100%;height:clamp(240px,30vw,380px);margin-top:10px}
 .tile{position:absolute;box-sizing:border-box;border:2px solid var(--paper);border-left:5px solid var(--c);background:color-mix(in srgb,var(--c) 24%,var(--sheet));color:var(--ink);font:inherit;text-align:left;padding:8px 10px;cursor:pointer;overflow:hidden;display:flex;flex-direction:column;gap:2px;border-radius:6px;transition:background .15s}
 .tile:hover,.tile:focus-visible{background:color-mix(in srgb,var(--c) 42%,var(--sheet))}
 .tile.dashed{border-left-style:dashed}
@@ -127,7 +127,13 @@ ol.steps li.done{color:var(--ink)} ol.steps li[aria-current="step"]{background:v
 #directory .crumb{align-items:center}
 .tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px;margin-top:8px}
 .tgrid .tile{position:static;min-height:64px;border-width:1px 1px 1px 5px;border-color:var(--line);border-left-color:var(--c)}
-@media (max-width:820px){.tgrid{grid-template-columns:repeat(2,minmax(0,1fr))}.tgrid .tile span{display:block}.tm{aspect-ratio:3/4}.tile{padding:6px}.tile b{font-size:.78rem}.tile span{display:none}}
+.tmap{display:grid;grid-template-columns:repeat(9,minmax(0,1fr));grid-auto-rows:clamp(44px,6vw,74px);gap:5px;margin-top:10px;max-width:900px}
+.mt{position:relative;font:inherit;border:2px solid var(--c);border-radius:8px;background:color-mix(in srgb,var(--c) 32%,var(--sheet));color:var(--ink);cursor:pointer;padding:4px;display:grid;place-items:center;text-align:center;min-width:0;transition:transform .12s,background .12s}
+.mt b{font-size:clamp(.54rem,.95vw,.76rem);font-weight:600;line-height:1.15;hyphens:manual;overflow-wrap:normal;word-break:normal}
+.mt:hover,.mt:focus-visible{background:color-mix(in srgb,var(--c) 55%,var(--sheet));transform:scale(1.06);z-index:1}
+.mt.ut{border-style:dashed}
+.mt i{position:absolute;top:4px;right:4px;width:7px;height:7px;border-radius:50%;background:var(--ink)}
+@media (max-width:820px){.tgrid{grid-template-columns:repeat(2,minmax(0,1fr))}.tm{height:440px}.tile{padding:6px}.tile b{font-size:.78rem}.tile span{font-size:.68rem}.tmap{gap:3px;grid-auto-rows:46px}.mt{padding:2px;border-width:1.5px}}
 @media (max-width:820px){.lrow>summary{grid-template-columns:minmax(0,1fr) auto auto}.lrow>summary .id{grid-column:1/-1}.lrow>summary .lt{grid-column:1/-1}.lrow .ldom{display:none}}
 .hint{color:var(--muted);font-size:.92rem;margin-top:4px;max-width:72ch}
 h4.ctitle{font-family:var(--f-display);font-size:1.15rem;font-weight:650;line-height:1.2;margin:8px 0 0;text-wrap:balance}
@@ -532,11 +538,31 @@ function squarify(items, x, y, w, h){
 }
 function treemap(items, label){
   const rects = squarify(items, 0, 0, 100, 100);
-  return `<div class="tm" role="group" aria-label="${esc(label)}">${rects.map(r=>`<button type="button" class="tile${r.dashed?' dashed':''}" style="left:${r.x.toFixed(3)}%;top:${r.y.toFixed(3)}%;width:${r.w.toFixed(3)}%;height:${r.h.toFixed(3)}%;--c:${r.col||'var(--accent)'}" data-dir="${esc(r.go)}" data-tip="${esc(r.tip||'')}"><b>${esc(r.name)}</b>${r.sub?`<span>${esc(r.sub)}</span>`:''}</button>`).join('')}</div>`;
+  return `<div class="tm" role="group" aria-label="${esc(label)}">${rects.map(r=>`<button type="button" class="tile${r.dashed?' dashed':''}" style="left:${r.x.toFixed(3)}%;top:${r.y.toFixed(3)}%;width:${r.w.toFixed(3)}%;height:${r.h.toFixed(3)}%;--c:${r.col||'var(--accent)'}" data-dir="${esc(r.go)}"${tipAttr(r.tip)}><b>${esc(r.name)}</b>${r.sub?`<span>${esc(r.sub)}</span>`:''}</button>`).join('')}</div>`;
 }
-/* Equal-weight choices (the 36 states and UTs) read better as a row-by-row grid in alphabetical order */
+/* States and UTs as a tile map: one square each, placed roughly where it lies in India.
+   No boundaries are drawn. Colours group nearby places and are not official zones. [column, row, short label, region] */
+const TILE_MAP = {
+  'Jammu and Kashmir':[2,0,'J&K','north'], 'Ladakh':[3,0,'Ladakh','north'],
+  'Chandigarh':[0,1,'Chandi­garh','north'], 'Punjab':[1,1,'Punjab','north'], 'Himachal Pradesh':[2,1,'Hima­chal','north'], 'Uttarakhand':[3,1,'Uttara­khand','north'], 'Sikkim':[6,1,'Sikkim','ne'], 'Arunachal Pradesh':[8,1,'Aruna­chal','ne'],
+  'Haryana':[1,2,'Hary­ana','north'], 'Delhi':[2,2,'Delhi','north'], 'Uttar Pradesh':[3,2,'Uttar Pradesh','central'], 'Bihar':[4,2,'Bihar','east'], 'Assam':[7,2,'Assam','ne'], 'Nagaland':[8,2,'Naga­land','ne'],
+  'Rajasthan':[1,3,'Raja­sthan','north'], 'Madhya Pradesh':[2,3,'Madhya Pradesh','central'], 'Chhattisgarh':[3,3,'Chhattis­garh','central'], 'Jharkhand':[4,3,'Jhar­khand','east'], 'West Bengal':[5,3,'West Bengal','east'], 'Meghalaya':[7,3,'Megha­laya','ne'], 'Manipur':[8,3,'Mani­pur','ne'],
+  'Dadra and Nagar Haveli and Daman and Diu':[0,4,'DNH & DD','west'], 'Gujarat':[1,4,'Guja­rat','west'], 'Maharashtra':[2,4,'Maha­rashtra','west'], 'Telangana':[3,4,'Telan­gana','south'], 'Odisha':[4,4,'Odisha','east'], 'Tripura':[7,4,'Tripura','ne'], 'Mizoram':[8,4,'Mizo­ram','ne'],
+  'Goa':[1,5,'Goa','west'], 'Karnataka':[2,5,'Karna­taka','south'], 'Andhra Pradesh':[3,5,'Andhra Pradesh','south'],
+  'Lakshadweep':[1,6,'Laksha­dweep','south'], 'Kerala':[2,6,'Kerala','south'], 'Tamil Nadu':[3,6,'Tamil Nadu','south'], 'Puducherry':[4,6,'Pudu­cherry','south'],
+  'Andaman and Nicobar Islands':[6,6,'A&N Islands','east']
+};
+const REGIONS = {north:['North','var(--d1)'], central:['Central','var(--d4)'], east:['East','var(--d2)'], ne:['North-East','var(--d6)'], west:['West','var(--d5)'], south:['South','var(--d7)']};
+const GROUP_COL = ['var(--d1)','var(--d2)','var(--d3)','var(--d4)','var(--d5)','var(--d6)','var(--d7)','var(--accent)','var(--part)'];
+const tipAttr = t => t ? ` data-tip="${esc(t)}"` : '';
+function tileMap(){
+  const uts = new Set(D.states_uts.union_territories);
+  return `<div class="tmap" role="group" aria-label="States and union territories, placed roughly where they lie">${Object.entries(TILE_MAP).map(([p,[c,r,short,reg]])=>`<button type="button" class="mt${uts.has(p)?' ut':''}" style="grid-column:${c+1};grid-row:${r+1};--c:${REGIONS[reg][1]}" data-dir="${esc(`place:state:${p}`)}" aria-label="${esc(p)}${uts.has(p)?', union territory':''}"${tipAttr(`<b>${esc(p)}</b>${uts.has(p)?'Union territory':'State'} · ${REGIONS[reg][0]}${PRIORITY_PLACES.includes(p)?' · checked first':''}`)}><b>${esc(short)}</b>${PRIORITY_PLACES.includes(p)?'<i aria-hidden="true"></i>':''}</button>`).join('')}</div>
+   <div class="legend">${Object.values(REGIONS).map(([n,c])=>`<span style="--c:${c}"><i></i>${n}</span>`).join('')}<span>· dashed edge = union territory · white dot = checked first · squares are placed roughly by location; no boundaries are drawn</span></div>`;
+}
+/* Equal-weight choices read better as a row-by-row grid in alphabetical order */
 function tileGrid(items, label){
-  return `<div class="tgrid" role="group" aria-label="${esc(label)}">${items.map(r=>`<button type="button" class="tile${r.dashed?' dashed':''}" style="--c:${r.col||'var(--accent)'}" data-dir="${esc(r.go)}" data-tip="${esc(r.tip||'')}"><b>${esc(r.name)}</b>${r.sub?`<span>${esc(r.sub)}</span>`:''}</button>`).join('')}</div>`;
+  return `<div class="tgrid" role="group" aria-label="${esc(label)}">${items.map(r=>`<button type="button" class="tile${r.dashed?' dashed':''}" style="--c:${r.col||'var(--accent)'}" data-dir="${esc(r.go)}"${tipAttr(r.tip)}><b>${esc(r.name)}</b>${r.sub?`<span>${esc(r.sub)}</span>`:''}</button>`).join('')}</div>`;
 }
 const vlabel = b => b.verified==='yes' ? `<span class="vtag yes">Checked ${esc(b.checked_on)}</span>` : '<span class="verify">to verify</span>';
 const bodyTip = b => `<b>${esc(b.name)}</b>${esc(ROLE_NAME[b.role])} · ${b.verified==='yes'?'checked':'to verify'}<br>${esc(b.can_do.length>140?b.can_do.slice(0,137)+'…':b.can_do)}`;
@@ -572,13 +598,12 @@ function dirSection(){
     const list = d.level==='union' ? union.filter(b=>b.group===d.place) : stb.filter(b=>b.place===d.place);
     view = treemap(list.map(b=>({w:1, name:b.name, sub:`${ROLE_NAME[b.role]}${b.verified==='yes'?'':' · to verify'}`, col:ROLE_COL[b.role], go:`body:${b.id}`, tip:bodyTip(b), dashed:b.verified!=='yes'})), `Bodies in ${d.place}`);
   }
-  else if(d.level==='union') view = treemap(DIR.meta.union_groups.map(g=>{ const n = union.filter(b=>b.group===g).length; return {w:n, name:g, sub:`${n} bod${n>1?'ies':'y'}`, go:`place:union:${g}`, tip:`<b>${esc(g)}</b>${n} bodies`}; }), 'Union groups');
-  else if(d.level==='state'){ const tile = t => p => ({name:p, sub:PRIORITY_PLACES.includes(p)?'checked first':'', go:`place:state:${p}`, dashed:t!=='State', col:PRIORITY_PLACES.includes(p)?'var(--accent)':'var(--na)', tip:`<b>${esc(p)}</b>${t}${PRIORITY_PLACES.includes(p)?' · checked first':''}`});
-    view = `<h4 class="ctitle" style="font-size:1rem;margin-top:12px">States (28)</h4>${tileGrid(D.states_uts.states.map(tile('State')), 'States')}<h4 class="ctitle" style="font-size:1rem;margin-top:14px">Union territories (8)</h4>${tileGrid(D.states_uts.union_territories.map(tile('Union territory')), 'Union territories')}`; }
-  else view = treemap([{w:union.length, name:'Union', sub:`${union.length} bodies: ministries, regulators, courts, commissions`, go:'level:union', col:'var(--accent)'},
-                       {w:36, name:'States and union territories', sub:'28 states and 8 UTs: police, High Courts, commissions', go:'level:state', col:'var(--d3)'}], 'Choose a level');
+  else if(d.level==='union') view = treemap(DIR.meta.union_groups.map((g,k)=>{ const list = union.filter(b=>b.group===g), n = list.length; return {w:n, name:g, sub:list.map(b=>b.name.replace(/\s*\(.*?\)/g,'')).slice(0,3).join(' · ')+(n>3?` · +${n-3} more`:''), col:GROUP_COL[k%GROUP_COL.length], go:`place:union:${g}`, tip:`<b>${esc(g)}</b>${n} bod${n>1?'ies':'y'}`}; }), 'Union groups');
+  else if(d.level==='state') view = tileMap();
+  else view = treemap([{w:union.length, name:'Union', sub:`${union.length} bodies: ministries, regulators, courts, commissions`, go:'level:union', col:'var(--d1)', tip:'<b>Union</b>Bodies for the whole country'},
+                       {w:36, name:'States and union territories', sub:'28 states and 8 UTs: police, High Courts, commissions', go:'level:state', col:'var(--d3)', tip:'<b>States and union territories</b>Pick a place on the tile map'}], 'Choose a level');
   const legend = dirStep() >= 3 ? `<div class="legend">${Object.entries(ROLE_NAME).map(([k,v])=>`<span style="--c:${ROLE_COL[k]}"><i></i>${esc(v)}</span>`).join('')}<span>· dashed edge = to verify</span></div>` :
-    d.level==='state' ? '<div class="legend"><span style="--c:var(--accent)"><i></i>States and UTs named in cases (checked first)</span><span style="--c:var(--na)"><i></i>Others</span><span>· dashed edge = union territory</span></div>' : '';
+    '';
   return `<section class="sheet" id="directory" style="margin-top:18px">${H3('Who to approach','Find the body that can act: pick a level, then an authority, then a body to see what it can do and how to reach it.')}
    <p class="callout" style="margin-top:12px"><b>Lost money to cyber fraud?</b> Call <b>1930</b> or report at cybercrime.gov.in first. Speed matters for freezing funds. NETRA is not a complaint service.</p>
    <p class="note" style="margin-top:8px">What NETRA adds: AI-role analysis, evidence preservation, legal mapping and gaps, for lawyers, researchers and policymakers. Every entry is “to verify” until checked against an official source; ${DIR.bodies.filter(b=>b.verified==='yes').length} of ${DIR.bodies.length} are checked so far.</p>
@@ -612,13 +637,6 @@ V.home = () => {
       <div class="row" style="justify-content:space-between"><b style="font-family:var(--f-display);font-size:1.05rem">${d.id}. ${esc(d.name)}</b>${flag?'<span class="rev" style="color:var(--open);background:color-mix(in srgb,var(--open) 12%,transparent)">more incidents than laws</span>':''}</div>
       <div class="cov" style="--c:var(--d${d.id});grid-template-columns:repeat(3,minmax(0,1fr))">
         <div><b>${c.incidents}</b><span>incidents</span></div><div><b>${c.hard}</b><span>binding</span></div><div><b>${c.soft}</b><span>soft / proposals</span></div></div></button>`; }).join('')}</div>
-
-  ${H3('Three ways in','Explore the records, read the analysis, or check how it was built.','margin-top:30px')}
-  <div class="grid g-3" style="margin-top:12px">${[
-    ['explore-incidents','navigator','Explore','Search one list of risks, incidents, laws and measures.','var(--d1)'],
-    ['analysis-dossiers','netra','Analysis','NETRA dossiers, the gap register, the report generator, and (soon) a model register.','var(--d5)'],
-    ['about-method','about','About','Method, sources and credits, verification status, survey and global evidence.','var(--d7)']
-  ].map(([go,ic,l,d,c])=>`<button type="button" class="tool" style="--tc:${c}" data-go="${go}"><span class="ic">${svgIcon(ic)}</span><b>${l}</b><span>${d}</span></button>`).join('')}</div>
 
   <div class="row" style="justify-content:space-between;margin-top:30px"><div>${H3('Latest incidents','The three most recently added cases.')}</div><button class="btn" type="button" data-go="explore-incidents">See all ${n}</button></div>
   <div class="grid g-3" style="margin-top:12px">${recent.map(i=>`<button type="button" class="card edge" style="--edge:${dc(i.domains[0])};text-align:left;font:inherit;color:inherit;cursor:pointer" data-inc="${i.id}">
@@ -1301,7 +1319,8 @@ async function publishSummary(){
 
 /* ---------- shell ---------- */
 const TOUR = [
-  ['home','Home','The counter shows how many cases are tracked and how many a person has reviewed. Below it, Who to approach lets you drill down from Union or state to the body that can act. Click any segment of the wheel to open that risk area.'],
+  ['home','Home','The counter shows how many cases are tracked and how many a person has reviewed. Click any segment of the wheel to open that risk area.'],
+  ['home','Who to approach','Find the body that can act: choose Union or a state on the tile map, then a body, to see what it can do and how to reach it. For money lost to cyber fraud, 1930 comes first.','directory'],
   ['explore-incidents','Explore','One searchable list. The switch changes between risks, incidents, laws and measures. Filters stay hidden until you click the Filters button.'],
   ['analysis-dossiers','Analysis','NETRA dossiers trace each incident through 14 stages: location, laws that may apply, where to report, gaps, and what is still unknown. Each dossier has a Generate report button.'],
   ['about-verification','Verification status','Which legal records have been checked against official texts, and what is still missing for the rest.'],
@@ -1331,7 +1350,7 @@ function renderTour(){ if(!$tour) return; const k = state.tour; if(k<0){ $tour.h
   $tour.innerHTML = `<span class="eyebrow">Guided tour · ${k+1} of ${TOUR.length}</span><h3 id="tour-title" style="margin-top:4px">${esc(t)}</h3><p class="hint">${esc(d)}</p>
    <div class="row"><button type="button" class="btn sm" data-tour="close">Close</button><span class="row">${k>0?'<button type="button" class="btn sm" data-tour="back">Back</button>':''}<button type="button" class="btn sm primary" data-tour="${k<TOUR.length-1?'next':'close'}">${k<TOUR.length-1?'Next':'Finish'}</button></span></div>`;
   $tour.hidden = false; }
-function tour(step){ state.tour = step; if(step>=0) go(TOUR[step][0]); else renderTour(); }
+function tour(step){ state.tour = step; if(step<0) return renderTour(); go(TOUR[step][0]); const a = TOUR[step][3]; if(a) document.getElementById(a)?.scrollIntoView?.({block:'start'}); }
 
 const $tip = document.getElementById('tip');
 function hideTip(){ $tip && $tip.classList.remove('show'); }

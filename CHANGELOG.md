@@ -16,6 +16,12 @@
 - Each body page: what it can do, laws it may apply, how to report (with phone numbers such as 1930, 14490, 15100,
   1915 where found), official website, date checked, status and source, and a correction link.
 - A note puts **1930 / cybercrime.gov.in first for financial cyber fraud** and says what NETRA adds.
+- **Tile map for states and UTs:** one square each, placed roughly where it lies in India, coloured by region (North,
+  Central, East, North-East, West, South); union territories have a dashed edge and the six places in cases a dot.
+  No boundaries are drawn: the authorities plan rules out map boundaries, and official boundary depictions are
+  sensitive. Region colours group nearby places and are not official zones.
+- Union groups each have their own colour and list their first bodies; treemaps are shorter; empty hover cards fixed.
+- Home: removed "Three ways in", which repeated the tabs. The guided tour has a new "Who to approach" step.
 - Dossiers: each "Where to report" route has **Open in directory**.
 - Build: validates the directory (roles, places, groups, laws, links, verification) and checks that every case's
   reporting route resolves to a body, including state routes such as "Kerala police". 7 new unit tests, 8 new smoke
