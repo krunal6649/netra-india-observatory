@@ -198,9 +198,84 @@ def check_directory(directory, india, errors):
     return ids
 
 
-def validate(tax, india, glob, directory=None):
+LAW_LABELS = {"possible", "interpretive", "gap"}
+
+
+def check_models(models, india, glob, directory, errors):
+    """data/models.json: the model register (Phase 5). What testers found and NETRA's analysis stay separate."""
+    ins = {i["id"] for i in india["instruments"]}
+    incs = {i["id"] for i in india["incidents"]}
+    bodies = {b["id"] for b in directory["bodies"]}
+    reports = {r["id"] for r in glob["reports"]}
+    maps = {m["id"] for m in glob["mappings"]}
+    gaps = {g["id"] for g in glob["gaps"]} | {g["id"] for g in india["gaps"]}
+    seen = set()
+    for m in models["models"]:
+        mid = m.get("id", "?")
+        if mid in seen:
+            errors.append(f"models: duplicate id {mid}")
+        seen.add(mid)
+        for f in ("name", "developer", "release_note", "netra", "review"):
+            if not m.get(f):
+                errors.append(f"{mid}: missing {f}")
+        if m.get("release_date") is not None and not (is_date(m["release_date"]) or re.match(r"^\d{4}-\d{2}$", str(m["release_date"]))):
+            errors.append(f"{mid}: release_date must be an ISO date or null")
+        if m.get("release_date") and not m.get("release_source"):
+            errors.append(f"{mid}: a release date needs a release_source")
+        for t in m.get("tests", []):
+            for f in ("by", "what", "found", "licence", "date"):
+                if not t.get(f):
+                    errors.append(f"{mid}: test missing {f}")
+            if t.get("report") and t["report"] not in reports:
+                errors.append(f"{mid}: unknown report {t['report']}")
+            if not t.get("report") and not str(t.get("url", "")).startswith("https://"):
+                errors.append(f"{mid}: a test needs a METR report id or an https source url")
+        n = m.get("netra", {})
+        for f in ("risk_areas", "laws", "authorities", "unknowns", "overclaim"):
+            if not n.get(f):
+                errors.append(f"{mid}: NETRA analysis missing {f}")
+        if m.get("tests") and "not evidence of real-world harm" not in n.get("overclaim", ""):
+            errors.append(f"{mid}: overclaim must say a test result is not evidence of real-world harm")
+        for l in n.get("laws", []):
+            if l.get("instrument") not in ins:
+                errors.append(f"{mid}: unknown instrument {l.get('instrument')}")
+            if l.get("label") not in LAW_LABELS:
+                errors.append(f"{mid}: law label must be one of {sorted(LAW_LABELS)}")
+            if not l.get("why"):
+                errors.append(f"{mid}: each law needs a 'why'")
+        for a in n.get("authorities", []):
+            if a not in bodies:
+                errors.append(f"{mid}: unknown directory body {a}")
+        for x in n.get("mappings", []):
+            if x not in maps:
+                errors.append(f"{mid}: unknown mapping {x}")
+        for x in n.get("gaps", []):
+            if x not in gaps:
+                errors.append(f"{mid}: unknown gap {x}")
+        for x in m.get("incidents", []):
+            if x not in incs:
+                errors.append(f"{mid}: unknown incident {x}")
+        if m.get("review") not in india["review_statuses"]:
+            errors.append(f"{mid}: bad review status")
+        if m.get("review") in REVIEWED and (not m.get("reviewed_by") or not is_date(m.get("reviewed_on"))):
+            errors.append(f"{mid}: a reviewed model needs reviewed_by and reviewed_on")
+
+
+def check_drafts(errors):
+    """data/drafts/*.json: AI-assisted drafts opened by the owner's workflow. They can never be marked reviewed."""
+    for p in sorted((DATA / "drafts").glob("*.json")):
+        d = json.loads(p.read_text(encoding="utf-8"))
+        if d.get("review") != "unreviewed" or not d.get("ai_generated"):
+            errors.append(f"drafts/{p.name}: an AI draft must be ai_generated and 'unreviewed'")
+        if any(q.get("verified") is not True for q in d.get("quotes", [])):
+            errors.append(f"drafts/{p.name}: every kept quote must have been verified word for word")
+
+
+def validate(tax, india, glob, directory=None, models=None):
     if directory is None:
         directory = load("authorities.json")
+    if models is None:
+        models = load("models.json")
     errors, warnings = [], []
     subs = {s["id"] for d in tax["domains"] for s in d["subs"]}
     msubs = {s["id"] for d in tax["mitigation"] for s in d["subs"]}
@@ -334,6 +409,8 @@ def validate(tax, india, glob, directory=None):
 
     check_duplicates(india["incidents"], errors)
     check_directory(directory, india, errors)
+    check_models(models, india, glob, directory, errors)
+    check_drafts(errors)
 
     for g in india["gaps"]:
         for x in g["incidents"]:
@@ -353,21 +430,23 @@ def validate(tax, india, glob, directory=None):
 
 def slim_global(glob):
     """Keep only what the site shows from the earlier METR pilot."""
-    keep = {k: glob[k] for k in ("reports", "instruments", "mappings", "classifications", "sources")}
+    keep = {k: glob[k] for k in ("reports", "instruments", "mappings", "classifications", "sources", "gaps")}
     return keep
 
 
 def build(check_only=False):
-    tax, india, glob, directory = load("taxonomy.json"), load("india.json"), load("global_evidence.json"), load("authorities.json")
-    warnings = validate(tax, india, glob, directory)
+    tax, india, glob, directory, models = (load("taxonomy.json"), load("india.json"), load("global_evidence.json"),
+                                           load("authorities.json"), load("models.json"))
+    prompts = json.loads((ROOT / "scripts" / "ai_prompts.json").read_text(encoding="utf-8"))
+    warnings = validate(tax, india, glob, directory, models)
     print(f"Validation passed: {len(india['risks'])} risks, {len(india['incidents'])} incidents, "
           f"{len(india['instruments'])} instruments, {len(india['mitigations'])} mitigations, "
-          f"{len(india['gaps'])} gaps, {len(directory['bodies'])} directory bodies; {len(warnings)} verification warnings.")
+          f"{len(india['gaps'])} gaps, {len(directory['bodies'])} directory bodies, {len(models['models'])} models; {len(warnings)} verification warnings.")
     if check_only:
         for w in warnings:
             print("  ! " + w)
         return
-    payload = {"tax": tax, "india": india, "global": slim_global(glob), "directory": directory, "warnings": warnings,
+    payload = {"tax": tax, "india": india, "global": slim_global(glob), "directory": directory, "models": models, "prompts": prompts, "warnings": warnings,
                "built": date.today().isoformat()}
     blob = json.dumps(payload, ensure_ascii=False).replace("</", "<\\/")
     html = TEMPLATE.read_text(encoding="utf-8")

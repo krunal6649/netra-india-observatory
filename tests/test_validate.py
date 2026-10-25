@@ -14,10 +14,11 @@ class Tests(unittest.TestCase):
     def setUp(self):
         self.tax, self.india, self.glob = build.load("taxonomy.json"), build.load("india.json"), build.load("global_evidence.json")
         self.dir = build.load("authorities.json")
+        self.models = build.load("models.json")
 
     def rejects(self, india, text, directory=None):
         with self.assertRaises(build.ValidationError) as c:
-            build.validate(self.tax, india, self.glob, directory or self.dir)
+            build.validate(self.tax, india, self.glob, directory or self.dir, getattr(self, "_models", None) or self.models)
         self.assertIn(text, str(c.exception))
 
     def test_seed_passes(self):
@@ -140,6 +141,40 @@ class Tests(unittest.TestCase):
         # Every body with a link has been opened and confirmed by the owner
         self.assertEqual(len(yes), 32)
         self.assertTrue(all(x["verified"] == "yes" for x in self.dir["bodies"] if x["url"]))
+
+    def rejects_models(self, models, text):
+        self._models = models
+        try:
+            self.rejects(self.india, text)
+        finally:
+            self._models = None
+
+    def test_models_first_set(self):
+        m = self.models["models"]
+        self.assertTrue(10 <= len(m) <= 15)
+        self.assertTrue(all(x["review"] == "unreviewed" for x in m))
+        # The three METR reports from global evidence are all used
+        self.assertEqual({t["report"] for x in m for t in x["tests"] if t.get("report")}, {"TR-001", "TR-002", "TR-003"})
+
+    def test_model_overclaim_required(self):
+        d = copy.deepcopy(self.models); d["models"][0]["netra"]["overclaim"] = "Looks bad."
+        self.rejects_models(d, "not evidence of real-world harm")
+
+    def test_model_unknown_body(self):
+        d = copy.deepcopy(self.models); d["models"][0]["netra"]["authorities"] = ["U-NOPE"]
+        self.rejects_models(d, "unknown directory body U-NOPE")
+
+    def test_model_law_label(self):
+        d = copy.deepcopy(self.models); d["models"][0]["netra"]["laws"][0]["label"] = "certain"
+        self.rejects_models(d, "law label must be one of")
+
+    def test_model_release_needs_source(self):
+        d = copy.deepcopy(self.models); m = next(x for x in d["models"] if x.get("release_date")); m.pop("release_source")
+        self.rejects_models(d, "needs a release_source")
+
+    def test_model_cannot_be_reviewed_without_reviewer(self):
+        d = copy.deepcopy(self.models); d["models"][0]["review"] = "human_reviewed"
+        self.rejects_models(d, "a reviewed model needs reviewed_by")
 
     def test_document_kind(self):
         d = copy.deepcopy(self.india)
