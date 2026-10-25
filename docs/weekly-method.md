@@ -11,6 +11,8 @@ Friday). It can also be started by hand from *Actions › Weekly update (unrevie
 starts scheduled runs a few minutes late. If the repository has no activity for 60 days, GitHub pauses scheduled
 workflows. Re-enable it from the Actions tab.
 
+GDELT limits requests per address, and GitHub's runners are shared, so GDELT sometimes answers "too many requests". The script retries after 20, 45 and 90 seconds. If GDELT is still busy, the workflow waits 10 minutes and runs once more. If news still cannot be fetched, the site says that the news source did not answer, not that nothing happened.
+
 Each run opens a **pull request**. Nothing is merged automatically, and nothing becomes a NETRA incident record by
 itself. The owner checks each item against its sources and deletes any that are wrong before merging. Promoting an
 item to a full incident record is a separate, manual step that follows the normal review rules.

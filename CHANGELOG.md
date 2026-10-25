@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.2.1-dev — weekly update when GDELT is busy
+- Third run (pull request #19, closed): GDELT answered 429 again, after three retries. The workflow now waits
+  10 minutes and runs once more when GDELT did not answer.
+- Each week records `news_ok`. When the news source failed, Home says "the news source did not answer this week …
+  this does not mean nothing happened" instead of "no AI item met the selection rules".
+
 ## v0.2.1-dev — weekly selection tuned on the second real run
 - Second run (pull request #17): GDELT answered (250 AI and 181 cyber articles) but only 1 AI item qualified, the
   SBI breach story appeared three times, and "hacked to death" was counted as cyber.
