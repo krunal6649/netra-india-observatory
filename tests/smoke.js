@@ -32,7 +32,7 @@ check(!/class="stats"|class="stat"/.test(N.page('home')), 'home has no separate 
 check(!N.page('home').includes('Explore the cases') && !N.page('home').includes('data-tour="start"'), 'home banner has no buttons repeating the header');
 const nRev = D.incidents.filter(i => i.review !== 'unreviewed').length;
 check(N.page('home').includes(`data-count="${D.incidents.length}"`) && N.page('home').includes(`${nRev} reviewed by a person · ${D.incidents.length - nRev} unreviewed`) && N.page('home').includes(D.meta.updated), 'home counter is computed from the data, with the update date');
-for (const [old, now] of [['navigator','explore-area'],['risks','explore-risks'],['incidents','explore-incidents'],['governance','explore-laws'],['mitigations','explore-measures'],['netra','analysis-dossiers'],['gaps','analysis-gaps'],['evidence','about-evidence'],['survey','about-survey'],['about','about-method']])
+for (const [old, now] of [['navigator','explore-area'],['risks','explore-risks'],['incidents','explore-incidents'],['governance','explore-laws'],['mitigations','explore-measures'],['netra','analysis-dossiers'],['gaps','analysis-gaps'],['evidence','analysis-models'],['about-evidence','analysis-models'],['survey','about-survey'],['about','about-method']])
   check(N.resolve(old) === now, `old link #${old} opens ${now}`);
 check(Object.keys(N.PAGES).every(k => /^[A-Za-z0-9._~-]+$/.test(k)), 'every page address is a plain shareable token');
 N.state.showFilters = false;
@@ -71,21 +71,25 @@ for (const m of MODS) {
 }
 check(modBad.length === 0, `model reports separate what testers found from NETRA's India analysis (${MODS.length} checked)${modBad.length ? ': ' + modBad.join(', ') : ''}`);
 check(mr.includes('data-report="model:MOD-01"') && mr.includes('data-upload="1"'), 'model cards have Generate report; register has Add a report');
-const A = N.ai;
-const doc = '[Page 1]\nThe agents used credentials found exposed online.\n[Page 2]\nAbout 7% of transcripts had spoofed tool calls.';
-const vq = A.verifyQuotes([{ text: 'The  agents used credentials', page: 1 }, { text: 'The developer admitted it.', page: 1 }, { text: 'About 7% of transcripts', page: 1 }], doc);
-check(vq.kept.length === 1 && vq.removed.length === 2, 'AI quotes are kept only if they appear word for word (on the stated page)');
-const rb = A.redactBlocked('Background. The company is liable under s.43. Mr X has committed fraud. Next.');
-check(!/liable|committed/.test(rb.text) && rb.flags.length === 2 && rb.text.includes('Background.'), 'AI sentences stating legal conclusions or accusations are removed');
-check(A.redactBlocked('Background. The firm is liable under s.43. Next.').text === 'Background. [Removed by NETRA safeguard: possible legal conclusion or accusation.] Next.', 'redaction keeps section numbers like s.43 inside the removed sentence');
-const ft = A.filterTriage({ risk_areas: ['4.3', '9.9'], possible_laws: [{ instrument_id: 'G-ITA', label: 'possible', why: 'w' }, { instrument_id: 'G-NOPE', label: 'possible', why: 'w' }, { instrument_id: 'G-BNS', label: 'guilty', why: 'w' }], authorities: ['U-CERTIN', 'S-kerala-POLICE', 'U-NOPE'], gaps: [] });
-check(ft.risk_areas.join() === '4.3' && ft.possible_laws.length === 1 && ft.authorities.join() === 'U-CERTIN' && ft.dropped.length === 5, 'AI triage keeps only NETRA ids and allowed labels');
+const A = N.upload;
+check(!/x-api-key|AIKEY|type="password"|api\.anthropic\.com|chat\/completions/.test(script), 'the public page asks for no API key and calls no AI provider');
 check(A.validateMeta({ title: '', source: 'http://x', date: '25 Oct', licence: 'Whatever' }).length === 3 && A.validateMeta({ title: '', source: '', date: '', licence: '' }).length === 0 && A.validateMeta({ title: 'T', source: 'https://x.org', date: '2026-10-25', licence: 'MIT' }).length === 0, 'Add a report: details are optional, but what is filled in is checked');
-N.state.showUpload = true; N.ai.UP.text = 'x'; N.ai.UP.file = 'a.txt';
+check(A.termRe('BNS').test('under the BNS') && !A.termRe('BNS').test('bns') && A.termRe('prompt injection').test('Prompt\n injection attacks') && !A.termRe('bias').test('biased-ish'), 'NETRA check matches whole terms; capitals-only acronyms match only in capitals');
+const rep = '[Page 1]\nAttackers used prompt injection and a jailbreak to exploit the plugin. The vulnerability was patched.\n[Page 2]\nVictims lost money to a voice cloning scam and phishing fraud. Complaints were filed under the Information Technology Act and the BNS.';
+const nc = A.netraCheck(rep);
+check(nc.areas.map(a => a.id).slice(0, 2).sort().join() === '2.2,4.3' && nc.named.map(n => n.id).sort().join() === 'G-BNS,G-ITA', 'NETRA check finds the risk areas and the Indian laws named in a report');
+const allPass = nc.areas.flatMap(a => a.passages).concat(nc.named.flatMap(n => n.passages));
+check(allPass.length > 0 && allPass.every(q => rep.replace(/\s+/g, ' ').includes(q.text) && q.page != null), 'every NETRA check passage is copied word for word from the file, with its page');
+check(nc.bodies.length > 0 && nc.bodies.every(b => N.BODY[b] && N.BODY[b].level === 'union') && nc.cases.length > 0, 'NETRA check suggests who could act and similar India cases from NETRA’s own lists');
+check(A.netraCheck('The weather was pleasant and the meeting ended early.').areas.length === 0, 'NETRA check lists nothing for an unrelated text');
+N.state.showUpload = true; Object.assign(A.UP, { text: rep, file: 'r.txt', result: nc, meta: { title: 'Test', source: 'https://example.org', date: '', licence: '' } });
 const up = N.page('analysis-models');
-check(up.includes('Nothing is uploaded or stored') && up.includes('will be sent from this browser directly to') && up.includes('id="ai-ok"') && up.includes('type="password"'), 'upload panel discloses where the document goes before any AI call');
-check(!/localStorage[^;]*AIKEY|AIKEY[^;]*localStorage|console\.[a-z]+\([^)]*AIKEY/.test(script) && !N.ai.keyHeld(), 'API key is never stored or logged, and starts empty');
-N.state.showUpload = false; N.ai.UP.text = '';
+check(up.includes('Nothing is uploaded or stored') && up.includes('not an AI, not a legal analysis') && up.includes('Unreviewed') && up.includes('Possible only'), 'NETRA check is labelled auto-matched, unreviewed and possible only');
+const su = A.submitUrl();
+check(su.startsWith('https://github.com/krunal6649/netra-india-observatory/issues/new?template=report.yml') && su.length < 8000 && decodeURIComponent(su.replace(/\+/g, ' ')).includes('NETRA check') && up.includes('mailto:'), 'Send to NETRA opens a prefilled review form (file not included), with email as an option');
+N.state.showUpload = false; A.UP.text = ''; A.UP.result = null;
+const mv = N.page('analysis-models'); N.state.mview = 'reports'; const ev = N.page('analysis-models'); N.state.mview = 'models';
+check(mv.includes('By evaluation report') && ev.includes('TR-001') && ev.includes('Indian provisions, limits and source') && !N.PAGES['about-evidence'] && N.page('home').includes('data-go="analysis-models"'), 'Global evidence now sits inside Models and evaluations, with a card on Home');
 const zipbuf = fs.readFileSync(path.join(__dirname, 'fixtures', 'sample.docx'));
 check(N.TOUR.some(t => t[1] === 'Who to approach' && t[3] === 'directory') && !N.page('home').includes('Three ways in'), 'tour includes Who to approach; Three ways in is gone');
 // Phase 3: Who to approach directory
