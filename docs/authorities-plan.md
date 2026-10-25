@@ -1,7 +1,15 @@
 # Authorities explorer — v0.2 scope
 
-Planned, not built. Every entry will be checked against an official source before it appears on the site.
-Shown as a treemap (no map boundaries): **India → Union / State-UT → authority type → authority**.
+Part (a) built in v0.2 (Union bodies and the six states/UTs named in incidents first). Every entry shows "to verify" until checked against an official source.
+Built in v0.2 as **Home › Who to approach**: **India → Union / State-UT → authority type → authority**.
+
+- **Union** groups and each place's bodies are shown as treemaps, coloured by role (enforces, adjudicates,
+  regulates, supports victims).
+- **States and union territories** are shown as a **tile map of India**: one square for each of the 28 states and
+  8 union territories, placed roughly where it lies and coloured by region. No outline boundaries are drawn.
+- The tile map shows the whole of India, including **Jammu and Kashmir, Ladakh and Arunachal Pradesh**, as
+  parts of India. NETRA is built for people in India and follows India's official position on its territory.
+- No case counts are shown, and places are not coloured by number of cases.
 
 ## Union level
 
