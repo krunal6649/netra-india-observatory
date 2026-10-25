@@ -1538,21 +1538,28 @@
       "url": "https://cybercrime.gov.in",
       "verified": "yes",
       "checked_by": "Krunal (project owner)",
-      "checked_on": "2026-10-25"
+      "checked_on": "2026-10-25",
+      "directory": [
+        "U-NCRP"
+      ]
     },
     {
       "id": "A-POLICE",
       "name": "State police cyber cell / cyber crime police station",
       "role": "FIR registration and investigation",
       "url": "https://cybercrime.gov.in",
-      "verified": "partial"
+      "verified": "partial",
+      "directory_state": "POLICE"
     },
     {
       "id": "A-PLATFORM",
       "name": "Platform grievance officer (IT Rules 2021)",
       "role": "Takedown and grievance under intermediary due diligence",
       "url": "https://www.meity.gov.in/",
-      "verified": "partial"
+      "verified": "partial",
+      "directory": [
+        "U-PLATFORM"
+      ]
     },
     {
       "id": "A-GAC",
@@ -1561,7 +1568,10 @@
       "url": "https://www.gac.gov.in/",
       "verified": "yes",
       "checked_by": "Krunal (project owner)",
-      "checked_on": "2026-10-25"
+      "checked_on": "2026-10-25",
+      "directory": [
+        "U-GAC"
+      ]
     },
     {
       "id": "A-CERTIN",
@@ -1570,14 +1580,20 @@
       "url": "https://www.cert-in.org.in/",
       "verified": "yes",
       "checked_by": "Krunal (project owner)",
-      "checked_on": "2026-10-25"
+      "checked_on": "2026-10-25",
+      "directory": [
+        "U-CERTIN"
+      ]
     },
     {
       "id": "A-DPB",
       "name": "Data Protection Board of India",
       "role": "Personal data breach complaints (substantive duties from ~May 2027)",
       "url": "https://www.meity.gov.in/",
-      "verified": "partial"
+      "verified": "partial",
+      "directory": [
+        "U-DPB"
+      ]
     },
     {
       "id": "A-ECI",
@@ -1586,7 +1602,10 @@
       "url": "https://www.eci.gov.in/",
       "verified": "yes",
       "checked_by": "Krunal (project owner)",
-      "checked_on": "2026-10-25"
+      "checked_on": "2026-10-25",
+      "directory": [
+        "U-ECI"
+      ]
     },
     {
       "id": "A-COURT",
@@ -1594,7 +1613,8 @@
       "role": "Injunctions (personality rights, copyright, defamation)",
       "url": "https://indiacode.gov.in/home",
       "verified": "partial",
-      "note": "Link changed to India Code (indiacode.gov.in) at the project owner's request on 2026-10-25. Still to be replaced by each High Court's own site in Phase 3."
+      "note": "Link changed to India Code (indiacode.gov.in) at the project owner's request on 2026-10-25. Still to be replaced by each High Court's own site in Phase 3.",
+      "directory_state": "HC"
     },
     {
       "id": "A-SC",
@@ -1603,14 +1623,23 @@
       "url": "https://www.sci.gov.in/",
       "verified": "yes",
       "checked_by": "Krunal (project owner)",
-      "checked_on": "2026-10-25"
+      "checked_on": "2026-10-25",
+      "directory": [
+        "U-SC"
+      ]
     },
     {
       "id": "A-REG",
       "name": "Sector regulator (RBI, SEBI, etc.)",
       "role": "Sectoral supervision of regulated entities",
       "url": "https://www.rbi.org.in/",
-      "verified": "partial"
+      "verified": "partial",
+      "directory": [
+        "U-RBI",
+        "U-SEBI",
+        "U-IRDAI",
+        "U-TRAI"
+      ]
     }
   ],
   "incidents": [
