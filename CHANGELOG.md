@@ -1,5 +1,26 @@
 # Changelog
 
+## v0.2-dev (unreleased) — Phase 1: verification (data only)
+- **Verified (owner checked against the India Code PDF):** G-BNS (Act 45 of 2023; ss.77, 308, 318, 319, 335, 336,
+  340, 351, 353, 356) and G-BSA (Act 47 of 2023; ss.61–63; Schedule certificate Parts A and B with hash value).
+  The AI-assisted session could not open India Code itself (host blocked), so these rest on the owner's check.
+- **G-BSA case added, not verified:** Pune Bar Assn. v. Union of India, 2026 SCC OnLine SC 1297 (22 May 2026),
+  upholding s.63(4). Read only through a news report; judgment not read.
+- **Still partial, with what is missing stated in each note:**
+  G-ITR21 (G.S.R. 139(E) of 25 Feb 2021; r.3(1)(b) replaced by G.S.R. 794(E) of 28 Oct 2022; home-page URL
+  replaced by a Gazette-layout copy that has not been opened yet) ·
+  G-ITA (s.79A added; s.43A in force until DPDP s.44(2) commences on 13 May 2027) ·
+  G-CPA (upgraded from no: Act 35 of 2019, assent 9 Aug 2019, in force 20 Jul 2020 by S.O. 2351(E);
+  ss.2(18), 2(28), 2(34), 2(47), 10, 21) ·
+  G-ITR26 (G.S.R. 120(E), notified 10 Feb 2026, in force 20 Feb 2026; takedown 36h to 3h on court or government
+  order; 2-hour deadline for intimate-image deepfakes; grievances 15 to 7 days; draft Second Amendment pending) ·
+  G-DPDP (G.S.R. 843(E)) and G-DPDPR (G.S.R. 846(E)) with the eGazette link
+- Verification warnings: 26 → 24
+- Build now rejects bad verification values, "verified" records that point at a home page, and malformed Act
+  numbers, Gazette notification numbers, dates and case entries. 7 new unit tests.
+- New instrument fields (`act_no`, `notifications`, `cases`, `gazette_url`, `checked`) are stored in the data but
+  not yet shown on the site; that comes with the Phase 2 redesign.
+
 ## v0.1.1 — 2026-10-23 (bug fix)
 - Tool tabs no longer hide the last tab on laptop screens: they wrap on wide screens and scroll with a fade hint on phones
 - 'Method & sources' tab shortened to 'Method'
