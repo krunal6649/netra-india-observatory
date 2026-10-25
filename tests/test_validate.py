@@ -13,10 +13,11 @@ import build  # noqa: E402
 class Tests(unittest.TestCase):
     def setUp(self):
         self.tax, self.india, self.glob = build.load("taxonomy.json"), build.load("india.json"), build.load("global_evidence.json")
+        self.dir = build.load("authorities.json")
 
-    def rejects(self, india, text):
+    def rejects(self, india, text, directory=None):
         with self.assertRaises(build.ValidationError) as c:
-            build.validate(self.tax, india, self.glob)
+            build.validate(self.tax, india, self.glob, directory or self.dir)
         self.assertIn(text, str(c.exception))
 
     def test_seed_passes(self):
@@ -107,6 +108,36 @@ class Tests(unittest.TestCase):
     def test_owner_checked_authorities(self):
         yes = {a["id"] for a in self.india["authorities"] if a["verified"] == "yes"}
         self.assertEqual(yes, {"A-NCRP", "A-GAC", "A-CERTIN", "A-ECI", "A-SC"})
+
+    def test_directory_covers_union_and_all_places(self):
+        b = self.dir["bodies"]
+        self.assertGreaterEqual(sum(1 for x in b if x["level"] == "union"), 30)
+        places = set(self.india["states_uts"]["states"]) | set(self.india["states_uts"]["union_territories"])
+        self.assertEqual({x["place"] for x in b if x["level"] == "state"}, places)
+
+    def test_directory_role(self):
+        d = copy.deepcopy(self.dir); d["bodies"][0]["role"] = "helps"
+        self.rejects(self.india, "role must be one of", d)
+
+    def test_directory_verified_needs_checker(self):
+        d = copy.deepcopy(self.dir); x = next(b for b in d["bodies"] if b["verified"] == "yes"); x.pop("checked_on")
+        self.rejects(self.india, "needs a url, checked_by", d)
+
+    def test_directory_unknown_law(self):
+        d = copy.deepcopy(self.dir); d["bodies"][0]["laws"] = ["G-NOPE"]
+        self.rejects(self.india, "unknown instrument G-NOPE", d)
+
+    def test_incident_route_must_resolve(self):
+        d = copy.deepcopy(self.dir); d["bodies"] = [x for x in d["bodies"] if x["id"] != "S-kerala-POLICE"]
+        self.rejects(self.india, "points to Kerala, which has no POLICE body", d)
+
+    def test_authority_directory_link_must_exist(self):
+        d = copy.deepcopy(self.india); next(a for a in d["authorities"] if a["id"] == "A-NCRP")["directory"] = ["U-NOPE"]
+        self.rejects(d, "directory link U-NOPE does not exist")
+
+    def test_only_owner_checked_bodies_are_verified(self):
+        yes = {x["id"] for x in self.dir["bodies"] if x["verified"] == "yes"}
+        self.assertEqual(yes, {"U-NCRP", "U-GAC", "U-CERTIN", "U-ECI", "U-SC"})
 
     def test_document_kind(self):
         d = copy.deepcopy(self.india)

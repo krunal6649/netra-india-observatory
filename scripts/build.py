@@ -140,7 +140,67 @@ def load(name):
         return json.load(f)
 
 
-def validate(tax, india, glob):
+ROLES = {"enforces", "adjudicates", "regulates", "supports"}
+
+
+def check_directory(directory, india, errors):
+    """data/authorities.json: the 'Who to approach' directory (Phase 3)."""
+    meta, bodies = directory["meta"], directory["bodies"]
+    ins = {i["id"] for i in india["instruments"]}
+    places = set(india["states_uts"]["states"]) | set(india["states_uts"]["union_territories"])
+    ids = set()
+    for x in bodies:
+        bid = x.get("id", "?")
+        if bid in ids:
+            errors.append(f"directory: duplicate id {bid}")
+        ids.add(bid)
+        for f in ("name", "level", "place", "group", "role", "can_do", "how_to_report", "verified", "source"):
+            if not x.get(f):
+                errors.append(f"directory {bid}: missing {f}")
+        if x.get("role") not in ROLES:
+            errors.append(f"directory {bid}: role must be one of {sorted(ROLES)}")
+        if x.get("verified") not in VERIFIED:
+            errors.append(f"directory {bid}: verified must be one of {sorted(VERIFIED)}")
+        if x.get("level") == "union":
+            if x.get("place") != "Union" or x.get("group") not in meta["union_groups"]:
+                errors.append(f"directory {bid}: a Union body needs place 'Union' and a Union group")
+        elif x.get("level") == "state":
+            if x.get("place") not in places or x.get("group") not in meta["state_groups"]:
+                errors.append(f"directory {bid}: a state body needs one of the 36 states or UTs and a state group")
+        else:
+            errors.append(f"directory {bid}: level must be 'union' or 'state'")
+        if x.get("url") is not None and not str(x["url"]).startswith("https://"):
+            errors.append(f"directory {bid}: url must be https or null")
+        # A body shown as checked needs a link, a checker and a date
+        if x.get("verified") == "yes" and (not x.get("url") or not x.get("checked_by") or not is_date(x.get("checked_on"))):
+            errors.append(f"directory {bid}: verified 'yes' needs a url, checked_by and an ISO checked_on date")
+        for law in x.get("laws", []):
+            if law not in ins:
+                errors.append(f"directory {bid}: unknown instrument {law}")
+    for p in places:
+        if not any(x.get("place") == p for x in bodies):
+            errors.append(f"directory: no bodies listed for {p}")
+    # Every incident's reporting route must lead to a body in the directory
+    auth = {a["id"]: a for a in india["authorities"]}
+    for a in auth.values():
+        for t in a.get("directory", []):
+            if t not in ids:
+                errors.append(f"{a['id']}: directory link {t} does not exist")
+        if not a.get("directory") and not a.get("directory_state"):
+            errors.append(f"{a['id']}: needs a directory or directory_state link")
+    by_place = {(x["place"], x["id"].rsplit("-", 1)[-1]) for x in bodies if x.get("level") == "state"}
+    for inc in india["incidents"]:
+        place = inc["state"].split(" (")[0]
+        for a in inc["netra"]["authorities"]:
+            kind = auth.get(a, {}).get("directory_state")
+            if kind and place != "National" and (place, kind) not in by_place:
+                errors.append(f"{inc['id']}: {a} points to {place}, which has no {kind} body in the directory")
+    return ids
+
+
+def validate(tax, india, glob, directory=None):
+    if directory is None:
+        directory = load("authorities.json")
     errors, warnings = [], []
     subs = {s["id"] for d in tax["domains"] for s in d["subs"]}
     msubs = {s["id"] for d in tax["mitigation"] for s in d["subs"]}
@@ -273,6 +333,7 @@ def validate(tax, india, glob):
             errors.append(f"{a['id']}: verified 'yes' needs checked_by and an ISO checked_on date")
 
     check_duplicates(india["incidents"], errors)
+    check_directory(directory, india, errors)
 
     for g in india["gaps"]:
         for x in g["incidents"]:
@@ -297,16 +358,16 @@ def slim_global(glob):
 
 
 def build(check_only=False):
-    tax, india, glob = load("taxonomy.json"), load("india.json"), load("global_evidence.json")
-    warnings = validate(tax, india, glob)
+    tax, india, glob, directory = load("taxonomy.json"), load("india.json"), load("global_evidence.json"), load("authorities.json")
+    warnings = validate(tax, india, glob, directory)
     print(f"Validation passed: {len(india['risks'])} risks, {len(india['incidents'])} incidents, "
           f"{len(india['instruments'])} instruments, {len(india['mitigations'])} mitigations, "
-          f"{len(india['gaps'])} gaps; {len(warnings)} verification warnings.")
+          f"{len(india['gaps'])} gaps, {len(directory['bodies'])} directory bodies; {len(warnings)} verification warnings.")
     if check_only:
         for w in warnings:
             print("  ! " + w)
         return
-    payload = {"tax": tax, "india": india, "global": slim_global(glob), "warnings": warnings,
+    payload = {"tax": tax, "india": india, "global": slim_global(glob), "directory": directory, "warnings": warnings,
                "built": date.today().isoformat()}
     blob = json.dumps(payload, ensure_ascii=False).replace("</", "<\\/")
     html = TEMPLATE.read_text(encoding="utf-8")
