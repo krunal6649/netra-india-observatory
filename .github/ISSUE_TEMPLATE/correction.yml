@@ -1,0 +1,36 @@
+name: Suggest a correction
+description: Point to a public source that corrects or adds to a NETRA record.
+title: "Correction: "
+labels: ["correction"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you. Please give **only** a public source. Do not include personal details about yourself or anyone else.
+
+        - This form is **not** for reporting a live incident. For financial cyber fraud, call **1930** or use **cybercrime.gov.in**.
+        - Nothing on the site changes until the maintainer has reviewed your suggestion.
+        - If you are correcting a specific record, put its ID (for example `G-BNS` or `IN-INC-07`) in the title.
+  - type: input
+    id: source
+    attributes:
+      label: Public source link
+      description: A link anyone can open, such as an official Gazette copy, a court order or a news report.
+      placeholder: https://
+    validations:
+      required: true
+  - type: input
+    id: date
+    attributes:
+      label: Date
+      description: The date of the source or of the event it describes.
+      placeholder: YYYY-MM-DD
+    validations:
+      required: true
+  - type: input
+    id: place
+    attributes:
+      label: Place
+      description: The state, union territory or city the source concerns, or "India" if it is national.
+    validations:
+      required: true
