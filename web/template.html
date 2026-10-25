@@ -15,31 +15,38 @@
 <meta name="twitter:image" content="https://krunal6649.github.io/netra-india-observatory/docs/screens/og-image.png">
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,500;0,6..72,650;1,6..72,500&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,500;0,6..72,650;1,6..72,500&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Noto+Serif+Devanagari:wght@600&display=swap">
 <style>
 /* Layout: "the iris" — the 24 risk areas drawn as the coloured ring of an eye (netra); every tool reuses its 7 domain colours, so a colour always means the same risk domain */
 :root{
+  /* Dark by default. Light values apply only when the reader picks light mode, and always when printing. */
+  --paper:#0C1020; --sheet:#141A2E; --ink:#E7EAF5; --muted:#A0A8C4; --line:#283050; --soft:#1C2340;
+  --accent:#9AA8FF; --accent-ink:#0E1430; --accent-soft:#232C5A;
+  --hero:#151D45; --hero-2:#25337A; --hero-ink:#F2F4FC; --hero-muted:#B5BDE0; --gold:#FFD27A; --gold-ink:#1A1A2E;
+  --d1:#3987e5; --d2:#d95926; --d3:#199e70; --d4:#c98500; --d5:#d55181; --d6:#008300; --d7:#9085e9;
+  --ok:#5CCB8D; --part:#E2A64A; --open:#F27E6E; --na:#6F7794;
+  --f-display:"Newsreader", Georgia, "Times New Roman", serif;
+  --f-body:"IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
+  --f-deva:"Noto Serif Devanagari", "Nirmala UI", "Kohinoor Devanagari", serif;
+  color-scheme:dark;
+}
+:root[data-theme="light"]{
   --paper:#F4F5F9; --sheet:#FFFFFF; --ink:#141A2E; --muted:#59617A; --line:#DCE0EA; --soft:#ECEEF5;
   --accent:#3B4CC0; --accent-ink:#FFFFFF; --accent-soft:#E6E9FA;
   --hero:#121A3A; --hero-2:#1E2A5E; --hero-ink:#F2F4FC; --hero-muted:#B5BDE0;
   --d1:#2a78d6; --d2:#eb6834; --d3:#1baf7a; --d4:#eda100; --d5:#e87ba4; --d6:#008300; --d7:#6250d6;
-  --ok:#1E7F4C; --part:#B9770E; --open:#C2392B; --na:#9AA1B5;
-  --f-display:"Newsreader", Georgia, "Times New Roman", serif;
-  --f-body:"IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --f-mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
+  --ok:#1E7F4C; --part:#B9770E; --open:#C2392B; --na:#9AA1B5; color-scheme:light}
+@media print{
+  :root,:root[data-theme]{
+  --paper:#FFFFFF; --sheet:#FFFFFF; --ink:#141A2E; --muted:#59617A; --line:#DCE0EA; --soft:#ECEEF5;
+  --accent:#3B4CC0; --accent-ink:#FFFFFF; --accent-soft:#E6E9FA;
+  --hero:#FFFFFF; --hero-2:#FFFFFF; --hero-ink:#141A2E; --hero-muted:#59617A;
+  --d1:#2a78d6; --d2:#eb6834; --d3:#1baf7a; --d4:#eda100; --d5:#e87ba4; --d6:#008300; --d7:#6250d6;
+  --ok:#1E7F4C; --part:#B9770E; --open:#C2392B; --na:#9AA1B5; color-scheme:light}
+  header.top,.subnav,.switch,.toolbar,#tour,footer .links,body::before{display:none!important}
+  .hero{border:1px solid var(--line)}
 }
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --paper:#0C1020; --sheet:#141A2E; --ink:#E7EAF5; --muted:#A0A8C4; --line:#283050; --soft:#1C2340;
-  --accent:#9AA8FF; --accent-ink:#0E1430; --accent-soft:#232C5A;
-  --hero:#151D45; --hero-2:#25337A; --hero-ink:#F2F4FC; --hero-muted:#B5BDE0;
-  --d1:#3987e5; --d2:#d95926; --d3:#199e70; --d4:#c98500; --d5:#d55181; --d6:#008300; --d7:#9085e9;
-  --ok:#5CCB8D; --part:#E2A64A; --open:#F27E6E; --na:#6F7794; color-scheme:dark}}
-:root[data-theme="dark"]{
-  --paper:#0C1020; --sheet:#141A2E; --ink:#E7EAF5; --muted:#A0A8C4; --line:#283050; --soft:#1C2340;
-  --accent:#9AA8FF; --accent-ink:#0E1430; --accent-soft:#232C5A;
-  --hero:#151D45; --hero-2:#25337A; --hero-ink:#F2F4FC; --hero-muted:#B5BDE0;
-  --d1:#3987e5; --d2:#d95926; --d3:#199e70; --d4:#c98500; --d5:#d55181; --d6:#008300; --d7:#9085e9;
-  --ok:#5CCB8D; --part:#E2A64A; --open:#F27E6E; --na:#6F7794; color-scheme:dark}
 *{box-sizing:border-box}
 html{scroll-padding-top:130px}
 body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.55}
@@ -56,16 +63,50 @@ p{margin:0}
 
 /* header */
 header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:color-mix(in srgb,var(--sheet) 94%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-.brand{display:flex;align-items:center;gap:12px;padding-block:10px 4px;cursor:pointer}
-.brand b{font-family:var(--f-display);font-size:1.25rem;font-weight:650}
-.brand small{display:block;font-size:.78rem;color:var(--muted)}
-nav.tabs{display:flex;flex-wrap:wrap;gap:2px;padding-bottom:8px}
-@media (max-width:820px){
-  nav.tabs{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:thin;-webkit-mask-image:linear-gradient(90deg,#000 85%,transparent);mask-image:linear-gradient(90deg,#000 85%,transparent);padding-right:24px}
-}
-nav.tabs button{font:inherit;font-size:.84rem;font-weight:500;background:none;border:1px solid transparent;border-radius:999px;color:var(--muted);padding:5px 10px;cursor:pointer;white-space:nowrap;transition:background .15s,color .15s}
+.bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 16px;padding-block:10px 4px}
+.brand{display:flex;align-items:center;gap:12px;cursor:pointer}
+.brand b{font-family:var(--f-deva);font-size:1.5rem;font-weight:600;line-height:1.1}
+.brand small{display:block;font-size:.8rem;color:var(--muted);font-weight:500}
+.toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.iconbtn{display:inline-grid;place-items:center;width:34px;height:34px;padding:0;border-radius:50%;border:1px solid var(--line);background:var(--sheet);color:var(--ink);cursor:pointer;transition:border-color .15s,background .15s}
+.iconbtn:hover{border-color:var(--accent);background:var(--soft)}
+.iconbtn svg{pointer-events:none}
+.btn.sm{font-size:.8rem;padding:5px 12px}
+nav.tabs{display:flex;gap:4px;padding-block:6px 8px}
+nav.tabs button{font:inherit;font-size:.9rem;font-weight:600;background:none;border:1px solid transparent;border-radius:999px;color:var(--muted);padding:6px 14px;cursor:pointer;white-space:nowrap;transition:background .15s,color .15s}
 nav.tabs button:hover{background:var(--soft);color:var(--ink)}
 nav.tabs button[aria-current="page"]{background:var(--accent);color:var(--accent-ink)}
+.subnav{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px}
+.subnav button,.switch button{font:inherit;font-size:.86rem;font-weight:500;border:1px solid var(--line);background:var(--sheet);color:var(--ink);border-radius:999px;padding:5px 13px;cursor:pointer}
+.subnav button:hover,.switch button:hover{border-color:var(--accent)}
+.subnav button[aria-current="page"]{background:var(--accent-soft);border-color:var(--accent);font-weight:600}
+.switch{display:inline-flex;flex-wrap:wrap;gap:0;border:1px solid var(--line);border-radius:999px;padding:3px;background:var(--sheet)}
+.switch button{border:0;background:none;padding:6px 14px}
+.switch button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);font-weight:600}
+.searchrow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:14px 0}
+.searchrow input[type=search]{flex:1 1 260px;width:auto}
+.filterpanel{border:1px solid var(--line);border-radius:12px;background:var(--sheet);padding:14px 16px;margin-bottom:14px}
+.filterpanel .filters{margin-bottom:0}
+.hint{color:var(--muted);font-size:.92rem;margin-top:4px;max-width:72ch}
+h4.ctitle{font-family:var(--f-display);font-size:1.15rem;font-weight:650;line-height:1.2;margin:8px 0 0;text-wrap:balance}
+.crumb{font-size:.86rem;margin-bottom:12px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;color:var(--muted)}
+.linkbtn,.crumb button{font:inherit;background:none;border:0;color:var(--accent);cursor:pointer;padding:0;text-decoration:underline;text-align:left}
+.counter{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 14px;margin-top:22px;padding:14px 16px;border:1px solid rgba(255,255,255,.18);border-radius:12px;background:rgba(255,255,255,.04)}
+.counter b{font-family:var(--f-display);font-size:3rem;line-height:1;font-variant-numeric:tabular-nums}
+.counter span{font-size:1.05rem;font-weight:600}
+.counter small{flex-basis:100%;font-size:.84rem;color:var(--hero-muted)}
+.counter time{white-space:nowrap}
+.planned{border:1px dashed var(--line);border-radius:12px;padding:20px;background:var(--sheet)}
+.vtag{font-size:.72rem;font-weight:600;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.vtag.yes{color:var(--ok);background:color-mix(in srgb,var(--ok) 14%,transparent)}
+.vtag.partial{color:var(--part);background:color-mix(in srgb,var(--part) 14%,transparent)}
+.vtag.no{color:var(--open);background:color-mix(in srgb,var(--open) 14%,transparent)}
+.credits{display:flex;flex-direction:column;gap:12px}
+.credits li{margin-top:6px}
+.creditline{margin-top:24px;padding-top:12px;border-top:1px solid var(--line);font-size:.82rem;color:var(--muted)}
+#tour{position:fixed;z-index:40;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));width:min(360px,calc(100vw - 32px));background:var(--sheet);color:var(--ink);border:2px solid var(--accent);border-radius:14px;padding:16px 18px;box-shadow:0 18px 40px -18px rgba(0,0,0,.7)}
+#tour .row{justify-content:space-between;margin-top:12px}
+footer .links{display:flex;flex-wrap:wrap;gap:6px 16px}
 main{padding-block:22px 64px}
 footer{border-top:1px solid var(--line);font-size:.8rem;color:var(--muted)}
 footer .inner{padding-block:18px;display:flex;flex-direction:column;gap:4px}
@@ -76,16 +117,11 @@ footer .inner{padding-block:18px;display:flex;flex-direction:column;gap:4px}
 .hero{background:radial-gradient(120% 140% at 85% 20%,var(--hero-2) 0%,var(--hero) 60%);color:var(--hero-ink);border-radius:14px;padding:28px clamp(18px,4vw,40px);display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:24px;align-items:center;overflow:hidden}
 .hero .eyebrow{color:var(--hero-muted)}
 .hero h2{font-size:clamp(1.7rem,3.6vw,2.6rem);color:var(--hero-ink);margin-top:8px}
-.hero h2 em{font-style:italic;color:#FFD27A}
+.hero h2 em{font-style:italic;color:var(--gold)}
 .hero p.lede{color:var(--hero-muted);margin-top:12px;max-width:56ch;font-size:1.02rem}
-.hero .stats{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-top:22px}
-.hero .stat{border-left:2px solid rgba(255,255,255,.25);padding-left:10px;cursor:pointer;background:none;border-top:0;border-right:0;border-bottom:0;text-align:left;font:inherit;color:inherit}
-.hero .stat:hover{border-left-color:#FFD27A}
-.hero .stat b{display:block;font-family:var(--f-display);font-size:2.1rem;line-height:1;font-variant-numeric:tabular-nums}
-.hero .stat span{font-size:.8rem;color:var(--hero-muted)}
 .hero .cta{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
 .hero .btn{background:rgba(255,255,255,.1);color:var(--hero-ink);border-color:rgba(255,255,255,.25)}
-.hero .btn.primary{background:#FFD27A;color:#1A1A2E;border-color:#FFD27A}
+.hero .btn.primary{background:var(--gold);color:var(--gold-ink);border-color:var(--gold)}
 .iris-wrap{position:relative;display:flex;justify-content:center}
 .iris-wrap svg{width:100%;max-width:440px;height:auto;overflow:visible}
 .iris-seg{cursor:pointer;transition:transform .18s ease,opacity .18s;transform-origin:center;transform-box:view-box}
@@ -129,11 +165,12 @@ button.chip:hover{border-color:var(--c,var(--accent))}
 blockquote{margin:8px 0 0;padding:4px 0 4px 14px;border-left:3px solid var(--c,var(--accent));font-family:var(--f-display);font-size:1.08rem;font-style:italic;max-width:70ch}
 .kv{display:grid;grid-template-columns:minmax(110px,170px) minmax(0,1fr);gap:7px 16px;margin-top:14px}
 .kv dt{font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600;padding-top:2px}
-.kv dd{margin:0;max-width:72ch;min-width:0}
+.kv dd{margin:0;max-width:72ch;min-width:0;overflow-wrap:anywhere}
 details.more summary{cursor:pointer;color:var(--accent);font-weight:500;font-size:.88rem;margin-top:10px;list-style:none}
 details.more summary::-webkit-details-marker{display:none}
 details.more summary::before{content:"+ ";font-weight:700}
 details.more[open] summary::before{content:"– "}
+details.sheet.more>summary{margin-top:0}
 .filters{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:16px}
 .filters input[type=search]{flex:1 1 240px}
 .filters select{flex:0 1 auto;width:auto;max-width:100%}
@@ -248,7 +285,6 @@ legend{font-family:var(--f-display);font-weight:650;font-size:1.05rem;padding:0 
   .hbar{grid-template-columns:minmax(0,1fr) 70px 2em}
   .cov{grid-template-columns:repeat(3,minmax(0,1fr))}
   .filters select{flex:1 1 140px}
-  .hero .stats{grid-template-columns:repeat(3,minmax(0,1fr))}
   .pipe{grid-template-columns:repeat(4,minmax(0,1fr))}
   .node:nth-child(7n+1)::before{display:block}
   .node:nth-child(4n+1)::before{display:none}
@@ -258,20 +294,29 @@ legend{font-family:var(--f-display);font-weight:650;font-size:1.05rem;padding:0 
 
 <header class="top">
   <div class="wrap"><div class="inner">
-    <div class="brand" data-go="home" role="link" tabindex="0">
-      <svg width="38" height="38" viewBox="0 0 38 38" aria-hidden="true"><path d="M2 19 C10 6,28 6,36 19 C28 32,10 32,2 19Z" fill="none" stroke="var(--ink)" stroke-width="2"/>
-      <g id="logo-iris"></g><circle cx="19" cy="19" r="4.2" fill="var(--ink)"/></svg>
-      <div><b>NETRA India</b><small>AI Risk Observatory</small></div>
+    <div class="bar">
+      <div class="brand" data-go="home" role="link" tabindex="0" aria-label="नेत्र India AI Risk Observatory, home">
+        <svg width="38" height="38" viewBox="0 0 38 38" aria-hidden="true"><path d="M2 19 C10 6,28 6,36 19 C28 32,10 32,2 19Z" fill="none" stroke="var(--ink)" stroke-width="2"/>
+        <g id="logo-iris"></g><circle cx="19" cy="19" r="4.2" fill="var(--ink)"/></svg>
+        <div><b lang="sa">नेत्र</b><small>India AI Risk Observatory</small></div>
+      </div>
+      <div class="toolbar">
+        <button type="button" class="btn sm" data-tour="start">Guided tour</button>
+        <button type="button" class="btn sm" data-go="about-credits">Credits</button>
+        <button type="button" class="iconbtn" id="theme-btn" aria-label="Switch to day mode" title="Switch to day mode"></button>
+      </div>
     </div>
-    <nav class="tabs" id="tabs" aria-label="Tools"></nav>
+    <nav class="tabs" id="tabs" aria-label="Sections"></nav>
   </div></div>
 </header>
 <main class="wrap"><div class="inner" id="view"></div></main>
 <footer class="wrap"><div class="inner">
-  <span><b>Pilot research, not legal advice.</b> Codings were drafted with AI assistance and are unreviewed; items marked <span class="verify">verify</span> rest on secondary sources.</span>
+  <span><b>Pilot research, not legal advice.</b> Codings were drafted with AI assistance and are unreviewed; items marked <span class="verify">to verify</span> rest on secondary sources.</span>
   <span>Uses the MIT AI Risk Initiative’s causal, domain and mitigation taxonomies under CC BY 4.0. Independent project; not affiliated with or endorsed by MIT.</span>
+  <span class="links"><button type="button" class="linkbtn" data-go="about-method">Contact the maintainer</button><a id="foot-correct" href="#" target="_blank" rel="noopener">Suggest a correction</a><button type="button" class="linkbtn" data-go="about-credits">Sources and credits</button><a id="foot-code" href="#" target="_blank" rel="noopener">Code and data on GitHub</a></span>
   <span id="built"></span>
 </div></footer>
+<div id="tour" role="dialog" aria-modal="false" aria-labelledby="tour-title" hidden></div>
 <div id="tip" role="tooltip"></div>
 
 <script>
@@ -303,35 +348,66 @@ const ICON = {
   gaps:'<path d="M4 12h5M15 12h5M9 8v8M15 8v8"/>',
   evidence:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/>',
   survey:'<path d="M5 19V9M12 19V5M19 19v-7"/>',
-  about:'<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/>'
+  about:'<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/>',
+  sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
+  moon:'<path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/>'
 };
-const TOOLS = [
-  ['home','Overview','',''],
-  ['navigator','Navigator','Click any of the 24 risk areas and see India’s risks, incidents, laws, measures and gaps together.','var(--d1)'],
-  ['risks','Risk repository','Risks named in Indian policy frameworks, each quoted word for word and coded to a shared taxonomy.','var(--d7)'],
-  ['incidents','Incident tracker','Documented AI-linked harms in India on a timeline, with severity and legal response.','var(--d2)'],
-  ['governance','Governance map','Indian laws, rules, advisories, standards and court orders, and the risks each reaches.','var(--d3)'],
-  ['mitigations','Mitigations','Measures Indian authorities require or recommend, sorted into 23 control types.','var(--d6)'],
-  ['netra','NETRA pipeline','Each incident run through 14 stages: evidence, jurisdiction, legal issues, where to report, gaps.','var(--d5)'],
-  ['gaps','Gap register','Where Indian law or governance does not yet answer the incidents recorded here.','var(--d4)'],
-  ['evidence','Global evidence','Technical findings from METR reports mapped to Indian law.','var(--d1)'],
-  ['survey','Expert survey','Rate which AI risks matter most in India. Anyone can take part.','var(--d2)'],
-  ['about','Method','How the data was gathered, what is verified, and what is not.','var(--d7)']
+/* Four sections. Each page has a plain-token address (#explore-incidents) so it can be linked and shared. */
+const TABS = [
+  ['home','Home','home'],
+  ['explore','Explore','explore-incidents'],
+  ['analysis','Analysis','analysis-dossiers'],
+  ['about','About','about-method']
 ];
-const state = {view:'home', sub:'4.3', dom:'4', inc:'IN-INC-01', f:{}};
-const h0 = (location.hash||'').slice(1); if(TOOLS.some(t=>t[0]===h0)) state.view = h0;
+const PAGES = {
+  home:{tab:'home', label:'Home'},
+  'explore-risks':{tab:'explore', label:'Risks', kind:'risks'},
+  'explore-incidents':{tab:'explore', label:'Incidents', kind:'incidents'},
+  'explore-laws':{tab:'explore', label:'Laws', kind:'laws'},
+  'explore-measures':{tab:'explore', label:'Measures', kind:'measures'},
+  'explore-area':{tab:'explore', label:'Risk area'},
+  'analysis-dossiers':{tab:'analysis', label:'NETRA dossiers', sub:1},
+  'analysis-gaps':{tab:'analysis', label:'Gap register', sub:1},
+  'analysis-report':{tab:'analysis', label:'Report generator', sub:1},
+  'analysis-models':{tab:'analysis', label:'Model register', sub:1},
+  'about-method':{tab:'about', label:'Method', sub:1},
+  'about-credits':{tab:'about', label:'Sources and credits', sub:1},
+  'about-verification':{tab:'about', label:'Verification status', sub:1},
+  'about-survey':{tab:'about', label:'Expert survey', sub:1},
+  'about-evidence':{tab:'about', label:'Global evidence', sub:1}
+};
+/* v0.1 tab links, kept working so shared posts do not break */
+const LEGACY = {navigator:'explore-area', risks:'explore-risks', incidents:'explore-incidents', governance:'explore-laws', mitigations:'explore-measures',
+  netra:'analysis-dossiers', gaps:'analysis-gaps', evidence:'about-evidence', survey:'about-survey', about:'about-method',
+  explore:'explore-incidents', analysis:'analysis-dossiers', credits:'about-credits', report:'analysis-report', models:'analysis-models'};
+const resolve = v => PAGES[v] ? v : (LEGACY[v] || null);
+const KINDS = [['risks','Risks'],['incidents','Incidents'],['laws','Laws'],['measures','Measures']];
+const REPO = 'https://github.com/krunal6649/netra-india-observatory';
+const correctUrl = rec => REPO + '/issues/new?template=correction.yml&title=' + encodeURIComponent('Correction: ' + (rec || ''));
+const state = {view:'home', sub:'4.3', dom:'4', inc:'IN-INC-01', f:{}, q:'', showFilters:false, tour:-1};
+const h0 = (location.hash||'').slice(1); if(resolve(h0)) state.view = resolve(h0);
 
 /* ---------- shared bits ---------- */
 const svgIcon = (k, size=22) => `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICON[k]||''}</svg>`;
-const domChip = sid => `<button type="button" class="chip dom" style="--c:${dc(sid)}" data-sub="${esc(sid)}" data-tip="<b>${esc(SUB[sid]?.dname)}</b>Open in Navigator"><i></i>${esc(sid)} ${esc(SUB[sid]?.name)}</button>`;
+const domChip = sid => `<button type="button" class="chip dom" style="--c:${dc(sid)}" data-sub="${esc(sid)}" data-tip="<b>${esc(SUB[sid]?.dname)}</b>Open this risk area"><i></i>${esc(sid)} ${esc(SUB[sid]?.name)}</button>`;
 const rev = r => `<span class="rev">${esc(D.review_statuses[r]||r)}</span>`;
-const ver = v => v==='yes' ? '' : ' <span class="verify">verify</span>';
+const ver = v => v==='yes' ? '' : ' <span class="verify">to verify</span>';
+const VLABEL = {yes:'Verified', partial:'Partly verified', no:'To verify'};
+const vtag = v => `<span class="vtag ${esc(v)}">${esc(VLABEL[v]||v)}</span>`;
+const H3 = (t, hint, style='') => `<h3${style?` style="${style}"`:''}>${t}</h3><p class="hint">${hint}</p>`;
+const contactBox = () => `<section class="sheet" id="contact">${H3('Maintainer and contact','Who runs this observatory and how to reach them.')}<dl class="kv">
+   <dt>Maintainer</dt><dd>${esc(D.meta.maintainer)}</dd>
+   ${D.meta.contact_email?`<dt>Email</dt><dd><a href="mailto:${esc(D.meta.contact_email)}">${esc(D.meta.contact_email)}</a></dd>`:''}
+   <dt>Corrections</dt><dd><a href="${esc(correctUrl(''))}" target="_blank" rel="noopener">Suggest a correction</a> (public source link, date and place)</dd>
+   <dt>Code and data</dt><dd><a href="${REPO}" target="_blank" rel="noopener">GitHub repository</a></dd></dl>
+   <p class="note" style="margin-top:10px">This is a research project, not a helpline, and it cannot give legal advice. For financial cyber fraud, call 1930 or use cybercrime.gov.in.</p></section>`;
+const correctLink = rec => `<a href="${esc(correctUrl(rec))}" target="_blank" rel="noopener" class="note">Suggest a correction</a>`;
 const shortIns = i => i.title.replace(/\s*\(.*?\)\s*/g,' ').replace(/,? (\d{4})$/,' $1').trim().slice(0,58);
 const insChip = id => { const i = INS[id]; return i ? `<span class="chip ${isHard(i)?'hard':'soft'}" data-tip="<b>${esc(i.title)}</b>${esc(i.force)} · ${esc(i.status)}">${esc(shortIns(i))}</span>` : esc(id); };
 const SEVC = {1:'var(--na)',2:'var(--d4)',3:'var(--d2)',4:'var(--open)',5:'var(--open)'};
 const sevm = n => `<span class="sevm" style="--sc:${SEVC[n]}" data-tip="Severity ${n} of 5: ${esc(T.severity[n])} (pilot coding)">${[1,2,3,4,5].map(k=>`<span class="${k<=n?'f':''}"></span>`).join('')}<em>${esc(T.severity[n])}</em></span>`;
-const head = (eyebrow, t, d, icon='', color='var(--accent)') => `<div class="head"><span class="eyebrow" style="display:flex;gap:8px;align-items:center;color:${color}">${icon?svgIcon(icon,18):''}${esc(eyebrow)}</span><h2>${esc(t)}</h2><p class="muted">${d}</p></div>`;
-const empty = () => '<div class="empty">Nothing matches these filters. <button class="btn" type="button" data-clear="1">Clear filters</button></div>';
+const head = (eyebrow, t, d, icon='', color='var(--accent)') => `<div class="head"><span class="eyebrow" style="display:flex;gap:8px;align-items:center;color:${color}">${icon?svgIcon(icon,18):''}${esc(eyebrow)}</span><h2>${esc(t)}</h2><p class="hint">${d}</p></div>`;
+const empty = () => '<div class="empty">Nothing matches this search or these filters. <button class="btn" type="button" data-clear="1">Clear search and filters</button></div>';
 const opts = (list, cur, all='All') => `<option value="">${all}</option>` + list.map(([v,l]) => `<option value="${esc(v)}" ${String(v)===String(cur)?'selected':''}>${esc(l)}</option>`).join('');
 const subOpts = (cur, all='All risk areas') => `<option value="">${all}</option>` + T.domains.map(d => `<optgroup label="${esc(d.id+'. '+d.name)}">${d.subs.map(s=>`<option value="${s.id}" ${s.id===cur?'selected':''}>${s.id} ${esc(s.name)}</option>`).join('')}</optgroup>`).join('');
 function hbars(rows){ const max = Math.max(1, ...rows.map(r=>r[1])); return `<div class="stack" style="gap:6px">${rows.map(([l,n,c])=>`<div class="hbar" data-tip="<b>${esc(l)}</b>${n}"><span>${esc(l)}</span><div class="track"><div class="fill" style="width:${n/max*100}%;--c:${c||'var(--accent)'}"></div></div><span class="v">${n}</span></div>`).join('')}</div>`; }
@@ -339,7 +415,8 @@ function mitigationsForSub(sid){ const ids = new Set(D.instruments.filter(i=>i.d
 function coverage(sid){ return { risks: D.risks.filter(r=>r.domain.includes(sid)).length, incidents: D.incidents.filter(i=>i.domains.includes(sid)).length, hard: D.instruments.filter(i=>i.domains.includes(sid) && isHard(i)).length, soft: D.instruments.filter(i=>i.domains.includes(sid) && !isHard(i)).length, mit: mitigationsForSub(sid).length }; }
 function domCoverage(did){ const inD = arr => arr.some(x=>domOf(x)===did); const insD = D.instruments.filter(i=>inD(i.domains)), ids = new Set(insD.map(i=>i.id));
   return {risks:D.risks.filter(r=>inD(r.domain)).length, incidents:D.incidents.filter(i=>inD(i.domains)).length, hard:insD.filter(isHard).length, soft:insD.filter(i=>!isHard(i)).length, mit:D.mitigations.filter(m=>ids.has(m.source)).length}; }
-function filterBox(view, fields){ const f = state.f[view]||{}; return `<div class="filters" data-fview="${view}"><input type="search" data-k="q" value="${esc(f.q||'')}" placeholder="Search…" aria-label="Search">${fields(f)}${Object.values(f).some(Boolean)?'<button class="btn" type="button" data-clear="1">Clear</button>':''}</div>`; }
+function filterBox(view, fields){ const f = state.f[view]||{}; return `<div class="filters" data-fview="${view}">${fields(f)}${Object.values(f).some(Boolean)?'<button class="btn" type="button" data-clear="1">Clear filters</button>':''}</div>`; }
+const matchQ = x => !state.q || JSON.stringify(x).toLowerCase().includes(state.q.toLowerCase());
 const sel = (k, label, list, cur, all) => `<select data-k="${k}" aria-label="${esc(label)}">${opts(list, cur, all||label+': all')}</select>`;
 const domPills = (view, key='dom') => { const cur = (state.f[view]||{})[key]||''; return `<div class="pills" data-fview="${view}">${T.domains.map(d=>`<button type="button" class="pill" style="--c:var(--d${d.id})" data-pill="${key}" data-v="${d.id}" aria-pressed="${cur===d.id}"><i></i>${d.id}. ${esc(d.name)}</button>`).join('')}</div>`; };
 
@@ -367,90 +444,111 @@ function iris({size=440, onDark=false, select=null, metric='incidents'}={}){
     const lx = c + R*0.535*Math.cos(mid), ly = c + R*0.535*Math.sin(mid);
     labels += `<text x="${lx.toFixed(1)}" y="${(ly+5).toFixed(1)}" text-anchor="middle" style="font:700 15px var(--f-body);fill:#fff;pointer-events:none">${d.id}</text>`;
   });
-  const total = D.incidents.length;
-  return `<svg viewBox="0 0 ${size} ${size}" role="img" aria-label="Risk taxonomy wheel: 7 domains, 24 risk areas, shaded by recorded coverage in India" class="${select?'iris-dim':''}">
+  const areas = Object.keys(SUB).length;
+  return `<svg viewBox="0 0 ${size} ${size}" role="img" aria-label="Risk taxonomy wheel: ${T.domains.length} domains, ${Object.keys(SUB).length} risk areas, shaded by recorded coverage in India" class="${select?'iris-dim':''}">
     <g class="${reduce?'':'iris-in'}" style="transform-origin:center;transform-box:view-box">${segs}${doms}${labels}</g>
     <circle cx="${c}" cy="${c}" r="${R*0.41}" fill="${onDark?'#0B1030':'var(--ink)'}"/>
     <circle cx="${c-R*0.24}" cy="${c-R*0.22}" r="${R*0.045}" fill="#fff" opacity=".8"/>
-    <text x="${c}" y="${c+8}" text-anchor="middle" style="font:650 ${Math.round(R*0.24)}px var(--f-display);fill:#fff">${select?esc(select):total}</text>
-    <text x="${c}" y="${c+R*0.2}" text-anchor="middle" style="font:500 ${Math.max(10,Math.round(R*0.055))}px var(--f-body);fill:#C9CFEA">${select?'selected area':'incidents on record'}</text>
+    <text x="${c}" y="${c+8}" text-anchor="middle" style="font:650 ${Math.round(R*0.24)}px var(--f-display);fill:#fff">${select?esc(select):areas}</text>
+    <text x="${c}" y="${c+R*0.2}" text-anchor="middle" style="font:500 ${Math.max(10,Math.round(R*0.055))}px var(--f-body);fill:#C9CFEA">${select?'selected area':'risk areas'}</text>
   </svg>`;
 }
 
 /* ---------- views ---------- */
 const V = {};
+const isReviewed = i => i.review !== 'unreviewed';
+const creditLine = (extra='') => `<p class="creditline">Credits: risk taxonomies adapted from the MIT AI Risk Initiative (CC BY 4.0). ${extra}Every incident and legal source is linked on its record. <button type="button" class="linkbtn" data-go="about-credits">All sources and credits</button></p>`;
+const crumb = (...parts) => `<div class="crumb">${parts.map(([l,go])=>go?`<button type="button" data-go="${go}">${esc(l)}</button>`:`<span>${esc(l)}</span>`).join('<span aria-hidden="true">›</span>')}</div>`;
+
 V.home = () => {
   const recent = [...D.incidents].sort((a,b)=>b.id.localeCompare(a.id)).slice(0,3);
+  const n = D.incidents.length, nRev = D.incidents.filter(isReviewed).length;
   return `<section class="hero">
-    <div><span class="eyebrow">India · pilot v0.1 · checked ${esc(D.meta.checked)}</span>
+    <div><span class="eyebrow">India · open pilot</span>
       <h2>India has AI harms on record across most risk areas. Binding law reaches them <em>only through general statutes.</em></h2>
-      <p class="lede">An open observatory of AI risks, incidents, laws and safety measures in India, sorted by a shared risk taxonomy and traced through the NETRA evidence and accountability pipeline. Hover the iris to explore; click any segment to open it.</p>
-      <div class="stats">
-        ${[['risks',D.risks.length,'risks quoted'],['incidents',D.incidents.length,'incidents'],['governance',D.instruments.length,'laws & orders'],['mitigations',D.mitigations.length,'measures'],['gaps',D.gaps.length,'gaps']].map(([g,n,l])=>`<button type="button" class="stat" data-go="${g}"><b data-count="${n}">${n}</b><span>${l}</span></button>`).join('')}
-      </div>
-      <div class="cta"><button type="button" class="btn primary" data-go="navigator">Explore the Navigator</button><button type="button" class="btn" data-go="survey">Take the expert survey</button></div>
+      <p class="hint" style="color:var(--hero-muted)">An open record of AI harms in India, the laws that may apply, and who can act on them.</p>
+      <div class="counter" role="group" aria-label="Cases tracked"><b data-count="${n}">${n}</b><span>cases tracked</span>
+        <small>${nRev} reviewed by a person · ${n-nRev} unreviewed (AI-assisted drafts) · <time datetime="${esc(D.meta.updated)}">data updated ${esc(D.meta.updated)}</time></small></div>
+      <div class="cta"><button type="button" class="btn primary" data-go="explore-incidents">Explore the cases</button><button type="button" class="btn" data-tour="start">Guided tour</button></div>
     </div>
     <div class="iris-wrap">${iris({onDark:true})}</div>
   </section>
-  <div class="legend" style="margin-top:12px">${T.domains.map(d=>`<span style="--c:var(--d${d.id})"><i></i>${d.id}. ${esc(d.name)}</span>`).join('')}<span>· darker segment = more incidents and law on record</span></div>
+  <div class="legend" style="margin-top:12px">${T.domains.map(d=>`<span style="--c:var(--d${d.id})"><i></i>${d.id}. ${esc(d.name)}</span>`).join('')}<span>· darker segment = more incidents and law on record · click a segment to open that risk area</span></div>
 
-  <h3 style="margin:30px 0 12px">Where incidents outrun binding law</h3>
-  <div class="grid g-3">${T.domains.map(d=>{ const c = domCoverage(d.id); const flag = c.incidents && c.hard < c.incidents;
+  ${H3('Where incidents outrun binding law','Each card is one risk domain: how many incidents are on record, against how many binding and soft instruments reach it.','margin-top:30px')}
+  <div class="grid g-3" style="margin-top:12px">${T.domains.map(d=>{ const c = domCoverage(d.id); const flag = c.incidents && c.hard < c.incidents;
     return `<button type="button" class="card edge" style="--edge:var(--d${d.id});text-align:left;font:inherit;color:inherit;cursor:pointer" data-sub="${d.subs[0].id}">
       <div class="row" style="justify-content:space-between"><b style="font-family:var(--f-display);font-size:1.05rem">${d.id}. ${esc(d.name)}</b>${flag?'<span class="rev" style="color:var(--open);background:color-mix(in srgb,var(--open) 12%,transparent)">more incidents than laws</span>':''}</div>
       <div class="cov" style="--c:var(--d${d.id});grid-template-columns:repeat(3,minmax(0,1fr))">
         <div><b>${c.incidents}</b><span>incidents</span></div><div><b>${c.hard}</b><span>binding</span></div><div><b>${c.soft}</b><span>soft / proposals</span></div></div></button>`; }).join('')}</div>
 
-  <h3 style="margin:30px 0 12px">Tools</h3>
-  <div class="grid g-tools">${TOOLS.filter(t=>t[0]!=='home').map(([k,l,d,c])=>`<button type="button" class="tool" style="--tc:${c}" data-go="${k}"><span class="ic">${svgIcon(k)}</span><b>${esc(l)}</b><span>${esc(d)}</span></button>`).join('')}</div>
+  ${H3('Three ways in','Explore the records, read the analysis, or check how it was built.','margin-top:30px')}
+  <div class="grid g-3" style="margin-top:12px">${[
+    ['explore-incidents','navigator','Explore','Search one list of risks, incidents, laws and measures.','var(--d1)'],
+    ['analysis-dossiers','netra','Analysis','NETRA dossiers, the gap register, and (soon) reports and a model register.','var(--d5)'],
+    ['about-method','about','About','Method, sources and credits, verification status, survey and global evidence.','var(--d7)']
+  ].map(([go,ic,l,d,c])=>`<button type="button" class="tool" style="--tc:${c}" data-go="${go}"><span class="ic">${svgIcon(ic)}</span><b>${l}</b><span>${d}</span></button>`).join('')}</div>
 
-  <div class="row" style="justify-content:space-between;margin:30px 0 12px"><h3>Latest incidents</h3><button class="btn" type="button" data-go="incidents">See all ${D.incidents.length}</button></div>
-  <div class="grid g-3">${recent.map(i=>`<button type="button" class="card edge" style="--edge:${dc(i.domains[0])};text-align:left;font:inherit;color:inherit;cursor:pointer" data-inc="${i.id}">
+  <div class="row" style="justify-content:space-between;margin-top:30px"><div>${H3('Latest incidents','The three most recently added cases.')}</div><button class="btn" type="button" data-go="explore-incidents">See all ${n}</button></div>
+  <div class="grid g-3" style="margin-top:12px">${recent.map(i=>`<button type="button" class="card edge" style="--edge:${dc(i.domains[0])};text-align:left;font:inherit;color:inherit;cursor:pointer" data-inc="${i.id}">
     <div class="row"><span class="id">${i.id}</span>${sevm(i.severity)}</div><b style="display:block;font-family:var(--f-display);font-size:1.08rem;margin-top:8px">${esc(i.title)}</b>
     <p class="note" style="margin-top:6px">${esc(i.date)} · ${esc(i.state)}</p></button>`).join('')}</div>`;
 };
 
-V.navigator = () => {
+V['explore-area'] = () => {
   const sid = state.sub, s = SUB[sid], c = coverage(sid), col = dc(sid);
   const risks = D.risks.filter(r=>r.domain.includes(sid));
   const incs = D.incidents.filter(i=>i.domains.includes(sid));
   const ins = D.instruments.filter(i=>i.domains.includes(sid));
   const mits = mitigationsForSub(sid);
   const gaps = D.gaps.filter(g=>g.incidents.some(x=>incs.some(i=>i.id===x)));
-  return head('Navigator','Pick a risk area','Click a segment of the iris or a card below. Everything recorded for that area in India appears together, linked through the shared taxonomy.','navigator','var(--d1)') +
+  return crumb(['Explore','explore-incidents'],['Risk area '+sid]) +
+  head('Risk area','Everything recorded for one risk area','Click a segment of the wheel or choose from the list. Risks, incidents, laws, measures and gaps for that area appear together.','navigator','var(--d1)') +
   `<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr));align-items:start">
     <div class="sheet" style="display:flex;flex-direction:column;align-items:center;gap:10px"><div class="iris-wrap" style="width:100%">${iris({size:380, select:sid})}</div>
       <label class="field" style="width:100%">Or choose from the list<select id="nav-sub">${subOpts(sid,'Choose a risk area')}</select></label></div>
     <div class="sheet" style="border-top:6px solid ${col}">
       <span class="eyebrow" style="color:${col}">Domain ${esc(s.domain)} · ${esc(s.dname)}</span>
-      <h2 style="margin-top:6px">${esc(sid)} ${esc(s.name)}</h2>
+      <h2 style="margin-top:6px">${esc(sid)} ${esc(s.name)}</h2><p class="hint">Counts for this area across all records.</p>
       <div class="cov" style="--c:${col}">${[['Risks',c.risks],['Incidents',c.incidents],['Binding',c.hard],['Soft',c.soft],['Measures',c.mit]].map(([l,n])=>`<div><b>${n}</b><span>${l}</span></div>`).join('')}</div>
       ${c.incidents && !c.hard ? '<p class="callout red" style="margin-top:14px">Incidents are recorded here, but no binding instrument in this seed is tagged to this risk area.</p>':''}
       <div class="subgrid">${DOM[s.domain].subs.map(x=>`<button type="button" class="pill" style="--c:${col}" data-sub="${x.id}" aria-pressed="${x.id===sid}">${x.id}</button>`).join('')}</div>
     </div></div>
   <div class="grid g-2" style="margin-top:14px">
-   <section class="sheet"><h3>Risks named in Indian frameworks</h3>${risks.length?risks.map(r=>`<div style="margin-top:14px;--c:${col}"><b>${esc(r.title)}</b><blockquote>“${esc(r.quote)}”</blockquote><div class="note" style="margin-top:4px">${esc(FW[r.framework].issuer.split(' (')[0])}, ${esc(r.locator)}</div></div>`).join(''):'<p class="note" style="margin-top:8px">None in the frameworks read so far.</p>'}</section>
-   <section class="sheet"><h3>Incidents in India</h3>${incs.length?incs.map(i=>`<button type="button" class="card edge" style="--edge:${col};margin-top:10px;width:100%;text-align:left;font:inherit;color:inherit;cursor:pointer;padding:12px 14px" data-inc="${i.id}"><div class="row">${sevm(i.severity)}<span class="note">${esc(i.date)}</span></div><b style="display:block;margin-top:4px">${esc(i.title)}</b></button>`).join(''):'<p class="note" style="margin-top:8px">None recorded yet.</p>'}</section>
-   <section class="sheet"><h3>Laws, policies and orders</h3><div class="row" style="margin-top:10px">${ins.length?ins.map(i=>insChip(i.id)).join(''):'<span class="note">None tagged.</span>'}</div><p class="note" style="margin-top:10px">Solid = binding law or court order. Dashed = policy, advisory or proposal.</p></section>
-   <section class="sheet"><h3>Measures</h3>${mits.length?`<ul style="margin:8px 0 0;padding-left:18px">${mits.slice(0,7).map(m=>`<li style="margin-top:4px"><b>${esc(MSUB[m.category].name)}:</b> <span class="muted">${esc(m.quote)}</span></li>`).join('')}</ul>${mits.length>7?`<button class="btn" style="margin-top:10px" type="button" data-go="mitigations">+${mits.length-7} more</button>`:''}`:'<p class="note" style="margin-top:8px">None linked.</p>'}</section>
+   <section class="sheet">${H3('Risks named in Indian frameworks','Quoted word for word from the government document.')}${risks.length?risks.map(r=>`<div style="margin-top:14px;--c:${col}"><b>${esc(r.title)}</b><blockquote>“${esc(r.quote)}”</blockquote><div class="note" style="margin-top:4px">${esc(FW[r.framework].issuer.split(' (')[0])}, ${esc(r.locator)}</div></div>`).join(''):'<p class="note" style="margin-top:8px">None in the frameworks read so far.</p>'}</section>
+   <section class="sheet">${H3('Incidents in India','Click one to open its NETRA dossier.')}${incs.length?incs.map(i=>`<button type="button" class="card edge" style="--edge:${col};margin-top:10px;width:100%;text-align:left;font:inherit;color:inherit;cursor:pointer;padding:12px 14px" data-inc="${i.id}"><div class="row">${sevm(i.severity)}<span class="note">${esc(i.date)}</span></div><b style="display:block;margin-top:4px">${esc(i.title)}</b></button>`).join(''):'<p class="note" style="margin-top:8px">None recorded yet.</p>'}</section>
+   <section class="sheet">${H3('Laws, policies and orders','Solid = binding law or court order. Dashed = policy, advisory or proposal.')}<div class="row" style="margin-top:10px">${ins.length?ins.map(i=>insChip(i.id)).join(''):'<span class="note">None tagged.</span>'}</div></section>
+   <section class="sheet">${H3('Measures','What Indian authorities require or recommend for this area.')}${mits.length?`<ul style="margin:8px 0 0;padding-left:18px">${mits.slice(0,7).map(m=>`<li style="margin-top:4px"><b>${esc(MSUB[m.category].name)}:</b> <span class="muted">${esc(m.quote)}</span></li>`).join('')}</ul>${mits.length>7?`<button class="btn" style="margin-top:10px" type="button" data-go="explore-measures">+${mits.length-7} more</button>`:''}`:'<p class="note" style="margin-top:8px">None linked.</p>'}</section>
   </div>
-  ${gaps.length?`<section class="sheet" style="margin-top:14px"><h3>Gaps touching this area</h3>${gaps.map(g=>`<p style="margin-top:8px"><span class="id">${g.id}</span> <b>${esc(g.title)}</b> <span class="muted">— ${esc(g.type)}</span></p>`).join('')}</section>`:''}`;
+  ${gaps.length?`<section class="sheet" style="margin-top:14px">${H3('Gaps touching this area','Where the law does not yet answer these incidents.')}${gaps.map(g=>`<p style="margin-top:8px"><span class="id">${g.id}</span> <b>${esc(g.title)}</b> <span class="muted">— ${esc(g.type)}</span></p>`).join('')}</section>`:''}`;
 };
 
-V.risks = () => {
+/* Explore: one searchable list. The switch picks the record type; filters stay hidden until asked for. */
+const COUNT = {risks:D.risks.length, incidents:D.incidents.length, laws:D.instruments.length, measures:D.mitigations.length};
+function explore(kind, filters, list, shown, extra=''){
+  const nf = Object.values(state.f[kind]||{}).filter(Boolean).length;
+  const label = KINDS.find(k=>k[0]===kind)[1].toLowerCase();
+  return head('Explore','One list of everything on record','Search across all records. Use the switch to change the list, or open Filters to narrow it.','navigator','var(--d1)') +
+  `<div class="switch" role="group" aria-label="What to list">${KINDS.map(([k,l])=>`<button type="button" data-go="explore-${k}" aria-pressed="${k===kind}">${l} (${COUNT[k]})</button>`).join('')}</div>
+  <div class="searchrow"><input type="search" id="q" data-q="1" value="${esc(state.q)}" placeholder="Search ${label}…" aria-label="Search ${label}">
+    <button type="button" class="btn" data-filters="1" aria-expanded="${state.showFilters}" aria-controls="filterpanel">${state.showFilters?'Hide filters':'Filters'}${nf?` (${nf} on)`:''}</button>
+    <span class="note" role="status">${shown} of ${COUNT[kind]} ${label} shown</span></div>
+  <div class="filterpanel" id="filterpanel" ${state.showFilters?'':'hidden'}>${filters}</div>
+  ${extra}${shown ? list : empty()}`;
+}
+
+V['explore-risks'] = () => {
   const f = state.f.risks||{};
-  const list = D.risks.filter(r => (!f.dom || r.domain.some(x=>domOf(x)===f.dom)) && (!f.fw || r.framework===f.fw) && (!f.entity || r.entity===f.entity) && (!f.intent || r.intent===f.intent) && (!f.timing || r.timing===f.timing) && (!f.q || JSON.stringify(r).toLowerCase().includes(f.q.toLowerCase())));
-  const byDom = T.domains.map(d=>[d.id+'. '+d.name, D.risks.filter(r=>r.domain.some(x=>domOf(x)===d.id)).length, `var(--d${d.id})`]);
-  return head('Risk repository',`${D.risks.length} risks named in Indian policy`, 'Each risk is quoted word for word from an Indian framework, with its location, and coded to the MIT causal and domain taxonomies. Codings are ours and unreviewed.','risks','var(--d7)') +
-  `<div class="grid g-2" style="margin-bottom:16px"><section class="sheet"><h3>Risks by domain</h3><div style="margin-top:12px">${hbars(byDom)}</div></section>
-   <section class="sheet"><h3>Sources read so far</h3>${D.frameworks.map(fw=>{const n=D.risks.filter(r=>r.framework===fw.id).length;return `<div style="margin-top:12px"><div class="row" style="justify-content:space-between"><a href="${esc(fw.url)}" target="_blank" rel="noopener">${esc(fw.title)}</a><span class="chip">${n} risks</span></div><div class="note">${esc(fw.issuer)} · ${esc(fw.date)}</div></div>`}).join('')}</section></div>
-  ${domPills('risks')}
-  ${filterBox('risks', f=>sel('fw','Source',D.frameworks.map(x=>[x.id,x.issuer.split(' (')[0]]),f.fw)+sel('entity','Caused by',Object.keys(T.causal.entity).map(x=>[x,x]),f.entity)+sel('intent','Intent',Object.keys(T.causal.intent).map(x=>[x,x]),f.intent)+sel('timing','Timing',Object.keys(T.causal.timing).map(x=>[x,x]),f.timing))}
-  ${list.length ? `<div class="grid g-2">${list.map(r=>`<article class="card edge" style="--edge:${dc(r.domain[0])};--c:${dc(r.domain[0])}"><div class="row"><span class="id">${r.id}</span><b>${esc(r.title)}</b></div>
+  const list = D.risks.filter(r => (!f.dom || r.domain.some(x=>domOf(x)===f.dom)) && (!f.fw || r.framework===f.fw) && (!f.entity || r.entity===f.entity) && (!f.intent || r.intent===f.intent) && (!f.timing || r.timing===f.timing) && matchQ(r));
+  return explore('risks',
+    domPills('risks') + filterBox('risks', f=>sel('fw','Source',D.frameworks.map(x=>[x.id,x.issuer.split(' (')[0]]),f.fw)+sel('entity','Caused by',Object.keys(T.causal.entity).map(x=>[x,x]),f.entity)+sel('intent','Intent',Object.keys(T.causal.intent).map(x=>[x,x]),f.intent)+sel('timing','Timing',Object.keys(T.causal.timing).map(x=>[x,x]),f.timing)),
+    `<div class="grid g-2">${list.map(r=>`<article class="card edge" style="--edge:${dc(r.domain[0])};--c:${dc(r.domain[0])}"><div class="row"><span class="id">${r.id}</span></div><h4 class="ctitle">${esc(r.title)}</h4>
     <blockquote>“${esc(r.quote)}”</blockquote>
     <div class="note" style="margin-top:8px"><a href="${esc(FW[r.framework].url)}" target="_blank" rel="noopener">${esc(FW[r.framework].issuer.split(' (')[0])}</a> · ${esc(r.locator)}</div>
     <div class="row" style="margin-top:10px">${r.domain.map(domChip).join('')}</div>
-    <div class="row" style="margin-top:6px"><span class="chip">${esc(r.entity)}</span><span class="chip">${esc(r.intent)}</span><span class="chip">${esc(r.timing)}</span></div></article>`).join('')}</div>` : empty()}`;
+    <div class="row" style="margin-top:6px"><span class="chip">${esc(r.entity)}</span><span class="chip">${esc(r.intent)}</span><span class="chip">${esc(r.timing)}</span></div></article>`).join('')}</div>`,
+    list.length,
+    `<p class="note" style="margin-bottom:12px">Each risk is quoted from ${D.frameworks.length} Indian frameworks and coded to the MIT causal and domain taxonomies. Codings are ours and unreviewed.</p>`);
 };
 
 function timeline(list){
@@ -469,31 +567,29 @@ function timeline(list){
   let axis = ''; for(let y=ymin; y<=ymax; y+=2){ axis += `<g class="grid"><line x1="${X(y)}" x2="${X(y)}" y1="16" y2="${y0}" stroke-dasharray="2 4"/></g><text x="${X(y)}" y="${y0+18}" text-anchor="middle">${y}</text>`; }
   return `<div class="chart"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Timeline of incidents by year, coloured by risk domain, sized by severity">${axis}<line x1="${x0}" x2="${x1}" y1="${y0}" y2="${y0}" stroke="var(--line)"/>${marks}</svg></div>`;
 }
+
 function incCard(i){
   const col = dc(i.domains[0]);
   return `<article class="card edge" id="${i.id}" style="--edge:${col}"><div class="row"><span class="id">${i.id}</span>${sevm(i.severity)}${rev(i.review)}<span class="note">${esc(i.date)} · ${esc(i.state)}</span></div>
-  <h3 style="margin-top:8px">${esc(i.title)}</h3><p style="margin-top:6px;max-width:74ch">${esc(i.harm)}</p>
+  <h4 class="ctitle">${esc(i.title)}</h4><p style="margin-top:6px;max-width:74ch">${esc(i.harm)}</p>
   <div class="row" style="margin-top:10px">${i.domains.map(domChip).join('')}</div>
   <p style="margin-top:10px"><b>Legal response:</b> ${esc(i.response)}</p>
   <details class="more"><summary>Details and sources</summary><dl class="kv"><dt>AI system</dt><dd>${i.systems.map(esc).join('; ')}</dd><dt>Developer / deployer</dt><dd>${esc(i.developer)} / ${esc(i.deployer)}</dd>
   <dt>Harm type</dt><dd>${i.harm_types.map(esc).join(', ')}</dd><dt>Affected</dt><dd>${esc(i.affected)}</dd><dt>Cause</dt><dd>${esc(i.entity)} · ${esc(i.intent)} · ${esc(i.timing)}</dd>
-  <dt>Sources</dt><dd>${i.sources.map(s=>`<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a> <span class="muted">(${esc(s.date)})</span>`).join('<br>')}</dd></dl></details>
+  <dt>Sources</dt><dd>${i.sources.map(s=>`<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a> <span class="muted">(${esc(s.date)})</span>`).join('<br>')}</dd>
+  <dt>Corrections</dt><dd>${correctLink(i.id)}</dd></dl></details>
   <div class="row" style="margin-top:12px"><button type="button" class="btn primary" data-inc="${i.id}">${svgIcon('netra',16)} Open NETRA dossier</button><span class="note">${esc(i.netra.overclaim)}</span></div></article>`;
 }
-V.incidents = () => {
+V['explore-incidents'] = () => {
   const f = state.f.incidents||{};
-  const list = D.incidents.filter(i => (!f.dom || i.domains.some(s=>domOf(s)===f.dom)) && (!f.sector || i.sectors.includes(f.sector)) && (!f.harm || i.harm_types.includes(f.harm)) && (!f.sev || i.severity>=+f.sev) && (!f.entity || i.entity===f.entity) && (!f.q || JSON.stringify(i).toLowerCase().includes(f.q.toLowerCase())));
-  const byHarm = T.harm_types.map(h=>[h, list.filter(i=>i.harm_types.includes(h)).length]).filter(r=>r[1]).sort((a,b)=>b[1]-a[1]);
-  const byDom = T.domains.map(d=>[d.id+'. '+d.name, list.filter(i=>i.domains.some(s=>domOf(s)===d.id)).length, `var(--d${d.id})`]);
-  return head('Incident tracker',`${D.incidents.length} AI-linked harms in India`,'Drawn from news and legal reporting. Each dot is an incident: colour shows its main risk domain, size shows severity. Hover for details; click to jump to it. Severity and codes are pilot codings.','incidents','var(--d2)') +
-  domPills('incidents') +
-  filterBox('incidents', f=>sel('sector','Sector',T.sectors.map(x=>[x,x]),f.sector)+sel('harm','Harm type',T.harm_types.map(x=>[x,x]),f.harm)+sel('sev','Severity',Object.entries(T.severity).map(([k,v])=>[k,k+'+ '+v]),f.sev,'Severity: any')+sel('entity','Caused by',Object.keys(T.causal.entity).map(x=>[x,x]),f.entity)) +
-  `<section class="sheet"><div class="row" style="justify-content:space-between"><h3>Timeline</h3><span class="note">${list.length} of ${D.incidents.length} shown</span></div>${timeline(list)}
-   <div class="legend">${T.domains.map(d=>`<span style="--c:var(--d${d.id})"><i></i>${d.id}. ${esc(d.name)}</span>`).join('')}</div></section>
-  <div class="grid g-2" style="margin:14px 0"><section class="sheet"><h3>By risk domain</h3><div style="margin-top:12px">${hbars(byDom)}</div></section>
-  <section class="sheet"><h3>By harm type</h3><div style="margin-top:12px">${byHarm.length?hbars(byHarm.map(r=>[r[0],r[1],'var(--d2)'])):'<p class="note">No matches.</p>'}</div></section></div>
-  <p class="callout" style="margin-bottom:14px">Reported incidents are a small, biased sample of real harms. Where a source does not confirm that AI was used, the record says so.</p>` +
-  (list.length ? `<div class="stack">${list.map(incCard).join('')}</div>` : empty());
+  const list = D.incidents.filter(i => (!f.dom || i.domains.some(s=>domOf(s)===f.dom)) && (!f.sector || i.sectors.includes(f.sector)) && (!f.harm || i.harm_types.includes(f.harm)) && (!f.sev || i.severity>=+f.sev) && (!f.entity || i.entity===f.entity) && matchQ(i));
+  return explore('incidents',
+    domPills('incidents') + filterBox('incidents', f=>sel('sector','Sector',T.sectors.map(x=>[x,x]),f.sector)+sel('harm','Harm type',T.harm_types.map(x=>[x,x]),f.harm)+sel('sev','Severity',Object.entries(T.severity).map(([k,v])=>[k,k+'+ '+v]),f.sev,'Severity: any')+sel('entity','Caused by',Object.keys(T.causal.entity).map(x=>[x,x]),f.entity)),
+    `<div class="stack">${list.map(incCard).join('')}</div>`,
+    list.length,
+    `<p class="callout" style="margin-bottom:12px">Reported incidents are a small, biased sample of real harms. Where a source does not confirm that AI was used, the record says so.</p>
+    ${list.length?`<details class="sheet more" style="margin-bottom:14px"><summary>Show timeline</summary><p class="hint">Each dot is an incident: colour shows its main risk domain, size shows severity. Click one to jump to it.</p>${timeline(list)}
+    <div class="legend">${T.domains.map(d=>`<span style="--c:var(--d${d.id})"><i></i>${d.id}. ${esc(d.name)}</span>`).join('')}</div></details>`:''}`);
 };
 
 function lawLandscape(list){
@@ -508,110 +604,155 @@ function lawLandscape(list){
   return `<div class="chart"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Indian AI-relevant instruments by year, binding versus soft">${axis}
    <text x="8" y="${lanes.hard+4}" style="font-weight:600;fill:var(--ink)">Binding</text><text x="8" y="${lanes.soft+4}" style="font-weight:600;fill:var(--ink)">Soft</text>${marks}</svg></div>`;
 }
-V.governance = () => {
-  const f = state.f.governance||{};
-  const list = D.instruments.filter(i => (!f.force || (f.force==='hard'?isHard(i):!isHard(i))) && (!f.type || i.type===f.type) && (!f.sector || i.sectors.includes(f.sector)) && (!f.dom || i.domains.some(s=>domOf(s)===f.dom)) && (!f.ver || (f.ver==='yes'?i.verified==='yes':i.verified!=='yes')) && (!f.q || JSON.stringify(i).toLowerCase().includes(f.q.toLowerCase())));
-  return head('Governance map',`${D.instruments.length} Indian laws, rules, policies and court orders`,'India has no AI-specific statute. This map shows the general laws, sector rules, advisories, policy papers, standards and court orders that reach AI, and which risk domains each touches. Filled dots are binding; hollow dots are soft law or proposals.','governance','var(--d3)') +
-  domPills('governance') +
-  filterBox('governance', f=>sel('force','Legal force',[['hard','Binding law & court orders'],['soft','Soft law & proposals']],f.force)+sel('type','Type',[...new Set(D.instruments.map(i=>i.type))].sort().map(x=>[x,x]),f.type)+sel('sector','Sector',T.sectors.map(x=>[x,x]),f.sector)+sel('ver','Verification',[['yes','Full text read'],['no','Needs verification']],f.ver)) +
-  `<section class="sheet"><div class="row" style="justify-content:space-between"><h3>The legal landscape over time</h3><span class="note">${list.length} shown · colour = main risk domain</span></div>${lawLandscape(list)}</section>
-  <section class="sheet" style="margin-top:14px"><h3>Which domains each instrument reaches</h3>
-  <div class="tablewrap" style="margin-top:12px"><table><thead><tr><th>Instrument</th>${T.domains.map(d=>`<th style="text-align:center" data-tip="${esc(d.name)}"><span class="bub" style="width:22px;height:22px;background:var(--d${d.id})">${d.id}</span></th>`).join('')}</tr></thead><tbody>
-  ${list.map(i=>`<tr class="click" data-scroll="ins-${i.id}"><td><b style="font-weight:600">${esc(shortIns(i))}</b> ${isHard(i)?'<span class="chip hard" style="font-size:.68rem">Binding</span>':'<span class="chip soft" style="font-size:.68rem">Soft</span>'}<div class="note">${esc(i.date)} · ${esc(i.type)}</div></td>${T.domains.map(d=>{const n=i.domains.filter(s=>domOf(s)===d.id).length;return `<td class="n">${n?`<span class="bub" style="width:${14+n*5}px;height:${14+n*5}px;background:var(--d${d.id})" data-tip="${n} risk area${n>1?'s':''} in ${esc(d.name)}">${n>1?n:''}</span>`:''}</td>`}).join('')}</tr>`).join('')}
-  </tbody></table></div></section>
-  <div class="stack" style="margin-top:14px">${list.length?list.map(i=>`<article class="card edge" id="ins-${i.id}" style="--edge:${isHard(i)?'var(--accent)':'var(--line)'}"><div class="row"><span class="id">${i.id}</span>${isHard(i)?'<span class="chip hard">'+esc(i.force)+'</span>':'<span class="chip soft">'+esc(i.force)+'</span>'}<span class="chip">${esc(i.type)}</span><span class="note">${esc(i.date)}</span></div>
-   <h3 style="margin-top:8px">${esc(i.title)}</h3><p style="margin-top:6px;max-width:74ch">${esc(i.summary)}</p>
+
+function lawCard(i){
+  const notes = (i.notifications||[]).map(n=>`<div><b>${esc(n.no)}</b>${n.date?` · ${esc(n.date)}`:''}${n.effective?` · in force ${esc(n.effective)}`:''} — ${esc(n.what)}</div>`).join('');
+  const cases = (i.cases||[]).map(c=>`<div style="margin-bottom:8px"><b>${esc(c.name)}</b>, ${esc(c.citation)} <span class="muted">(${esc(c.court)}, ${esc(c.date)})</span> ${vtag(c.verified)}<div>${esc(c.holding)}</div><div class="note">${esc(c.note)}</div>${c.report_url?`<a class="note" href="${esc(c.report_url)}" target="_blank" rel="noopener">News report</a>`:''}${c.url?` <a class="note" href="${esc(c.url)}" target="_blank" rel="noopener">Judgment</a>`:''}</div>`).join('');
+  return `<article class="card edge" id="ins-${i.id}" style="--edge:${isHard(i)?'var(--accent)':'var(--line)'}"><div class="row"><span class="id">${i.id}</span>${isHard(i)?'<span class="chip hard">'+esc(i.force)+'</span>':'<span class="chip soft">'+esc(i.force)+'</span>'}<span class="chip">${esc(i.type)}</span>${vtag(i.verified)}<span class="note">${esc(i.date)}</span></div>
+   <h4 class="ctitle">${esc(i.title)}</h4>${i.act_no?`<p class="note" style="margin-top:2px">${esc(i.act_no)}</p>`:''}<p style="margin-top:6px;max-width:74ch">${esc(i.summary)}</p>
    <div class="row" style="margin-top:10px">${i.domains.map(domChip).join('')}</div>
    <details class="more"><summary>Status, provisions and source</summary><dl class="kv"><dt>Issuer</dt><dd>${esc(i.issuer)}</dd><dt>Status</dt><dd>${esc(i.status)}</dd><dt>Key provisions</dt><dd>${esc(i.provisions)}</dd>
+   ${notes?`<dt>Gazette notifications</dt><dd>${notes}</dd>`:''}${cases?`<dt>Court decisions</dt><dd>${cases}</dd>`:''}
    <dt>Who it targets</dt><dd>${i.actors.map(esc).join(', ')}</dd><dt>Sectors</dt><dd>${i.sectors.map(esc).join(', ')}</dd><dt>Lifecycle</dt><dd>${i.lifecycle.map(esc).join(', ')}</dd>
-   <dt>Source</dt><dd><a href="${esc(i.url)}" target="_blank" rel="noopener">${esc(new URL(i.url).hostname)}</a>${ver(i.verified)}<div class="note">${esc(i.note)}</div></dd></dl></details></article>`).join(''):empty()}</div>`;
+   <dt>Source</dt><dd><a href="${esc(i.url)}" target="_blank" rel="noopener">${esc(new URL(i.url).hostname)}</a>${i.gazette_url?` · <a href="${esc(i.gazette_url)}" target="_blank" rel="noopener">Gazette copy</a>`:''}${ver(i.verified)}<div class="note">${esc(i.note)}</div>${i.checked?`<div class="note">Checked ${esc(i.checked)}</div>`:''}</dd>
+   <dt>Corrections</dt><dd>${correctLink(i.id)}</dd></dl></details></article>`;
+}
+V['explore-laws'] = () => {
+  const f = state.f.laws||{};
+  const list = D.instruments.filter(i => (!f.force || (f.force==='hard'?isHard(i):!isHard(i))) && (!f.type || i.type===f.type) && (!f.sector || i.sectors.includes(f.sector)) && (!f.dom || i.domains.some(s=>domOf(s)===f.dom)) && (!f.ver || i.verified===f.ver) && matchQ(i));
+  return explore('laws',
+    domPills('laws') + filterBox('laws', f=>sel('force','Legal force',[['hard','Binding law & court orders'],['soft','Soft law & proposals']],f.force)+sel('type','Type',[...new Set(D.instruments.map(i=>i.type))].sort().map(x=>[x,x]),f.type)+sel('sector','Sector',T.sectors.map(x=>[x,x]),f.sector)+sel('ver','Verification',[['yes','Verified'],['partial','Partly verified'],['no','To verify']],f.ver)),
+    `<div class="stack">${list.map(lawCard).join('')}</div>`,
+    list.length,
+    `<p class="note" style="margin-bottom:12px">India has no AI-specific statute. These are the general laws, sector rules, advisories, policy papers, standards and court orders that reach AI.</p>
+    ${list.length?`<details class="sheet more" style="margin-bottom:14px"><summary>Show timeline</summary><p class="hint">Filled dots are binding; hollow dots are soft law or proposals. Click one to jump to it.</p>${lawLandscape(list)}</details>`:''}`);
 };
 
-V.mitigations = () => {
-  const f = state.f.mitigations||{};
-  const list = D.mitigations.filter(m => (!f.src || m.source===f.src) && (!f.q || JSON.stringify(m).toLowerCase().includes(f.q.toLowerCase())));
-  const tot = Math.max(1,list.length);
-  return head('Mitigations',`${D.mitigations.length} measures Indian authorities require or recommend`,'Sorted into the MIT AI Risk Mitigation Taxonomy (4 categories, 23 control types). Empty types show where no Indian measure has been recorded yet. Text marked “summary” paraphrases a secondary source.','mitigations','var(--d6)') +
-  `<section class="sheet"><h3>Share of measures by control category</h3><div class="mstack">${T.mitigation.map(c=>{const n=list.filter(m=>MSUB[m.category].cat===c.id).length;return n?`<div style="--c:${MCOL[c.id]};flex:${n}" data-tip="<b>${esc(c.name)}</b>${n} measures"></div>`:''}).join('')}</div>
-   <div class="legend">${T.mitigation.map(c=>`<span style="--c:${MCOL[c.id]}"><i></i>${esc(c.name)} (${list.filter(m=>MSUB[m.category].cat===c.id).length})</span>`).join('')}</div></section>
-  <div style="margin-top:14px">${filterBox('mitigations', f=>sel('src','Source',[...new Set(D.mitigations.map(m=>m.source))].map(s=>[s, shortIns(INS[s])]),f.src))}</div>
-  <div class="grid g-2">${T.mitigation.map(c=>`<section class="sheet mcat" style="--c:${MCOL[c.id]}"><h3>${c.id}. ${esc(c.name)}</h3>
-   ${c.subs.map(s=>{const ms=list.filter(m=>m.category===s.id);return `<div style="margin-top:14px"><div class="row"><b style="font-size:.92rem">${s.id} ${esc(s.name)}</b><span class="bub" style="width:22px;height:22px;background:${ms.length?MCOL[c.id]:'var(--na)'}">${ms.length}</span></div>
-   ${ms.length?ms.map(m=>`<div style="margin:6px 0 0 2px;font-size:.9rem;border-left:3px solid ${MCOL[c.id]};padding-left:10px">${esc(m.quote)}<div class="note">${esc(shortIns(INS[m.source]))} · ${esc(m.locator)} · ${esc(m.actor)} · ${esc(m.force)}</div></div>`).join(''):'<div class="note" style="margin-top:4px">No Indian measure recorded yet.</div>'}</div>`}).join('')}</section>`).join('')}</div>`;
+V['explore-measures'] = () => {
+  const f = state.f.measures||{};
+  const list = D.mitigations.filter(m => (!f.src || m.source===f.src) && (!f.cat || MSUB[m.category].cat===f.cat) && matchQ(m));
+  const grouped = `<div class="grid g-2" style="margin-top:10px">${T.mitigation.map(c=>`<section class="sheet mcat" style="--c:${MCOL[c.id]}"><b style="font-family:var(--f-display);font-size:1.05rem">${c.id}. ${esc(c.name)}</b>
+   ${c.subs.map(s=>{const n=list.filter(m=>m.category===s.id).length;return `<div class="row" style="margin-top:8px"><span class="bub" style="width:22px;height:22px;background:${n?MCOL[c.id]:'var(--na)'}">${n}</span><span style="font-size:.9rem">${s.id} ${esc(s.name)}</span></div>`}).join('')}</section>`).join('')}</div>`;
+  return explore('measures',
+    filterBox('measures', f=>sel('cat','Control category',T.mitigation.map(c=>[c.id,c.name]),f.cat)+sel('src','Source',[...new Set(D.mitigations.map(m=>m.source))].map(s=>[s, shortIns(INS[s])]),f.src)),
+    `<div class="grid g-2">${list.map(m=>`<article class="card edge" style="--edge:${MCOL[MSUB[m.category].cat]}"><div class="row"><span class="id">${m.id}</span><span class="chip">${esc(m.category)} ${esc(MSUB[m.category].name)}</span></div>
+     <p style="margin-top:8px">${esc(m.quote)}</p><div class="note" style="margin-top:6px">${esc(shortIns(INS[m.source]))} · ${esc(m.locator)} · ${esc(m.actor)} · ${esc(m.force)}</div></article>`).join('')}</div>`,
+    list.length,
+    `<p class="note" style="margin-bottom:12px">Measures Indian authorities require or recommend, sorted into the MIT AI Risk Mitigation Taxonomy. Text marked “summary” paraphrases a secondary source.</p>
+    <details class="sheet more" style="margin-bottom:14px"><summary>Show all 23 control types</summary><p class="hint">Grey zero means no Indian measure has been recorded for that type yet.</p>${grouped}</details>`);
 };
 
 function ring(pct, size=90){ const r = size/2-8, C = 2*Math.PI*r; return `<svg class="ring" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" role="img" aria-label="${pct}% of stages done"><circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="var(--soft)" stroke-width="9"/><circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="var(--ok)" stroke-width="9" stroke-linecap="round" stroke-dasharray="${(C*pct/100).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 ${size/2} ${size/2})"/><text x="50%" y="54%" text-anchor="middle" style="font-size:20px">${pct}%</text></svg>`; }
-V.netra = () => {
+V['analysis-dossiers'] = () => {
   const i = INC[state.inc], n = i.netra, col = dc(i.domains[0]);
   const gaps = D.gaps.filter(g=>g.incidents.includes(i.id));
   const done = Object.values(n.stages).filter(v=>v==='done').length, appl = Object.values(n.stages).filter(v=>v!=='n/a').length;
   const pct = Math.round(done/appl*100);
   const lbl = {incident:'Where it happened', victim:'Victim', accused:'Respondent / accused', investigating_agency:'Investigating body', platform_service:'Platform or service', network:'Network / account'};
-  return head('NETRA pipeline','From signal to accountability', esc(T.netra_note),'netra','var(--d5)') +
-  `<section class="sheet"><div class="row" style="justify-content:space-between"><h3>Pick an incident</h3><span class="note">Each row: 14 stages · green done · amber partial · dashed open</span></div>
+  return head('NETRA dossiers','From signal to accountability', esc(T.netra_note),'netra','var(--d5)') +
+  `<section class="sheet"><div class="row" style="justify-content:space-between"><div>${H3('Pick an incident','Each row shows the 14 NETRA stages: green done, amber partial, dashed open.')}</div></div>
    <div class="tablewrap" style="margin-top:12px"><table><thead><tr><th>Incident</th>${T.netra_stages.map(s=>`<th style="text-align:center" data-tip="${esc(s.name)}">${s.id.slice(1)}</th>`).join('')}</tr></thead><tbody>
    ${D.incidents.map(x=>`<tr class="click" data-inc="${x.id}" ${x.id===i.id?'style="background:var(--accent-soft)"':''}><td><span class="cell" style="background:${dc(x.domains[0])};width:8px;margin-right:8px;vertical-align:-2px"></span>${esc(x.title.slice(0,48))}${x.title.length>48?'…':''}</td>${T.netra_stages.map(s=>`<td class="n"><span class="cell c-${x.netra.stages[s.id]}" data-tip="<b>${esc(s.name)}</b>${esc(x.netra.stages[s.id])}"></span></td>`).join('')}</tr>`).join('')}
    </tbody></table></div></section>
 
   <section class="sheet" style="margin-top:14px;border-top:6px solid ${col}">
    <div class="row" style="justify-content:space-between;align-items:flex-start"><div style="min-width:0;flex:1 1 300px"><div class="row"><span class="id">${i.id}</span>${sevm(i.severity)}${rev(i.review)}</div>
-     <h2 style="margin-top:8px">${esc(i.title)}</h2><p class="muted" style="margin-top:6px">${esc(i.date)} · ${esc(i.state)}</p></div>
+     <h2 style="margin-top:8px">${esc(i.title)}</h2><p class="hint">${esc(i.date)} · ${esc(i.state)}</p></div>
      <div style="text-align:center">${ring(pct)}<div class="note">stages done from sources</div></div></div>
    <div class="pipe">${T.netra_stages.map(s=>`<div class="node s-${n.stages[s.id]}" data-tip="<b>${esc(s.name)}</b>${esc(n.stages[s.id])}"><div class="c">${s.id.slice(1)}</div><b>${esc(s.name)}</b>${esc(n.stages[s.id])}</div>`).join('')}</div>
    <div class="grid g-2" style="margin-top:18px">
-    <div><h3>Location & jurisdiction</h3><p class="note" style="margin-top:4px">Kept separate, as NETRA requires; one incident can touch several jurisdictions.</p>
+    <div>${H3('Location & jurisdiction','Kept separate, as NETRA requires; one incident can touch several jurisdictions.')}
      <div class="loc">${Object.entries(n.locations).map(([k,v])=>`<div><span>${esc(lbl[k]||k)}</span>${esc(v)}</div>`).join('')}</div></div>
-    <div><h3>Where to report or seek relief</h3><p class="note" style="margin-top:4px">Information only. NETRA never files reports automatically.</p>
-     <div class="route">${n.authorities.map((a,k)=>`<div><span class="num">${k+1}</span><div><b>${esc(AUTH[a].name)}</b>${AUTH[a].verified!=='yes'?' <span class="verify">verify</span>':''}<div class="note">${esc(AUTH[a].role)} · <a href="${esc(AUTH[a].url)}" target="_blank" rel="noopener">${esc(new URL(AUTH[a].url).hostname)}</a></div></div></div>`).join('')}</div></div>
+    <div>${H3('Where to report or seek relief','Information only. NETRA never files reports automatically.')}
+     <div class="route">${n.authorities.map((a,k)=>`<div><span class="num">${k+1}</span><div><b>${esc(AUTH[a].name)}</b>${AUTH[a].verified!=='yes'?' <span class="verify">to verify</span>':''}<div class="note">${esc(AUTH[a].role)} · <a href="${esc(AUTH[a].url)}" target="_blank" rel="noopener">${esc(new URL(AUTH[a].url).hostname)}</a></div></div></div>`).join('')}</div></div>
    </div>
-   <h3 style="margin-top:20px">Legal issues (T1)</h3><p class="note" style="margin-top:4px">Instruments that may bear on this incident. Applicability is unreviewed.</p>
+   ${H3('Legal issues (T1)','Instruments that may bear on this incident. Applicability is unreviewed.','margin-top:20px')}
    <div class="row" style="margin-top:10px">${i.instruments.map(insChip).join('')}</div>
-   <h3 style="margin-top:20px">Gaps (T2–T3)</h3>${gaps.length?gaps.map(g=>`<p style="margin-top:8px"><span class="id">${g.id}</span> <b>${esc(g.title)}</b> — <span class="muted">${esc(g.basis)}</span></p>`).join(''):'<p class="note" style="margin-top:6px">None linked.</p>'}
+   ${H3('Gaps (T2–T3)','Where the law does not yet answer this incident.','margin-top:20px')}${gaps.length?gaps.map(g=>`<p style="margin-top:8px"><span class="id">${g.id}</span> <b>${esc(g.title)}</b> — <span class="muted">${esc(g.basis)}</span></p>`).join(''):'<p class="note" style="margin-top:6px">None linked.</p>'}
    <div class="grid g-2" style="margin-top:20px">
     <div class="callout"><b>What NETRA does not know</b><ul style="margin:6px 0 0;padding-left:18px">${n.unknowns.map(u=>`<li>${esc(u)}</li>`).join('')}</ul></div>
     <div class="callout red"><b>Overclaim check</b><p style="margin-top:6px">${esc(n.overclaim)}</p></div>
    </div>
-   <h3 style="margin-top:20px">Evidence register</h3>
+   ${H3('Evidence register','Every source behind this dossier, with its kind and date.','margin-top:20px')}
    <div class="tablewrap" style="margin-top:10px"><table><thead><tr><th>ID</th><th>Source</th><th>Kind</th><th>Date</th></tr></thead><tbody>
    ${i.sources.map((s,k)=>`<tr><td class="id">E-${String(k+1).padStart(2,'0')}</td><td><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a></td><td>Secondary (news / legal reporting)</td><td class="mono">${esc(s.date)}</td></tr>`).join('')}
-   </tbody></table></div><p class="note" style="margin-top:8px">No primary evidence (orders, FIRs, platform records) has been captured yet. That is the next step for each dossier.</p></section>`;
+   </tbody></table></div><p class="note" style="margin-top:8px">No primary evidence (orders, FIRs, platform records) has been captured yet. That is the next step for each dossier. ${correctLink(i.id)}</p></section>` + creditLine();
 };
 
-V.gaps = () => head('Gap register',`${D.gaps.length} places the law has not caught up`,'Each gap names the incidents and instruments behind it. India’s lack of an AI-specific statute is not counted as a gap by itself.','gaps','var(--d4)') +
-  `<div class="grid g-2">${D.gaps.map(g=>{ const cols = [...new Set(g.incidents.map(x=>INC[x].domains[0]))]; return `<article class="card edge" style="--edge:${g.type==='Governance gap'?'var(--d4)':g.type==='Possible legal gap'?'var(--open)':'var(--d7)'}"><div class="row"><span class="id">${g.id}</span><span class="chip">${esc(g.type)}</span></div><h3 style="margin-top:8px">${esc(g.title)}</h3><p style="margin-top:6px">${esc(g.basis)}</p>
+V['analysis-gaps'] = () => head('Gap register',`${D.gaps.length} places the law has not caught up`,'Each gap names the incidents and instruments behind it. India’s lack of an AI-specific statute is not counted as a gap by itself.','gaps','var(--d4)') +
+  `<div class="grid g-2">${D.gaps.map(g=>`<article class="card edge" style="--edge:${g.type==='Governance gap'?'var(--d4)':g.type==='Possible legal gap'?'var(--open)':'var(--d7)'}"><div class="row"><span class="id">${g.id}</span><span class="chip">${esc(g.type)}</span></div><h4 class="ctitle">${esc(g.title)}</h4><p style="margin-top:6px">${esc(g.basis)}</p>
   <div style="margin-top:12px"><span class="eyebrow">Incidents</span>${g.incidents.map(x=>`<button type="button" class="chip" style="--c:${dc(INC[x].domains[0])};margin:6px 6px 0 0;cursor:pointer" data-inc="${x}"><i></i>${esc(INC[x].title.slice(0,44))}${INC[x].title.length>44?'…':''}</button>`).join('')}</div>
-  <div style="margin-top:10px"><span class="eyebrow">Instruments</span><div class="row" style="margin-top:6px">${g.instruments.map(insChip).join('')}</div></div></article>`}).join('')}</div>`;
+  <div style="margin-top:10px"><span class="eyebrow">Instruments</span><div class="row" style="margin-top:6px">${g.instruments.map(insChip).join('')}</div></div></article>`).join('')}</div>` + creditLine();
 
-V.evidence = () => {
+const planned = (what, items) => `<div class="planned"><span class="vtag partial">Not built yet</span><p style="margin-top:10px;max-width:70ch">${what}</p><ul style="margin:10px 0 0;padding-left:18px">${items.map(x=>`<li style="margin-top:4px">${x}</li>`).join('')}</ul></div>`;
+V['analysis-report'] = () => head('Report generator','Turn a record into a plain report','Planned for v0.2. Reports will be built in your browser from the stored data, with no AI, and labelled with their review status.','netra','var(--d5)') +
+  planned('This page will let you pick an incident, risk area or model and produce a report you can preview, copy, download as Markdown, or print.', ['What happened, and the evidence to preserve (including a BSA s.63 certificate with hash value)','AI’s role, laws that may apply (possible / interpretive question / gap) and the authority to approach','What NETRA does not know, an overclaim check, and a NIST AI RMF section','Sources, credits, review status and a “not legal advice” notice']) + creditLine();
+V['analysis-models'] = () => head('Model register','AI models, what was tested, and Indian law touched','Planned for v0.2. One card per model, built only from sources whose licences allow it.','evidence','var(--d1)') +
+  planned('Each card will show the developer, release date, what was tested and by whom, the results, linked incidents, and Indian law touched, with its source link and licence.', ['First set: the three METR reports already in Global evidence (cited and summarised only)','Further models from Epoch AI (CC BY 4.0), MITRE ATLAS (Apache 2.0) and AVID (MIT licence)','A test result is not evidence of real-world harm; each card will say so']) + creditLine();
+
+V['about-evidence'] = () => {
   const cls = G.classifications;
   return head('Global evidence','What frontier-AI evaluations mean for Indian law','Findings from three METR reports, mapped to Indian provisions in the earlier pilot. None of these reports identifies an Indian computer, user or entity, so every mapping is conditional.','evidence','var(--d1)') +
   `<div class="stack">${G.reports.map(r=>{const ms=G.mappings.filter(m=>m.report===r.id);return `<article class="card edge" style="--edge:var(--d1)"><div class="row"><span class="id">${r.id}</span>${rev(r.review)}<span class="note">${esc(r.org)} · ${esc(r.published)}</span></div>
-  <h3 style="margin-top:8px">${esc(r.title)}</h3><p style="margin-top:6px;max-width:74ch">${esc(r.finding)}</p>
+  <h4 class="ctitle">${esc(r.title)}</h4><p style="margin-top:6px;max-width:74ch">${esc(r.finding)}</p>
   <div class="row" style="margin-top:10px">${ms.map(m=>`<span class="chip">${esc(cls[m.classification])}</span>`).join('')}</div>
   <details class="more"><summary>${ms.length} Indian provisions, limits and source</summary><dl class="kv"><dt>Limitations</dt><dd>${esc(r.limitations)}</dd><dt>India nexus</dt><dd>${esc(r.india_nexus)}</dd>
   <dt>Provisions</dt><dd>${ms.map(m=>{const ii=G.instruments.find(x=>x.id===m.instrument);return `<div style="margin-bottom:8px"><b>${esc(ii.instrument)} ${esc(ii.provision)}</b> <span class="chip">${esc(cls[m.classification])}</span><div class="note">${esc(m.explanation)}</div></div>`}).join('')}</dd>
-  <dt>Source</dt><dd><a href="${esc(G.sources.find(s=>s.id===r.source).url)}" target="_blank" rel="noopener">${esc(G.sources.find(s=>s.id===r.source).title)}</a></dd></dl></details></article>`}).join('')}</div>`;
+  <dt>Source</dt><dd><a href="${esc(G.sources.find(s=>s.id===r.source).url)}" target="_blank" rel="noopener">${esc(G.sources.find(s=>s.id===r.source).title)}</a></dd></dl></details></article>`}).join('')}</div>` +
+  creditLine('METR reports are cited and summarised only, with links; METR retains its rights. ');
 };
 
-V.about = () => head('Method & sources','How this was built, and how far to trust it','Pilot v0.1. Everything is open to correction.','about','var(--d7)') +
-  `<div class="grid g-2">
-  <section class="sheet"><h3>What each tool contains</h3><dl class="kv">
+V['about-method'] = () => head('Method','How this was built, and how far to trust it','Everything here is open to correction.','about','var(--d7)') +
+  contactBox() + `<div class="grid g-2" style="margin-top:14px">
+  <section class="sheet">${H3('What each part contains','Where the records come from and how they were coded.')}<dl class="kv">
    <dt>Risks</dt><dd>Quoted from ${D.frameworks.filter(f=>D.risks.some(r=>r.framework===f.id)).map(f=>`<a href="${esc(f.url)}" target="_blank" rel="noopener">${esc(f.issuer.split(' (')[0])}</a>`).join(' and ')} documents read in full.</dd>
    <dt>Incidents</dt><dd>${D.incidents.length} found through targeted searches and read in news and legal-analysis sources. Not a systematic sample.</dd>
-   <dt>Governance</dt><dd>${D.instruments.length} instruments; ${D.instruments.filter(i=>i.verified==='yes').length} read in full, the rest flagged for verification.</dd>
-   <dt>Mitigations</dt><dd>${D.mitigations.length} measures quoted or summarised from those instruments.</dd>
+   <dt>Laws</dt><dd>${D.instruments.length} instruments; ${D.instruments.filter(i=>i.verified==='yes').length} verified against official texts, the rest flagged. <button type="button" class="linkbtn" data-go="about-verification">See verification status</button></dd>
+   <dt>Measures</dt><dd>${D.mitigations.length} measures quoted or summarised from those instruments.</dd>
    <dt>Coding</dt><dd>Taxonomy, cause and severity codes were assigned with AI assistance and have not been checked by a second coder.</dd></dl></section>
-  <section class="sheet"><h3>Next steps</h3><ol style="margin:8px 0 0;padding-left:20px">
-   <li>Read official texts for every item marked “verify”.</li><li>Capture primary evidence for each NETRA dossier.</li><li>Add risks from RBI FREE-AI, ICMR and SEBI documents.</li><li>Have a second coder check codes.</li><li>Publish survey results after 5+ responses.</li></ol></section>
-  <section class="sheet"><h3>Attribution</h3><p style="margin-top:6px">${esc(T.attribution)}</p></section>
-  <section class="sheet"><h3>Relation to NETRA</h3><p style="margin-top:6px">${esc(T.netra_note)}</p></section></div>
-  <details class="sheet more" style="margin-top:14px"><summary>Verification warnings (${PAYLOAD.warnings.length})</summary><ul style="margin:8px 0 0;padding-left:18px;font-size:.88rem">${PAYLOAD.warnings.map(w=>`<li>${esc(w)}</li>`).join('')}</ul></details>`;
+  <section class="sheet">${H3('Next steps','What has to happen before any record can be called reviewed.')}<ol style="margin:8px 0 0;padding-left:20px">
+   <li>Read official texts for every item marked “to verify”.</li><li>Capture primary evidence for each NETRA dossier.</li><li>Add risks from RBI FREE-AI, ICMR and SEBI documents.</li><li>Have a second coder check codes.</li><li>Publish survey results after 5+ responses.</li></ol></section>
+  <section class="sheet">${H3('Relation to NETRA','How this site uses the NETRA method.')}<p style="margin-top:6px">${esc(T.netra_note)}</p></section>
+  <section class="sheet">${H3('Corrections','Found an error? Send a public source. Nothing changes until the maintainer reviews it.')}<p style="margin-top:6px">The form asks only for a public source link, its date and the place it concerns. It is not a way to report a live incident: for financial cyber fraud, call 1930 or use cybercrime.gov.in.</p><p style="margin-top:10px"><a class="btn primary" href="${esc(correctUrl(''))}" target="_blank" rel="noopener">Suggest a correction</a></p></section></div>`;
+
+V['about-credits'] = () => {
+  const hosts = urls => { const c = {}; urls.forEach(u=>{ try{ const h = new URL(u).hostname.replace(/^www\./,''); c[h]=(c[h]||0)+1; }catch(e){} }); return Object.entries(c).sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0])); };
+  const hostList = rows => `<ul style="margin:8px 0 0;padding-left:18px;columns:2 220px">${rows.map(([h,n])=>`<li>${esc(h)} <span class="note">(${n})</span></li>`).join('')}</ul>`;
+  return head('Sources and credits','Who made what this site uses','Every outside source, with its licence or reuse terms. Counts show how many records cite each site.','about','var(--d7)') +
+  `<div class="grid g-2">
+  <section class="sheet">${H3('Risk taxonomies','The shared categories used to sort risks, incidents and measures.')}<p style="margin-top:6px">${esc(T.attribution)}</p><p class="note" style="margin-top:6px">Licence: <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>. Source: <a href="https://airisk.mit.edu/" target="_blank" rel="noopener">airisk.mit.edu</a></p></section>
+  <section class="sheet">${H3('Indian frameworks quoted','Government documents the risks are quoted from.')}<ul style="margin:8px 0 0;padding-left:18px">${D.frameworks.map(f=>`<li><a href="${esc(f.url)}" target="_blank" rel="noopener">${esc(f.title)}</a> <span class="note">${esc(f.issuer)}, ${esc(f.date)}</span></li>`).join('')}</ul></section>
+  <section class="sheet">${H3('Laws, rules and orders','Sites the legal records link to. Official copies are preferred; others are marked “to verify”.')}${hostList(hosts(D.instruments.flatMap(i=>[i.url, i.gazette_url].filter(Boolean))))}</section>
+  <section class="sheet">${H3('Incident reporting','News and legal-reporting sites behind the incident records. Short facts only; no article text is copied.')}${hostList(hosts(D.incidents.flatMap(i=>i.sources.map(s=>s.url))))}</section>
+  <section class="sheet">${H3('Global evidence','Technical reports cited and summarised, never copied in bulk.')}<ul style="margin:8px 0 0;padding-left:18px">${G.sources.map(s=>`<li><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a></li>`).join('')}</ul><p class="note" style="margin-top:6px">METR: cite and summarise only, with links. METR retains its rights.</p></section>
+  <section class="sheet">${H3('Fonts','Typefaces served by Google Fonts.')}<p style="margin-top:6px">Newsreader, IBM Plex Sans, IBM Plex Mono and Noto Serif Devanagari, under the SIL Open Font License 1.1.</p></section>
+  <section class="sheet">${H3('Planned sources, not used yet','Checked for reuse terms; nothing from them is on the site yet.')}<ul style="margin:8px 0 0;padding-left:18px">
+   <li>Epoch AI benchmark data (CC BY 4.0)</li><li>MITRE ATLAS (Apache 2.0)</li><li>AVID vulnerability database (MIT licence)</li><li>OWASP Top 10 for LLM Applications (CC BY-SA 4.0, kept in its own file)</li><li>Developer system cards and UK AI Security Institute reports (cite and summarise only)</li></ul></section>
+  <section class="sheet">${H3('This project','Data, code and how to cite it.')}<p style="margin-top:6px">Maintained by ${esc(D.meta.maintainer)}${D.meta.contact_email?` (<a href="mailto:${esc(D.meta.contact_email)}">${esc(D.meta.contact_email)}</a>)`:''}. Data CC BY 4.0, code MIT licence. <a href="${REPO}" target="_blank" rel="noopener">Code and data on GitHub</a> · cite using CITATION.cff in the repository.</p></section>
+  </div>`;
+};
+
+V['about-verification'] = () => {
+  const cnt = arr => ['yes','partial','no'].map(v=>[v, arr.filter(x=>x.verified===v).length]);
+  const order = {no:0, partial:1, yes:2};
+  const rows = [...D.instruments].sort((a,b)=>order[a.verified]-order[b.verified]||a.id.localeCompare(b.id));
+  return head('Verification status','What has been checked against official texts','“Verified” means the record was checked against an official copy. Everything else says what is missing.','about','var(--d7)') +
+  `<div class="grid g-2">
+   <section class="sheet">${H3('Laws, rules and orders',`${D.instruments.length} records.`)}<div class="row" style="margin-top:10px">${cnt(D.instruments).map(([v,n])=>`${vtag(v)} <b>${n}</b>`).join(' ')}</div></section>
+   <section class="sheet">${H3('Reporting authorities',`${D.authorities.length} records.`)}<div class="row" style="margin-top:10px">${cnt(D.authorities).map(([v,n])=>`${vtag(v)} <b>${n}</b>`).join(' ')}</div></section></div>
+  <section class="sheet" style="margin-top:14px">${H3('Every legal record','Sorted with the least verified first. Click a title to open the record in Explore.')}
+   <div class="tablewrap" style="margin-top:10px"><table><thead><tr><th>Record</th><th>Status</th><th>What is missing, or how it was checked</th></tr></thead><tbody>
+   ${rows.map(i=>`<tr><td style="min-width:200px"><button type="button" class="linkbtn" data-law="${i.id}">${esc(shortIns(i))}</button><div class="id">${i.id}${i.act_no?' · '+esc(i.act_no):''}${(i.notifications||[]).map(n=>' · '+esc(n.no)).join('')}</div></td><td>${vtag(i.verified)}${(i.cases||[]).map(c=>`<div class="note" style="margin-top:4px">Case: ${vtag(c.verified)}</div>`).join('')}</td><td style="min-width:260px">${esc(i.note)}</td></tr>`).join('')}
+   </tbody></table></div></section>
+  <details class="sheet more" style="margin-top:14px"><summary>Build warnings (${PAYLOAD.warnings.length})</summary><ul style="margin:8px 0 0;padding-left:18px;font-size:.88rem">${PAYLOAD.warnings.map(w=>`<li>${esc(w)}</li>`).join('')}</ul></details>
+  <p style="margin-top:14px"><a class="btn primary" href="${esc(correctUrl(''))}" target="_blank" rel="noopener">Suggest a correction</a> <span class="note">Opens a GitHub form asking only for a public source link, date and place.</span></p>`;
+};
 
 /* ---------- survey ---------- */
 const S = D.survey;
 let SV = {ready:false, canSave:false, code:'', db:null, user:null, uid:null, owner:false, mine:null, summary:null, all:null, msg:'', msgKind:''};
 const seg = (name, cur, labels) => `<div class="seg" role="radiogroup">${[1,2,3,4,5].map(v=>`<label data-tip="${esc(labels[v])}"><input type="radio" name="${name}" id="${name}-${v}" value="${v}" ${+cur===v?'checked':''}><span>${v}</span></label>`).join('')}</div>`;
-V.survey = () => {
+V['about-survey'] = () => {
   const m = SV.mine || {};
   const status = !SV.ready ? 'Connecting…' : (SV.canSave ? (SV.mine ? 'You have already answered. Submitting again replaces your answers.' : '') : 'Anyone can take part. When you submit, you will get a short response code to send to the researcher.');
   return head('Expert survey','Which AI risks matter most in India?', esc(S.intro)+' '+esc(S.privacy),'survey','var(--d2)') +
@@ -634,7 +775,7 @@ V.survey = () => {
   </form>
   <div class="stack" id="sv-results">${surveyResults()}</div></div>
   <section class="sheet" id="sv-codebox" style="margin-top:14px;border:2px solid var(--accent)" ${SV.code?'':'hidden'}><h3>Your response code</h3>
-   <p style="margin-top:6px">Copy this code and send it to the researcher who shared this page with you (by email, WhatsApp or any message). It contains only your survey answers, no name or account details.</p>
+   <p class="hint">Copy this code and send it to the researcher who shared this page with you (by email, WhatsApp or any message). It contains only your survey answers, no name or account details.</p>
    <textarea id="sv-code" readonly style="margin-top:10px;font-family:var(--f-mono);font-size:.78rem;min-height:110px">${esc(SV.code||'')}</textarea>
    <div class="row" style="margin-top:8px"><button type="button" class="btn primary" id="sv-copy">Copy code</button><span class="status-msg" id="sv-copymsg" role="status"></span></div></section>`;
 };
@@ -654,25 +795,25 @@ function riskMatrix(a){
 }
 function renderAgg(a, title){
   const top = Object.entries(a.top).sort((x,y)=>y[1]-x[1]).slice(0,8).map(([k,v])=>[k+' '+(SUB[k]?.name||''),v,dc(k)]);
-  return `<section class="sheet"><h3>${esc(title)}</h3><p class="note">${a.n} response${a.n===1?'':'s'} · updated ${esc((a.updated||'').slice(0,10))}</p>
+  return `<section class="sheet"><h3>${esc(title)}</h3><p class="hint">${a.n} response${a.n===1?'':'s'} · updated ${esc((a.updated||'').slice(0,10))}</p>
    ${riskMatrix(a)}
-   ${top.length?`<h3 style="margin-top:14px">Most-chosen priorities</h3><div style="margin-top:8px">${hbars(top)}</div>`:''}
-   ${Object.keys(a.groups).length?`<h3 style="margin-top:14px">Most vulnerable groups</h3><div style="margin-top:8px">${hbars(Object.entries(a.groups).sort((x,y)=>y[1]-x[1]).map(r=>[r[0],r[1],'var(--d5)']))}</div>`:''}
-   ${Object.keys(a.actors).length?`<h3 style="margin-top:14px">Most responsible actor</h3><div style="margin-top:8px">${hbars(Object.entries(a.actors).sort((x,y)=>y[1]-x[1]).map(r=>[r[0],r[1],'var(--d7)']))}</div>`:''}</section>`;
+   ${top.length?`${H3('Most-chosen priorities','Risk areas respondents ranked in their top three.','margin-top:14px')}<div style="margin-top:8px">${hbars(top)}</div>`:''}
+   ${Object.keys(a.groups).length?`${H3('Most vulnerable groups','Groups respondents named as most at risk.','margin-top:14px')}<div style="margin-top:8px">${hbars(Object.entries(a.groups).sort((x,y)=>y[1]-x[1]).map(r=>[r[0],r[1],'var(--d5)']))}</div>`:''}
+   ${Object.keys(a.actors).length?`${H3('Most responsible actor','Who respondents think should answer for these risks.','margin-top:14px')}<div style="margin-top:8px">${hbars(Object.entries(a.actors).sort((x,y)=>y[1]-x[1]).map(r=>[r[0],r[1],'var(--d7)']))}</div>`:''}</section>`;
 }
 function surveyResults(){
   let html = ''; const s = SV.summary;
   if(s && s.n >= 5) html += renderAgg(s, 'Published results');
-  else html += `<section class="sheet" style="text-align:center"><div style="display:flex;justify-content:center;margin-bottom:10px;color:var(--d2)">${svgIcon('survey',40)}</div><h3>Results appear here</h3><p style="margin-top:6px">${s ? `A summary of ${s.n} responses exists, but results are shown only once at least 5 people have answered.` : 'No results have been published yet. Results appear here once at least 5 practitioners have answered and the owner publishes a summary.'}</p><p class="note" style="margin-top:8px">They will show each domain on a severity × likelihood chart, plus the most-chosen priorities. Results describe the views of those who answer, not a representative sample.</p></section>`;
+  else html += `<section class="sheet" style="text-align:center"><div style="display:flex;justify-content:center;margin-bottom:10px;color:var(--d2)">${svgIcon('survey',40)}</div><h3>Results appear here</h3><p class="hint" style="margin-inline:auto">${s ? `A summary of ${s.n} responses exists, but results are shown only once at least 5 people have answered.` : 'No results have been published yet. Results appear here once at least 5 practitioners have answered and the owner publishes a summary.'}</p><p class="note" style="margin-top:8px">They will show each domain on a severity × likelihood chart, plus the most-chosen priorities. Results describe the views of those who answer, not a representative sample.</p></section>`;
   if(SV.owner){
     const rows = (SV.all||[]).filter(r=>r.consent);
     html += `<section class="sheet" style="border:2px solid var(--accent)"><span class="eyebrow" style="color:var(--accent)">Owner only</span><h3 style="margin-top:4px">Live responses</h3>
-     <p class="note" style="margin-top:4px">${SV.all? `${SV.all.length} stored, ${rows.length} with consent to publish.` : 'Loading…'}</p>
+     <p class="hint">${SV.all? `${SV.all.length} stored, ${rows.length} with consent to publish.` : 'Loading…'}</p>
      <label class="field" style="margin-top:12px">Import response codes from outside respondents (paste one or many)<textarea id="sv-import" placeholder="NETRA-IND-S1:..."></textarea></label>
      <div class="row" style="margin-top:10px"><button type="button" class="btn" id="sv-doimport">Import codes</button><button type="button" class="btn" id="sv-refresh">Refresh</button><button type="button" class="btn primary" id="sv-publish" ${rows.length?'':'disabled'}>Publish aggregate</button></div></section>`;
     if(rows.length) html += renderAgg(aggregate(rows), 'Live aggregate (not yet public)');
     const notes = (SV.all||[]).filter(r=>r.note);
-    if(notes.length) html += `<section class="sheet"><h3>Suggestions from respondents</h3><ul style="margin:8px 0 0;padding-left:18px">${notes.map(r=>`<li>${esc(r.note)} <span class="note">(${esc(r.role||'')})</span></li>`).join('')}</ul></section>`;
+    if(notes.length) html += `<section class="sheet">${H3('Suggestions from respondents','Free-text notes; only the owner sees these.')}<ul style="margin:8px 0 0;padding-left:18px">${notes.map(r=>`<li>${esc(r.note)} <span class="note">(${esc(r.role||'')})</span></li>`).join('')}</ul></section>`;
   }
   return html;
 }
@@ -685,11 +826,11 @@ async function initSurvey(){
       let can = null; try{ can = await user.can?.('data.write'); }catch(e){}
       SV.canSave = can !== false;
       try{ const mine = await db.doc('survey/'+SV.uid).get(); if(mine.exists) SV.mine = mine.data(); }catch(e){}
-      db.doc('public/summary').onSnapshot(s=>{ SV.summary = s.exists ? s.data() : null; if(state.view==='survey') refreshResults(); }, ()=>{});
+      db.doc('public/summary').onSnapshot(s=>{ SV.summary = s.exists ? s.data() : null; if(state.view==='about-survey') refreshResults(); }, ()=>{});
       if(SV.owner) await loadAll();
     }
   }catch(e){ SV.db = null; }
-  SV.ready = true; if(state.view==='survey') render();
+  SV.ready = true; if(state.view==='about-survey') render();
 }
 async function loadAll(){ try{ const q = await SV.db.collection('survey').get(); SV.all = q.docs.map(d=>d.data()); }catch(e){ SV.all = []; } }
 function refreshResults(){ const box = document.getElementById('sv-results'); if(box) box.innerHTML = surveyResults(); }
@@ -755,42 +896,78 @@ async function publishSummary(){
 }
 
 /* ---------- shell ---------- */
-function renderTabs(){ document.getElementById('tabs').innerHTML = TOOLS.map(([k,l])=>`<button type="button" data-go="${k}" ${state.view===k?'aria-current="page"':''}>${esc(l)}</button>`).join(''); }
+const TOUR = [
+  ['home','Home','The counter shows how many cases are tracked and how many a person has reviewed. Click any segment of the wheel to open that risk area.'],
+  ['explore-incidents','Explore','One searchable list. The switch changes between risks, incidents, laws and measures. Filters stay hidden until you click the Filters button.'],
+  ['analysis-dossiers','Analysis','NETRA dossiers trace each incident through 14 stages: location, laws that may apply, where to report, gaps, and what is still unknown.'],
+  ['about-verification','Verification status','Which legal records have been checked against official texts, and what is still missing for the rest.'],
+  ['about-credits','Sources and credits','Every outside source and licence. Spotted an error? Use “Suggest a correction” at the bottom of any page.']
+];
+function renderTabs(){ const tab = PAGES[state.view].tab; document.getElementById('tabs').innerHTML = TABS.map(([k,l,first])=>`<button type="button" data-go="${first}" ${tab===k?'aria-current="page"':''}>${esc(l)}</button>`).join(''); }
+function subnav(){ const tab = PAGES[state.view].tab; const pages = Object.entries(PAGES).filter(([k,p])=>p.tab===tab && p.sub);
+  return pages.length ? `<nav class="subnav" aria-label="${esc(tab)} pages">${pages.map(([k,p])=>`<button type="button" data-go="${k}" ${k===state.view?'aria-current="page"':''}>${esc(p.label)}</button>`).join('')}</nav>` : ''; }
 function countUp(){ if(reduce) return; document.querySelectorAll('[data-count]').forEach(el=>{ const n=+el.dataset.count, t0=performance.now(); const tick=t=>{ const p=Math.min(1,(t-t0)/700); el.textContent=Math.round(n*(1-Math.pow(1-p,3))); if(p<1) requestAnimationFrame(tick); }; requestAnimationFrame(tick); }); }
-function render(){ $view.innerHTML = `<div class="view">${V[state.view]()}</div>`; if(state.view==='home' && typeof requestAnimationFrame!=='undefined') countUp(); }
-function go(v, keepScroll){ state.view = v; try{ history.replaceState(null,'','#'+v); }catch(e){} renderTabs(); render(); hideTip(); if(!keepScroll) window.scrollTo(0,0); const cur = document.querySelector('nav.tabs [aria-current]'); cur?.scrollIntoView?.({inline:'center',block:'nearest'}); }
+function page(v){ return subnav() + V[v](); }
+function render(){ $view.innerHTML = `<div class="view">${page(state.view)}</div>`; if(state.view==='home' && typeof requestAnimationFrame!=='undefined') countUp(); }
+function go(v, keepScroll){ v = resolve(v) || 'home'; state.view = v; if(state.tour>=0 && TOUR[state.tour][0]!==v) state.tour = -1; try{ history.replaceState(null,'','#'+v); }catch(e){} renderTabs(); render(); hideTip(); if(!keepScroll) window.scrollTo(0,0); renderTour(); }
+function openLaw(id){ state.q = ''; state.f.laws = {}; go('explore-laws'); const el = document.getElementById('ins-'+id); if(el){ const d = el.querySelector('details'); if(d) d.open = true; el.scrollIntoView?.({block:'start'}); } }
+
+/* theme: dark by default; light is a per-reader choice, and is also used for printing */
+const $theme = document.getElementById('theme-btn');
+function setTheme(t, save){ const root = document.documentElement; if(root){ if(t==='light') root.setAttribute('data-theme','light'); else root.removeAttribute('data-theme'); }
+  /* the icon shows the mode a click switches to: a sun at night, a moon by day */
+  if($theme){ const next = t==='light' ? 'night' : 'day'; $theme.innerHTML = svgIcon(t==='light' ? 'moon' : 'sun', 18); $theme.setAttribute('aria-label', `Switch to ${next} mode`); $theme.setAttribute('title', `Switch to ${next} mode`); }
+  if(save){ try{ localStorage.setItem('netra-theme', t); }catch(e){} } }
+let savedTheme = 'dark'; try{ savedTheme = localStorage.getItem('netra-theme') || 'dark'; }catch(e){}
+setTheme(savedTheme==='light' ? 'light' : 'dark', false);
+
+/* guided tour: one card at a time, moving the page along with it */
+const $tour = document.getElementById('tour');
+function renderTour(){ if(!$tour) return; const k = state.tour; if(k<0){ $tour.hidden = true; return; } const [, t, d] = TOUR[k];
+  $tour.innerHTML = `<span class="eyebrow">Guided tour · ${k+1} of ${TOUR.length}</span><h3 id="tour-title" style="margin-top:4px">${esc(t)}</h3><p class="hint">${esc(d)}</p>
+   <div class="row"><button type="button" class="btn sm" data-tour="close">Close</button><span class="row">${k>0?'<button type="button" class="btn sm" data-tour="back">Back</button>':''}<button type="button" class="btn sm primary" data-tour="${k<TOUR.length-1?'next':'close'}">${k<TOUR.length-1?'Next':'Finish'}</button></span></div>`;
+  $tour.hidden = false; }
+function tour(step){ state.tour = step; if(step>=0) go(TOUR[step][0]); else renderTour(); }
+
 const $tip = document.getElementById('tip');
 function hideTip(){ $tip && $tip.classList.remove('show'); }
 document.addEventListener('pointerover', e => { const t = e.target.closest?.('[data-tip]'); if(!t){ hideTip(); return; } $tip.innerHTML = t.dataset.tip; $tip.classList.add('show'); });
 document.addEventListener('pointermove', e => { if(!$tip.classList.contains('show')) return; const w = $tip.offsetWidth, h = $tip.offsetHeight; let x = e.clientX+14, y = e.clientY+14; if(x+w>innerWidth-8) x = e.clientX-w-14; if(y+h>innerHeight-8) y = e.clientY-h-14; $tip.style.left = Math.max(8,x)+'px'; $tip.style.top = Math.max(8,y)+'px'; });
 document.addEventListener('click', e => {
-  const t = e.target.closest('[data-go],[data-sub],[data-dom],[data-inc],[data-scroll],[data-pill],[data-clear],#sv-refresh,#sv-publish,#sv-copy,#sv-doimport');
+  if(e.target.closest?.('#theme-btn')){ setTheme(document.documentElement.getAttribute('data-theme')==='light' ? 'dark' : 'light', true); return; }
+  const t = e.target.closest('[data-go],[data-sub],[data-dom],[data-inc],[data-law],[data-scroll],[data-pill],[data-clear],[data-filters],[data-tour],#sv-refresh,#sv-publish,#sv-copy,#sv-doimport');
   if(!t) return;
   if(t.id==='sv-copy'){ copyCode(); return; }
   if(t.id==='sv-doimport'){ importCodes(); return; }
   if(t.id==='sv-refresh'){ loadAll().then(refreshResults); return; }
   if(t.id==='sv-publish'){ publishSummary(); return; }
   e.preventDefault();
+  if(t.dataset.tour){ const a = t.dataset.tour; return tour(a==='start' ? 0 : a==='next' ? state.tour+1 : a==='back' ? state.tour-1 : -1); }
   if(t.dataset.go) return go(t.dataset.go);
-  if(t.dataset.clear){ state.f[state.view] = {}; return render(); }
+  if(t.dataset.filters){ state.showFilters = !state.showFilters; return render(); }
+  if(t.dataset.clear){ const kind = PAGES[state.view].kind; if(kind) state.f[kind] = {}; state.q = ''; return render(); }
   if(t.dataset.pill){ const box = t.closest('[data-fview]').dataset.fview, cur = (state.f[box]||{})[t.dataset.pill]; state.f[box] = {...(state.f[box]||{}), [t.dataset.pill]: cur===t.dataset.v ? '' : t.dataset.v}; return render(); }
-  if(t.dataset.sub){ state.sub = t.dataset.sub; return go('navigator', state.view==='navigator'); }
-  if(t.dataset.dom){ state.sub = DOM[t.dataset.dom].subs[0].id; return go('navigator', state.view==='navigator'); }
-  if(t.dataset.inc){ state.inc = t.dataset.inc; return go('netra', state.view==='netra'); }
+  if(t.dataset.sub){ state.sub = t.dataset.sub; return go('explore-area', state.view==='explore-area'); }
+  if(t.dataset.dom){ state.sub = DOM[t.dataset.dom].subs[0].id; return go('explore-area', state.view==='explore-area'); }
+  if(t.dataset.inc){ state.inc = t.dataset.inc; return go('analysis-dossiers', state.view==='analysis-dossiers'); }
+  if(t.dataset.law) return openLaw(t.dataset.law);
   if(t.dataset.scroll){ const el = document.getElementById(t.dataset.scroll); if(el){ const d = el.querySelector('details'); if(d) d.open = true; el.scrollIntoView({block:'start', behavior: reduce?'auto':'smooth'}); el.animate?.([{boxShadow:'0 0 0 4px var(--accent)'},{boxShadow:'0 0 0 0 transparent'}],{duration:1200}); } }
 });
-document.addEventListener('keydown', e => { if((e.key==='Enter'||e.key===' ') && e.target.matches?.('.brand')){ e.preventDefault(); go('home'); } });
+document.addEventListener('keydown', e => { if((e.key==='Enter'||e.key===' ') && e.target.matches?.('.brand')){ e.preventDefault(); go('home'); } if(e.key==='Escape' && state.tour>=0) tour(-1); });
 document.addEventListener('input', e => {
+  if(e.target.dataset?.q){ state.q = e.target.value; clearTimeout(window.__t); window.__t = setTimeout(()=>{ const pos = e.target.selectionStart; render(); const s = document.getElementById('q'); if(s){ s.focus(); s.setSelectionRange(pos,pos);} }, 250); return; }
   const box = e.target.closest('[data-fview]'); if(!box || !e.target.dataset.k) return;
   const v = box.dataset.fview; state.f[v] = {...(state.f[v]||{}), [e.target.dataset.k]: e.target.value};
-  if(e.target.type==='search'){ clearTimeout(window.__t); window.__t = setTimeout(()=>{ const pos = e.target.selectionStart; render(); const s = document.querySelector(`[data-fview="${v}"] input[type=search]`); if(s){ s.focus(); s.setSelectionRange(pos,pos);} }, 250); }
-  else render();
+  render();
 });
 document.addEventListener('change', e => { if(e.target.id==='nav-sub' && e.target.value){ state.sub = e.target.value; render(); } });
 document.addEventListener('submit', e => { if(e.target.id==='survey-form') submitSurvey(e); });
+window.addEventListener?.('hashchange', () => { const v = resolve((location.hash||'').slice(1)); if(v && v!==state.view) go(v); });
 (function logo(){ const g = document.getElementById('logo-iris'); if(!g) return; let s=''; for(let k=0;k<7;k++){ const a0=-Math.PI/2+k*2*Math.PI/7+0.06, a1=a0+2*Math.PI/7-0.12; s+=`<path d="${arc(19,19,5.4,9.6,a0,a1)}" fill="var(--d${k+1})"/>`; } g.innerHTML = s; })();
-document.getElementById('built').textContent = `Data built ${PAYLOAD.built}. ${D.meta.status}`;
+document.getElementById('built').textContent = `Data updated ${D.meta.updated}; page built ${PAYLOAD.built}. ${D.meta.status}`;
+for(const [id, href] of [['foot-correct', correctUrl('')], ['foot-code', REPO]]){ const a = document.getElementById(id); if(a) a.href = href; }
+if(h0 && LEGACY[h0]){ try{ history.replaceState(null,'','#'+state.view); }catch(e){} }
 renderTabs(); render(); initSurvey();
-window.__NETRA = {state, V, go, aggregate, SV, encodeAnswers, decodeCodes};
+window.__NETRA = {state, V, PAGES, LEGACY, resolve, page, go, aggregate, SV, encodeAnswers, decodeCodes, TOUR};
 })();
 </script>

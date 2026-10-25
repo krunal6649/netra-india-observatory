@@ -1,5 +1,32 @@
 # Changelog
 
+## v0.2-dev (unreleased) — Phase 2: cleaner look and navigation
+- **Dark mode by default.** A sun / moon icon at the top right, grouped with Guided tour and Credits, switches between
+  night and day; printing always uses the day colours.
+- **Title:** "नेत्र" with the eye icon, plus "India AI Risk Observatory". No other Devanagari on the site (checked by the smoke test).
+- **11 tabs replaced by 4:** Home, Explore, Analysis, About.
+  - Explore: one searchable list with a Risks / Incidents / Laws / Measures switch, and one Filters button that hides the
+    filters until clicked. Timelines moved into "Show timeline". The risk wheel still opens a single risk area.
+  - Analysis: NETRA dossiers, Gap register, Report generator and Model register. The last two are marked "Not built yet".
+  - About: Method, Sources and credits (new), Verification status (new), Expert survey, Global evidence.
+- **Home:** headline, then one "cases tracked" counter computed from the data (reviewed and unreviewed, with the data
+  update date from the new `meta.updated` field). The separate risks, incidents, laws, measures and gaps stat boxes
+  are gone. The wheel's centre now shows the 24 risk areas, so the case count appears only once.
+- One-line explanation under every heading (checked by the smoke test). Guided tour (5 steps) and Credits buttons.
+- **Old links still work:** `#navigator`, `#risks`, `#incidents`, `#governance`, `#mitigations`, `#netra`, `#gaps`,
+  `#evidence`, `#survey` and `#about` open the matching new page. New pages have their own links, e.g. `#explore-laws`.
+- Law cards now show the Phase 1 fields: Act number, Gazette notifications, court decisions with their own
+  verification label, Gazette copy link and date checked.
+- **Suggest a correction:** GitHub issue form (`.github/ISSUE_TEMPLATE/correction.yml`) asking only for a public source
+  link, date and place; linked in the footer, on About and on each incident and law record. Not for live incident
+  reporting; nothing changes until the maintainer reviews it.
+- Credits line on Analysis pages and Global evidence; README, link-preview image (`og-image.png`) and README
+  screenshot (`netra-hero.png`) updated. `netra-x-16x9.png` and `netra-timeline.png` still show the v0.1 look.
+- **Maintainer and contact** box at the top of About › Method (name, title, email, corrections, GitHub), the same
+  details under Sources and credits, and a "Contact the maintainer" link in the footer. Email stored as `meta.contact_email`.
+- Build: `meta.updated` must be an ISO date and `meta.contact_email` a plain email address. Smoke test rewritten for
+  the new pages (79 checks); 2 new unit tests.
+
 ## v0.2-dev (unreleased) — Phase 1: verification (data only)
 - **Verified (owner checked against the India Code PDF):** G-BNS (Act 45 of 2023; ss.77, 308, 318, 319, 335, 336,
   340, 351, 353, 356) and G-BSA (Act 47 of 2023; ss.61–63; Schedule certificate Parts A and B with hash value).
