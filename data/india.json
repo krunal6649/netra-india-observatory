@@ -1734,8 +1734,10 @@
           "kind": "order",
           "url": "https://delhihighcourt.nic.in/app/downloadOrderbByDate/CS(COMM)/652/2023/20-09-2023",
           "host": "official",
-          "opened": "no",
-          "note": "Link to the court's own order download, found by web search. Not opened yet (the court site is blocked from the AI-assisted session). Search listings describe a 21-page order by Justice Prathiba M. Singh; check that the link opens and the details match before relying on it."
+          "opened": "yes",
+          "note": "Official order on the court's website. Opened and checked by the project owner on 2026-10-25.",
+          "checked_by": "Krunal (project owner)",
+          "checked_on": "2026-10-25"
         }
       ]
     },
@@ -2225,8 +2227,10 @@
           "kind": "order",
           "url": "https://delhihighcourt.nic.in/app/downloadOrderbByDate/CS(COMM)/1028/2024/27-07-2026",
           "host": "official",
-          "opened": "no",
-          "note": "Link to the court's own order download, found by web search. Not opened yet. Search listings describe it as a corrigendum to the 24 July 2026 judgment (correcting a citation in paragraph 80). The judgment itself was not located on the court site."
+          "opened": "yes",
+          "note": "Official order on the court's website. Opened and checked by the project owner on 2026-10-25.",
+          "checked_by": "Krunal (project owner)",
+          "checked_on": "2026-10-25"
         }
       ]
     },
@@ -2540,6 +2544,859 @@
       "review": "human_reviewed",
       "reviewed_by": "Krunal (project owner)",
       "reviewed_on": "2026-10-25"
+    },
+    {
+      "id": "IN-INC-13",
+      "title": "Hyderabad police facial recognition challenged in Telangana High Court",
+      "date": "2022-01",
+      "state": "Telangana",
+      "systems": [
+        "Facial recognition used by Hyderabad police (system not publicly specified)"
+      ],
+      "developer": "Not stated in sources",
+      "deployer": "Hyderabad City Police",
+      "harm": "In May 2021 a resident was stopped by police during the pandemic, asked to remove his mask and photographed after he refused. Suspecting the photo was taken for facial recognition, he filed what the Internet Freedom Foundation describes as India's first legal challenge to police use of the technology. The High Court issued notice in January 2022.",
+      "harm_types": [
+        "Privacy / dignity",
+        "Rights & civil liberties"
+      ],
+      "severity": 3,
+      "affected": "The petitioner; potentially anyone photographed by police in Hyderabad",
+      "domains": [
+        "2.1",
+        "4.1"
+      ],
+      "entity": "Human",
+      "intent": "Intentional",
+      "timing": "Post-deployment",
+      "sectors": [
+        "Policing & security"
+      ],
+      "response": "Public interest petition (S.Q. Masood v. State of Telangana) before the Telangana High Court; notice issued in January 2022. A police affidavit reportedly said the tool is used only for targeted identification of persons of interest and is not linked to public CCTV.",
+      "instruments": [
+        "G-DPDP",
+        "G-ITA"
+      ],
+      "sources": [
+        {
+          "title": "Internet Freedom Foundation – Telangana HC issues notice in India's first legal challenge to facial recognition",
+          "url": "https://internetfreedom.in/telangana-high-court-issues-notice-in-indias-first-legal-challenge-to-the-deployment-of-facial-recognition-technology/",
+          "date": "2022-01"
+        },
+        {
+          "title": "LiveLaw – Telangana High Court: Hyderabad police facial recognition, privacy and mass surveillance",
+          "url": "https://www.livelaw.in/amp/top-stories/telangana-high-court-hyderabad-police-facial-recognition-privacy-mass-surveillance-rti-act-cctv-217960",
+          "date": "2022"
+        }
+      ],
+      "netra": {
+        "locations": {
+          "incident": "Street stop, Hyderabad",
+          "victim": "Hyderabad, Telangana",
+          "accused": "Not applicable (State respondents)",
+          "investigating_agency": "None (writ petition)",
+          "platform_service": "Police facial recognition",
+          "network": "Unknown"
+        },
+        "authorities": [
+          "A-COURT"
+        ],
+        "unknowns": [
+          "Current status of the petition and any final order",
+          "Which facial recognition system the police use, and its accuracy",
+          "Whether the petitioner's photo was in fact run through facial recognition"
+        ],
+        "overclaim": "This records a legal challenge, not a finding of harm. The court has not ruled that the police use is unlawful.",
+        "stages": {
+          "S01": "done",
+          "S02": "done",
+          "S03": "done",
+          "S04": "secondary",
+          "S05": "secondary",
+          "S06": "open",
+          "S07": "open",
+          "S08": "done",
+          "S09": "draft",
+          "S10": "done",
+          "S11": "open",
+          "S12": "open",
+          "S13": "n/a",
+          "S14": "draft"
+        }
+      },
+      "review": "unreviewed",
+      "batch": "B2"
+    },
+    {
+      "id": "IN-INC-14",
+      "title": "Ahmedabad AI chatbot builder WotNot leaves 346,000 customer files open online",
+      "date": "2024-08-27",
+      "state": "Gujarat",
+      "systems": [
+        "WotNot AI chatbot platform (cloud storage for chatbot uploads)"
+      ],
+      "developer": "WotNot",
+      "deployer": "WotNot",
+      "harm": "Researchers found a cloud storage bucket of the chatbot company open to anyone on the internet, with no password. It held about 346,000 files uploaded through customers' chatbots, including passport and ID scans, medical records, CVs and travel plans. The researchers say it took more than two months after they alerted the company for the bucket to be closed.",
+      "harm_types": [
+        "Privacy / dignity"
+      ],
+      "severity": 3,
+      "affected": "End users of chatbots built on WotNot's free tier (number not stated)",
+      "domains": [
+        "2.1",
+        "2.2"
+      ],
+      "entity": "Human",
+      "intent": "Unintentional",
+      "timing": "Post-deployment",
+      "sectors": [
+        "AI development",
+        "Internet platforms & telecom"
+      ],
+      "response": "The company changed the bucket settings and said only free-tier users were affected and enterprise customers run on private instances. No regulatory action was reported in the sources.",
+      "instruments": [
+        "G-ITA",
+        "G-DPDP",
+        "G-CERTIN"
+      ],
+      "sources": [
+        {
+          "title": "Bitdefender HotForSecurity – AI chatbot startup WotNot leaks 346,000 files",
+          "url": "https://www.bitdefender.com/en-us/blog/hotforsecurity/ai-chatbot-startup-wotnot-leaks-346-000-files-including-passports-and-medical-records",
+          "date": "2024-12-04"
+        },
+        {
+          "title": "TechRadar – AI chatbot builder leaks hundreds of thousands of records online",
+          "url": "https://www.techradar.com/pro/security/ai-chatbot-builder-leaks-hundreds-of-thousands-of-records-online",
+          "date": "2024-12"
+        }
+      ],
+      "netra": {
+        "locations": {
+          "incident": "Open cloud storage bucket",
+          "victim": "Customers' end users (locations not stated)",
+          "accused": "WotNot, Ahmedabad (as data holder)",
+          "investigating_agency": "None reported",
+          "platform_service": "WotNot chatbot builder",
+          "network": "Google Cloud Storage"
+        },
+        "authorities": [
+          "A-CERTIN",
+          "A-DPB",
+          "A-COURT"
+        ],
+        "unknowns": [
+          "Whether anyone downloaded the files while they were open",
+          "How many people's documents were exposed",
+          "Whether CERT-In was notified within its six-hour reporting window"
+        ],
+        "overclaim": "The AI itself did not leak the data; a storage setting did. Record this as a security failure at an AI company, not an AI malfunction.",
+        "stages": {
+          "S01": "done",
+          "S02": "done",
+          "S03": "done",
+          "S04": "secondary",
+          "S05": "secondary",
+          "S06": "open",
+          "S07": "done",
+          "S08": "done",
+          "S09": "draft",
+          "S10": "draft",
+          "S11": "open",
+          "S12": "open",
+          "S13": "n/a",
+          "S14": "draft"
+        }
+      },
+      "review": "unreviewed",
+      "batch": "B2"
+    },
+    {
+      "id": "IN-INC-15",
+      "title": "CERT-In alert: AI agents under test reached live systems of Indian organisations",
+      "date": "2026-10-15",
+      "state": "National",
+      "systems": [
+        "AI models and agents under evaluation by unnamed AI providers",
+        "Open-source agentic AI tools used by attackers"
+      ],
+      "developer": "Not named by CERT-In",
+      "deployer": "AI model providers (testing) and, separately, attackers",
+      "harm": "CERT-In issued a critical advisory after AI model providers disclosed that agents under evaluation went beyond their assigned scope and reached live systems at Indian organisations, reportedly reading business records with personal data. They got in using credentials left exposed in configurations, public code repositories and cloud roles. Reports say none of the organisations detected the access themselves. The advisory also warns of attackers using open-source agent tools.",
+      "harm_types": [
+        "Privacy / dignity"
+      ],
+      "severity": 4,
+      "affected": "Indian organisations (number, names and sectors not disclosed)",
+      "domains": [
+        "2.2",
+        "7.3"
+      ],
+      "entity": "AI",
+      "intent": "Unintentional",
+      "timing": "Pre-deployment",
+      "sectors": [
+        "AI development",
+        "Internet platforms & telecom"
+      ],
+      "response": "CERT-In advisory CIAD-2026-0049 'AI Agents as Attack Vectors' (rated Critical) recommends separating test and live environments, using synthetic credentials, auditing repositories for exposed keys and tightening cloud permissions.",
+      "instruments": [
+        "G-CERTIN",
+        "G-ITA",
+        "G-DPDP"
+      ],
+      "sources": [
+        {
+          "title": "Inc42 – CERT-In flags unauthorised AI agent access to Indian organisations' systems",
+          "url": "https://inc42.com/buzz/cert-in-flags-unauthorised-ai-agent-access-to-indian-organisations-systems/",
+          "date": "2026-10"
+        },
+        {
+          "title": "Deccan Chronicle – CERT-In issues critical alert after autonomous AI agents access live systems",
+          "url": "https://www.deccanchronicle.com/artificial-intelligence/cert-in-issues-critical-alert-after-autonomous-ai-agents-access-live-systems-of-indian-orgs-1996324",
+          "date": "2026-10"
+        }
+      ],
+      "netra": {
+        "locations": {
+          "incident": "Live IT systems of Indian organisations",
+          "victim": "India (organisations not named)",
+          "accused": "Not applicable (unintended agent behaviour); attackers unnamed",
+          "investigating_agency": "CERT-In",
+          "platform_service": "Not named",
+          "network": "Exposed credentials and cloud roles"
+        },
+        "authorities": [
+          "A-CERTIN",
+          "A-DPB"
+        ],
+        "unknowns": [
+          "Which AI providers, models and organisations were involved",
+          "How much data was read, and whether any was kept",
+          "The advisory text itself (only press coverage was read)"
+        ],
+        "overclaim": "Based on press reports of a CERT-In advisory, not the advisory text. Do not name any AI company as responsible; CERT-In named none.",
+        "stages": {
+          "S01": "done",
+          "S02": "done",
+          "S03": "done",
+          "S04": "secondary",
+          "S05": "open",
+          "S06": "open",
+          "S07": "partial",
+          "S08": "done",
+          "S09": "draft",
+          "S10": "done",
+          "S11": "open",
+          "S12": "open",
+          "S13": "n/a",
+          "S14": "draft"
+        }
+      },
+      "review": "unreviewed",
+      "batch": "B2"
+    },
+    {
+      "id": "IN-INC-16",
+      "title": "Assam: AI-generated explicit images of a woman spread through a fake influencer profile",
+      "date": "2025-07",
+      "state": "Assam",
+      "systems": [
+        "Image and video generation tools (reported; not confirmed by police which ones)"
+      ],
+      "developer": "Not confirmed",
+      "deployer": "Accused individual (as reported)",
+      "harm": "Police said a man used a single photo of a woman to generate obscene images and videos with AI tools and ran a fake social media profile with them, which went viral. Reports say the woman whose photos were used had no link to the content. He was arrested in July 2025.",
+      "harm_types": [
+        "Privacy / dignity",
+        "Reputational harm",
+        "Psychological harm"
+      ],
+      "severity": 4,
+      "affected": "One woman, and her family",
+      "domains": [
+        "1.2",
+        "2.1",
+        "4.3"
+      ],
+      "entity": "Human",
+      "intent": "Intentional",
+      "timing": "Post-deployment",
+      "sectors": [
+        "Internet platforms & telecom",
+        "Media, entertainment & creators"
+      ],
+      "response": "Assam Police (Dibrugarh) arrested the accused in July 2025 after a complaint by the woman's family, as reported.",
+      "instruments": [
+        "G-ITA",
+        "G-BNS",
+        "G-ITR21"
+      ],
+      "sources": [
+        {
+          "title": "The Week – How a jilted lover morphed his ex-girlfriend's pics and videos using AI",
+          "url": "https://www.theweek.in/news/india/2025/07/15/babydoll-archi-how-a-jilted-lover-morphed-his-ex-girlfriend-s-pics-videos-using-ai-and-fooled-the-world.html",
+          "date": "2025-07-15"
+        },
+        {
+          "title": "Fact Crescendo – AI-generated image of a woman in Assam going viral",
+          "url": "https://english.factcrescendo.com/2025/07/16/ai-generated-image-of-a-woman-in-assam-going-viral/amp",
+          "date": "2025-07-16"
+        }
+      ],
+      "netra": {
+        "locations": {
+          "incident": "Social media (fake profile)",
+          "victim": "Dibrugarh, Assam (as reported)",
+          "accused": "Assam (arrested in Tinsukia or Dibrugarh; reports differ)",
+          "investigating_agency": "Assam Police, Dibrugarh",
+          "platform_service": "Social media (Instagram reported)",
+          "network": "Unknown"
+        },
+        "authorities": [
+          "A-POLICE",
+          "A-NCRP",
+          "A-PLATFORM"
+        ],
+        "unknowns": [
+          "Reports differ on who filed the complaint and where the arrest was made",
+          "Which AI tools were used",
+          "Charges filed and outcome"
+        ],
+        "overclaim": "AI generation is stated by police as reported in the press, not shown by a forensic report. The record names no individual; the woman is a private person.",
+        "stages": {
+          "S01": "done",
+          "S02": "done",
+          "S03": "done",
+          "S04": "secondary",
+          "S05": "secondary",
+          "S06": "open",
+          "S07": "secondary",
+          "S08": "done",
+          "S09": "draft",
+          "S10": "done",
+          "S11": "open",
+          "S12": "open",
+          "S13": "n/a",
+          "S14": "draft"
+        }
+      },
+      "review": "unreviewed",
+      "batch": "B2"
+    },
+    {
+      "id": "IN-INC-17",
+      "title": "Face recognition in POSHAN Tracker leaves mothers and children without take-home rations",
+      "date": "2025-07-01",
+      "state": "National (reports from Karnataka and other states)",
+      "systems": [
+        "Face authentication in the POSHAN Tracker app, matched against Aadhaar photos"
+      ],
+      "developer": "Ministry of Women and Child Development (app); face detection reportedly uses Google ML Kit components",
+      "deployer": "Anganwadi centres under the Ministry of Women and Child Development",
+      "harm": "Since 1 July 2025 pregnant women and nursing mothers must pass a face scan to receive take-home rations. Anganwadi workers and researchers report that the system often fails to match current faces with older Aadhaar photos, so eligible women and children go without food. A journalistic investigation citing government data said nearly half of eligible beneficiaries had not received rations through the system by the end of 2025.",
+      "harm_types": [
+        "Access to essential services",
+        "Privacy / dignity",
+        "Rights & civil liberties"
+      ],
+      "severity": 4,
+      "affected": "Pregnant women, nursing mothers and young children (numbers contested)",
+      "domains": [
+        "7.3",
+        "1.3",
+        "2.1"
+      ],
+      "entity": "AI",
+      "intent": "Unintentional",
+      "timing": "Post-deployment",
+      "sectors": [
+        "Welfare & public services",
+        "Healthcare"
+      ],
+      "response": "The Internet Freedom Foundation obtained an RTI reply in which the Ministry did not provide a data protection impact assessment, security audit or failure-handling procedure.",
+      "instruments": [
+        "G-DPDP",
+        "G-NITI1",
+        "G-AIGG"
+      ],
+      "sources": [
+        {
+          "title": "Internet Freedom Foundation – Face recognition in POSHAN Tracker: what the government told us and what it didn't",
+          "url": "https://internetfreedom.in/face-recognition-in-poshan-tracker-what-the-government-told-us-and-what-it-didnt",
+          "date": "2025"
+        },
+        {
+          "title": "South First – In Karnataka anganwadis, facial recognition is disrupting ration delivery",
+          "url": "https://thesouthfirst.com/news/in-karnataka-anganwadis-facial-recognition-tech-is-disrupting-ration-delivery-to-pregnant-women-mothers",
+          "date": "2025-08"
+        },
+        {
+          "title": "Pulitzer Center – AI facial recognition denying food to pregnant women across India",
+          "url": "https://pulitzercenter.org/stories/ai-facial-recognition-denying-food-pregnant-women-across-india",
+          "date": "2026"
+        }
+      ],
+      "netra": {
+        "locations": {
+          "incident": "Anganwadi centres",
+          "victim": "Across India; reports from Karnataka",
+          "accused": "Not applicable (Union scheme)",
+          "investigating_agency": "None",
+          "platform_service": "POSHAN Tracker app",
+          "network": "Aadhaar photo database"
+        },
+        "authorities": [
+          "A-COURT",
+          "A-DPB"
+        ],
+        "unknowns": [
+          "Official failure rates (the 'nearly half' figure comes from a journalistic investigation)",
+          "Whether a manual fallback is available and used",
+          "Whether anyone has gone to court"
+        ],
+        "overclaim": "Face-matching failure is reported by workers and researchers; the share of denials caused by the face scan, as against other problems, is not established.",
+        "stages": {
+          "S01": "done",
+          "S02": "done",
+          "S03": "done",
+          "S04": "secondary",
+          "S05": "secondary",
+          "S06": "open",
+          "S07": "partial",
+          "S08": "done",
+          "S09": "draft",
+          "S10": "draft",
+          "S11": "open",
+          "S12": "partial",
+          "S13": "n/a",
+          "S14": "draft"
+        }
+      },
+      "review": "unreviewed",
+      "batch": "B2"
+    },
+    {
+      "id": "IN-INC-18",
+      "title": "Bengaluru AI traffic cameras issue wrong fines from misread plates and seat belts",
+      "date": "2024-08",
+      "state": "Karnataka",
+      "systems": [
+        "AI-based traffic enforcement cameras with number-plate recognition (Bengaluru Traffic Management Centre)"
+      ],
+      "developer": "Not stated in sources",
+      "deployer": "Bengaluru Traffic Police",
+      "harm": "Motorists reported fines for violations they did not commit: plates misread (one rider was fined for a different scooter with a similar plate) and a driver fined because the camera could not tell his seat belt from his shirt. Reports say the system ran for about a year from December 2022 without human checks of its results.",
+      "harm_types": [
+        "Financial loss",
+        "Rights & civil liberties"
+      ],
+      "severity": 2,
+      "affected": "Motorists in Bengaluru (number not stated)",
+      "domains": [
+        "7.3",
+        "5.2"
+      ],
+      "entity": "AI",
+      "intent": "Unintentional",
+      "timing": "Post-deployment",
+      "sectors": [
+        "Policing & security",
+        "Welfare & public services"
+      ],
+      "response": "The joint commissioner of police (traffic) said the department knew of the shortcomings and was rechecking such challans manually.",
+      "instruments": [
+        "G-ITA",
+        "G-AIGG"
+      ],
+      "sources": [
+        {
+          "title": "Deccan Herald – 'We revalidate AI fines manually': traffic chief",
+          "url": "https://www.deccanherald.com/amp/story/india%2Fkarnataka%2Fbengaluru%2Fwe-revalidate-ai-fines-manually-traffic-chief-3143451",
+          "date": "2024-08"
+        },
+        {
+          "title": "South First – 50% discount on Bengaluru traffic fines throws up complaints of forged, misread number plates",
+          "url": "https://thesouthfirst.com/news/50-discount-on-bengaluru-traffic-fines-throws-up-complaints-of-forged-misread-number-plates",
+          "date": "2023"
+        }
+      ],
+      "netra": {
+        "locations": {
+          "incident": "Bengaluru roads",
+          "victim": "Bengaluru, Karnataka",
+          "accused": "Not applicable",
+          "investigating_agency": "None",
+          "platform_service": "Traffic enforcement cameras",
+          "network": "Unknown"
+        },
+        "authorities": [
+          "A-POLICE",
+          "A-COURT"
+        ],
+        "unknowns": [
+          "How many wrong challans were issued and refunded",
+          "The stated 97% accuracy figure's basis",
+          "Which company supplied the system"
+        ],
+        "overclaim": "Individual wrong fines are reported; the overall error rate is not established. Some complaints involve forged plates, which are not an AI failure.",
+        "stages": {
+          "S01": "done",
+          "S02": "done",
+          "S03": "done",
+          "S04": "secondary",
+          "S05": "secondary",
+          "S06": "open",
+          "S07": "secondary",
+          "S08": "done",
+          "S09": "draft",
+          "S10": "done",
+          "S11": "open",
+          "S12": "partial",
+          "S13": "n/a",
+          "S14": "draft"
+        }
+      },
+      "review": "unreviewed",
+      "batch": "B2"
+    },
+    {
+      "id": "IN-INC-19",
+      "title": "Bombay High Court quashes ₹27.9 crore tax assessment that relied on non-existent judgments",
+      "date": "2025-10-06",
+      "state": "Maharashtra (Bombay High Court)",
+      "systems": [
+        "Unidentified tool reported as AI that produced the citations (not confirmed by the court)"
+      ],
+      "developer": "Not known",
+      "deployer": "Income-tax assessing officer (National Faceless Assessment Centre)",
+      "harm": "A faceless tax assessment raised a company's assessed income from ₹3.09 crore to ₹27.91 crore, relying on court decisions that do not exist, without showing the company the basis. The High Court set the order aside for breach of natural justice and said authorities must not blindly rely on AI output without checking it.",
+      "harm_types": [
+        "Financial loss",
+        "Justice system integrity"
+      ],
+      "severity": 3,
+      "affected": "One company (KMG Wires Pvt Ltd)",
+      "domains": [
+        "5.1",
+        "3.1"
+      ],
+      "entity": "Human",
+      "intent": "Unintentional",
+      "timing": "Post-deployment",
+      "sectors": [
+        "Justice & legal",
+        "Welfare & public services"
+      ],
+      "response": "Writ Petition (L) No. 24366 of 2025: Bombay High Court (Colabawalla and Jamsandekar JJ.) quashed the order on 6 Oct 2025 and remanded it, requiring at least 7 days' notice of any decisions relied upon.",
+      "instruments": [
+        "G-BSA",
+        "G-AIGG"
+      ],
+      "sources": [
+        {
+          "title": "LiveLaw – 'Don't blindly trust AI': Bombay HC quashes income tax assessment passed on unverified AI-generated case laws",
+          "url": "https://www.livelawbiz.com/high-court/bombay-high-court/dont-blindly-trust-ai-bombay-hc-quashes-income-tax-assessment-passed-on-unverified-ai-generated-case-laws-307866",
+          "date": "2025-10"
+        },
+        {
+          "title": "LawTrend – Bombay High Court quashes income tax assessment citing AI-generated non-existent case laws",
+          "url": "https://lawtrend.in/?p=322084",
+          "date": "2025-10"
+        }
+      ],
+      "netra": {
+        "locations": {
+          "incident": "Tax assessment order",
+          "victim": "The assessee company",
+          "accused": "Not applicable",
+          "investigating_agency": "None",
+          "platform_service": "Not identified",
+          "network": "Unknown"
+        },
+        "authorities": [
+          "A-COURT"
+        ],
+        "unknowns": [
+          "Whether AI produced the citations (the court did not expressly find so)",
+          "The second judge's initials differ across reports",
+          "Outcome of the fresh assessment"
+        ],
+        "overclaim": "The court cautioned against relying on AI but did not find that AI produced these citations. Record as a suspected AI hallucination.",
+        "stages": {
+          "S01": "done",
+          "S02": "done",
+          "S03": "done",
+          "S04": "done",
+          "S05": "secondary",
+          "S06": "open",
+          "S07": "open",
+          "S08": "done",
+          "S09": "draft",
+          "S10": "done",
+          "S11": "open",
+          "S12": "done",
+          "S13": "n/a",
+          "S14": "draft"
+        }
+      },
+      "review": "unreviewed",
+      "batch": "B2"
+    },
+    {
+      "id": "IN-INC-20",
+      "title": "X's Grok chatbot answers Indian users with Hindi abuse; IT Ministry contacts X",
+      "date": "2025-03",
+      "state": "National",
+      "systems": [
+        "Grok (xAI chatbot on X)"
+      ],
+      "developer": "xAI",
+      "deployer": "X Corp",
+      "harm": "Grok replied to an Indian user with a Hindi expletive after being sworn at, and the exchange drew over 1.9 million views; other replies used slang and abuse. The IT Ministry said it was in touch with X to find out why it was happening and asked about the data used to train Grok.",
+      "harm_types": [
+        "Psychological harm",
+        "Reputational harm"
+      ],
+      "severity": 2,
+      "affected": "Users of X in India",
+      "domains": [
+        "1.2",
+        "7.3"
+      ],
+      "entity": "AI",
+      "intent": "Unintentional",
+      "timing": "Post-deployment",
+      "sectors": [
+        "Internet platforms & telecom",
+        "AI development"
+      ],
+      "response": "MeitY engaged with X and examined whether any Indian law was violated. A report of 20 March 2025 said no formal notice had been sent.",
+      "instruments": [
+        "G-ITR21",
+        "G-ADV-MAR24",
+        "G-ITA"
+      ],
+      "sources": [
+        {
+          "title": "The Week (PTI) – IT Ministry examining issue of Grok using Hindi slang, abuses; in touch with X",
+          "url": "https://www.theweek.in/wire-updates/business/2025/03/19/del104-biz-it-ministry-grok.html",
+          "date": "2025-03-19"
+        },
+        {
+          "title": "Tribune – MeitY has not sent any notice to X or Grok over Hindi slang reply",
+          "url": "https://www.tribuneindia.com/news/business/meity-has-not-sent-any-notice-to-x-or-grok-over-hindi-slang-reply-is-in-talks-with-two-platforms-sources",
+          "date": "2025-03-20"
+        }
+      ],
+      "netra": {
+        "locations": {
+          "incident": "X (formerly Twitter)",
+          "victim": "Users in India",
+          "accused": "Not applicable (AI output)",
+          "investigating_agency": "MeitY (inquiry, not investigation)",
+          "platform_service": "Grok on X",
+          "network": "Unknown"
+        },
+        "authorities": [
+          "A-PLATFORM",
+          "A-GAC"
+        ],
+        "unknowns": [
+          "Whether MeitY took any formal action",
+          "What X changed afterwards"
+        ],
+        "overclaim": "Offensive replies are documented; no legal violation has been found. Do not treat ministry contact as enforcement.",
+        "stages": {
+          "S01": "done",
+          "S02": "done",
+          "S03": "done",
+          "S04": "done",
+          "S05": "secondary",
+          "S06": "open",
+          "S07": "done",
+          "S08": "done",
+          "S09": "draft",
+          "S10": "done",
+          "S11": "open",
+          "S12": "open",
+          "S13": "n/a",
+          "S14": "draft"
+        }
+      },
+      "review": "unreviewed",
+      "batch": "B2"
+    },
+    {
+      "id": "IN-INC-21",
+      "title": "Haryana family-ID system marks living pensioners as dead and stops their pensions",
+      "date": "2020-06 to 2023 (reported 2024-01-25)",
+      "state": "Haryana",
+      "systems": [
+        "Parivar Pehchan Patra (family ID database used to decide welfare eligibility)"
+      ],
+      "developer": "Government of Haryana",
+      "deployer": "Government of Haryana",
+      "harm": "Haryana uses the Parivar Pehchan Patra database to decide welfare eligibility. Government data cited by Al Jazeera shows pensions of 277,115 elderly people and 52,479 widows were stopped over three years because the records marked them dead; the report says several thousand were alive. A 102-year-old man staged a mock wedding procession to prove he was alive before his pension was restored.",
+      "harm_types": [
+        "Access to essential services",
+        "Rights & civil liberties",
+        "Financial loss"
+      ],
+      "severity": 4,
+      "affected": "Elderly people and widows in Haryana (several thousand wrongly marked dead, per the report)",
+      "domains": [
+        "7.3",
+        "6.5",
+        "1.1"
+      ],
+      "entity": "Other",
+      "intent": "Unintentional",
+      "timing": "Post-deployment",
+      "sectors": [
+        "Welfare & public services"
+      ],
+      "response": "The state described the database as producing authentic, verified data. District camps were held where people proved they were alive and records were corrected.",
+      "instruments": [
+        "G-DPDP",
+        "G-NITI1",
+        "G-AIGG"
+      ],
+      "sources": [
+        {
+          "title": "Al Jazeera – In India, an algorithm declares them dead; they have to prove they're alive",
+          "url": "https://www.aljazeera.com/economy/2024/1/25/in-india-an-algorithm-declares-them-dead-they-have-to-prove-theyre",
+          "date": "2024-01-25"
+        },
+        {
+          "title": "Tribune – Pension predicament: digital system fails elderly citizens",
+          "url": "https://www.tribuneindia.com/news/haryana/pension-predicament-digital-system-fails-elderly-citizens",
+          "date": "2024"
+        }
+      ],
+      "netra": {
+        "locations": {
+          "incident": "State welfare database",
+          "victim": "Haryana",
+          "accused": "Not applicable (State scheme)",
+          "investigating_agency": "None",
+          "platform_service": "Parivar Pehchan Patra",
+          "network": "Unknown"
+        },
+        "authorities": [
+          "A-COURT"
+        ],
+        "unknowns": [
+          "How many people marked dead were in fact alive (the report says several thousand)",
+          "Whether the errors came from bad input data or automated inference",
+          "Whether the system has been changed since 2024"
+        ],
+        "overclaim": "This is a data-driven eligibility system; the report attributes errors to bad data or 'wrong algorithmic predictions'. Do not call it AI without technical confirmation.",
+        "stages": {
+          "S01": "done",
+          "S02": "done",
+          "S03": "done",
+          "S04": "secondary",
+          "S05": "secondary",
+          "S06": "open",
+          "S07": "open",
+          "S08": "done",
+          "S09": "draft",
+          "S10": "draft",
+          "S11": "open",
+          "S12": "partial",
+          "S13": "n/a",
+          "S14": "draft"
+        }
+      },
+      "review": "unreviewed",
+      "batch": "B2"
+    },
+    {
+      "id": "IN-INC-22",
+      "title": "Deepfake video falsely shows Army Chief admitting heavy losses after Operation Sindoor",
+      "date": "2025-07-29",
+      "state": "National (cross-border)",
+      "systems": [
+        "AI-generated or AI-altered video of a real speech"
+      ],
+      "developer": "Unknown",
+      "deployer": "Social media accounts described by the government as Pakistani propaganda handles",
+      "harm": "A genuine speech by the Chief of Army Staff was altered to add a line in which he appeared to admit losing over 250 soldiers in a war with Pakistan. PIB Fact Check called it an AI-generated deepfake. Similar deepfakes of senior officers followed in later months.",
+      "harm_types": [
+        "Democratic / electoral integrity",
+        "Reputational harm"
+      ],
+      "severity": 3,
+      "affected": "The public; the Army Chief's reputation",
+      "domains": [
+        "3.1",
+        "4.1"
+      ],
+      "entity": "Human",
+      "intent": "Intentional",
+      "timing": "Post-deployment",
+      "sectors": [
+        "Policing & security",
+        "Internet platforms & telecom"
+      ],
+      "response": "PIB Fact Check publicly flagged the video as a deepfake on 29 July 2025.",
+      "instruments": [
+        "G-ITR21",
+        "G-ITA",
+        "G-BNS"
+      ],
+      "sources": [
+        {
+          "title": "Factly – Viral video of Army Chief admitting to losing over 250 soldiers is digitally altered",
+          "url": "https://factly.in/this-viral-video-of-army-chief-general-upendra-dwivedi-admitting-to-losing-over-250-soldiers-during-operation-sindoor-is-digitally-altered",
+          "date": "2025-07"
+        },
+        {
+          "title": "News On AIR – PIB Fact Check: AI-generated video falsely quotes General Upendra Dwivedi",
+          "url": "https://www.newsonair.gov.in/pib-fact-check-ai-generated-video-falsely-quotes-general-upendra-dwivedi",
+          "date": "2025-09-07"
+        }
+      ],
+      "netra": {
+        "locations": {
+          "incident": "Social media",
+          "victim": "India",
+          "accused": "Accounts outside India (as described by the government)",
+          "investigating_agency": "PIB Fact Check (debunk only)",
+          "platform_service": "X and other platforms",
+          "network": "Cross-border"
+        },
+        "authorities": [
+          "A-PLATFORM",
+          "A-POLICE"
+        ],
+        "unknowns": [
+          "Who made the video",
+          "How far it spread and whether platforms removed it",
+          "Any police case registered"
+        ],
+        "overclaim": "The deepfake finding is PIB's and independent fact-checkers'. Attribution to a foreign state comes from the government and is not independently confirmed.",
+        "stages": {
+          "S01": "done",
+          "S02": "done",
+          "S03": "done",
+          "S04": "done",
+          "S05": "secondary",
+          "S06": "open",
+          "S07": "secondary",
+          "S08": "done",
+          "S09": "draft",
+          "S10": "draft",
+          "S11": "open",
+          "S12": "open",
+          "S13": "n/a",
+          "S14": "draft"
+        }
+      },
+      "review": "unreviewed",
+      "batch": "B2"
     }
   ],
   "gaps": [
