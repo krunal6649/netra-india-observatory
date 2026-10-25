@@ -214,6 +214,8 @@ def validate(tax, india, glob):
         elif inc.get("reviewed_by") or inc.get("reviewed_on"):
             errors.append(f"{inc['id']}: reviewed_by / reviewed_on set on a record that is not reviewed")
         check_documents(inc, errors)
+        if "batch" in inc and not re.match(r"^B\d+$", str(inc["batch"])):
+            errors.append(f"{inc['id']}: batch must look like 'B2'")
         for a in n["authorities"]:
             if a not in auth:
                 errors.append(f"{inc['id']}: unknown authority {a}")

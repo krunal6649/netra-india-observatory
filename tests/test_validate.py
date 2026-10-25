@@ -52,6 +52,16 @@ class Tests(unittest.TestCase):
         doc.pop("checked_by")
         self.rejects(d, "needs checked_by")
 
+    def test_new_batch_arrives_unreviewed(self):
+        b2 = [i for i in self.india["incidents"] if i.get("batch") == "B2"]
+        self.assertEqual(len(b2), 10)
+        for i in b2:
+            self.assertEqual((i["review"], i["netra"]["stages"]["S11"]), ("unreviewed", "open"), i["id"])
+            self.assertNotIn("reviewed_by", i)
+            self.assertTrue(i["sources"] and all(s["url"].startswith("https://") for s in i["sources"]))
+        # Batch 2 was chosen to cover every risk domain
+        self.assertEqual({d.split(".")[0] for i in b2 for d in i["domains"]}, {"1", "2", "3", "4", "5", "6", "7"})
+
     def test_document_kind(self):
         d = copy.deepcopy(self.india)
         d["incidents"][0]["court_documents"] = [{"title": "Order", "court": "Delhi High Court", "date": "2023-09-20", "kind": "memo",
