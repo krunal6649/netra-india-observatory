@@ -28,16 +28,16 @@
         {
           "name": "Press Information Bureau: press releases (RSS, as listed)",
           "url": "https://pib.gov.in/RssMain.aspx?ModId=6&Lang=2&Regid=3",
-          "status": "failed",
+          "status": "off",
           "items": 0,
-          "error": "HTTPError: HTTP Error 403: Forbidden"
+          "error": "Exact address listed on PIB's own RSS page (pib.gov.in/ViewRss.aspx). That page is in Hindi, so the language of this feed is to confirm on the first workflow run. First workflow run on 2026-10-25: HTTP 403 (forbidden) from GitHub's servers. Switched off: NETRA does not work around a site that refuses automated access. PIB releases can still be added by hand."
         },
         {
           "name": "Press Information Bureau: press releases (RSS, Lang=1)",
           "url": "https://pib.gov.in/RssMain.aspx?ModId=6&Lang=1&Regid=3",
-          "status": "failed",
+          "status": "off",
           "items": 0,
-          "error": "HTTPError: HTTP Error 403: Forbidden"
+          "error": "Same feed with Lang=1, tried in case it is the English edition. Not confirmed; if it fails or repeats the other feed, the run report says so and it can be switched off. First workflow run on 2026-10-25: HTTP 403 (forbidden) from GitHub's servers. Switched off: NETRA does not work around a site that refuses automated access. PIB releases can still be added by hand."
         },
         {
           "name": "CERT-In advisories",
