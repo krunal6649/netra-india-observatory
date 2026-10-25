@@ -565,11 +565,25 @@
         "6.5",
         "7.4"
       ],
-      "provisions": "ss.61, 63 (electronic records; certificate with hash value signed by person in charge and an expert)",
+      "provisions": "ss.61, 62, 63 (electronic records). Schedule certificate under s.63(4): Part A (to be filled by the party) and Part B (to be filled by the expert); both state the hash value (SHA1 / SHA256 / MD5 / other)",
       "summary": "Evidence law that governs whether AI logs, deepfake files and chatbot transcripts can be proved in court.",
-      "url": "https://blog.ipleaders.in/electronic-evidence-under-the-bsa-2023/",
-      "verified": "partial",
-      "note": "Secondary sources only; official India Code copy not located."
+      "url": "https://www.indiacode.nic.in/bitstream/123456789/20063/1/aa202347.pdf",
+      "verified": "yes",
+      "note": "Act number, sections and Schedule certificate checked by the project owner against the India Code copy linked here. The AI-assisted session that entered them could not open India Code (host blocked from its sandbox). The case listed under 'cases' is NOT verified: see its own note.",
+      "act_no": "Act 47 of 2023",
+      "checked": "2026-10-25",
+      "cases": [
+        {
+          "name": "Pune Bar Association v. Union of India",
+          "citation": "2026 SCC OnLine SC 1297",
+          "court": "Supreme Court of India",
+          "date": "2026-05-22",
+          "holding": "Upheld s.63(4) (as reported).",
+          "verified": "partial",
+          "note": "The project owner has read only a news report of this judgment, not the judgment itself. Citation, date and outcome come from that report. Judgment text, reasoning, bench and paragraph numbers not checked. Do not quote from it until the judgment is read.",
+          "report_url": "https://www.livelaw.in/amp/top-stories/supreme-court-rejects-challenge-to-s634-bsa-mandating-hash-value-disclosure-for-electronic-evidence-535950"
+        }
+      ]
     },
     {
       "id": "G-BNS",
