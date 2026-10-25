@@ -125,6 +125,8 @@ ol.steps li.done{color:var(--ink)} ol.steps li[aria-current="step"]{background:v
 #directory .crumb{align-items:center}
 .tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px;margin-top:8px}
 .tgrid .tile{position:static;min-height:64px;border-width:1px 1px 1px 5px;border-color:var(--line);border-left-color:var(--c)}
+.unionbtn{display:block;width:100%;max-width:900px;text-align:left;font:inherit;color:var(--ink);cursor:pointer;border:2px solid var(--d1);border-radius:10px;background:color-mix(in srgb,var(--d1) 22%,var(--sheet));padding:12px 16px;transition:background .12s}
+.unionbtn:hover,.unionbtn:focus-visible{background:color-mix(in srgb,var(--d1) 36%,var(--sheet))}.unionbtn b{display:block;font-size:1rem}.unionbtn span{display:block;font-size:.82rem;color:var(--muted);margin-top:2px}
 .tmap{display:grid;grid-template-columns:repeat(9,minmax(0,1fr));grid-auto-rows:clamp(44px,6vw,74px);gap:5px;margin-top:10px;max-width:900px}
 .mt{position:relative;font:inherit;border:2px solid var(--c);border-radius:8px;background:color-mix(in srgb,var(--c) 32%,var(--sheet));color:var(--ink);cursor:pointer;padding:4px;display:grid;place-items:center;text-align:center;min-width:0;transition:transform .12s,background .12s}
 .mt b{font-size:clamp(.54rem,.95vw,.76rem);font-weight:600;line-height:1.15;hyphens:manual;overflow-wrap:normal;word-break:normal}
@@ -565,16 +567,18 @@ function tileGrid(items, label){
 }
 const vlabel = b => b.verified==='yes' ? `<span class="vtag yes">Checked ${esc(b.checked_on)}</span>` : '<span class="verify">to verify</span>';
 const bodyTip = b => `<b>${esc(b.name)}</b>${esc(ROLE_NAME[b.role])} · ${b.verified==='yes'?'checked':'to verify'}<br>${esc(b.can_do.length>140?b.can_do.slice(0,137)+'…':b.can_do)}`;
-function dirStep(){ const d = state.dir; return d.body ? 4 : d.place ? 3 : d.level ? 2 : 1; }
+/* Step 1 is the India map with a Union button: a state goes straight to its bodies, Union goes through its groups */
+const dirSteps = () => state.dir.level==='union' ? ['Place','Group','Bodies','Body'] : ['Place','Bodies','Body'];
+function dirStep(){ const d = state.dir; if(d.level==='union') return d.body ? 4 : d.place ? 3 : 2; return d.body ? 3 : d.place ? 2 : 1; }
 function dirCrumb(){
   const d = state.dir, parts = [['Who to approach','top']];
-  if(d.level) parts.push([d.level==='union'?'Union':'States and UTs', `level:${d.level}`]);
+  if(d.level==='union') parts.push(['Union', 'level:union']);
   if(d.place) parts.push([d.place, `place:${d.level}:${d.place}`]);
   if(d.body) parts.push([BODY[d.body].name, '']);
-  const steps = ['Level','Authority','Bodies','Body'], at = dirStep();
+  const steps = dirSteps(), at = dirStep();
   return `<ol class="steps" aria-label="Steps">${steps.map((s,k)=>`<li ${k+1===at?'aria-current="step"':''} class="${k+1<at?'done':''}">${k+1}. ${s}</li>`).join('')}</ol>
-   <div class="crumb">${parts.map(([l,go],k)=>go && k<parts.length-1 ? `<button type="button" data-dir="${esc(go)}">${esc(l)}</button>` : `<span>${esc(l)}</span>`).join('<span aria-hidden="true">›</span>')}
-   ${d.place||d.body?`<button type="button" class="btn sm" style="margin-left:auto" data-dir="${esc(d.body?`place:${d.level}:${d.place}`:`level:${d.level}`)}">${d.body?'Back to treemap':'Back'}</button>`:''}</div>`;
+   ${parts.length<2 ? '' : `<div class="crumb">${parts.map(([l,go],k)=>go && k<parts.length-1 ? `<button type="button" data-dir="${esc(go)}">${esc(l)}</button>` : `<span>${esc(l)}</span>`).join('<span aria-hidden="true">›</span>')}
+   ${d.place||d.body?`<button type="button" class="btn sm" style="margin-left:auto" data-dir="${esc(d.body?`place:${d.level}:${d.place}`:d.level==='union'?'level:union':'top')}">${d.body?'Back to treemap':d.level==='union'?'Back':'Back to map'}</button>`:''}</div>`}`;
 }
 function dirBody(b){
   return `<section class="sheet dbody" style="border-top:6px solid ${ROLE_COL[b.role]}">
@@ -598,12 +602,11 @@ function dirSection(){
     view = treemap(list.map(b=>({w:1, name:b.name, sub:`${ROLE_NAME[b.role]}${b.verified==='yes'?'':' · to verify'}`, col:ROLE_COL[b.role], go:`body:${b.id}`, tip:bodyTip(b), dashed:b.verified!=='yes'})), `Bodies in ${d.place}`);
   }
   else if(d.level==='union') view = treemap(DIR.meta.union_groups.map((g,k)=>{ const list = union.filter(b=>b.group===g), n = list.length; return {w:n, name:g, sub:list.map(b=>b.name.replace(/\s*\(.*?\)/g,'')).slice(0,3).join(' · ')+(n>3?` · +${n-3} more`:''), col:GROUP_COL[k%GROUP_COL.length], go:`place:union:${g}`, tip:`<b>${esc(g)}</b>${n} bod${n>1?'ies':'y'}`}; }), 'Union groups');
-  else if(d.level==='state') view = tileMap();
-  else view = treemap([{w:union.length, name:'Union', sub:`${union.length} bodies: ministries, regulators, courts, commissions`, go:'level:union', col:'var(--d1)', tip:'<b>Union</b>Bodies for the whole country'},
-                       {w:36, name:'States and union territories', sub:'28 states and 8 UTs: police, High Courts, commissions', go:'level:state', col:'var(--d3)', tip:'<b>States and union territories</b>Pick a place on the tile map'}], 'Choose a level');
+  else view = `<button type="button" class="unionbtn" data-dir="level:union"${tipAttr('<b>Union</b>Bodies for the whole country')}><b>Union: national bodies</b><span>${union.length} bodies: ministries, regulators, national courts and commissions, helplines</span></button>
+   <p class="note" style="margin-top:12px"><b>Or pick a state or union territory</b> for its police, cyber cell, High Court, commissions and legal services.</p>${tileMap()}`;
   const legend = dirStep() >= 3 ? `<div class="legend">${Object.entries(ROLE_NAME).map(([k,v])=>`<span style="--c:${ROLE_COL[k]}"><i></i>${esc(v)}</span>`).join('')}<span>· dashed edge = to verify</span></div>` :
     '';
-  return `<section class="sheet" id="directory" style="margin-top:18px">${H3('Who to approach','Find the body that can act: pick a level, then an authority, then a body to see what it can do and how to reach it.')}
+  return `<section class="sheet" id="directory" style="margin-top:18px">${H3('Who to approach','Find the body that can act: pick Union or a state on the map of India, then a body, to see what it can do and how to reach it.')}
    <p class="callout" style="margin-top:12px"><b>Lost money to cyber fraud?</b> Call <b>1930</b> or report at cybercrime.gov.in first. Speed matters for freezing funds. NETRA is not a complaint service.</p>
    <p class="note" style="margin-top:8px">What NETRA adds: AI-role analysis, evidence preservation, legal mapping and gaps, for lawyers, researchers and policymakers. Every entry is “to verify” until checked against an official source; ${DIR.bodies.filter(b=>b.verified==='yes').length} of ${DIR.bodies.length} are checked so far.</p>
    <div style="margin-top:14px">${dirCrumb()}${view}${legend}</div></section>`;
