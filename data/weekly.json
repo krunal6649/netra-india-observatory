@@ -1,0 +1,89 @@
+{
+  "meta": {
+    "title": "This week in India",
+    "method": "docs/weekly-method.md",
+    "note": "Auto-selected from official feeds and APIs; unreviewed. NETRA's own summaries; headlines only as link titles.",
+    "credit": "News discovery by the GDELT Project (gdeltproject.org). GDELT data is free and open; NETRA cites it as the discovery source."
+  },
+  "weeks": [
+    {
+      "week_start": "2026-10-19",
+      "week_end": "2026-10-25",
+      "generated": "2026-10-26",
+      "sources": [
+        {
+          "name": "GDELT: AI news",
+          "url": "https://api.gdeltproject.org/api/v2/doc/doc",
+          "status": "failed",
+          "items": 0,
+          "error": "HTTPError: HTTP Error 429: Too Many Requests"
+        },
+        {
+          "name": "GDELT: cyber news",
+          "url": "https://api.gdeltproject.org/api/v2/doc/doc",
+          "status": "failed",
+          "items": 0,
+          "error": "HTTPError: HTTP Error 429: Too Many Requests"
+        },
+        {
+          "name": "Press Information Bureau: press releases (RSS, as listed)",
+          "url": "https://pib.gov.in/RssMain.aspx?ModId=6&Lang=2&Regid=3",
+          "status": "failed",
+          "items": 0,
+          "error": "HTTPError: HTTP Error 403: Forbidden"
+        },
+        {
+          "name": "Press Information Bureau: press releases (RSS, Lang=1)",
+          "url": "https://pib.gov.in/RssMain.aspx?ModId=6&Lang=1&Regid=3",
+          "status": "failed",
+          "items": 0,
+          "error": "HTTPError: HTTP Error 403: Forbidden"
+        },
+        {
+          "name": "CERT-In advisories",
+          "url": "",
+          "status": "off",
+          "items": 0,
+          "error": "No official CERT-In RSS or API address could be confirmed. Left off until the owner confirms one; NETRA does not scrape the CERT-In site."
+        },
+        {
+          "name": "METR publications (RSS)",
+          "url": "https://metr.org/feed.xml",
+          "status": "ok",
+          "items": 2
+        },
+        {
+          "name": "MITRE ATLAS case studies (release 2026.09)",
+          "url": "https://raw.githubusercontent.com/mitre-atlas/atlas-data/main/dist/v6/ATLAS-latest.yaml",
+          "status": "ok",
+          "items": 0
+        }
+      ],
+      "top": [],
+      "cyber": [],
+      "models": [
+        {
+          "kind": "METR publication",
+          "title": "Red-Teaming OpenAI's Internal Agent Monitoring Systems",
+          "url": "https://metr.org/blog/2026-10-22-red-teaming-openai-agent-monitoring/",
+          "date": "2026-10-22",
+          "note": "New METR publication. Cite and summarise only; NETRA has not read or mapped it yet.",
+          "review": "unreviewed"
+        },
+        {
+          "kind": "METR publication",
+          "title": "Review of the \"Misalignment in high-stakes settings\" section in Anthropic's Risk Report (August 2026)",
+          "url": "https://metr.org/blog/2026-10-20-misalignment-risk-report-august-2026-review/",
+          "date": "2026-10-20",
+          "note": "New METR publication. Cite and summarise only; NETRA has not read or mapped it yet.",
+          "review": "unreviewed"
+        }
+      ],
+      "notes": [
+        "MITRE ATLAS release 2026.09: 73 case studies in total, 65 not yet in NETRA's model register.",
+        "Only 0 AI items met the selection rules this week; NETRA does not pad the list."
+      ],
+      "review": "unreviewed"
+    }
+  ]
+}
