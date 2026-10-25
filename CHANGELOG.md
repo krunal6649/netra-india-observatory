@@ -1,5 +1,26 @@
 # Changelog
 
+## v0.2-dev (unreleased) — Shorter NETRA dossier
+- **One case at a time.** The 14-column table of every case no longer sits above the dossier. A **Choose a case**
+  drop-down and **Newer / Older** buttons switch cases; "All cases in Explore" goes back to the list.
+- **Stage strip:** the 14 NETRA stages collapse into one coloured strip ("7 of 13 done"); click it for the full
+  stage-by-stage view.
+- **Four tabs:** Overview (what happened, AI's role, what NETRA does not know, overclaim check) · Laws and gaps ·
+  Where to report (authorities, 1930 first for financial fraud, location and jurisdiction, court documents) ·
+  Evidence (sources and court documents).
+- **"Compare all cases by stage"** keeps the old all-cases table, folded away at the bottom.
+- **Authorities:** the red "to verify" on every line is replaced by one note above the list and a grey
+  "not yet checked" tag. None of the 10 contact routes has been checked against an official site yet.
+- The long NETRA method paragraph is no longer repeated here; it remains under About › Method.
+- **5 contact routes checked by the project owner on 2026-10-25** and now verified: National Cyber Crime Reporting
+  Portal / 1930, Grievance Appellate Committee, CERT-In, Election Commission of India, Supreme Court of India. Their
+  "not yet checked" tags are gone.
+- **A-COURT** now links to India Code at https://indiacode.gov.in/home (owner's request); it should become each High
+  Court's own site in Phase 3. Platform grievance officer, Data Protection Board, state police and sector regulator
+  stay "not yet checked" until Phase 3 gives them the right pages.
+- Build: an authority marked verified must name who checked it and when; authority links must be https. 2 new unit tests.
+- Smoke test: 5 new checks; 104 in total.
+
 ## v0.2-dev (unreleased) — Easier Explore for a growing database
 - **Compact list** for incidents and laws: one line per record (ID, title, date and place, risk-area dots, severity,
   review or verification status). Click a line to expand a summary with Open dossier and Generate report.

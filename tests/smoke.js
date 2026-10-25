@@ -57,6 +57,16 @@ check(N.page('about-credits').includes('CC BY 4.0') && N.page('about-credits').i
 check(N.page('analysis-dossiers').includes('All sources and credits') && N.page('analysis-gaps').includes('All sources and credits'), 'analysis pages show credits');
 check(N.page('about-verification').includes('Partly verified') && N.page('about-method').includes('issues/new?template=correction.yml'), 'verification status and correction link render');
 check(N.TOUR.every(([p]) => N.PAGES[p]), 'every guided tour step points at a real page');
+// Dossier: one case at a time, stage strip, four tabs, comparison table folded away
+N.state.inc = 'IN-INC-03'; N.state.dtab = 'overview';
+const dz = N.page('analysis-dossiers');
+check(dz.indexOf('<th>Case</th>') > dz.indexOf('Compare all cases by stage') && dz.indexOf('Compare all cases by stage') > dz.indexOf('role="tablist"'), 'dossier opens with the case; the all-cases table is folded away below it');
+check(['overview', 'laws', 'report', 'evidence'].every(k => dz.includes(`data-dtab="${k}"`)) && (dz.match(/role="tabpanel"[^>]*hidden/g) || []).length === 3, 'dossier has four tabs with one panel showing');
+check(dz.includes('id="dossier-pick"') && dz.includes('NETRA stages:') && dz.includes('class="strip"'), 'dossier has a case picker and a one-line stage strip');
+check(!dz.includes('class="verify">to verify') && dz.includes('not yet checked'), 'authorities carry a quiet "not yet checked" tag, not red "to verify" on every line');
+N.state.dtab = 'laws';
+check(/id="dtab-laws"(?![^>]*hidden)/.test(N.page('analysis-dossiers')), 'clicking a tab shows that panel');
+N.state.dtab = 'overview';
 // Explore stays usable as the database grows: compact rows, sorting, paging, more filters, filter chips
 N.state.q = ''; N.state.f.incidents = {}; N.state.limit = 20; N.state.mode.incidents = 'list'; N.state.sort.incidents = 'new';
 let ex = N.page('explore-incidents');
