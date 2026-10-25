@@ -82,6 +82,15 @@ No AI is used, no key is needed and nothing is sent. Every passage shown is copi
 results are labelled auto-matched, unreviewed and "possible only". **Send to NETRA for review** opens the
 `report.yml` issue form (or an email) prefilled with the title, link and check summary, never the file.
 
+## This week in India (weekly update)
+
+Every Saturday at 00:00 IST, **Actions › Weekly update (unreviewed)** runs `scripts/weekly_top5.py` and opens a pull
+request with up to five AI incidents in India from the past week, a separate Cyber watch and a Model watch. It uses
+free official feeds and APIs (GDELT, PIB, METR, MITRE ATLAS), no AI and no key. Every item is "Auto-selected,
+unreviewed"; check each against its sources, delete what is wrong, then merge. Method and limits:
+[docs/weekly-method.md](docs/weekly-method.md). It needs *Settings › Actions › General › Allow GitHub Actions to create
+and approve pull requests*.
+
 ## AI-assisted drafts (owner only)
 
 Commit a `.txt`, `.md` or `.docx` file, then run **Actions › AI draft (unreviewed)**. It runs `scripts/ai_draft.py`
