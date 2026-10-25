@@ -2618,14 +2618,16 @@
           "S08": "done",
           "S09": "draft",
           "S10": "done",
-          "S11": "open",
+          "S11": "done",
           "S12": "open",
           "S13": "n/a",
           "S14": "draft"
         }
       },
-      "review": "unreviewed",
-      "batch": "B2"
+      "review": "human_reviewed",
+      "batch": "B2",
+      "reviewed_by": "Krunal (project owner)",
+      "reviewed_on": "2026-10-25"
     },
     {
       "id": "IN-INC-14",
@@ -2703,14 +2705,16 @@
           "S08": "done",
           "S09": "draft",
           "S10": "draft",
-          "S11": "open",
+          "S11": "done",
           "S12": "open",
           "S13": "n/a",
           "S14": "draft"
         }
       },
-      "review": "unreviewed",
-      "batch": "B2"
+      "review": "human_reviewed",
+      "batch": "B2",
+      "reviewed_by": "Krunal (project owner)",
+      "reviewed_on": "2026-10-25"
     },
     {
       "id": "IN-INC-15",
@@ -2788,14 +2792,16 @@
           "S08": "done",
           "S09": "draft",
           "S10": "done",
-          "S11": "open",
+          "S11": "done",
           "S12": "open",
           "S13": "n/a",
           "S14": "draft"
         }
       },
-      "review": "unreviewed",
-      "batch": "B2"
+      "review": "human_reviewed",
+      "batch": "B2",
+      "reviewed_by": "Krunal (project owner)",
+      "reviewed_on": "2026-10-25"
     },
     {
       "id": "IN-INC-16",
@@ -2876,14 +2882,16 @@
           "S08": "done",
           "S09": "draft",
           "S10": "done",
-          "S11": "open",
+          "S11": "done",
           "S12": "open",
           "S13": "n/a",
           "S14": "draft"
         }
       },
-      "review": "unreviewed",
-      "batch": "B2"
+      "review": "human_reviewed",
+      "batch": "B2",
+      "reviewed_by": "Krunal (project owner)",
+      "reviewed_on": "2026-10-25"
     },
     {
       "id": "IN-INC-17",
@@ -2968,14 +2976,16 @@
           "S08": "done",
           "S09": "draft",
           "S10": "draft",
-          "S11": "open",
+          "S11": "done",
           "S12": "partial",
           "S13": "n/a",
           "S14": "draft"
         }
       },
-      "review": "unreviewed",
-      "batch": "B2"
+      "review": "human_reviewed",
+      "batch": "B2",
+      "reviewed_by": "Krunal (project owner)",
+      "reviewed_on": "2026-10-25"
     },
     {
       "id": "IN-INC-18",
@@ -3052,14 +3062,16 @@
           "S08": "done",
           "S09": "draft",
           "S10": "done",
-          "S11": "open",
+          "S11": "done",
           "S12": "partial",
           "S13": "n/a",
           "S14": "draft"
         }
       },
-      "review": "unreviewed",
-      "batch": "B2"
+      "review": "human_reviewed",
+      "batch": "B2",
+      "reviewed_by": "Krunal (project owner)",
+      "reviewed_on": "2026-10-25"
     },
     {
       "id": "IN-INC-19",
@@ -3150,15 +3162,17 @@
           "S08": "done",
           "S09": "draft",
           "S10": "done",
-          "S11": "open",
+          "S11": "done",
           "S12": "done",
           "S13": "n/a",
           "S14": "draft"
         }
       },
-      "review": "unreviewed",
+      "review": "human_reviewed",
       "batch": "B2",
-      "notes": "Details added on 2026-10-25 from secondary sources supplied by the project owner (ITATonline, Times of India, TaxHeal, Indic Pacific). Bench name 'Amit S. Jamsandekar' now agrees across several reports. The Bombay High Court order itself has not been read."
+      "notes": "Details added on 2026-10-25 from secondary sources supplied by the project owner (ITATonline, Times of India, TaxHeal, Indic Pacific). Bench name 'Amit S. Jamsandekar' now agrees across several reports. The Bombay High Court order itself has not been read.",
+      "reviewed_by": "Krunal (project owner)",
+      "reviewed_on": "2026-10-25"
     },
     {
       "id": "IN-INC-20",
@@ -3235,14 +3249,16 @@
           "S08": "done",
           "S09": "draft",
           "S10": "done",
-          "S11": "open",
+          "S11": "done",
           "S12": "open",
           "S13": "n/a",
           "S14": "draft"
         }
       },
-      "review": "unreviewed",
-      "batch": "B2"
+      "review": "human_reviewed",
+      "batch": "B2",
+      "reviewed_by": "Krunal (project owner)",
+      "reviewed_on": "2026-10-25"
     },
     {
       "id": "IN-INC-21",
@@ -3320,14 +3336,16 @@
           "S08": "done",
           "S09": "draft",
           "S10": "draft",
-          "S11": "open",
+          "S11": "done",
           "S12": "partial",
           "S13": "n/a",
           "S14": "draft"
         }
       },
-      "review": "unreviewed",
-      "batch": "B2"
+      "review": "human_reviewed",
+      "batch": "B2",
+      "reviewed_by": "Krunal (project owner)",
+      "reviewed_on": "2026-10-25"
     },
     {
       "id": "IN-INC-22",
@@ -3405,14 +3423,16 @@
           "S08": "done",
           "S09": "draft",
           "S10": "draft",
-          "S11": "open",
+          "S11": "done",
           "S12": "open",
           "S13": "n/a",
           "S14": "draft"
         }
       },
-      "review": "unreviewed",
-      "batch": "B2"
+      "review": "human_reviewed",
+      "batch": "B2",
+      "reviewed_by": "Krunal (project owner)",
+      "reviewed_on": "2026-10-25"
     }
   ],
   "gaps": [
