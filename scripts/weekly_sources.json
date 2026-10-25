@@ -9,8 +9,13 @@
     "ai_query": "(\"artificial intelligence\" OR deepfake OR deepfakes OR \"AI-generated\" OR chatbot OR \"voice clone\" OR \"voice cloning\" OR \"generative AI\" OR ChatGPT OR \"AI tool\" OR \"AI app\") sourcecountry:IN sourcelang:english",
     "cyber_query": "(ransomware OR \"data breach\" OR \"cyber attack\" OR cyberattack OR phishing OR \"CERT-In\" OR hacked OR malware OR \"data leak\") sourcecountry:IN sourcelang:english",
     "maxrecords": 250,
-    "pause_seconds": 6,
-    "checked": "Endpoint and parameters as documented by GDELT; not reachable from the build session, so confirmed on the first workflow run."
+    "pause_seconds": 15,
+    "checked": "First workflow run on 2026-10-25 reached the API but got HTTP 429 (too many requests) from the shared GitHub runner, so the script now waits and retries (20, 45, 90 seconds) as GDELT's rate limit asks.",
+    "retry_waits": [
+      20,
+      45,
+      90
+    ]
   },
   "feeds": [
     {
@@ -18,16 +23,16 @@
       "name": "Press Information Bureau: press releases (RSS, as listed)",
       "url": "https://pib.gov.in/RssMain.aspx?ModId=6&Lang=2&Regid=3",
       "kind": "india_official",
-      "enabled": true,
-      "checked": "Exact address listed on PIB's own RSS page (pib.gov.in/ViewRss.aspx). That page is in Hindi, so the language of this feed is to confirm on the first workflow run."
+      "enabled": false,
+      "checked": "Exact address listed on PIB's own RSS page (pib.gov.in/ViewRss.aspx). That page is in Hindi, so the language of this feed is to confirm on the first workflow run. First workflow run on 2026-10-25: HTTP 403 (forbidden) from GitHub's servers. Switched off: NETRA does not work around a site that refuses automated access. PIB releases can still be added by hand."
     },
     {
       "id": "pib-lang1",
       "name": "Press Information Bureau: press releases (RSS, Lang=1)",
       "url": "https://pib.gov.in/RssMain.aspx?ModId=6&Lang=1&Regid=3",
       "kind": "india_official",
-      "enabled": true,
-      "checked": "Same feed with Lang=1, tried in case it is the English edition. Not confirmed; if it fails or repeats the other feed, the run report says so and it can be switched off."
+      "enabled": false,
+      "checked": "Same feed with Lang=1, tried in case it is the English edition. Not confirmed; if it fails or repeats the other feed, the run report says so and it can be switched off. First workflow run on 2026-10-25: HTTP 403 (forbidden) from GitHub's servers. Switched off: NETRA does not work around a site that refuses automated access. PIB releases can still be added by hand."
     },
     {
       "id": "certin",

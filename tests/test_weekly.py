@@ -38,9 +38,15 @@ class Tests(unittest.TestCase):
         cls.had = real.read_text(encoding="utf-8") if real.exists() else None
         if real.exists():
             real.unlink()   # start from an empty store so earlier weeks do not hide fixture items
+        # PIB is switched off in production (it refuses GitHub's servers); switch it on here so feed reading stays tested
+        saved = [f["enabled"] for f in wk.CONFIG["feeds"]]
+        for f in wk.CONFIG["feeds"]:
+            f["enabled"] = f["enabled"] or f["id"].startswith("pib")
         try:
             cls.store, cls.week = wk.run(date(2026, 10, 24), get=fake_get, sleep=lambda s: None)
         finally:
+            for f, e in zip(wk.CONFIG["feeds"], saved):
+                f["enabled"] = e
             if cls.had is not None:
                 real.write_text(cls.had, encoding="utf-8")
 
@@ -89,11 +95,28 @@ class Tests(unittest.TestCase):
         self.assertIn(("METR publication", "https://metr.example/test-pub"), kinds)
         self.assertFalse(any("CS0021" in m["title"] for m in self.week["models"]))
 
+    def test_pib_is_off_in_production_after_the_403(self):
+        self.assertFalse(any(f["enabled"] for f in wk.CONFIG["feeds"] if f["id"].startswith("pib")))
+
     def test_failed_and_switched_off_sources_are_reported(self):
         status = {s["name"]: s["status"] for s in self.week["sources"]}
         self.assertEqual(status["Press Information Bureau: press releases (RSS, Lang=1)"], "failed")
         self.assertEqual(status["CERT-In advisories"], "off")
         self.assertEqual(status["GDELT: AI news"], "ok")
+
+    def test_gdelt_busy_is_retried_then_reported(self):
+        calls, waits = [], []
+        def busy_then_ok(url):
+            calls.append(url)
+            if len(calls) < 3:
+                raise wk.SourceError("HTTPError: HTTP Error 429: Too Many Requests")
+            return fake_get(url)
+        arts = wk.gdelt(wk.CONFIG["gdelt"]["ai_query"], busy_then_ok, date(2026, 10, 17), date(2026, 10, 23), sleep=waits.append)
+        self.assertTrue(arts)
+        self.assertEqual(waits, wk.CONFIG["gdelt"]["retry_waits"][:2])
+        always_busy = lambda url: (_ for _ in ()).throw(wk.SourceError("HTTPError: HTTP Error 429: Too Many Requests"))
+        with self.assertRaises(wk.SourceError):
+            wk.gdelt("x", always_busy, date(2026, 10, 17), date(2026, 10, 23), sleep=lambda s: None)
 
     def test_old_feed_items_are_outside_the_window(self):
         urls = {s["url"] for c in self.week["cyber"] + self.week["top"] for s in c["sources"]}
