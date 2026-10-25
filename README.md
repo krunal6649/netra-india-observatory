@@ -66,6 +66,7 @@ Edit `data/india.json` (incidents, instruments, risks, mitigations, gaps) and ru
 - an incident without an overclaim check and a "what we do not know" list
 - NETRA stage 11 (human review) marked done on an unreviewed record
 - unknown risk areas, sectors, instruments or authorities, and non-https sources
+- a possible duplicate case: the same source or court document as an existing case, or a title 75% or more alike. If a person has checked that two look-alike cases really differ, list the other id in `distinct_from`
 - a missing or malformed `meta.updated` date (shown beside the home-page counter; change it whenever the data changes)
 - a verification status other than yes / partial / no, or "yes" on a site home page instead of a specific document
 - malformed Act numbers ("Act 45 of 2023"), Gazette notification numbers ("G.S.R. 139(E)", "S.O. 2351(E)"), dates, or case entries missing a citation, court, date, holding or verification note

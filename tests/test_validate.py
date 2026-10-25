@@ -62,6 +62,35 @@ class Tests(unittest.TestCase):
         # Batch 2 was chosen to cover every risk domain
         self.assertEqual({d.split(".")[0] for i in b2 for d in i["domains"]}, {"1", "2", "3", "4", "5", "6", "7"})
 
+    def test_duplicate_source_rejected(self):
+        d = copy.deepcopy(self.india); new = copy.deepcopy(d["incidents"][0])
+        new["id"], new["title"] = "IN-INC-99", "A differently worded headline about something"
+        d["incidents"].append(new)
+        self.rejects(d, "IN-INC-99: possible duplicate of IN-INC-01 (both cite")
+
+    def test_duplicate_source_ignores_www_and_amp(self):
+        d = copy.deepcopy(self.india); new = copy.deepcopy(d["incidents"][0])
+        new["id"], new["title"] = "IN-INC-99", "A differently worded headline about something"
+        u = new["sources"][0]["url"]
+        new["sources"] = [{"title": "x", "url": u.replace("://", "://www.", 1) if "://www." not in u else u.replace("://www.", "://"), "date": "2026"}]
+        d["incidents"].append(new)
+        self.rejects(d, "possible duplicate of IN-INC-01")
+
+    def test_near_identical_title_rejected(self):
+        d = copy.deepcopy(self.india); new = copy.deepcopy(d["incidents"][2])
+        new["id"] = "IN-INC-99"; new["title"] = new["title"].replace("Kozhikode man", "Kozhikode resident")
+        new["sources"] = [{"title": "x", "url": "https://example.org/other-report", "date": "2026"}]
+        d["incidents"].append(new)
+        self.rejects(d, "IN-INC-99: possible duplicate of IN-INC-03 (titles")
+
+    def test_distinct_from_allows_checked_lookalikes(self):
+        d = copy.deepcopy(self.india); new = copy.deepcopy(d["incidents"][2])
+        new["id"] = "IN-INC-99"; new["title"] = new["title"].replace("Kozhikode man", "Kozhikode resident")
+        new["sources"] = [{"title": "x", "url": "https://example.org/other-report", "date": "2026"}]
+        new["distinct_from"] = ["IN-INC-03"]
+        d["incidents"].append(new)
+        build.validate(self.tax, d, self.glob)
+
     def test_document_kind(self):
         d = copy.deepcopy(self.india)
         d["incidents"][0]["court_documents"] = [{"title": "Order", "court": "Delhi High Court", "date": "2023-09-20", "kind": "memo",

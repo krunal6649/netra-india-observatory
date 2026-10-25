@@ -7,6 +7,8 @@ Usage (from the netra-india folder):
 
 Standard library only. Nothing to install.
 """
+import difflib
+import itertools
 import json
 import re
 import sys
@@ -24,6 +26,7 @@ VERIFIED = {"yes", "partial", "no"}
 ACT_NO = re.compile(r"^Act \d+ of (19|20)\d\d$")
 NOTIFICATION_NO = re.compile(r"^(G\.S\.R\.|S\.O\.) \d+\(E\)$")
 ISO_DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+TITLE_SIMILARITY = 0.75  # titles this alike are treated as the same case unless marked distinct
 DOC_KINDS = {"order", "judgment", "petition", "notice"}
 REVIEWED = {"human_reviewed", "published"}
 EMAIL = re.compile(r"^[^@\s<>\"]+@[^@\s<>\"]+\.[A-Za-z]{2,}$")
@@ -37,6 +40,37 @@ def is_date(s):
     except ValueError:
         return False
     return True
+
+
+def check_duplicates(incidents, errors):
+    """Stop the same case from being added twice, for example by a later batch or the weekly feed.
+    Two records clash if they cite the same source or court document, or have near-identical titles.
+    A record can list ids in 'distinct_from' after a person has checked that the cases really differ."""
+    def norm_url(u):
+        return u.split("#")[0].rstrip("/").replace("://www.", "://").replace("/amp/", "/").lower()
+
+    def norm_title(t):
+        return " ".join(re.sub(r"[^\w₹]+", " ", t.lower()).split())
+
+    def allowed(a, b):
+        return b["id"] in a.get("distinct_from", []) or a["id"] in b.get("distinct_from", [])
+
+    owner = {}
+    for inc in incidents:
+        urls = {norm_url(x["url"]) for x in inc["sources"]} | {norm_url(x["url"]) for x in inc.get("court_documents", [])}
+        for u in urls:
+            other = owner.setdefault(u, inc)
+            if other is not inc and not allowed(inc, other):
+                errors.append(f"{inc['id']}: possible duplicate of {other['id']} (both cite {u})")
+    for a, b in itertools.combinations(incidents, 2):
+        r = difflib.SequenceMatcher(None, norm_title(a["title"]), norm_title(b["title"])).ratio()
+        if r >= TITLE_SIMILARITY and not allowed(a, b):
+            errors.append(f"{b['id']}: possible duplicate of {a['id']} (titles {r:.0%} alike)")
+    ids = {i["id"] for i in incidents}
+    for inc in incidents:
+        for x in inc.get("distinct_from", []):
+            if x not in ids:
+                errors.append(f"{inc['id']}: distinct_from names unknown incident {x}")
 
 
 def check_documents(inc, errors):
@@ -221,6 +255,8 @@ def validate(tax, india, glob):
                 errors.append(f"{inc['id']}: unknown authority {a}")
         if not n.get("overclaim") or not n.get("unknowns"):
             errors.append(f"{inc['id']}: needs an overclaim check and a 'what we do not know' list")
+
+    check_duplicates(india["incidents"], errors)
 
     for g in india["gaps"]:
         for x in g["incidents"]:

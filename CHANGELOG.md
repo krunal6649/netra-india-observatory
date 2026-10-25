@@ -13,6 +13,10 @@
   - Misinformation: Army Chief deepfake after Operation Sindoor
 - Cases by risk domain (old → new): 1: 3→7 · 2: 0→5 · 3: 4→6 · 4: 7→10 · 5: 2→4 · 6: 3→4 · 7: 1→6
 - Home now reads "22 cases tracked · 12 reviewed by a person · 10 unreviewed".
+- **Duplicate check:** the build now rejects a case that cites the same source or court document as an existing
+  case (ignoring `www.`, `/amp/` and trailing slashes), or whose title is 75% or more alike, unless a person lists it
+  in `distinct_from`. The current 22 cases pass; the closest pair (IN-INC-09 and IN-INC-19) is 54% alike and is two
+  different cases. 4 new unit tests.
 - Build: `batch` must look like `B2`. 1 new unit test checks batch 2 is unreviewed, sourced, and covers all 7 domains.
 
 ## v0.2-dev (unreleased) — Owner review and court documents
