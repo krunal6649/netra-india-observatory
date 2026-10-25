@@ -291,7 +291,7 @@
       "type": "Statute",
       "force": "Hard law",
       "date": "2000-10-17",
-      "status": "In force",
+      "status": "In force. s.43A stays in force until DPDP Act s.44(2) commences on 2027-05-13",
       "sectors": [
         "Internet platforms & telecom",
         "Policing & security"
@@ -312,11 +312,11 @@
         "4.3",
         "1.2"
       ],
-      "provisions": "ss.43, 43A, 66, 66C, 66D, 66E, 67, 67A, 69A, 75, 79",
+      "provisions": "ss.43, 43A, 66, 66C, 66D, 66E, 67, 67A, 69A, 75, 79, 79A",
       "summary": "Core cyber law. Computer misuse, identity theft and personation offences, privacy violation, obscene content, blocking powers and intermediary safe harbour. No AI-specific provisions.",
       "url": "https://www.indiacode.nic.in/handle/123456789/13683",
       "verified": "partial",
-      "note": "Enforcement date from India Code. Section contents summarised from researcher knowledge; re-read bare text."
+      "note": "Enforcement date from India Code. Section list and s.43A end date supplied by the project owner; Gazette copy not checked. s.79A (Examiner of Electronic Evidence) added in v0.2; section contents otherwise summarised from researcher knowledge."
     },
     {
       "id": "G-ITR21",
@@ -634,7 +634,7 @@
       "type": "Statute",
       "force": "Hard law",
       "date": "2019-08-09",
-      "status": "In force",
+      "status": "In force from 2020-07-20 (S.O. 2351(E))",
       "sectors": [
         "Finance & banking",
         "Internet platforms & telecom",
@@ -654,11 +654,19 @@
         "4.3",
         "7.3"
       ],
-      "provisions": "Product liability; unfair trade practices; misleading advertisements",
+      "provisions": "ss.2(18), 2(28), 2(34), 2(47), 10, 21",
       "summary": "Possible route for consumers harmed by defective AI products or misleading AI claims, including deepfake endorsements.",
       "url": "https://www.indiacode.nic.in/",
-      "verified": "no",
-      "note": "Researcher knowledge only."
+      "verified": "partial",
+      "note": "Act number, assent date, commencement and section numbers supplied by the project owner. Missing for 'yes': the bare Act and S.O. 2351(E) not opened; URL is the India Code home page, not the Act.",
+      "act_no": "Act 35 of 2019",
+      "notifications": [
+        {
+          "no": "S.O. 2351(E)",
+          "effective": "2020-07-20",
+          "what": "Brought the Act into force"
+        }
+      ]
     },
     {
       "id": "G-CCPA-DP",
