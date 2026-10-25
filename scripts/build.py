@@ -271,11 +271,29 @@ def check_drafts(errors):
             errors.append(f"drafts/{p.name}: every kept quote must have been verified word for word")
 
 
-def validate(tax, india, glob, directory=None, models=None):
+def check_terms(terms, subs, india, errors):
+    """data/check_terms.json: the keyword lists behind the in-browser NETRA check on an added report."""
+    ins = {i["id"] for i in india["instruments"]}
+    if not isinstance(terms.get("meta", {}).get("min_hits"), int) or terms["meta"]["min_hits"] < 1:
+        errors.append("check_terms: meta.min_hits must be a whole number of at least 1")
+    for kind, known in (("risk_areas", subs), ("instruments", ins)):
+        block = terms.get(kind, {})
+        for k, words in block.items():
+            if k not in known:
+                errors.append(f"check_terms: unknown {kind} id {k}")
+            if not words or not all(isinstance(w, str) and w.strip() for w in words):
+                errors.append(f"check_terms: {kind} {k} needs a list of non-empty terms")
+        for k in sorted(known - set(block)):
+            errors.append(f"check_terms: {kind} {k} has no terms")
+
+
+def validate(tax, india, glob, directory=None, models=None, terms=None):
     if directory is None:
         directory = load("authorities.json")
     if models is None:
         models = load("models.json")
+    if terms is None:
+        terms = load("check_terms.json")
     errors, warnings = [], []
     subs = {s["id"] for d in tax["domains"] for s in d["subs"]}
     msubs = {s["id"] for d in tax["mitigation"] for s in d["subs"]}
@@ -411,6 +429,7 @@ def validate(tax, india, glob, directory=None, models=None):
     check_directory(directory, india, errors)
     check_models(models, india, glob, directory, errors)
     check_drafts(errors)
+    check_terms(terms, subs, india, errors)
 
     for g in india["gaps"]:
         for x in g["incidents"]:
@@ -435,10 +454,9 @@ def slim_global(glob):
 
 
 def build(check_only=False):
-    tax, india, glob, directory, models = (load("taxonomy.json"), load("india.json"), load("global_evidence.json"),
-                                           load("authorities.json"), load("models.json"))
-    prompts = json.loads((ROOT / "scripts" / "ai_prompts.json").read_text(encoding="utf-8"))
-    warnings = validate(tax, india, glob, directory, models)
+    tax, india, glob, directory, models, terms = (load("taxonomy.json"), load("india.json"), load("global_evidence.json"),
+                                                  load("authorities.json"), load("models.json"), load("check_terms.json"))
+    warnings = validate(tax, india, glob, directory, models, terms)
     print(f"Validation passed: {len(india['risks'])} risks, {len(india['incidents'])} incidents, "
           f"{len(india['instruments'])} instruments, {len(india['mitigations'])} mitigations, "
           f"{len(india['gaps'])} gaps, {len(directory['bodies'])} directory bodies, {len(models['models'])} models; {len(warnings)} verification warnings.")
@@ -446,7 +464,7 @@ def build(check_only=False):
         for w in warnings:
             print("  ! " + w)
         return
-    payload = {"tax": tax, "india": india, "global": slim_global(glob), "directory": directory, "models": models, "prompts": prompts, "warnings": warnings,
+    payload = {"tax": tax, "india": india, "global": slim_global(glob), "directory": directory, "models": models, "check": terms, "warnings": warnings,
                "built": date.today().isoformat()}
     blob = json.dumps(payload, ensure_ascii=False).replace("</", "<\\/")
     html = TEMPLATE.read_text(encoding="utf-8")

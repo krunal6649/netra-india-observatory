@@ -149,6 +149,23 @@ class Tests(unittest.TestCase):
         finally:
             self._models = None
 
+    def check_terms_rejects(self, terms, text):
+        with self.assertRaises(build.ValidationError) as c:
+            build.validate(self.tax, self.india, self.glob, self.dir, self.models, terms)
+        self.assertIn(text, str(c.exception))
+
+    def test_check_terms_cover_every_risk_area_and_law(self):
+        t = build.load("check_terms.json")
+        del t["risk_areas"]["7.6"]
+        self.check_terms_rejects(t, "check_terms: risk_areas 7.6 has no terms")
+
+    def test_check_terms_unknown_id_and_empty_term(self):
+        t = build.load("check_terms.json")
+        t["instruments"]["G-NOPE"] = ["x"]
+        t["risk_areas"]["4.3"] = ["fraud", " "]
+        self.check_terms_rejects(t, "unknown instruments id G-NOPE")
+        self.check_terms_rejects(t, "risk_areas 4.3 needs a list of non-empty terms")
+
     def test_models_first_set(self):
         m = self.models["models"]
         self.assertTrue(10 <= len(m) <= 15)
