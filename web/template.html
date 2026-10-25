@@ -88,6 +88,18 @@ nav.tabs button[aria-current="page"]{background:var(--accent);color:var(--accent
 .searchrow input[type=search]{flex:1 1 260px;width:auto}
 .filterpanel{border:1px solid var(--line);border-radius:12px;background:var(--sheet);padding:14px 16px;margin-bottom:14px}
 .filterpanel .filters{margin-bottom:0}
+.lstack{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--sheet)}
+.lrow{border-left:4px solid var(--edge,var(--line))}
+.lrow+.lrow{border-top:1px solid var(--line)}
+.lrow>summary{display:grid;grid-template-columns:88px minmax(0,1fr) auto auto auto;gap:6px 14px;align-items:center;padding:10px 14px;cursor:pointer;list-style:none}
+.lrow>summary::-webkit-details-marker{display:none}
+.lrow>summary:hover,.lrow[open]>summary{background:var(--soft)}
+.lrow .lt{min-width:0;display:flex;flex-direction:column}
+.lrow .lt b{font-weight:600;line-height:1.3}
+.lrow .ldom{display:inline-flex;gap:3px} .lrow .ldom i{width:10px;height:10px;border-radius:50%;background:var(--c)}
+.lrow .lbody{padding:4px 18px 16px}
+.lrow .lbody>.card{border:0;padding:0;background:none}
+@media (max-width:820px){.lrow>summary{grid-template-columns:minmax(0,1fr) auto auto}.lrow>summary .id{grid-column:1/-1}.lrow>summary .lt{grid-column:1/-1}.lrow .ldom{display:none}}
 .hint{color:var(--muted);font-size:.92rem;margin-top:4px;max-width:72ch}
 h4.ctitle{font-family:var(--f-display);font-size:1.15rem;font-weight:650;line-height:1.2;margin:8px 0 0;text-wrap:balance}
 .crumb{font-size:.86rem;margin-bottom:12px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;color:var(--muted)}
@@ -390,10 +402,11 @@ const LEGACY = {navigator:'explore-area', risks:'explore-risks', incidents:'expl
   netra:'analysis-dossiers', gaps:'analysis-gaps', evidence:'about-evidence', survey:'about-survey', about:'about-method',
   explore:'explore-incidents', analysis:'analysis-dossiers', credits:'about-credits', report:'analysis-report', models:'analysis-models'};
 const resolve = v => PAGES[v] ? v : (LEGACY[v] || null);
+const PAGE_SIZE = 20;
 const KINDS = [['risks','Risks'],['incidents','Incidents'],['laws','Laws'],['measures','Measures']];
 const REPO = 'https://github.com/krunal6649/netra-india-observatory';
 const correctUrl = rec => REPO + '/issues/new?template=correction.yml&title=' + encodeURIComponent('Correction: ' + (rec || ''));
-const state = {view:'home', sub:'4.3', dom:'4', inc:'IN-INC-01', f:{}, q:'', showFilters:false, tour:-1, report:{kind:'incident', id:'IN-INC-01'}};
+const state = {view:'home', sub:'4.3', dom:'4', inc:'IN-INC-01', f:{}, q:'', showFilters:false, tour:-1, report:{kind:'incident', id:'IN-INC-01'}, mode:{incidents:'list', laws:'list'}, sort:{incidents:'new', laws:'new'}, limit:PAGE_SIZE};
 const h0 = (location.hash||'').slice(1); if(resolve(h0)) state.view = resolve(h0);
 
 /* ---------- shared bits ---------- */
@@ -535,16 +548,46 @@ V['explore-area'] = () => {
 
 /* Explore: one searchable list. The switch picks the record type; filters stay hidden until asked for. */
 const COUNT = {risks:D.risks.length, incidents:D.incidents.length, laws:D.instruments.length, measures:D.mitigations.length};
+/* Labels for active-filter chips: [filter key, name, value -> readable text] */
+const FILTER_NAMES = {dom:['Risk domain', v=>`${v}. ${DOM[v]?.name||v}`], sector:['Sector'], harm:['Harm type'], sev:['Severity', v=>`${v}+ ${T.severity[v]}`], entity:['Caused by'],
+  state:['State or UT'], year:['Year'], rev:['Review', v=>v==='reviewed'?'Reviewed by a person':'Unreviewed'], fw:['Source', v=>FW[v]?.issuer.split(' (')[0]||v], intent:['Intent'], timing:['Timing'],
+  force:['Legal force', v=>v==='hard'?'Binding':'Soft law & proposals'], type:['Type'], ver:['Verification', v=>VLABEL[v]||v], cat:['Control category', v=>T.mitigation.find(c=>c.id===v)?.name||v], src:['Source', v=>INS[v]?shortIns(INS[v]):v]};
+function activeChips(kind){
+  const f = state.f[kind]||{}, on = Object.entries(f).filter(([,v])=>v);
+  if(!on.length && !state.q) return '';
+  return `<div class="row" style="margin-bottom:12px" aria-label="Active search and filters">${state.q?`<button type="button" class="chip" data-unq="1" aria-label="Remove search ${esc(state.q)}">Search: ${esc(state.q)} ×</button>`:''}${on.map(([k,v])=>{ const [n, fmt] = FILTER_NAMES[k]||[k]; return `<button type="button" class="chip" data-unfilter="${esc(k)}" aria-label="Remove filter ${esc(n)}">${esc(n)}: ${esc(fmt?fmt(v):v)} ×</button>`; }).join('')}<button type="button" class="linkbtn" data-clear="1">Clear all</button></div>`;
+}
+/* Sorting and paging for long lists */
+const firstDate = i => (String(i.date).match(/\d{4}(-\d{2})?(-\d{2})?/)||['0000'])[0];
+const yearOf = x => (String(x.date).match(/\d{4}/)||[''])[0];
+const SORTS = {
+  incidents: {new:['Newest first', (a,b)=>firstDate(b).localeCompare(firstDate(a))], old:['Oldest first', (a,b)=>firstDate(a).localeCompare(firstDate(b))],
+    sev:['Most severe first', (a,b)=>b.severity-a.severity || firstDate(b).localeCompare(firstDate(a))], added:['Recently added', (a,b)=>b.id.localeCompare(a.id)],
+    state:['State A–Z', (a,b)=>a.state.localeCompare(b.state) || firstDate(b).localeCompare(firstDate(a))]},
+  laws: {new:['Newest first', (a,b)=>String(b.date).localeCompare(String(a.date))], old:['Oldest first', (a,b)=>String(a.date).localeCompare(String(b.date))],
+    az:['Title A–Z', (a,b)=>a.title.localeCompare(b.title)], ver:['Least verified first', (a,b)=>({no:0,partial:1,yes:2}[a.verified]-{no:0,partial:1,yes:2}[b.verified]) || a.title.localeCompare(b.title)]}
+};
+function sortPage(kind, list){
+  const S = SORTS[kind], key = S[state.sort[kind]] ? state.sort[kind] : Object.keys(S)[0];
+  return [...list].sort(S[key][1]).slice(0, state.limit);
+}
+function listBar(kind, total){
+  const S = SORTS[kind]; if(!S) return '';
+  return `<div class="row listbar" style="justify-content:space-between;margin-bottom:12px">
+   <label class="field" style="flex-direction:row;align-items:center;gap:8px">Sort by<select id="sort-${kind}" data-sort="${kind}" style="width:auto">${Object.entries(S).map(([k,[l]])=>`<option value="${k}" ${state.sort[kind]===k?'selected':''}>${l}</option>`).join('')}</select></label>
+   <div class="switch" role="group" aria-label="Show as"><button type="button" data-mode="${kind}:list" aria-pressed="${state.mode[kind]==='list'}">List</button><button type="button" data-mode="${kind}:cards" aria-pressed="${state.mode[kind]==='cards'}">Cards</button></div></div>`;
+}
+const moreBtn = (shown, total) => total > shown ? `<div class="row" style="justify-content:center;margin-top:14px"><button type="button" class="btn" data-more="1">Show ${Math.min(PAGE_SIZE, total-shown)} more (${total-shown} not shown)</button></div>` : '';
 function explore(kind, filters, list, shown, extra=''){
   const nf = Object.values(state.f[kind]||{}).filter(Boolean).length;
   const label = KINDS.find(k=>k[0]===kind)[1].toLowerCase();
   return head('Explore','One list of everything on record','Search across all records. Use the switch to change the list, or open Filters to narrow it.','navigator','var(--d1)') +
   `<div class="switch" role="group" aria-label="What to list">${KINDS.map(([k,l])=>`<button type="button" data-go="explore-${k}" aria-pressed="${k===kind}">${l} (${COUNT[k]})</button>`).join('')}</div>
-  <div class="searchrow"><input type="search" id="q" data-q="1" value="${esc(state.q)}" placeholder="Search ${label}…" aria-label="Search ${label}">
+  <div class="searchrow"><input type="search" id="q" data-q="1" value="${esc(state.q)}" placeholder="Search ${label} by name, place, law or year…" aria-label="Search ${label}">
     <button type="button" class="btn" data-filters="1" aria-expanded="${state.showFilters}" aria-controls="filterpanel">${state.showFilters?'Hide filters':'Filters'}${nf?` (${nf} on)`:''}</button>
-    <span class="note" role="status">${shown} of ${COUNT[kind]} ${label} shown</span></div>
+    <span class="note" role="status">${shown} of ${COUNT[kind]} ${label} match</span></div>
   <div class="filterpanel" id="filterpanel" ${state.showFilters?'':'hidden'}>${filters}</div>
-  ${extra}${shown ? list : empty()}`;
+  ${activeChips(kind)}${extra}${shown ? listBar(kind, shown) + list : empty()}`;
 }
 
 V['explore-risks'] = () => {
@@ -590,12 +633,23 @@ function incCard(i){
   ${i.notes?`<dt>Notes</dt><dd>${esc(i.notes)}</dd>`:''}<dt>Corrections</dt><dd>${correctLink(i.id)}</dd></dl></details>
   <div class="row" style="margin-top:12px"><button type="button" class="btn primary" data-inc="${i.id}">${svgIcon('netra',16)} Open NETRA dossier</button>${reportBtn('incident', i.id)}<span class="note">${esc(i.netra.overclaim)}</span></div></article>`;
 }
+const stateOf = i => i.state.split(' (')[0];
+const domDots = ds => `<span class="ldom">${ds.map(d=>`<i style="--c:${dc(d)}" data-tip="<b>${esc(d)}</b>${esc(SUB[d]?.name)}"></i>`).join('')}</span>`;
+function incRow(i){
+  return `<details class="lrow" id="${i.id}" style="--edge:${dc(i.domains[0])}"><summary><span class="id">${i.id}</span><span class="lt"><b>${esc(i.title)}</b><span class="note">${esc(i.date)} · ${esc(i.state)}</span></span>${domDots(i.domains)}${sevm(i.severity)}${rev(i.review)}</summary>
+  <div class="lbody"><p style="max-width:74ch">${esc(i.harm)}</p><p style="margin-top:8px"><b>Legal response:</b> ${esc(i.response)}</p>
+  <div class="row" style="margin-top:10px">${i.domains.map(domChip).join('')}</div>
+  <div class="row" style="margin-top:12px"><button type="button" class="btn primary" data-inc="${i.id}">${svgIcon('netra',16)} Open NETRA dossier</button>${reportBtn('incident', i.id)}<span class="note">${i.sources.length} source${i.sources.length>1?'s':''}${(i.court_documents||[]).length?` · ${i.court_documents.length} court document`:''}</span></div></div></details>`;
+}
 V['explore-incidents'] = () => {
   const f = state.f.incidents||{};
-  const list = D.incidents.filter(i => (!f.dom || i.domains.some(s=>domOf(s)===f.dom)) && (!f.sector || i.sectors.includes(f.sector)) && (!f.harm || i.harm_types.includes(f.harm)) && (!f.sev || i.severity>=+f.sev) && (!f.entity || i.entity===f.entity) && matchQ(i));
+  const list = D.incidents.filter(i => (!f.dom || i.domains.some(s=>domOf(s)===f.dom)) && (!f.sector || i.sectors.includes(f.sector)) && (!f.harm || i.harm_types.includes(f.harm)) && (!f.sev || i.severity>=+f.sev) && (!f.entity || i.entity===f.entity)
+    && (!f.state || stateOf(i)===f.state) && (!f.year || yearOf(i)===f.year) && (!f.rev || (f.rev==='reviewed') === (i.review!=='unreviewed')) && matchQ(i));
+  const page = sortPage('incidents', list);
+  const states = [...new Set(D.incidents.map(stateOf))].sort(), years = [...new Set(D.incidents.map(yearOf).filter(Boolean))].sort().reverse();
   return explore('incidents',
-    domPills('incidents') + filterBox('incidents', f=>sel('sector','Sector',T.sectors.map(x=>[x,x]),f.sector)+sel('harm','Harm type',T.harm_types.map(x=>[x,x]),f.harm)+sel('sev','Severity',Object.entries(T.severity).map(([k,v])=>[k,k+'+ '+v]),f.sev,'Severity: any')+sel('entity','Caused by',Object.keys(T.causal.entity).map(x=>[x,x]),f.entity)),
-    `<div class="stack">${list.map(incCard).join('')}</div>`,
+    domPills('incidents') + filterBox('incidents', f=>sel('state','State or UT',states.map(x=>[x,x]),f.state)+sel('year','Year',years.map(x=>[x,x]),f.year)+sel('rev','Review',[['reviewed','Reviewed by a person'],['unreviewed','Unreviewed']],f.rev)+sel('sector','Sector',T.sectors.map(x=>[x,x]),f.sector)+sel('harm','Harm type',T.harm_types.map(x=>[x,x]),f.harm)+sel('sev','Severity',Object.entries(T.severity).map(([k,v])=>[k,k+'+ '+v]),f.sev,'Severity: any')+sel('entity','Caused by',Object.keys(T.causal.entity).map(x=>[x,x]),f.entity)),
+    (state.mode.incidents==='cards' ? `<div class="stack">${page.map(incCard).join('')}</div>` : `<div class="lstack">${page.map(incRow).join('')}</div>`) + moreBtn(page.length, list.length),
     list.length,
     `<p class="callout" style="margin-bottom:12px">Reported incidents are a small, biased sample of real harms. Where a source does not confirm that AI was used, the record says so.</p>
     ${list.length?`<details class="sheet more" style="margin-bottom:14px"><summary>Show timeline</summary><p class="hint">Each dot is an incident: colour shows its main risk domain, size shows severity. Click one to jump to it.</p>${timeline(list)}
@@ -627,12 +681,17 @@ function lawCard(i){
    <dt>Source</dt><dd><a href="${esc(i.url)}" target="_blank" rel="noopener">${esc(new URL(i.url).hostname)}</a>${i.gazette_url?` · <a href="${esc(i.gazette_url)}" target="_blank" rel="noopener">Gazette copy</a>`:''}${ver(i.verified)}<div class="note">${esc(i.note)}</div>${i.checked?`<div class="note">Checked ${esc(i.checked)}</div>`:''}</dd>
    <dt>Corrections</dt><dd>${correctLink(i.id)}</dd></dl></details></article>`;
 }
+function lawRow(i){
+  return `<details class="lrow" id="ins-${i.id}" style="--edge:${isHard(i)?'var(--accent)':'var(--line)'}"><summary><span class="id">${i.id}</span><span class="lt"><b>${esc(i.title)}</b><span class="note">${esc(i.type)} · ${esc(i.date)}${i.act_no?` · ${esc(i.act_no)}`:''}</span></span>${domDots(i.domains)}<span class="chip ${isHard(i)?'hard':'soft'}">${isHard(i)?'Binding':'Soft'}</span>${vtag(i.verified)}</summary>
+  <div class="lbody">${lawCard(i).replace(/^<article class="card edge" id="ins-[^"]+"/, '<article class="card"')}</div></details>`;
+}
 V['explore-laws'] = () => {
   const f = state.f.laws||{};
   const list = D.instruments.filter(i => (!f.force || (f.force==='hard'?isHard(i):!isHard(i))) && (!f.type || i.type===f.type) && (!f.sector || i.sectors.includes(f.sector)) && (!f.dom || i.domains.some(s=>domOf(s)===f.dom)) && (!f.ver || i.verified===f.ver) && matchQ(i));
+  const page = sortPage('laws', list);
   return explore('laws',
     domPills('laws') + filterBox('laws', f=>sel('force','Legal force',[['hard','Binding law & court orders'],['soft','Soft law & proposals']],f.force)+sel('type','Type',[...new Set(D.instruments.map(i=>i.type))].sort().map(x=>[x,x]),f.type)+sel('sector','Sector',T.sectors.map(x=>[x,x]),f.sector)+sel('ver','Verification',[['yes','Verified'],['partial','Partly verified'],['no','To verify']],f.ver)),
-    `<div class="stack">${list.map(lawCard).join('')}</div>`,
+    (state.mode.laws==='cards' ? `<div class="stack">${page.map(lawCard).join('')}</div>` : `<div class="lstack">${page.map(lawRow).join('')}</div>`) + moreBtn(page.length, list.length),
     list.length,
     `<p class="note" style="margin-bottom:12px">India has no AI-specific statute. These are the general laws, sector rules, advisories, policy papers, standards and court orders that reach AI.</p>
     ${list.length?`<details class="sheet more" style="margin-bottom:14px"><summary>Show timeline</summary><p class="hint">Filled dots are binding; hollow dots are soft law or proposals. Click one to jump to it.</p>${lawLandscape(list)}</details>`:''}`);
@@ -1119,7 +1178,7 @@ function countUp(){ if(reduce) return; document.querySelectorAll('[data-count]')
 function page(v){ return subnav() + V[v](); }
 function render(){ $view.innerHTML = `<div class="view">${page(state.view)}</div>`; if(state.view==='home' && typeof requestAnimationFrame!=='undefined') countUp(); }
 function go(v, keepScroll){ v = resolve(v) || 'home'; state.view = v; if(state.tour>=0 && TOUR[state.tour][0]!==v) state.tour = -1; try{ history.replaceState(null,'','#'+v); }catch(e){} renderTabs(); render(); hideTip(); if(!keepScroll) window.scrollTo(0,0); renderTour(); }
-function openLaw(id){ state.q = ''; state.f.laws = {}; go('explore-laws'); const el = document.getElementById('ins-'+id); if(el){ const d = el.querySelector('details'); if(d) d.open = true; el.scrollIntoView?.({block:'start'}); } }
+function openLaw(id){ state.q = ''; state.f.laws = {}; state.limit = Infinity; go('explore-laws'); const el = document.getElementById('ins-'+id); if(el){ const d = el.querySelector('details'); if(d) d.open = true; el.scrollIntoView?.({block:'start'}); } }
 
 /* theme: dark by default; light is a per-reader choice, and is also used for printing */
 const $theme = document.getElementById('theme-btn');
@@ -1144,7 +1203,7 @@ document.addEventListener('pointerover', e => { const t = e.target.closest?.('[d
 document.addEventListener('pointermove', e => { if(!$tip.classList.contains('show')) return; const w = $tip.offsetWidth, h = $tip.offsetHeight; let x = e.clientX+14, y = e.clientY+14; if(x+w>innerWidth-8) x = e.clientX-w-14; if(y+h>innerHeight-8) y = e.clientY-h-14; $tip.style.left = Math.max(8,x)+'px'; $tip.style.top = Math.max(8,y)+'px'; });
 document.addEventListener('click', e => {
   if(e.target.closest?.('#theme-btn')){ setTheme(document.documentElement.getAttribute('data-theme')==='light' ? 'dark' : 'light', true); return; }
-  const t = e.target.closest('[data-go],[data-sub],[data-dom],[data-inc],[data-law],[data-report],[data-scroll],[data-pill],[data-clear],[data-filters],[data-tour],#rep-copy,#rep-dl,#rep-print,#sv-refresh,#sv-publish,#sv-copy,#sv-doimport');
+  const t = e.target.closest('[data-mode],[data-more],[data-unfilter],[data-unq],[data-go],[data-sub],[data-dom],[data-inc],[data-law],[data-report],[data-scroll],[data-pill],[data-clear],[data-filters],[data-tour],#rep-copy,#rep-dl,#rep-print,#sv-refresh,#sv-publish,#sv-copy,#sv-doimport');
   if(!t) return;
   if(t.id==='rep-copy'){ copyReport(); return; }
   if(t.id==='rep-dl'){ downloadReport(); return; }
@@ -1155,26 +1214,31 @@ document.addEventListener('click', e => {
   if(t.id==='sv-publish'){ publishSummary(); return; }
   e.preventDefault();
   if(t.dataset.tour){ const a = t.dataset.tour; return tour(a==='start' ? 0 : a==='next' ? state.tour+1 : a==='back' ? state.tour-1 : -1); }
-  if(t.dataset.go) return go(t.dataset.go);
+  if(t.dataset.mode){ const [k, m] = t.dataset.mode.split(':'); state.mode[k] = m; return render(); }
+  if(t.dataset.more){ state.limit += PAGE_SIZE; return render(); }
+  if(t.dataset.unfilter){ const kind = PAGES[state.view].kind; state.f[kind] = {...(state.f[kind]||{}), [t.dataset.unfilter]: ''}; state.limit = PAGE_SIZE; return render(); }
+  if(t.dataset.unq){ state.q = ''; state.limit = PAGE_SIZE; return render(); }
+  if(t.dataset.go){ if(t.dataset.go!==state.view) state.limit = PAGE_SIZE; return go(t.dataset.go); }
   if(t.dataset.filters){ state.showFilters = !state.showFilters; return render(); }
-  if(t.dataset.clear){ const kind = PAGES[state.view].kind; if(kind) state.f[kind] = {}; state.q = ''; return render(); }
-  if(t.dataset.pill){ const box = t.closest('[data-fview]').dataset.fview, cur = (state.f[box]||{})[t.dataset.pill]; state.f[box] = {...(state.f[box]||{}), [t.dataset.pill]: cur===t.dataset.v ? '' : t.dataset.v}; return render(); }
+  if(t.dataset.clear){ const kind = PAGES[state.view].kind; if(kind) state.f[kind] = {}; state.q = ''; state.limit = PAGE_SIZE; return render(); }
+  if(t.dataset.pill){ state.limit = PAGE_SIZE; const box = t.closest('[data-fview]').dataset.fview, cur = (state.f[box]||{})[t.dataset.pill]; state.f[box] = {...(state.f[box]||{}), [t.dataset.pill]: cur===t.dataset.v ? '' : t.dataset.v}; return render(); }
   if(t.dataset.sub){ state.sub = t.dataset.sub; return go('explore-area', state.view==='explore-area'); }
   if(t.dataset.dom){ state.sub = DOM[t.dataset.dom].subs[0].id; return go('explore-area', state.view==='explore-area'); }
   if(t.dataset.inc){ state.inc = t.dataset.inc; return go('analysis-dossiers', state.view==='analysis-dossiers'); }
   if(t.dataset.law) return openLaw(t.dataset.law);
   if(t.dataset.report){ const [kind, id] = t.dataset.report.split(/:(.*)/); state.report = {kind, id}; return go('analysis-report'); }
-  if(t.dataset.scroll){ const el = document.getElementById(t.dataset.scroll); if(el){ const d = el.querySelector('details'); if(d) d.open = true; el.scrollIntoView({block:'start', behavior: reduce?'auto':'smooth'}); el.animate?.([{boxShadow:'0 0 0 4px var(--accent)'},{boxShadow:'0 0 0 0 transparent'}],{duration:1200}); } }
+  if(t.dataset.scroll){ let el = document.getElementById(t.dataset.scroll); if(!el){ state.limit = Infinity; render(); el = document.getElementById(t.dataset.scroll); } if(el){ const d = el.tagName==='DETAILS' ? el : el.querySelector('details'); if(d) d.open = true; el.scrollIntoView({block:'start', behavior: reduce?'auto':'smooth'}); el.animate?.([{boxShadow:'0 0 0 4px var(--accent)'},{boxShadow:'0 0 0 0 transparent'}],{duration:1200}); } }
 });
 document.addEventListener('keydown', e => { if((e.key==='Enter'||e.key===' ') && e.target.matches?.('.brand')){ e.preventDefault(); go('home'); } if(e.key==='Escape' && state.tour>=0) tour(-1); });
 document.addEventListener('input', e => {
-  if(e.target.dataset?.q){ state.q = e.target.value; clearTimeout(window.__t); window.__t = setTimeout(()=>{ const pos = e.target.selectionStart; render(); const s = document.getElementById('q'); if(s){ s.focus(); s.setSelectionRange(pos,pos);} }, 250); return; }
+  if(e.target.dataset?.q){ state.q = e.target.value; state.limit = PAGE_SIZE; clearTimeout(window.__t); window.__t = setTimeout(()=>{ const pos = e.target.selectionStart; render(); const s = document.getElementById('q'); if(s){ s.focus(); s.setSelectionRange(pos,pos);} }, 250); return; }
   const box = e.target.closest('[data-fview]'); if(!box || !e.target.dataset.k) return;
-  const v = box.dataset.fview; state.f[v] = {...(state.f[v]||{}), [e.target.dataset.k]: e.target.value};
+  const v = box.dataset.fview; state.f[v] = {...(state.f[v]||{}), [e.target.dataset.k]: e.target.value}; state.limit = PAGE_SIZE;
   render();
 });
 document.addEventListener('change', e => {
   if(e.target.id==='nav-sub' && e.target.value){ state.sub = e.target.value; render(); }
+  if(e.target.dataset?.sort){ state.sort[e.target.dataset.sort] = e.target.value; state.limit = PAGE_SIZE; return render(); }
   if(e.target.id==='rep-kind'){ const k = e.target.value; state.report = {kind:k, id: REPORT_KINDS[k].items()[0][0]}; render(); }
   if(e.target.id==='rep-item'){ state.report = {...state.report, id: e.target.value}; render(); }
 });
