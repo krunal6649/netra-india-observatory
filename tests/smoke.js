@@ -91,7 +91,11 @@ N.state.showUpload = false; A.UP.text = ''; A.UP.result = null;
 const mv = N.page('analysis-models'); N.state.mview = 'reports'; const ev = N.page('analysis-models'); N.state.mview = 'models';
 check(mv.includes('By evaluation report') && ev.includes('TR-001') && ev.includes('Indian provisions, limits and source') && !N.PAGES['about-evidence'] && N.page('home').includes('data-go="analysis-models"'), 'Global evidence now sits inside Models and evaluations, with a card on Home');
 const hw = N.page('home');
-check(hw.includes('This week in India') && (hw.includes('after the first Saturday run') || hw.includes('picked automatically and not yet checked by a person')) && hw.includes('GDELT'), 'Home has This week in India, labelled auto-selected and unreviewed, with the GDELT credit');
+const WK = JSON.parse(script.match(/const PAYLOAD = (\{[\s\S]*?\});\n\(function/)[1]).weekly.weeks[0];
+const wkHas = WK && (WK.top.length + WK.cyber.length + WK.models.length) > 0;
+check(wkHas ? (hw.indexOf('This week in India') > hw.indexOf('click a segment to open that risk area') && hw.indexOf('This week in India') < hw.indexOf('Where incidents outrun binding law') && hw.includes('GDELT'))
+            : !hw.includes('This week in India'), 'This week in India sits just below the risk areas, and is hidden when the week is empty');
+check(!/Nothing this week|Nothing new this week|No AI item met|not yet checked by a person|did not answer this week/.test(hw) && (!WK || WK.cyber.length || !hw.includes('Cyber watch')) && (!WK || WK.top.length || !hw.includes('W-' + (WK && WK.week_start))), 'empty parts of the weekly section are not shown at all');
 check(N.page('about-credits').includes('CERT-In: not used yet'), 'Credits list the weekly sources and say CERT-In is not used yet');
 const mt = N.page('about-method');
 check(mt.includes('Planned for v0.3') && mt.includes('Live reporting') && mt.includes('MIT AI Risk Repository import') && mt.includes('Further sources') && !/undefined|NaN/.test(mt), 'About › Method lists what is planned for v0.3, with counts from the data');
@@ -115,7 +119,7 @@ const cells = [...hm.matchAll(/grid-column:(\d+);grid-row:(\d+)/g)].map(m => m[1
 check(cells.length === 36 && new Set(cells).size === 36, 'tile map gives each state and UT its own square');
 check(!/data-tip=""/.test(hm), 'no empty hover cards');
 check(['Jammu and Kashmir', 'Ladakh', 'Arunachal Pradesh'].every(p => hm.includes(`data-dir="place:state:${p}"`)) && hm.includes('including Jammu and Kashmir, Ladakh and Arunachal Pradesh'), 'tile map shows Jammu and Kashmir, Ladakh and Arunachal Pradesh as part of India');
-check(!/\b\d+ (case|incident)s?\b/i.test(hm.slice(hm.indexOf('id="directory"'), hm.indexOf('Where incidents outrun'))), 'directory shows no case counts');
+check(!/\b\d+ (case|incident)s?\b/i.test(hm.slice(hm.indexOf('id="directory"'), hm.indexOf('click a segment to open that risk area'))), 'directory shows no case counts');
 N.state.dir = { level: 'state', place: 'Kerala', body: null };
 hm = N.page('home');
 check((hm.match(/data-dir="body:S-kerala-/g) || []).length === 10 && hm.includes('Back') && hm.includes('Supports victims'), 'step 3 shows a state’s bodies coloured by role, with a legend');

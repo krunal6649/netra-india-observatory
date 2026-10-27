@@ -619,28 +619,31 @@ const crumb = (...parts) => `<div class="crumb">${parts.map(([l,go])=>go?`<butto
 const WEEKLY = PAYLOAD.weekly || {weeks:[]};
 const autoTag = '<span class="rev" style="color:var(--open);background:color-mix(in srgb,var(--open) 12%,transparent)">Auto-selected, unreviewed</span>';
 const srcLinks = it => `<ul class="note" style="margin:8px 0 0;padding-left:18px">${it.sources.map(x=>`<li><a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.title)}</a> · ${esc(x.domain)}${x.date?` · ${esc(x.date)}`:''}</li>`).join('')}</ul>`;
+/* Only the parts that have something in them are shown; an empty week is not shown at all */
+const weekHas = w => w.top.length + w.cyber.length + w.models.length > 0;
 function weekBlock(w){
   const ok = w.sources.filter(x=>x.status==='ok').length;
-  return `<div class="grid g-3" style="margin-top:12px">${w.top.length ? w.top.map(it=>`<article class="card edge" style="--edge:${it.risk_areas[0]?dc(it.risk_areas[0]):'var(--line)'}">
+  const cyber = w.cyber.length ? `<section class="sheet">${H3('Cyber watch','Cyber security news from India. Kept apart and never counted as AI incidents.')}
+     ${w.cyber.map(it=>`<div style="margin-top:10px"><b>${esc(it.sources[0].title)}</b> ${autoTag}<p class="note" style="margin-top:4px">${esc(it.summary)}</p>${srcLinks(it)}</div>`).join('')}</section>` : '';
+  const models = w.models.length ? `<section class="sheet">${H3('Model watch','New AI model tests published this week. Not yet read or mapped by NETRA.')}
+     <ul style="margin:8px 0 0;padding-left:18px">${w.models.map(m=>`<li><a href="${esc(m.url)}" target="_blank" rel="noopener">${esc(m.title)}</a> <span class="note">${esc(m.kind)}${m.date?` · ${esc(m.date)}`:''}. ${esc(m.note)}</span></li>`).join('')}</ul></section>` : '';
+  return `${w.top.length ? `<div class="grid g-3" style="margin-top:12px">${w.top.map(it=>`<article class="card edge" style="--edge:${it.risk_areas[0]?dc(it.risk_areas[0]):'var(--line)'}">
       <div class="row"><span class="id">${esc(it.id)}</span>${autoTag}</div>
       <b style="display:block;font-family:var(--f-display);font-size:1.02rem;margin-top:8px">${esc(it.sources[0].title)}</b>
       <p style="margin-top:6px">${esc(it.summary)}</p>${it.risk_areas.length?`<div class="row" style="margin-top:6px">${it.risk_areas.map(domChip).join('')}</div>`:''}
-      <details class="more"><summary>${it.sources.length} source${it.sources.length===1?'':'s'}</summary>${srcLinks(it)}</details></article>`).join('')
-    : w.news_ok===false ? '<p class="callout">The news source (GDELT) did not answer this week, so no incidents could be picked. This does not mean nothing happened.</p>' : '<p class="note">No AI item met the selection rules this week.</p>'}</div>
-   <div class="grid g-2" style="margin-top:14px;align-items:start">
-    <section class="sheet">${H3('Cyber watch','Cyber security news from India. Kept apart and never counted as AI incidents.')}
-     ${!w.cyber.length && w.news_ok===false ? '<p class="note" style="margin-top:6px">The news source did not answer this week.</p>' : w.cyber.length ? w.cyber.map(it=>`<div style="margin-top:10px"><b>${esc(it.sources[0].title)}</b> ${autoTag}<p class="note" style="margin-top:4px">${esc(it.summary)}</p>${srcLinks(it)}</div>`).join('') : '<p class="note" style="margin-top:6px">Nothing this week.</p>'}</section>
-    <section class="sheet">${H3('Model watch','New AI model tests published this week. Not yet read or mapped by NETRA.')}
-     ${w.models.length ? `<ul style="margin:8px 0 0;padding-left:18px">${w.models.map(m=>`<li><a href="${esc(m.url)}" target="_blank" rel="noopener">${esc(m.title)}</a> <span class="note">${esc(m.kind)}${m.date?` · ${esc(m.date)}`:''}. ${esc(m.note)}</span></li>`).join('')}</ul>` : '<p class="note" style="margin-top:6px">Nothing new this week.</p>'}</section></div>
+      <details class="more"><summary>${it.sources.length} source${it.sources.length===1?'':'s'}</summary>${srcLinks(it)}</details></article>`).join('')}</div>` : ''}
+   ${cyber || models ? `<div class="grid g-2" style="margin-top:14px;align-items:start">${cyber}${models}</div>` : ''}
    <details class="more" style="margin-top:10px"><summary>How these were chosen, and source status (${ok} of ${w.sources.length} sources answered)</summary>
     <p class="note" style="margin-top:6px">Picked automatically from official feeds and APIs by keyword rules: an AI term, a harm term and a link to India in the headline. Stories already in NETRA’s records are left out. The summaries are NETRA’s own; headlines appear only as source titles. Fewer than five are shown when fewer qualify. Nothing here becomes a NETRA record until a person reviews it. <a href="${REPO}/blob/main/docs/weekly-method.md" target="_blank" rel="noopener">Full method</a></p>
     <ul class="note" style="margin:6px 0 0;padding-left:18px">${w.sources.map(x=>`<li>${esc(x.name)}: ${x.status==='ok'?`${x.items} items`:x.status==='off'?'switched off':'did not answer'}</li>`).join('')}</ul>
     ${w.notes.length?`<ul class="note" style="margin:6px 0 0;padding-left:18px">${w.notes.map(n=>`<li>${esc(n)}</li>`).join('')}</ul>`:''}</details>`;
 }
 function weeklySection(){
-  const [w, ...older] = WEEKLY.weeks;
-  return `<div style="margin-top:30px">${H3('This week in India', w ? `AI incidents reported ${w.week_start} to ${w.week_end}, picked automatically and not yet checked by a person. Updated every Saturday.` : 'Up to five AI incidents from the past seven days, picked automatically every Saturday at 00:00 IST.')}</div>
-   ${w ? weekBlock(w) : '<p class="note" style="margin-top:8px">The first weekly update will appear here after the first Saturday run has been reviewed.</p>'}
+  const [w, ...rest] = WEEKLY.weeks, older = rest.filter(weekHas);
+  if(!w || !weekHas(w)) return '';
+  const what = w.top.length ? 'AI incidents reported' : w.cyber.length ? 'Cyber security news from' : 'New AI model tests from';
+  return `<div style="margin-top:30px">${H3('This week in India', `${what} ${w.week_start} to ${w.week_end}, picked automatically. Updated every Saturday.`)}</div>
+   ${weekBlock(w)}
    ${older.length ? `<details class="more" style="margin-top:8px"><summary>Earlier weeks (${older.length})</summary>${older.map(o=>`<h4 class="ctitle" style="font-size:1rem;margin-top:12px">${esc(o.week_start)} to ${esc(o.week_end)}</h4>${weekBlock(o)}`).join('')}</details>` : ''}
    <p class="note" style="margin-top:8px">${WEEKLY.meta?.credit ? esc(WEEKLY.meta.credit) : 'News discovery by the GDELT Project (gdeltproject.org).'}</p>`;
 }
@@ -658,6 +661,7 @@ V.home = () => {
   </section>
   ${dirSection()}
   <div class="legend" style="margin-top:18px">${T.domains.map(d=>`<span style="--c:var(--d${d.id})"><i></i>${d.id}. ${esc(d.name)}</span>`).join('')}<span>· darker segment = more incidents and law on record · click a segment to open that risk area</span></div>
+  ${weeklySection()}
 
   ${H3('Where incidents outrun binding law','Each card is one risk domain: how many incidents are on record, against how many binding and soft instruments reach it.','margin-top:30px')}
   <div class="grid g-3" style="margin-top:12px">${T.domains.map(d=>{ const c = domCoverage(d.id); const flag = c.incidents && c.hard < c.incidents;
@@ -670,7 +674,6 @@ V.home = () => {
   <div class="grid g-3" style="margin-top:12px">${recent.map(i=>`<button type="button" class="card edge" style="--edge:${dc(i.domains[0])};text-align:left;font:inherit;color:inherit;cursor:pointer" data-inc="${i.id}">
     <div class="row"><span class="id">${i.id}</span>${sevm(i.severity)}</div><b style="display:block;font-family:var(--f-display);font-size:1.08rem;margin-top:8px">${esc(i.title)}</b>
     <p class="note" style="margin-top:6px">${esc(i.date)} · ${esc(i.state)}</p></button>`).join('')}</div>
-  ${weeklySection()}
 
   <button type="button" class="card edge" style="--edge:var(--d7);text-align:left;font:inherit;color:inherit;cursor:pointer;margin-top:30px;width:100%" data-go="analysis-models">
     <span class="eyebrow">Models and evaluations</span><b style="display:block;font-family:var(--f-display);font-size:1.2rem;margin-top:6px">What testers found in ${MODELS.models.length} AI models, and which Indian laws it touches</b>

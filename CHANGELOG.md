@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.2.1-dev — This week in India placement
+- **This week in India** now sits just below the risk-area legend on Home.
+- Only parts with something in them are shown: no AI cards, Cyber watch or Model watch when empty, and no section
+  at all for an empty week. No "nothing this week" wording.
+- Subtitle shortened to "… picked automatically. Updated every Saturday." Cards keep the "Auto-selected,
+  unreviewed" label.
+
 ## v0.2.1-dev — weekly update when GDELT is busy
 - Third run (pull request #19, closed): GDELT answered 429 again, after three retries. The workflow now waits
   10 minutes and runs once more when GDELT did not answer.
