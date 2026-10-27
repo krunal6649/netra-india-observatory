@@ -1,7 +1,8 @@
 # Changelog
 
-## v0.2.1-dev — This week in India placement
-- **This week in India** now sits just below the risk-area legend on Home.
+## v0.2.1-dev — This week in India placement; Whom to approach
+- Home order is now: risk wheel, risk-area legend, **This week in India**, then **Whom to approach** (renamed from
+  "Who to approach" on the site, tour, README and docs), then the coverage cards.
 - Only parts with something in them are shown: no AI cards, Cyber watch or Model watch when empty, and no section
   at all for an empty week. No "nothing this week" wording.
 - Subtitle shortened to "… picked automatically. Updated every Saturday." Cards keep the "Auto-selected,

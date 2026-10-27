@@ -1,7 +1,7 @@
 # Authorities explorer — v0.2 scope
 
 Part (a) built in v0.2 (Union bodies and the six states/UTs named in incidents first). Every entry shows "to verify" until checked against an official source.
-Built in v0.2 as **Home › Who to approach**: **India → Union / State-UT → authority type → authority**.
+Built in v0.2 as **Home › Whom to approach**: **India → Union / State-UT → authority type → authority**.
 
 - **Union** groups and each place's bodies are shown as treemaps, coloured by role (enforces, adjudicates,
   regulates, supports victims).

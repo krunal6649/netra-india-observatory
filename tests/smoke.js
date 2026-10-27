@@ -95,14 +95,15 @@ const WK = JSON.parse(script.match(/const PAYLOAD = (\{[\s\S]*?\});\n\(function/
 const wkHas = WK && (WK.top.length + WK.cyber.length + WK.models.length) > 0;
 check(wkHas ? (hw.indexOf('This week in India') > hw.indexOf('click a segment to open that risk area') && hw.indexOf('This week in India') < hw.indexOf('Where incidents outrun binding law') && hw.includes('GDELT'))
             : !hw.includes('This week in India'), 'This week in India sits just below the risk areas, and is hidden when the week is empty');
+check(hw.indexOf('class="hero"') < hw.indexOf('click a segment to open that risk area') && hw.indexOf('click a segment to open that risk area') < hw.indexOf('id="directory"') && (!wkHas || hw.indexOf('This week in India') < hw.indexOf('id="directory"')) && hw.includes('Whom to approach') && !hw.includes('Who to approach'), 'Home order: risk wheel, legend, This week in India, then Whom to approach');
 check(!/Nothing this week|Nothing new this week|No AI item met|not yet checked by a person|did not answer this week/.test(hw) && (!WK || WK.cyber.length || !hw.includes('Cyber watch')) && (!WK || WK.top.length || !hw.includes('W-' + (WK && WK.week_start))), 'empty parts of the weekly section are not shown at all');
 check(N.page('about-credits').includes('CERT-In: not used yet'), 'Credits list the weekly sources and say CERT-In is not used yet');
 const mt = N.page('about-method');
 check(mt.includes('Planned for v0.3') && mt.includes('Live reporting') && mt.includes('MIT AI Risk Repository import') && mt.includes('Further sources') && !/undefined|NaN/.test(mt), 'About › Method lists what is planned for v0.3, with counts from the data');
 check(!html.includes('pilot v0.1') && html.includes('content="22 India AI incidents'), 'link-preview text is current');
 const zipbuf = fs.readFileSync(path.join(__dirname, 'fixtures', 'sample.docx'));
-check(N.TOUR.some(t => t[1] === 'Who to approach' && t[3] === 'directory') && !N.page('home').includes('Three ways in'), 'tour includes Who to approach; Three ways in is gone');
-// Phase 3: Who to approach directory
+check(N.TOUR.some(t => t[1] === 'Whom to approach' && t[3] === 'directory') && !N.page('home').includes('Three ways in'), 'tour includes Whom to approach; Three ways in is gone');
+// Phase 3: Whom to approach directory
 const DIRD = JSON.parse(script.match(/const PAYLOAD = (\{[\s\S]*?\});\n\(function/)[1]).directory;
 const sq = N.squarify([{ w: 5 }, { w: 3 }, { w: 2 }, { w: 1 }, { w: 1 }], 0, 0, 100, 100);
 const area = sq.reduce((s, r) => s + r.w * r.h, 0);
@@ -110,7 +111,7 @@ const overlap = sq.some((r, k) => sq.some((q, j) => j > k && r.x < q.x + q.w - 1
 check(Math.abs(area - 10000) < 1e-6 && !overlap && sq.every(r => r.x >= -1e-9 && r.y >= -1e-9 && r.x + r.w <= 100 + 1e-6 && r.y + r.h <= 100 + 1e-6), 'treemap tiles fill the box without overlapping');
 N.state.dir = { level: null, place: null, body: null };
 let hm = N.page('home');
-check(hm.includes('Who to approach') && hm.indexOf('id="directory"') < hm.indexOf('Where incidents outrun binding law') && hm.includes('data-dir="level:union"') && hm.includes('data-dir="level:state"'), 'directory sits at the top of Home with Union and State/UT tiles');
+check(hm.includes('Whom to approach') && hm.indexOf('id="directory"') < hm.indexOf('Where incidents outrun binding law') && hm.includes('data-dir="level:union"') && hm.includes('data-dir="level:state"'), 'directory sits at the top of Home with Union and State/UT tiles');
 check(hm.includes('Call <b>1930</b>') && hm.includes('What NETRA adds'), 'directory shows the 1930 first step and what NETRA adds');
 N.state.dir = { level: 'state', place: null, body: null };
 hm = N.page('home');
@@ -119,7 +120,7 @@ const cells = [...hm.matchAll(/grid-column:(\d+);grid-row:(\d+)/g)].map(m => m[1
 check(cells.length === 36 && new Set(cells).size === 36, 'tile map gives each state and UT its own square');
 check(!/data-tip=""/.test(hm), 'no empty hover cards');
 check(['Jammu and Kashmir', 'Ladakh', 'Arunachal Pradesh'].every(p => hm.includes(`data-dir="place:state:${p}"`)) && hm.includes('including Jammu and Kashmir, Ladakh and Arunachal Pradesh'), 'tile map shows Jammu and Kashmir, Ladakh and Arunachal Pradesh as part of India');
-check(!/\b\d+ (case|incident)s?\b/i.test(hm.slice(hm.indexOf('id="directory"'), hm.indexOf('click a segment to open that risk area'))), 'directory shows no case counts');
+check(!/\b\d+ (case|incident)s?\b/i.test(hm.slice(hm.indexOf('id="directory"'), hm.indexOf('Where incidents outrun'))), 'directory shows no case counts');
 N.state.dir = { level: 'state', place: 'Kerala', body: null };
 hm = N.page('home');
 check((hm.match(/data-dir="body:S-kerala-/g) || []).length === 10 && hm.includes('Back') && hm.includes('Supports victims'), 'step 3 shows a state’s bodies coloured by role, with a legend');

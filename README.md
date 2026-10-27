@@ -14,7 +14,7 @@ An open, India-focused record of AI harms, the Indian laws that may apply to the
 
 ## Start here (three minutes)
 1. Open the [live site](https://krunal6649.github.io/netra-india-observatory/) and press **Guided tour** (top right) for a seven-step walk-through.
-2. On **Home**, use **Who to approach**: pick Union or a state on the tile map, then a body. Below it, **This week in India** shows the latest weekly update.
+2. On **Home**, use **Whom to approach**: pick Union or a state on the tile map, then a body. Below it, **This week in India** shows the latest weekly update.
 3. Go to **Explore**, switch between Risks, Incidents, Laws and Measures, and search. Click **Filters** to narrow the list.
 4. Open an incident's **NETRA dossier** (under **Analysis**), or press **Generate report** on any incident, risk area or model.
 
@@ -27,7 +27,7 @@ An open, India-focused record of AI harms, the Indian laws that may apply to the
 | Risks quoted from Indian government frameworks | 18 | Quoted with location |
 | Measures | 28 | Quoted or summarised from those instruments |
 | Governance gaps | 6 | NETRA analysis |
-| Who to approach directory | 391 bodies (31 Union, 10 for each of 36 states and UTs) | 32 official links checked by the maintainer |
+| Whom to approach directory | 391 bodies (31 Union, 10 for each of 36 states and UTs) | 32 official links checked by the maintainer |
 | AI model cards | 12 | Unreviewed |
 | Weekly update | Up to 5 AI items, Cyber watch, Model watch | Auto-selected, unreviewed |
 
@@ -45,7 +45,7 @@ Four sections. Night (dark) mode is the default; the sun / moon button at the to
 
 | Section | What it holds now |
 |---|---|
-| **Home** | **This week in India** (weekly, auto-selected, unreviewed), headline, one "cases tracked" counter (reviewed and unreviewed, with the data update date), then **Who to approach**: a drill-down directory (Level → Authority → Bodies → body page) of 31 Union bodies and 10 standard bodies for each of the 36 states and UTs, coloured by role (enforces, adjudicates, regulates, supports victims). States and UTs appear on a tile map of India that includes Jammu and Kashmir, Ladakh and Arunachal Pradesh. Then the risk wheel and where incidents outrun binding law |
+| **Home** | **This week in India** (weekly, auto-selected, unreviewed), headline, one "cases tracked" counter (reviewed and unreviewed, with the data update date), then **Whom to approach**: a drill-down directory (Level → Authority → Bodies → body page) of 31 Union bodies and 10 standard bodies for each of the 36 states and UTs, coloured by role (enforces, adjudicates, regulates, supports victims). States and UTs appear on a tile map of India that includes Jammu and Kashmir, Ladakh and Arunachal Pradesh. Then the risk wheel and where incidents outrun binding law |
 | **Explore** | One searchable list with a switch: **Risks** (18 quoted from MeitY’s 2025 AI Governance Guidelines and NITI Aayog’s Responsible AI Part 1) · **Incidents** (22 documented in India) · **Laws** (28 statutes, rules, advisories, policy papers, standards and court orders, with Act numbers, Gazette notifications and cases where known) · **Measures** (28, sorted into MIT’s 23 mitigation types). Filters stay hidden until you click **Filters**. Incidents and laws show as a compact list (one line each, click to expand; a **List / Cards** switch keeps the full cards), can be sorted, show 20 at a time with **Show more**, and list active filters as chips you can remove. Incidents can also be filtered by state or UT, year and review status. Clicking the wheel opens one **risk area** with everything for it side by side |
 | **Analysis** | **NETRA dossiers**: each incident through the 14 NETRA stages (location and jurisdiction, legal issues T1, authority routing, gaps T2–T3, unknowns, overclaim check) · **Gap register**: 6 gaps tied to incidents and instruments · **Report generator**: a plain report for any incident or risk area, built in the browser from the stored data with no AI; preview, copy, download as Markdown, or print / save as PDF. Each dossier, incident card and risk area has a **Generate report** button · **Models and evaluations**: 12 AI models (by model) and the three METR reports mapped to Indian law (by evaluation report); each model card keeps what the testers found (METR, MITRE ATLAS) apart from NETRA's India analysis, with a Generate report button. **Add a report** (on Models and evaluations and Report generator) reads a PDF, Word, text or Markdown file in your browser only and runs the **NETRA check**: keyword matching against NETRA's own lists (no AI, no key), showing risk areas, Indian laws named or linked, who could act, related gaps and similar India cases, with word-for-word passages. **Send to NETRA for review** opens a prefilled GitHub form or an email |
 | **About** | **Method** · **Sources and credits** (every outside source and its licence) · **Verification status** (what has been checked against official texts and what is missing) · **Expert survey** |
@@ -74,7 +74,7 @@ Open `dist/index.html` by double-clicking. Everything works offline except the s
 
 ## Adding data
 
-Edit `data/india.json` (incidents, instruments, risks, mitigations, gaps) or `data/authorities.json` (the Who to approach directory) and run the build. The build refuses:
+Edit `data/india.json` (incidents, instruments, risks, mitigations, gaps) or `data/authorities.json` (the Whom to approach directory) and run the build. The build refuses:
 
 - a risk without a verbatim quote and location
 - an incident without an overclaim check and a "what we do not know" list
@@ -144,7 +144,7 @@ OWASP, system cards, UK AISI, CERT-In, Indian-language news) and record-quality 
 | [CHANGELOG.md](CHANGELOG.md) | Every change, phase by phase |
 | [docs/weekly-method.md](docs/weekly-method.md) | How the weekly update chooses items, and its limits |
 | [docs/model-sources.md](docs/model-sources.md) | Model-testing sources and their reuse terms |
-| [docs/authorities-plan.md](docs/authorities-plan.md) | How the Who to approach directory is organised |
+| [docs/authorities-plan.md](docs/authorities-plan.md) | How the Whom to approach directory is organised |
 | [docs/mit-tool-mapping.md](docs/mit-tool-mapping.md) | How NETRA relates to the MIT taxonomies |
 | [docs/roadmap.md](docs/roadmap.md) | Planned for v0.3 |
 | [LICENSE-DATA.md](LICENSE-DATA.md) | Data licence and third-party terms |

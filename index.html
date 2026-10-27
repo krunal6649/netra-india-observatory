@@ -522,7 +522,7 @@ function iris({size=440, onDark=false, select=null, metric='incidents'}={}){
   </svg>`;
 }
 
-/* ---------- Who to approach: a drill-down treemap (Level → Authority → Bodies → body page) ---------- */
+/* ---------- Whom to approach: a drill-down treemap (Level → Authority → Bodies → body page) ---------- */
 const DIR = PAYLOAD.directory, BODY = byId(DIR.bodies);
 const ROLE_COL = {enforces:'var(--d2)', adjudicates:'var(--d7)', regulates:'var(--d1)', supports:'var(--d3)'};
 const ROLE_NAME = DIR.meta.roles;
@@ -576,7 +576,7 @@ const vlabel = b => b.verified==='yes' ? `<span class="vtag yes">Checked ${esc(b
 const bodyTip = b => `<b>${esc(b.name)}</b>${esc(ROLE_NAME[b.role])} · ${b.verified==='yes'?'checked':'to verify'}<br>${esc(b.can_do.length>140?b.can_do.slice(0,137)+'…':b.can_do)}`;
 function dirStep(){ const d = state.dir; return d.body ? 4 : d.place ? 3 : d.level ? 2 : 1; }
 function dirCrumb(){
-  const d = state.dir, parts = [['Who to approach','top']];
+  const d = state.dir, parts = [['Whom to approach','top']];
   if(d.level) parts.push([d.level==='union'?'Union':'States and UTs', `level:${d.level}`]);
   if(d.place) parts.push([d.place, `place:${d.level}:${d.place}`]);
   if(d.body) parts.push([BODY[d.body].name, '']);
@@ -612,7 +612,7 @@ function dirSection(){
                        {w:36, name:'States and union territories', sub:'28 states and 8 UTs: police, High Courts, commissions', go:'level:state', col:'var(--d3)', tip:'<b>States and union territories</b>Pick a place on the tile map'}], 'Choose a level');
   const legend = dirStep() >= 3 ? `<div class="legend">${Object.entries(ROLE_NAME).map(([k,v])=>`<span style="--c:${ROLE_COL[k]}"><i></i>${esc(v)}</span>`).join('')}<span>· dashed edge = to verify</span></div>` :
     '';
-  return `<section class="sheet" id="directory" style="margin-top:18px">${H3('Who to approach','Find the body that can act: pick a level, then an authority, then a body to see what it can do and how to reach it.')}
+  return `<section class="sheet" id="directory" style="margin-top:18px">${H3('Whom to approach','Find the body that can act: pick a level, then an authority, then a body to see what it can do and how to reach it.')}
    <p class="callout" style="margin-top:12px"><b>Lost money to cyber fraud?</b> Call <b>1930</b> or report at cybercrime.gov.in first. Speed matters for freezing funds. NETRA is not a complaint service.</p>
    <p class="note" style="margin-top:8px">What NETRA adds: AI-role analysis, evidence preservation, legal mapping and gaps, for lawyers, researchers and policymakers. Every entry is “to verify” until checked against an official source; ${DIR.bodies.filter(b=>b.verified==='yes').length} of ${DIR.bodies.length} are checked so far.</p>
    <div style="margin-top:14px">${dirCrumb()}${view}${legend}</div></section>`;
@@ -668,9 +668,9 @@ V.home = () => {
     </div>
     <div class="iris-wrap">${iris({onDark:true})}</div>
   </section>
-  ${dirSection()}
   <div class="legend" style="margin-top:18px">${T.domains.map(d=>`<span style="--c:var(--d${d.id})"><i></i>${d.id}. ${esc(d.name)}</span>`).join('')}<span>· darker segment = more incidents and law on record · click a segment to open that risk area</span></div>
   ${weeklySection()}
+  ${dirSection()}
 
   ${H3('Where incidents outrun binding law','Each card is one risk domain: how many incidents are on record, against how many binding and soft instruments reach it.','margin-top:30px')}
   <div class="grid g-3" style="margin-top:12px">${T.domains.map(d=>{ const c = domCoverage(d.id); const flag = c.incidents && c.hard < c.incidents;
@@ -1428,7 +1428,7 @@ V['about-credits'] = () => {
   <section class="sheet">${H3('Laws, rules and orders','Sites the legal records link to. Official copies are preferred; others are marked “to verify”.')}${hostList(hosts(D.instruments.flatMap(i=>[i.url, i.gazette_url].filter(Boolean))))}</section>
   <section class="sheet">${H3('Incident reporting','News and legal-reporting sites behind the incident records. Short facts only; no article text is copied.')}${hostList(hosts(D.incidents.flatMap(i=>i.sources.map(s=>s.url))))}</section>
   <section class="sheet">${H3('Global evidence','Technical reports cited and summarised, never copied in bulk.')}<ul style="margin:8px 0 0;padding-left:18px">${G.sources.map(s=>`<li><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a></li>`).join('')}</ul><p class="note" style="margin-top:6px">METR: cite and summarise only, with links. METR retains its rights.</p></section>
-  <section class="sheet">${H3('Who to approach directory','Where the directory entries come from.')}<p style="margin-top:6px">${DIR.bodies.length} bodies: ${DIR.bodies.filter(b=>b.level==='union').length} Union bodies and 10 standard bodies for each of the 36 states and UTs. Groups and High Court names follow the project’s authorities plan. Links come from the bodies’ official sites; each entry says whether it has been checked (${DIR.bodies.filter(b=>b.verified==='yes').length} so far).</p></section>
+  <section class="sheet">${H3('Whom to approach directory','Where the directory entries come from.')}<p style="margin-top:6px">${DIR.bodies.length} bodies: ${DIR.bodies.filter(b=>b.level==='union').length} Union bodies and 10 standard bodies for each of the 36 states and UTs. Groups and High Court names follow the project’s authorities plan. Links come from the bodies’ official sites; each entry says whether it has been checked (${DIR.bodies.filter(b=>b.verified==='yes').length} so far).</p></section>
   <section class="sheet">${H3('Fonts','Typefaces served by Google Fonts.')}<p style="margin-top:6px">Newsreader, IBM Plex Sans, IBM Plex Mono and Noto Serif Devanagari, under the SIL Open Font License 1.1.</p></section>
   <section class="sheet">${H3('Models and evaluations','Sources behind the model cards.')}<ul style="margin:8px 0 0;padding-left:18px">
    <li><a href="https://atlas.mitre.org/" target="_blank" rel="noopener">MITRE ATLAS</a> v5.6.0 case studies, summarised by NETRA. Apache License 2.0, © MITRE.</li>
@@ -1615,7 +1615,7 @@ async function publishSummary(){
 /* ---------- shell ---------- */
 const TOUR = [
   ['home','Home','The counter shows how many cases are tracked and how many a person has reviewed. Click any segment of the wheel to open that risk area.'],
-  ['home','Who to approach','Find the body that can act: choose Union or a state on the tile map, then a body, to see what it can do and how to reach it. For money lost to cyber fraud, 1930 comes first.','directory'],
+  ['home','Whom to approach','Find the body that can act: choose Union or a state on the tile map, then a body, to see what it can do and how to reach it. For money lost to cyber fraud, 1930 comes first.','directory'],
   ['explore-incidents','Explore','One searchable list. The switch changes between risks, incidents, laws and measures. Filters stay hidden until you click the Filters button.'],
   ['analysis-dossiers','Analysis','NETRA dossiers trace each incident through 14 stages: location, laws that may apply, where to report, gaps, and what is still unknown. Each dossier has a Generate report button.'],
   ['analysis-models','Models and evaluations','What testers found in AI models, kept apart from NETRA’s own India analysis. Switch to “By evaluation report” for the METR reports. Use “Add a report” to see what NETRA finds in a PDF or Word file of your own.'],
