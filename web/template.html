@@ -513,7 +513,7 @@ function iris({size=440, onDark=false, select=null, metric='incidents'}={}){
   </svg>`;
 }
 
-/* ---------- Who to approach: a drill-down treemap (Level → Authority → Bodies → body page) ---------- */
+/* ---------- Whom to approach: a drill-down treemap (Level → Authority → Bodies → body page) ---------- */
 const DIR = PAYLOAD.directory, BODY = byId(DIR.bodies);
 const ROLE_COL = {enforces:'var(--d2)', adjudicates:'var(--d7)', regulates:'var(--d1)', supports:'var(--d3)'};
 const ROLE_NAME = DIR.meta.roles;
@@ -567,7 +567,7 @@ const vlabel = b => b.verified==='yes' ? `<span class="vtag yes">Checked ${esc(b
 const bodyTip = b => `<b>${esc(b.name)}</b>${esc(ROLE_NAME[b.role])} · ${b.verified==='yes'?'checked':'to verify'}<br>${esc(b.can_do.length>140?b.can_do.slice(0,137)+'…':b.can_do)}`;
 function dirStep(){ const d = state.dir; return d.body ? 4 : d.place ? 3 : d.level ? 2 : 1; }
 function dirCrumb(){
-  const d = state.dir, parts = [['Who to approach','top']];
+  const d = state.dir, parts = [['Whom to approach','top']];
   if(d.level) parts.push([d.level==='union'?'Union':'States and UTs', `level:${d.level}`]);
   if(d.place) parts.push([d.place, `place:${d.level}:${d.place}`]);
   if(d.body) parts.push([BODY[d.body].name, '']);
@@ -603,7 +603,7 @@ function dirSection(){
                        {w:36, name:'States and union territories', sub:'28 states and 8 UTs: police, High Courts, commissions', go:'level:state', col:'var(--d3)', tip:'<b>States and union territories</b>Pick a place on the tile map'}], 'Choose a level');
   const legend = dirStep() >= 3 ? `<div class="legend">${Object.entries(ROLE_NAME).map(([k,v])=>`<span style="--c:${ROLE_COL[k]}"><i></i>${esc(v)}</span>`).join('')}<span>· dashed edge = to verify</span></div>` :
     '';
-  return `<section class="sheet" id="directory" style="margin-top:18px">${H3('Who to approach','Find the body that can act: pick a level, then an authority, then a body to see what it can do and how to reach it.')}
+  return `<section class="sheet" id="directory" style="margin-top:18px">${H3('Whom to approach','Find the body that can act: pick a level, then an authority, then a body to see what it can do and how to reach it.')}
    <p class="callout" style="margin-top:12px"><b>Lost money to cyber fraud?</b> Call <b>1930</b> or report at cybercrime.gov.in first. Speed matters for freezing funds. NETRA is not a complaint service.</p>
    <p class="note" style="margin-top:8px">What NETRA adds: AI-role analysis, evidence preservation, legal mapping and gaps, for lawyers, researchers and policymakers. Every entry is “to verify” until checked against an official source; ${DIR.bodies.filter(b=>b.verified==='yes').length} of ${DIR.bodies.length} are checked so far.</p>
    <div style="margin-top:14px">${dirCrumb()}${view}${legend}</div></section>`;
@@ -619,28 +619,31 @@ const crumb = (...parts) => `<div class="crumb">${parts.map(([l,go])=>go?`<butto
 const WEEKLY = PAYLOAD.weekly || {weeks:[]};
 const autoTag = '<span class="rev" style="color:var(--open);background:color-mix(in srgb,var(--open) 12%,transparent)">Auto-selected, unreviewed</span>';
 const srcLinks = it => `<ul class="note" style="margin:8px 0 0;padding-left:18px">${it.sources.map(x=>`<li><a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.title)}</a> · ${esc(x.domain)}${x.date?` · ${esc(x.date)}`:''}</li>`).join('')}</ul>`;
+/* Only the parts that have something in them are shown; an empty week is not shown at all */
+const weekHas = w => w.top.length + w.cyber.length + w.models.length > 0;
 function weekBlock(w){
   const ok = w.sources.filter(x=>x.status==='ok').length;
-  return `<div class="grid g-3" style="margin-top:12px">${w.top.length ? w.top.map(it=>`<article class="card edge" style="--edge:${it.risk_areas[0]?dc(it.risk_areas[0]):'var(--line)'}">
+  const cyber = w.cyber.length ? `<section class="sheet">${H3('Cyber watch','Cyber security news from India. Kept apart and never counted as AI incidents.')}
+     ${w.cyber.map(it=>`<div style="margin-top:10px"><b>${esc(it.sources[0].title)}</b> ${autoTag}<p class="note" style="margin-top:4px">${esc(it.summary)}</p>${srcLinks(it)}</div>`).join('')}</section>` : '';
+  const models = w.models.length ? `<section class="sheet">${H3('Model watch','New AI model tests published this week. Not yet read or mapped by NETRA.')}
+     <ul style="margin:8px 0 0;padding-left:18px">${w.models.map(m=>`<li><a href="${esc(m.url)}" target="_blank" rel="noopener">${esc(m.title)}</a> <span class="note">${esc(m.kind)}${m.date?` · ${esc(m.date)}`:''}. ${esc(m.note)}</span></li>`).join('')}</ul></section>` : '';
+  return `${w.top.length ? `<div class="grid g-3" style="margin-top:12px">${w.top.map(it=>`<article class="card edge" style="--edge:${it.risk_areas[0]?dc(it.risk_areas[0]):'var(--line)'}">
       <div class="row"><span class="id">${esc(it.id)}</span>${autoTag}</div>
       <b style="display:block;font-family:var(--f-display);font-size:1.02rem;margin-top:8px">${esc(it.sources[0].title)}</b>
       <p style="margin-top:6px">${esc(it.summary)}</p>${it.risk_areas.length?`<div class="row" style="margin-top:6px">${it.risk_areas.map(domChip).join('')}</div>`:''}
-      <details class="more"><summary>${it.sources.length} source${it.sources.length===1?'':'s'}</summary>${srcLinks(it)}</details></article>`).join('')
-    : w.news_ok===false ? '<p class="callout">The news source (GDELT) did not answer this week, so no incidents could be picked. This does not mean nothing happened.</p>' : '<p class="note">No AI item met the selection rules this week.</p>'}</div>
-   <div class="grid g-2" style="margin-top:14px;align-items:start">
-    <section class="sheet">${H3('Cyber watch','Cyber security news from India. Kept apart and never counted as AI incidents.')}
-     ${!w.cyber.length && w.news_ok===false ? '<p class="note" style="margin-top:6px">The news source did not answer this week.</p>' : w.cyber.length ? w.cyber.map(it=>`<div style="margin-top:10px"><b>${esc(it.sources[0].title)}</b> ${autoTag}<p class="note" style="margin-top:4px">${esc(it.summary)}</p>${srcLinks(it)}</div>`).join('') : '<p class="note" style="margin-top:6px">Nothing this week.</p>'}</section>
-    <section class="sheet">${H3('Model watch','New AI model tests published this week. Not yet read or mapped by NETRA.')}
-     ${w.models.length ? `<ul style="margin:8px 0 0;padding-left:18px">${w.models.map(m=>`<li><a href="${esc(m.url)}" target="_blank" rel="noopener">${esc(m.title)}</a> <span class="note">${esc(m.kind)}${m.date?` · ${esc(m.date)}`:''}. ${esc(m.note)}</span></li>`).join('')}</ul>` : '<p class="note" style="margin-top:6px">Nothing new this week.</p>'}</section></div>
+      <details class="more"><summary>${it.sources.length} source${it.sources.length===1?'':'s'}</summary>${srcLinks(it)}</details></article>`).join('')}</div>` : ''}
+   ${cyber || models ? `<div class="grid g-2" style="margin-top:14px;align-items:start">${cyber}${models}</div>` : ''}
    <details class="more" style="margin-top:10px"><summary>How these were chosen, and source status (${ok} of ${w.sources.length} sources answered)</summary>
     <p class="note" style="margin-top:6px">Picked automatically from official feeds and APIs by keyword rules: an AI term, a harm term and a link to India in the headline. Stories already in NETRA’s records are left out. The summaries are NETRA’s own; headlines appear only as source titles. Fewer than five are shown when fewer qualify. Nothing here becomes a NETRA record until a person reviews it. <a href="${REPO}/blob/main/docs/weekly-method.md" target="_blank" rel="noopener">Full method</a></p>
     <ul class="note" style="margin:6px 0 0;padding-left:18px">${w.sources.map(x=>`<li>${esc(x.name)}: ${x.status==='ok'?`${x.items} items`:x.status==='off'?'switched off':'did not answer'}</li>`).join('')}</ul>
     ${w.notes.length?`<ul class="note" style="margin:6px 0 0;padding-left:18px">${w.notes.map(n=>`<li>${esc(n)}</li>`).join('')}</ul>`:''}</details>`;
 }
 function weeklySection(){
-  const [w, ...older] = WEEKLY.weeks;
-  return `<div style="margin-top:30px">${H3('This week in India', w ? `AI incidents reported ${w.week_start} to ${w.week_end}, picked automatically and not yet checked by a person. Updated every Saturday.` : 'Up to five AI incidents from the past seven days, picked automatically every Saturday at 00:00 IST.')}</div>
-   ${w ? weekBlock(w) : '<p class="note" style="margin-top:8px">The first weekly update will appear here after the first Saturday run has been reviewed.</p>'}
+  const [w, ...rest] = WEEKLY.weeks, older = rest.filter(weekHas);
+  if(!w || !weekHas(w)) return '';
+  const what = w.top.length ? 'AI incidents reported' : w.cyber.length ? 'Cyber security news from' : 'New AI model tests from';
+  return `<div style="margin-top:30px">${H3('This week in India', `${what} ${w.week_start} to ${w.week_end}, picked automatically. Updated every Saturday.`)}</div>
+   ${weekBlock(w)}
    ${older.length ? `<details class="more" style="margin-top:8px"><summary>Earlier weeks (${older.length})</summary>${older.map(o=>`<h4 class="ctitle" style="font-size:1rem;margin-top:12px">${esc(o.week_start)} to ${esc(o.week_end)}</h4>${weekBlock(o)}`).join('')}</details>` : ''}
    <p class="note" style="margin-top:8px">${WEEKLY.meta?.credit ? esc(WEEKLY.meta.credit) : 'News discovery by the GDELT Project (gdeltproject.org).'}</p>`;
 }
@@ -656,8 +659,9 @@ V.home = () => {
     </div>
     <div class="iris-wrap">${iris({onDark:true})}</div>
   </section>
-  ${dirSection()}
   <div class="legend" style="margin-top:18px">${T.domains.map(d=>`<span style="--c:var(--d${d.id})"><i></i>${d.id}. ${esc(d.name)}</span>`).join('')}<span>· darker segment = more incidents and law on record · click a segment to open that risk area</span></div>
+  ${weeklySection()}
+  ${dirSection()}
 
   ${H3('Where incidents outrun binding law','Each card is one risk domain: how many incidents are on record, against how many binding and soft instruments reach it.','margin-top:30px')}
   <div class="grid g-3" style="margin-top:12px">${T.domains.map(d=>{ const c = domCoverage(d.id); const flag = c.incidents && c.hard < c.incidents;
@@ -670,7 +674,6 @@ V.home = () => {
   <div class="grid g-3" style="margin-top:12px">${recent.map(i=>`<button type="button" class="card edge" style="--edge:${dc(i.domains[0])};text-align:left;font:inherit;color:inherit;cursor:pointer" data-inc="${i.id}">
     <div class="row"><span class="id">${i.id}</span>${sevm(i.severity)}</div><b style="display:block;font-family:var(--f-display);font-size:1.08rem;margin-top:8px">${esc(i.title)}</b>
     <p class="note" style="margin-top:6px">${esc(i.date)} · ${esc(i.state)}</p></button>`).join('')}</div>
-  ${weeklySection()}
 
   <button type="button" class="card edge" style="--edge:var(--d7);text-align:left;font:inherit;color:inherit;cursor:pointer;margin-top:30px;width:100%" data-go="analysis-models">
     <span class="eyebrow">Models and evaluations</span><b style="display:block;font-family:var(--f-display);font-size:1.2rem;margin-top:6px">What testers found in ${MODELS.models.length} AI models, and which Indian laws it touches</b>
@@ -1416,7 +1419,7 @@ V['about-credits'] = () => {
   <section class="sheet">${H3('Laws, rules and orders','Sites the legal records link to. Official copies are preferred; others are marked “to verify”.')}${hostList(hosts(D.instruments.flatMap(i=>[i.url, i.gazette_url].filter(Boolean))))}</section>
   <section class="sheet">${H3('Incident reporting','News and legal-reporting sites behind the incident records. Short facts only; no article text is copied.')}${hostList(hosts(D.incidents.flatMap(i=>i.sources.map(s=>s.url))))}</section>
   <section class="sheet">${H3('Global evidence','Technical reports cited and summarised, never copied in bulk.')}<ul style="margin:8px 0 0;padding-left:18px">${G.sources.map(s=>`<li><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a></li>`).join('')}</ul><p class="note" style="margin-top:6px">METR: cite and summarise only, with links. METR retains its rights.</p></section>
-  <section class="sheet">${H3('Who to approach directory','Where the directory entries come from.')}<p style="margin-top:6px">${DIR.bodies.length} bodies: ${DIR.bodies.filter(b=>b.level==='union').length} Union bodies and 10 standard bodies for each of the 36 states and UTs. Groups and High Court names follow the project’s authorities plan. Links come from the bodies’ official sites; each entry says whether it has been checked (${DIR.bodies.filter(b=>b.verified==='yes').length} so far).</p></section>
+  <section class="sheet">${H3('Whom to approach directory','Where the directory entries come from.')}<p style="margin-top:6px">${DIR.bodies.length} bodies: ${DIR.bodies.filter(b=>b.level==='union').length} Union bodies and 10 standard bodies for each of the 36 states and UTs. Groups and High Court names follow the project’s authorities plan. Links come from the bodies’ official sites; each entry says whether it has been checked (${DIR.bodies.filter(b=>b.verified==='yes').length} so far).</p></section>
   <section class="sheet">${H3('Fonts','Typefaces served by Google Fonts.')}<p style="margin-top:6px">Newsreader, IBM Plex Sans, IBM Plex Mono and Noto Serif Devanagari, under the SIL Open Font License 1.1.</p></section>
   <section class="sheet">${H3('Models and evaluations','Sources behind the model cards.')}<ul style="margin:8px 0 0;padding-left:18px">
    <li><a href="https://atlas.mitre.org/" target="_blank" rel="noopener">MITRE ATLAS</a> v5.6.0 case studies, summarised by NETRA. Apache License 2.0, © MITRE.</li>
@@ -1603,7 +1606,7 @@ async function publishSummary(){
 /* ---------- shell ---------- */
 const TOUR = [
   ['home','Home','The counter shows how many cases are tracked and how many a person has reviewed. Click any segment of the wheel to open that risk area.'],
-  ['home','Who to approach','Find the body that can act: choose Union or a state on the tile map, then a body, to see what it can do and how to reach it. For money lost to cyber fraud, 1930 comes first.','directory'],
+  ['home','Whom to approach','Find the body that can act: choose Union or a state on the tile map, then a body, to see what it can do and how to reach it. For money lost to cyber fraud, 1930 comes first.','directory'],
   ['explore-incidents','Explore','One searchable list. The switch changes between risks, incidents, laws and measures. Filters stay hidden until you click the Filters button.'],
   ['analysis-dossiers','Analysis','NETRA dossiers trace each incident through 14 stages: location, laws that may apply, where to report, gaps, and what is still unknown. Each dossier has a Generate report button.'],
   ['analysis-models','Models and evaluations','What testers found in AI models, kept apart from NETRA’s own India analysis. Switch to “By evaluation report” for the METR reports. Use “Add a report” to see what NETRA finds in a PDF or Word file of your own.'],
