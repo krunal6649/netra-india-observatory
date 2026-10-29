@@ -8,7 +8,7 @@
 <meta property="og:image" content="https://krunal6649.github.io/netra-india-observatory/docs/screens/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="627">
-<meta property="og:image:alt" content="NETRA India AI Risk Observatory: a coloured risk wheel beside the headline that India's AI harms are reached only through general statutes">
+<meta property="og:image:alt" content="NETRA India AI Risk Observatory: a coloured risk wheel beside the headline that India's AI harms are reached mostly through general statutes">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="NETRA India AI Risk Observatory">
 <meta name="twitter:description" content="India AI incidents, laws, risks and safety measures, traced through the NETRA accountability pipeline. Open pilot v0.2.">
@@ -652,7 +652,7 @@ V.home = () => {
   const n = D.incidents.length, nRev = D.incidents.filter(isReviewed).length;
   return `<section class="hero">
     <div><span class="eyebrow">India · open pilot</span>
-      <h2>India has AI harms on record across most risk areas. Binding law reaches them <em>only through general statutes.</em></h2>
+      <h2>India has AI harms on record across most risk areas. Binding law reaches them <em>mostly through general statutes.</em></h2>
       <p class="hint" style="color:var(--hero-muted)">An open record of AI harms in India, the laws that may apply, and who can act on them.</p>
       <div class="counter" role="group" aria-label="Cases tracked"><b data-count="${n}">${n}</b><span>cases tracked</span>
         <small>${nRev} reviewed by a person · ${n-nRev} unreviewed (AI-assisted drafts) · <time datetime="${esc(D.meta.updated)}">data updated ${esc(D.meta.updated)}</time></small></div>
