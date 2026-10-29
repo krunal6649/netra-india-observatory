@@ -59,7 +59,7 @@ class Tests(unittest.TestCase):
         self.assertEqual(len(b2), 10)
         for i in b2:
             # Reviewed by the project owner on 2026-10-25; the validator separately requires reviewer, date and S11
-            self.assertEqual((i["review"], i["reviewed_by"], i["netra"]["stages"]["S11"]), ("human_reviewed", "Krunal (project owner)", "done"), i["id"])
+            self.assertEqual((i["review"], i["reviewed_by"], i["netra"]["stages"]["S11"]), ("human_reviewed", "Krunal Maheshwari (project owner)", "done"), i["id"])
             self.assertTrue(i["sources"] and all(s["url"].startswith("https://") for s in i["sources"]))
         # Batch 2 was chosen to cover every risk domain
         self.assertEqual({d.split(".")[0] for i in b2 for d in i["domains"]}, {"1", "2", "3", "4", "5", "6", "7"})

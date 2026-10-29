@@ -207,10 +207,10 @@ check(nav.includes('IN-INC-07') && nav.includes('IN-INC-08'), 'risk area 6.3 lin
 N.state.inc = 'IN-INC-11';
 const net = N.page('analysis-dossiers');
 check(net.includes('What NETRA does not know') && net.includes('Supreme Court'), 'NETRA dossier shows unknowns and authority routing');
-check(net.includes('No official court document has been located') && net.includes('reviewed by Krunal'), 'dossier says when no court document is found, and who reviewed it');
+check(net.includes('No official court document has been located') && net.includes('reviewed by Krunal Maheshwari'), 'dossier says when no court document is found, and who reviewed it');
 N.state.inc = 'IN-INC-02';
 const ak = N.page('analysis-dossiers');
-check(ak.includes('Official court documents') && ak.includes('delhihighcourt.nic.in/app/downloadOrderbByDate/CS(COMM)/652/2023/20-09-2023') && ak.includes('Checked by Krunal (project owner), 2026-10-25'), 'dossier lists the official court order with who checked it');
+check(ak.includes('Official court documents') && ak.includes('delhihighcourt.nic.in/app/downloadOrderbByDate/CS(COMM)/652/2023/20-09-2023') && ak.includes('Checked by Krunal Maheshwari (project owner), 2026-10-25'), 'dossier lists the official court order with who checked it');
 const agg = N.aggregate([
   { sev: { 1: 4, 2: 3 }, lik: { 1: 5, 2: 3 }, top: ['4.3', '1.1', '3.1'], groups: ['Women'], actor: 'Platforms and intermediaries', role: 'Civil society' },
   { sev: { 1: 2, 2: 5 }, lik: { 1: 3, 2: 5 }, top: ['4.3', '6.3', '7.3'], groups: ['Women', 'Children'], actor: 'AI model developers', role: 'Academia or research' }]);

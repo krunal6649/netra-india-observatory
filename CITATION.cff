@@ -6,6 +6,7 @@ message: "If you use this data or software, please cite it as below."
 type: dataset
 authors:
   - given-names: "Krunal"
+    family-names: "Maheshwari"
     email: "krunal.maheshwari@gmail.com"
     affiliation: "Independent researcher; Advocate, Bar Council of Gujarat"
 repository-code: "https://github.com/krunal6649/netra-india-observatory"
