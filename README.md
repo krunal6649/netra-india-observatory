@@ -22,7 +22,7 @@ An open, India-focused record of AI harms, the Indian laws that may apply to the
 
 | Part | Count | Review status |
 |---|---|---|
-| Indian AI incidents | 22 | All reviewed by the maintainer (Krunal) on 2026-10-25 |
+| Indian AI incidents | 22 | All reviewed by the maintainer (Krunal Maheshwari) on 2026-10-25 |
 | Laws, rules, advisories and court orders | 28 | 4 verified against official texts; 24 partly verified, each saying what is missing |
 | Risks quoted from Indian government frameworks | 18 | Quoted with location |
 | Measures | 28 | Quoted or summarised from those instruments |
@@ -35,9 +35,9 @@ An open, India-focused record of AI harms, the Indian laws that may apply to the
 
 **Corrections:** use [Suggest a correction](https://github.com/krunal6649/netra-india-observatory/issues/new?template=correction.yml) (also linked at the bottom of every page). It asks only for a public source link, its date and the place. It is not for reporting live incidents, and nothing changes on the site until the maintainer reviews it.
 
-**Cite as:** Krunal (2026). *NETRA India AI Risk Observatory* (version 0.2.0) [Data set]. https://github.com/krunal6649/netra-india-observatory. See `CITATION.cff`; `.zenodo.json` holds the matching Zenodo record. Data: CC BY 4.0. Code: MIT. Risk taxonomies adapted from the MIT AI Risk Repository (CC BY 4.0), with credit; this project is not affiliated with MIT.
+**Cite as:** Maheshwari, K. (2026). *NETRA India AI Risk Observatory* (version 0.2.0) [Data set]. https://github.com/krunal6649/netra-india-observatory. See `CITATION.cff`; `.zenodo.json` holds the matching Zenodo record. Data: CC BY 4.0. Code: MIT. Risk taxonomies adapted from the MIT AI Risk Repository (CC BY 4.0), with credit; this project is not affiliated with MIT.
 
-**Contact:** Krunal, Advocate (Bar Council of Gujarat), AI governance researcher · krunal.maheshwari@gmail.com
+**Contact:** Krunal Maheshwari, Advocate (Bar Council of Gujarat), AI governance researcher · krunal.maheshwari@gmail.com
 
 ## How the site is organised
 
@@ -141,6 +141,7 @@ OWASP, system cards, UK AISI, CERT-In, Indian-language news) and record-quality 
 
 | File | What it covers |
 |---|---|
+| [docs/framework.md](docs/framework.md) | The NETRA framework on one page: 14 stages, labels, review rules and datasets |
 | [CHANGELOG.md](CHANGELOG.md) | Every change, phase by phase |
 | [docs/weekly-method.md](docs/weekly-method.md) | How the weekly update chooses items, and its limits |
 | [docs/model-sources.md](docs/model-sources.md) | Model-testing sources and their reuse terms |

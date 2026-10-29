@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.2.1-dev — framework page, accurate headline, full name
+- **`docs/framework.md`**: the NETRA framework on one page: the 14 stages and their statuses, classification, the seven
+  legal labels, review and verification rules, and a description of every dataset file. Linked from the README.
+- Home headline now says binding law reaches AI harms **mostly** (not only) through general statutes. NETRA's own data
+  includes the IT Rules Amendment, 2026, binding law aimed at synthetic content. Link-preview image and README
+  screenshot retaken.
+- Full name **Krunal Maheshwari** in the citation file (family name added), Zenodo metadata, data licence, README,
+  maintainer line and the reviewer and checker fields of every record.
+
 ## v0.2.1-dev — This week in India placement; Whom to approach
 - Home order is now: risk wheel, risk-area legend, **This week in India**, then **Whom to approach** (renamed from
   "Who to approach" on the site, tour, README and docs), then the coverage cards.
