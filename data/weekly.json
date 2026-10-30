@@ -7,6 +7,186 @@
   },
   "weeks": [
     {
+      "week_start": "2026-10-24",
+      "week_end": "2026-10-30",
+      "generated": "2026-10-31",
+      "news_ok": true,
+      "sources": [
+        {
+          "name": "GDELT: AI news",
+          "url": "https://api.gdeltproject.org/api/v2/doc/doc",
+          "status": "ok",
+          "items": 250
+        },
+        {
+          "name": "GDELT: cyber news",
+          "url": "https://api.gdeltproject.org/api/v2/doc/doc",
+          "status": "ok",
+          "items": 12
+        },
+        {
+          "name": "Press Information Bureau: press releases (RSS, as listed)",
+          "url": "https://pib.gov.in/RssMain.aspx?ModId=6&Lang=2&Regid=3",
+          "status": "off",
+          "items": 0,
+          "error": "Exact address listed on PIB's own RSS page (pib.gov.in/ViewRss.aspx). That page is in Hindi, so the language of this feed is to confirm on the first workflow run. First workflow run on 2026-10-25: HTTP 403 (forbidden) from GitHub's servers. Switched off: NETRA does not work around a site that refuses automated access. PIB releases can still be added by hand."
+        },
+        {
+          "name": "Press Information Bureau: press releases (RSS, Lang=1)",
+          "url": "https://pib.gov.in/RssMain.aspx?ModId=6&Lang=1&Regid=3",
+          "status": "off",
+          "items": 0,
+          "error": "Same feed with Lang=1, tried in case it is the English edition. Not confirmed; if it fails or repeats the other feed, the run report says so and it can be switched off. First workflow run on 2026-10-25: HTTP 403 (forbidden) from GitHub's servers. Switched off: NETRA does not work around a site that refuses automated access. PIB releases can still be added by hand."
+        },
+        {
+          "name": "CERT-In advisories",
+          "url": "",
+          "status": "off",
+          "items": 0,
+          "error": "No official CERT-In RSS or API address could be confirmed. Left off until the owner confirms one; NETRA does not scrape the CERT-In site."
+        },
+        {
+          "name": "METR publications (RSS)",
+          "url": "https://metr.org/feed.xml",
+          "status": "ok",
+          "items": 0
+        },
+        {
+          "name": "MITRE ATLAS case studies (release 2026.10)",
+          "url": "https://raw.githubusercontent.com/mitre-atlas/atlas-data/main/dist/v6/ATLAS-latest.yaml",
+          "status": "ok",
+          "items": 1
+        }
+      ],
+      "top": [
+        {
+          "title": "Man arrested in Bengal for threatening traffic cops with AI-generated police identity card",
+          "summary": "1 report from prokerala.com on 2026-10-24. No NETRA risk area matched the headlines. Auto-selected and not yet checked by a person: open the sources for the facts.",
+          "risk_areas": [],
+          "sources": [
+            {
+              "title": "Man arrested in Bengal for threatening traffic cops with AI-generated police identity card",
+              "url": "https://www.prokerala.com/news/articles/a1828279.html",
+              "domain": "prokerala.com",
+              "date": "2026-10-24",
+              "via": "GDELT"
+            }
+          ],
+          "score": 4,
+          "auto_selected": true,
+          "review": "unreviewed",
+          "id": "W-2026-10-24-1"
+        }
+      ],
+      "cyber": [
+        {
+          "title": "Massive CBFC Data Breach Leaks 500 Films Scripts?",
+          "summary": "1 report from gulte.com on 2026-10-25. Cyber security item, listed separately and not counted as an AI incident. Not checked by a person.",
+          "risk_areas": [],
+          "sources": [
+            {
+              "title": "Massive CBFC Data Breach Leaks 500 Films Scripts?",
+              "url": "https://www.gulte.com/movienews/438044/massive-cbfc-data-breach-leaks-500-films-scripts",
+              "domain": "gulte.com",
+              "date": "2026-10-25",
+              "via": "GDELT"
+            }
+          ],
+          "score": 2,
+          "auto_selected": true,
+          "review": "unreviewed",
+          "id": "C-2026-10-24-1"
+        },
+        {
+          "title": "Critical flaw affecting 70% of websites has cybersecurity world panicked",
+          "summary": "1 report from business-standard.com on 2026-10-25. Cyber security item, listed separately and not counted as an AI incident. Not checked by a person.",
+          "risk_areas": [],
+          "sources": [
+            {
+              "title": "Critical flaw affecting 70% of websites has cybersecurity world panicked",
+              "url": "https://www.business-standard.com/world-news/critical-flaw-affecting-70-of-websites-has-cybersecurity-world-panicked-126102500328_1.html",
+              "domain": "business-standard.com",
+              "date": "2026-10-25",
+              "via": "GDELT"
+            }
+          ],
+          "score": 1,
+          "auto_selected": true,
+          "review": "unreviewed",
+          "id": "C-2026-10-24-2"
+        },
+        {
+          "title": "Jamtara Cyber Fraud: BTech Graduate Arrested For Credit Card Scams",
+          "summary": "1 report from rediff.com on 2026-10-25. Cyber security item, listed separately and not counted as an AI incident. Not checked by a person.",
+          "risk_areas": [],
+          "sources": [
+            {
+              "title": "Jamtara Cyber Fraud: BTech Graduate Arrested For Credit Card Scams",
+              "url": "https://www.rediff.com/news/report/delhi-police-busts-credit-card-fraud-racket-from-jharkhand/20261025.htm",
+              "domain": "rediff.com",
+              "date": "2026-10-25",
+              "via": "GDELT"
+            }
+          ],
+          "score": 1,
+          "auto_selected": true,
+          "review": "unreviewed",
+          "id": "C-2026-10-24-3"
+        },
+        {
+          "title": "Road Ministry seeks forensic audit of its portals after vehicle data leak",
+          "summary": "1 report from thehindu.com on 2026-10-24. Cyber security item, listed separately and not counted as an AI incident. Not checked by a person.",
+          "risk_areas": [],
+          "sources": [
+            {
+              "title": "Road Ministry seeks forensic audit of its portals after vehicle data leak",
+              "url": "https://www.thehindu.com/news/national/road-ministry-seeks-forensic-audit-of-its-portals-after-vehicle-data-leak/article71620455.ece",
+              "domain": "thehindu.com",
+              "date": "2026-10-24",
+              "via": "GDELT"
+            }
+          ],
+          "score": 1,
+          "auto_selected": true,
+          "review": "unreviewed",
+          "id": "C-2026-10-24-4"
+        },
+        {
+          "title": "Hacker group claims to have accessed 86.3 lakh Rajasthan police emails; probe on",
+          "summary": "1 report from hindustantimes.com on 2026-10-24. Cyber security item, listed separately and not counted as an AI incident. Not checked by a person.",
+          "risk_areas": [],
+          "sources": [
+            {
+              "title": "Hacker group claims to have accessed 86.3 lakh Rajasthan police emails; probe on",
+              "url": "https://www.hindustantimes.com/india-news/hacker-group-claims-to-have-accessed-86-3-lakh-rajasthan-police-emails-probe-on-101792841130698.html",
+              "domain": "hindustantimes.com",
+              "date": "2026-10-24",
+              "via": "GDELT"
+            }
+          ],
+          "score": 1,
+          "auto_selected": true,
+          "review": "unreviewed",
+          "id": "C-2026-10-24-5"
+        }
+      ],
+      "models": [
+        {
+          "kind": "MITRE ATLAS case study",
+          "title": "AML.CS0074 AISI Evaluation Agents Conduct Unsanctioned Real-World Cyber Activity",
+          "url": "https://atlas.mitre.org/studies/AML.CS0074",
+          "date": "2026-10-28",
+          "note": "New ATLAS case study (target: Unaffiliated open-source maintainers and repositories, a third-party analysis). Apache 2.0, © MITRE. Not yet in NETRA's register.",
+          "review": "unreviewed"
+        }
+      ],
+      "notes": [
+        "MITRE ATLAS release 2026.10: 77 case studies in total, 69 not yet in NETRA's model register.",
+        "Only 1 AI item met the selection rules this week; NETRA does not pad the list."
+      ],
+      "review": "unreviewed"
+    },
+    {
       "week_start": "2026-10-19",
       "week_end": "2026-10-25",
       "generated": "2026-10-26",
