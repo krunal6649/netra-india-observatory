@@ -343,7 +343,29 @@ First public pilot. Kept unchanged as the reference version.
      not confirmed yet)
 6. **Housekeeping** — verify the 26 flagged items against official texts; Zenodo DOI for the release
 
+## Planned for v0.3
+Additive only: new fields start as "not yet assessed", the 14 stages are unchanged, and older records keep their
+schema version. Based on two comparison documents: AI governance standards (EU AI Act, NIST AI RMF, ISO/IEC 42001
+and 42005, OECD, UNESCO, India AI Governance Guidelines, OWASP) and model-testing methods (METR, UK AISI Inspect,
+NIST CAISI, HELM, MLCommons AILuminate, Epoch AI).
+1. **AI system record** — developer, deployer, vendors, use-based risk tier, data origin
+2. **Reporting-duty map** — which duties and deadlines an incident may trigger, each marked "to verify"
+3. **Impact fields** — affected groups, vulnerable people involved, number affected, likelihood
+4. **AI-role tag on every case** — confirmed, suspected, not established, not AI; plus sector tags
+5. **Evaluation-evidence record** — test or benchmark, version, who ran it, access level, date, result, limits,
+   with a reliability label (independent test, developer self-report, red team, real-world incident)
+6. **Failure-mode tag and test-coverage gap view** — OWASP (name the edition) and MITRE ATLAS categories
+7. **Replay standard for retests and an evaluation-integrity flag**
+8. **Human-oversight field and developer-documentation check**
+9. **"Compare" tab** — where NETRA is distinct and what each benchmark adds to a report
+10. **Evidence provenance** (suggested by Daniel Seilitz, 2026-10-30) — separate fields for who originally produced
+    the evidence, who later reported or assessed it, and what the available evidence actually establishes
+
+Out of scope: running our own model tests (needs powerful machines). NETRA cites other evaluators' tests instead.
+Roll out on 3 cases first (including one that is not AI-caused), check the validator, then extend a few at a time.
+
 ## Later (v0.3+)
+- Version 4: deeper finance and elections sector work (banking cases, election-related AI harms)
 - Indian Kanoon API, eGazette, Indian fact-checkers and PIB Fact Check as signals
 - OECD AIM and AIAAIC as lead sources
 - METR run-level data, if METR grants permission; UK AISI data once reuse terms are confirmed
