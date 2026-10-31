@@ -38,8 +38,7 @@ Every dossier also ends with two fields:
   person as guilty; the source reports an arrest, not a conviction".
 
 Stage names follow the NETRA lifecycle as stated by the researcher; the "what it settles" lines are short
-summaries for this page. Check them against the NETRA v0.3 core workbook
-before citing.
+summaries for this page. Have a second reader check them before citing.
 
 ## 2. Classification
 
