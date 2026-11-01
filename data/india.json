@@ -572,7 +572,7 @@
       "summary": "General data protection law. Applies to personal data used to train or run AI systems. Most obligations commence 18 months after the November 2025 notification.",
       "url": "https://www.indiacode.nic.in/bitstream/123456789/22037/2/a2023-22.pdf",
       "verified": "partial",
-      "note": "Commencement split per secondary summaries of G.S.R. 843(E). G.S.R. number supplied by the project owner. Missing for 'yes': owner to confirm the Gazette text at gazette_url (not opened by the AI-assisted session; host blocked).",
+      "note": "Partly checked on 2026-11-01 against a Gazette copy supplied by the maintainer: Gazette of India Extraordinary, Part II, Section 2, No. 18, 3 August 2023 (CG-DL-E-04082023-247847), which prints the Digital Personal Data Protection Bill, 2023 (Bill No. 113 of 2023) as introduced in Lok Sabha. The Bill's clause 1(2) leaves commencement to notification, with different dates for different provisions; clause 8(5)-(6) sets security safeguards and breach intimation; clause 44(2)(a) omits IT Act s.43A. These match the provisions cited here, but a Bill as introduced is not the Act as passed. Still missing for 'yes': the Act as enacted (Act 22 of 2023) and the commencement notification G.S.R. 843(E); the commencement split still rests on secondary summaries.",
       "notifications": [
         {
           "no": "G.S.R. 843(E)",
