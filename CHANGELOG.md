@@ -1,5 +1,15 @@
 # Changelog
 
+## v0.3.1 (unreleased): navigation fixes
+
+- **Back and Forward work**, on desktop and phones. Each page, case, dossier tab and step of "Whom to approach" is now
+  an entry in the browser's history. The address still shows only the page (`#analysis-dossiers`), so shared links
+  keep working.
+- **No repeated labels.** The small label above each page title repeated the tab name ("EXPLORE",
+  "NETRA DOSSIERS"), so it has been removed.
+- **"Whom to approach" appears once.** The trail under the steps now appears only after a level is chosen, and starts
+  with "All levels".
+
 ## v0.3.0 — Version 3 (2026-11-01)
 
 Still open after this release: official links for 11 partly verified laws, and the maintainer's review of the 12 model cards

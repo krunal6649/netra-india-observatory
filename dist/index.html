@@ -466,7 +466,7 @@ const shortIns = i => i.title.replace(/\s*\(.*?\)\s*/g,' ').replace(/,? (\d{4})$
 const insChip = id => { const i = INS[id]; return i ? `<span class="chip ${isHard(i)?'hard':'soft'}" data-tip="<b>${esc(i.title)}</b>${esc(i.force)} · ${esc(i.status)}">${esc(shortIns(i))}</span>` : esc(id); };
 const SEVC = {1:'var(--na)',2:'var(--d4)',3:'var(--d2)',4:'var(--open)',5:'var(--open)'};
 const sevm = n => `<span class="sevm" style="--sc:${SEVC[n]}" data-tip="Severity ${n} of 5: ${esc(T.severity[n])} (pilot coding)">${[1,2,3,4,5].map(k=>`<span class="${k<=n?'f':''}"></span>`).join('')}<em>${esc(T.severity[n])}</em></span>`;
-const head = (eyebrow, t, d, icon='', color='var(--accent)') => `<div class="head"><span class="eyebrow" style="display:flex;gap:8px;align-items:center;color:${color}">${icon?svgIcon(icon,18):''}${esc(eyebrow)}</span><h2>${esc(t)}</h2><p class="hint">${d}</p></div>`;
+const head = (eyebrow, t, d) => `<div class="head"><h2>${esc(t)}</h2><p class="hint">${d}</p></div>`;
 const empty = () => '<div class="empty">Nothing matches this search or these filters. <button class="btn" type="button" data-clear="1">Clear search and filters</button></div>';
 const opts = (list, cur, all='All') => `<option value="">${all}</option>` + list.map(([v,l]) => `<option value="${esc(v)}" ${String(v)===String(cur)?'selected':''}>${esc(l)}</option>`).join('');
 const subOpts = (cur, all='All risk areas') => `<option value="">${all}</option>` + T.domains.map(d => `<optgroup label="${esc(d.id+'. '+d.name)}">${d.subs.map(s=>`<option value="${s.id}" ${s.id===cur?'selected':''}>${s.id} ${esc(s.name)}</option>`).join('')}</optgroup>`).join('');
@@ -568,14 +568,14 @@ const vlabel = b => b.verified==='yes' ? `<span class="vtag yes">Checked ${esc(b
 const bodyTip = b => `<b>${esc(b.name)}</b>${esc(ROLE_NAME[b.role])} · ${b.verified==='yes'?'checked':'to verify'}<br>${esc(b.can_do.length>140?b.can_do.slice(0,137)+'…':b.can_do)}`;
 function dirStep(){ const d = state.dir; return d.body ? 4 : d.place ? 3 : d.level ? 2 : 1; }
 function dirCrumb(){
-  const d = state.dir, parts = [['Whom to approach','top']];
+  const d = state.dir, parts = [['All levels','top']];
   if(d.level) parts.push([d.level==='union'?'Union':'States and UTs', `level:${d.level}`]);
   if(d.place) parts.push([d.place, `place:${d.level}:${d.place}`]);
   if(d.body) parts.push([BODY[d.body].name, '']);
   const steps = ['Level','Authority','Bodies','Body'], at = dirStep();
   return `<ol class="steps" aria-label="Steps">${steps.map((s,k)=>`<li ${k+1===at?'aria-current="step"':''} class="${k+1<at?'done':''}">${k+1}. ${s}</li>`).join('')}</ol>
-   <div class="crumb">${parts.map(([l,go],k)=>go && k<parts.length-1 ? `<button type="button" data-dir="${esc(go)}">${esc(l)}</button>` : `<span>${esc(l)}</span>`).join('<span aria-hidden="true">›</span>')}
-   ${d.place||d.body?`<button type="button" class="btn sm" style="margin-left:auto" data-dir="${esc(d.body?`place:${d.level}:${d.place}`:`level:${d.level}`)}">${d.body?'Back to treemap':'Back'}</button>`:''}</div>`;
+   ${d.level?`<div class="crumb">${parts.map(([l,go],k)=>go && k<parts.length-1 ? `<button type="button" data-dir="${esc(go)}">${esc(l)}</button>` : `<span>${esc(l)}</span>`).join('<span aria-hidden="true">›</span>')}
+   ${d.place||d.body?`<button type="button" class="btn sm" style="margin-left:auto" data-dir="${esc(d.body?`place:${d.level}:${d.place}`:`level:${d.level}`)}">${d.body?'Back to treemap':'Back'}</button>`:''}</div>`:''}`;
 }
 function dirBody(b){
   return `<section class="sheet dbody" style="border-top:6px solid ${ROLE_COL[b.role]}">
@@ -1675,7 +1675,12 @@ function subnav(){ const tab = PAGES[state.view].tab; const pages = Object.entri
 function countUp(){ if(reduce) return; document.querySelectorAll('[data-count]').forEach(el=>{ const n=+el.dataset.count, t0=performance.now(); const tick=t=>{ const p=Math.min(1,(t-t0)/700); el.textContent=Math.round(n*(1-Math.pow(1-p,3))); if(p<1) requestAnimationFrame(tick); }; requestAnimationFrame(tick); }); }
 function page(v){ return subnav() + V[v](); }
 function render(){ if(document.getElementById('up-title')) readUpMeta(); $view.innerHTML = `<div class="view">${page(state.view)}</div>`; if(state.view==='home' && typeof requestAnimationFrame!=='undefined') countUp(); }
-function go(v, keepScroll){ v = resolve(v) || 'home'; state.view = v; if(state.tour>=0 && TOUR[state.tour][0]!==v) state.tour = -1; try{ history.replaceState(null,'','#'+v); }catch(e){} renderTabs(); render(); hideTip(); if(!keepScroll) window.scrollTo(0,0); renderTour(); }
+/* Browser history: each page, case, dossier tab and directory step is one entry, so Back and Forward work (also on phones). */
+const snap = () => ({view:state.view, inc:state.inc, dtab:state.dtab, sub:state.sub, mview:state.mview, dir:{...state.dir}});
+let lastSnap = '';
+function remember(replace){ const s = snap(), k = JSON.stringify(s); if(k===lastSnap) return; lastSnap = k;
+  try{ (replace || !history.pushState ? history.replaceState : history.pushState).call(history, s, '', '#'+state.view); }catch(e){} }
+function go(v, keepScroll){ v = resolve(v) || 'home'; state.view = v; if(state.tour>=0 && TOUR[state.tour][0]!==v) state.tour = -1; remember(); renderTabs(); render(); hideTip(); if(!keepScroll) window.scrollTo(0,0); renderTour(); }
 function openLaw(id){ state.q = ''; state.f.laws = {}; state.limit = Infinity; go('explore-laws'); const el = document.getElementById('ins-'+id); if(el){ const d = el.querySelector('details'); if(d) d.open = true; el.scrollIntoView?.({block:'start'}); } }
 
 /* theme: dark by default; light is a per-reader choice, and is also used for printing */
@@ -1721,9 +1726,9 @@ document.addEventListener('click', e => {
     else if(k==='level') state.dir = {level:a, place:null, body:null};
     else if(k==='place') state.dir = {level:a, place:v, body:null};
     else if(k==='body'){ const x = BODY[a]; state.dir = {level:x.level, place:x.level==='union'?x.group:x.place, body:a}; }
-    if(state.view!=='home') go('home'); else render();
+    if(state.view!=='home') go('home'); else { remember(); render(); }
     document.getElementById('directory')?.scrollIntoView?.({block:'start'}); return; }
-  if(t.dataset.dtab){ state.dtab = t.dataset.dtab; return render(); }
+  if(t.dataset.dtab){ state.dtab = t.dataset.dtab; remember(); return render(); }
   if(t.dataset.mview){ state.mview = t.dataset.mview; render(); if(t.dataset.mod){ const el = document.getElementById(t.dataset.mod); if(el){ el.open = true; el.scrollIntoView?.({block:'start'}); } } return; }
   if(t.dataset.mode){ const [k, m] = t.dataset.mode.split(':'); state.mode[k] = m; return render(); }
   if(t.dataset.more){ state.limit += PAGE_SIZE; return render(); }
@@ -1749,18 +1754,22 @@ document.addEventListener('input', e => {
 });
 document.addEventListener('change', e => {
   if(e.target.id==='nav-sub' && e.target.value){ state.sub = e.target.value; render(); }
-  if(e.target.id==='dossier-pick'){ state.inc = e.target.value; state.dtab = 'overview'; return render(); }
+  if(e.target.id==='dossier-pick'){ state.inc = e.target.value; state.dtab = 'overview'; remember(); return render(); }
   if(e.target.dataset?.sort){ state.sort[e.target.dataset.sort] = e.target.value; state.limit = PAGE_SIZE; return render(); }
   if(e.target.id==='up-file' && e.target.files?.[0]){ UP.fileObj = e.target.files[0]; return doRead(); }
   if(e.target.id==='rep-kind'){ const k = e.target.value; state.report = {kind:k, id: REPORT_KINDS[k].items()[0][0]}; render(); }
   if(e.target.id==='rep-item'){ state.report = {...state.report, id: e.target.value}; render(); }
 });
 document.addEventListener('submit', e => { if(e.target.id==='survey-form') submitSurvey(e); });
+window.addEventListener?.('popstate', e => { const s = e.state; if(!s || !resolve(s.view)) return;
+  Object.assign(state, {view:resolve(s.view), inc:INC[s.inc]?s.inc:state.inc, dtab:s.dtab||'overview', sub:s.sub||state.sub, mview:s.mview||state.mview, dir:{level:null, place:null, body:null, ...(s.dir||{})}});
+  lastSnap = JSON.stringify(snap()); state.tour = -1; renderTabs(); render(); hideTip(); renderTour();
+  const dirEl = state.view==='home' && state.dir.level && document.getElementById('directory'); if(dirEl) dirEl.scrollIntoView?.({block:'start'}); else window.scrollTo(0,0); });
 window.addEventListener?.('hashchange', () => { const h = (location.hash||'').slice(1), v = resolve(h); if(h==='evidence' || h==='about-evidence') state.mview = 'reports'; if(v && v!==state.view) go(v); });
 (function logo(){ const g = document.getElementById('logo-iris'); if(!g) return; let s=''; for(let k=0;k<7;k++){ const a0=-Math.PI/2+k*2*Math.PI/7+0.06, a1=a0+2*Math.PI/7-0.12; s+=`<path d="${arc(19,19,5.4,9.6,a0,a1)}" fill="var(--d${k+1})"/>`; } g.innerHTML = s; })();
 document.getElementById('built').textContent = `Data updated ${D.meta.updated}; page built ${PAYLOAD.built}. ${D.meta.status}`;
 for(const [id, href] of [['foot-correct', correctUrl('')], ['foot-code', REPO]]){ const a = document.getElementById(id); if(a) a.href = href; }
-if(h0 && LEGACY[h0]){ try{ history.replaceState(null,'','#'+state.view); }catch(e){} }
+remember(true);
 renderTabs(); render(); initSurvey();
 window.__NETRA = {state, upload:{validateMeta, unzipEntry, docxText, termRe, sentencesOf, netraCheck, checkSummary, submitUrl, UP}, squarify, BODY, V, PAGES, LEGACY, resolve, page, go, aggregate, SV, encodeAnswers, decodeCodes, TOUR, reportMd, mdToHtml};
 })();

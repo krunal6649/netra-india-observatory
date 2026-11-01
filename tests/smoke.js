@@ -145,6 +145,13 @@ check(dz.indexOf('<th>Case</th>') > dz.indexOf('Compare all cases by stage') && 
 check(['overview', 'laws', 'report', 'evidence'].every(k => dz.includes(`data-dtab="${k}"`)) && (dz.match(/role="tabpanel"[^>]*hidden/g) || []).length === 3, 'dossier has four tabs with one panel showing');
 check(dz.includes('id="dossier-pick"') && dz.includes('NETRA stages:') && dz.includes('class="strip"'), 'dossier has a case picker and a one-line stage strip');
 check(!dz.includes('class="verify">to verify') && dz.includes('not yet checked'), 'authorities carry a quiet "not yet checked" tag, not red "to verify" on every line');
+// Navigation fixes: no repeated label above page titles; "Whom to approach" appears once until a level is chosen
+check(Object.keys(N.PAGES).filter(v => v !== 'home').every(v => !/<div class="head"><span class="eyebrow"/.test(N.page(v))), 'page headers show the title only, not a repeated tab label');
+N.state.dir = { level: null, place: null, body: null };
+check((N.page('home').match(/Whom to approach/g) || []).length === 1, '"Whom to approach" appears once on Home');
+N.state.dir = { level: 'union', place: null, body: null };
+check(N.page('home').includes('All levels'), 'after choosing a level, the trail starts with "All levels"');
+N.state.dir = { level: null, place: null, body: null };
 // Version 3: every case shows its assessment, marked unreviewed; the Crosswalk page lists both OWASP editions
 N.state.inc = 'IN-INC-14'; const v3 = N.page('analysis-dossiers');
 check(v3.includes('Version 3 assessment') && v3.includes('not yet reviewed') && v3.includes('Not established') && v3.includes('About 346,000 files'), 'a case shows its Version 3 assessment, marked unreviewed');
