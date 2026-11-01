@@ -44,10 +44,14 @@ class V3Fields(unittest.TestCase):
         basis = self.inc(self.india, "IN-INC-14")["assessment"]["ai_role"]["basis"]
         self.assertIn("Kept in scope by the maintainer on 2026-11-01", basis)
 
-    def test_assessments_are_unreviewed_and_tag_nothing_yet(self):
+    def test_assessments_are_unreviewed_and_only_inc15_is_tagged(self):
         for i in self.india["incidents"]:
             a = i["assessment"]
             self.assertEqual(a["review"], "unreviewed")
+            if i["id"] == "IN-INC-15":
+                self.assertEqual([t["id"] for t in a["failure_modes"]], ["LLM06:2025", "LLM03:2026"])
+                self.assertTrue(all("does not use OWASP terms" in t["basis"] for t in a["failure_modes"]))
+                continue
             self.assertEqual(a["failure_modes"], build.NOT_ASSESSED)
             self.assertEqual(a["crosswalk"], build.NOT_ASSESSED)
 
@@ -97,6 +101,11 @@ class V3Fields(unittest.TestCase):
                                              "source": i["sources"][0]["url"], "basis": "test only"}]
         i["assessment"]["crosswalk"] = [{"framework": "NIST-AI-RMF", "label": "MANAGE", "why": "test only"}]
         self.assertIsNotNone(build.validate(self.tax, d, self.glob))
+
+    def test_failure_mode_name_must_match_its_edition(self):
+        d = copy.deepcopy(self.india)
+        self.inc(d, "IN-INC-15")["assessment"]["failure_modes"][1]["name"] = "Supply Chain"
+        self.rejects(d, "LLM03:2026 is named 'Excessive Agency' in OWASP-LLM-2026")
 
     def test_nist_crosswalk_label_is_a_function(self):
         d = copy.deepcopy(self.india)

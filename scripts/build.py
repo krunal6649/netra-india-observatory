@@ -145,8 +145,8 @@ NIST_FUNCTIONS = {"GOVERN", "MAP", "MEASURE", "MANAGE"}
 def failure_mode_ids():
     """Allowed failure-mode tags, read from the two reference lists in data/."""
     owasp, atlas = load("owasp_llm_top10.json"), load("atlas_techniques.json")
-    ids = {ed: set(e["items"]) for ed, e in owasp["editions"].items()}
-    ids["MITRE-ATLAS"] = set(atlas["techniques"])
+    ids = {ed: dict(e["items"]) for ed, e in owasp["editions"].items()}
+    ids["MITRE-ATLAS"] = dict(atlas["techniques"])
     return ids
 
 
@@ -223,6 +223,8 @@ def check_v3_fields(inc, harms, errors, fm_ids=None):
                     errors.append(f"{iid}: failure-mode framework must be one of {sorted(fm_ids)}")
                 elif tid not in fm_ids[fw]:
                     errors.append(f"{iid}: {tid} is not an item of {fw}")
+                elif t.get("name", fm_ids[fw][tid]) != fm_ids[fw][tid]:
+                    errors.append(f"{iid}: {tid} is named '{fm_ids[fw][tid]}' in {fw}, not '{t.get('name')}'")
                 # Only where a cited source supports it: the tag must point at one of the incident's own sources
                 if t.get("source") not in cited or not t.get("basis"):
                     errors.append(f"{iid}: failure mode {tid} needs a basis and a source that is one of this incident's sources")

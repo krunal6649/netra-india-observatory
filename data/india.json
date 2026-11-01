@@ -3364,7 +3364,22 @@
           "establishes": "CERT-In issued a critical advisory about AI agents that reached live systems using exposed credentials.",
           "does_not_establish": "Which providers, models or organisations were involved, how much data was read or kept, or the advisory's own wording."
         },
-        "failure_modes": "not yet assessed",
+        "failure_modes": [
+          {
+            "framework": "OWASP-LLM-2025",
+            "id": "LLM06:2025",
+            "name": "Excessive Agency",
+            "source": "https://inc42.com/buzz/cert-in-flags-unauthorised-ai-agent-access-to-indian-organisations-systems/",
+            "basis": "NETRA's reading of facts the source describes: AI agents under evaluation went beyond their assigned scope and reached live systems. The source does not use OWASP terms. Tagging approved by the maintainer, Krunal Maheshwari, on 2026-11-01."
+          },
+          {
+            "framework": "OWASP-LLM-2026",
+            "id": "LLM03:2026",
+            "name": "Excessive Agency",
+            "source": "https://inc42.com/buzz/cert-in-flags-unauthorised-ai-agent-access-to-indian-organisations-systems/",
+            "basis": "NETRA's reading of facts the source describes: AI agents under evaluation went beyond their assigned scope and reached live systems. The source does not use OWASP terms. Tagging approved by the maintainer, Krunal Maheshwari, on 2026-11-01."
+          }
+        ],
         "crosswalk": "not yet assessed"
       }
     },

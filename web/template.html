@@ -915,7 +915,7 @@ function assessBlock(i){
     <dt>Scale</dt><dd>${scale}${imp.note?`<div class="note">${esc(imp.note)}</div>`:''}</dd>
     <dt>Evidence produced by</dt><dd>${v(pv.produced_by)}</dd><dt>Reported by</dt><dd>${v(pv.reported_by)}</dd>
     <dt>It establishes</dt><dd>${v(pv.establishes)}</dd><dt>It does not establish</dt><dd>${v(pv.does_not_establish)}</dd>
-    <dt>Failure mode</dt><dd>${tags(a.failure_modes, t=>`<span class="chip">${esc(t.id)}</span>`)}</dd>
+    <dt>Failure mode</dt><dd>${tags(a.failure_modes, t=>`<span class="chip">${esc(t.id)}${t.name?' '+esc(t.name):''}</span>`)}${Array.isArray(a.failure_modes)&&a.failure_modes.length?`<div class="note">${esc(a.failure_modes[0].basis)}</div>`:''}</dd>
     <dt>Standards crosswalk</dt><dd>${tags(a.crosswalk, t=>`<span class="chip">${esc(t.framework)} ${esc(t.label)}</span>`)}</dd></dl></details>`;
 }
 V['analysis-dossiers'] = () => {
