@@ -90,6 +90,7 @@ class Tests(unittest.TestCase):
         new["id"] = "IN-INC-99"; new["title"] = new["title"].replace("Kozhikode man", "Kozhikode resident")
         new["sources"] = [{"title": "x", "url": "https://example.org/other-report", "date": "2026"}]
         new["distinct_from"] = ["IN-INC-03"]
+        new.pop("assessment", None)  # a new case starts without one; the copied one cites IN-INC-03's sources
         d["incidents"].append(new)
         build.validate(self.tax, d, self.glob)
 
@@ -249,13 +250,31 @@ class Tests(unittest.TestCase):
         # The case was read only through a report, so it must not be marked verified
         self.assertEqual(bsa["cases"][0]["verified"], "partial")
         nos = lambda iid: [n["no"] for n in self.ins(self.india, iid)["notifications"]]
-        self.assertEqual(nos("G-ITR21"), ["G.S.R. 139(E)", "G.S.R. 794(E)"])
+        # Version 3: amendment history from the note to G.S.R. 120(E), Gazette of 10 February 2026
+        self.assertEqual(nos("G-ITR21"), ["G.S.R. 139(E)", "G.S.R. 794(E)", "G.S.R. 275(E)", "G.S.R. 775(E)"])
         self.assertEqual(nos("G-ITR26"), ["G.S.R. 120(E)"])
         self.assertEqual(nos("G-DPDP"), ["G.S.R. 843(E)"])
         self.assertEqual(nos("G-DPDPR"), ["G.S.R. 846(E)"])
-        for iid in ("G-ITR21", "G-ITA", "G-CPA", "G-ITR26", "G-DPDP", "G-DPDPR"):
+        for iid in ("G-ITR21", "G-CPA"):
             self.assertEqual(self.ins(self.india, iid)["verified"], "partial", iid)
-        self.assertEqual(len(build.validate(self.tax, self.india, self.glob)), 24)
+        self.assertEqual(self.ins(self.india, "G-ITA")["verified"], "yes")
+        self.assertEqual(self.ins(self.india, "G-ITR26")["verified"], "yes")
+        # Version 3: the DPDP Act and its commencement were checked against the Gazettes of 11 Aug 2023 and 13 Nov 2025
+        self.assertEqual(self.ins(self.india, "G-DPDP")["verified"], "yes")
+        self.assertNotIn("gazette_url", self.ins(self.india, "G-DPDP"))
+        # Version 3: the DPDP Rules were checked against the Gazette of 13 November 2025 (G.S.R. 846(E))
+        rules = self.ins(self.india, "G-DPDPR")
+        self.assertEqual((rules["verified"], rules["url"]), ("yes", "https://egazette.gov.in/WriteReadData/2025/267650.pdf"))
+        # one warning per law record that is not fully verified
+        self.assertEqual(len(build.validate(self.tax, self.india, self.glob)), sum(1 for i in self.india["instruments"] if i["verified"] != "yes"))
+
+    def test_v3_upgrades_record_the_maintainers_confirmation(self):
+        for iid in ("G-ITA", "G-ITR26", "G-ADV-DEC23", "G-CERTIN", "G-DPDP", "G-DPDPR", "G-CCPA-DP",
+                    "G-PSA-WP", "G-AISI", "G-NITI2", "G-RBI", "G-ICMR", "G-J-ANIL"):
+            rec = self.ins(self.india, iid)
+            self.assertEqual((rec["verified"], rec["checked"]), ("yes", "2026-11-01"), iid)
+            self.assertIn("Confirmed by the maintainer, Krunal Maheshwari, on 2026-11-01", rec["note"], iid)
+            self.assertNotIn("awaiting the maintainer", rec["note"], iid)
 
     def test_meta_updated_date(self):
         d = copy.deepcopy(self.india); d["meta"]["updated"] = "last week"

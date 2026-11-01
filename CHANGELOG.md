@@ -1,5 +1,147 @@
 # Changelog
 
+## v0.3.0 — Version 3 (2026-11-01)
+
+Still open after this release: official links for 11 partly verified laws, and the maintainer's review of the 12 model cards
+and the 22 assessments (all unreviewed).
+
+### Step 1: verification
+- **Verification log:** [`docs/verification-v3.md`](docs/verification-v3.md) records what was checked, what could not
+  be opened, and what is still missing for each record.
+- **Laws:** after network access was widened, 6 of the 24 partly verified records were checked against official texts
+  and upgraded to verified, each with the source link and what was checked: G-PSA-WP, G-AISI, G-NITI2, G-RBI, G-ICMR
+  and G-J-ANIL.
+  - Corrections made on the way: the PSA white paper's official title and date (2026-01-23); NITI Part 2's date to
+    the month the cover gives (2021-08); the judge's name in the Anil Kapoor order (Prathiba).
+  - G-J-ANI stays partly verified: the official orders confirm the judge, dates and that the suit continues, but not
+    the judgment's holding.
+  - **G-DPDPR verified** against the Gazette of 13 November 2025 (G.S.R. 846(E)), from a copy the maintainer supplied:
+    Rule 1(2)-(4) phasing quoted exactly.
+  - **G-DPDP verified** against the Gazette of 11 August 2023 (the Act, No. 22 of 2023) and the Gazette of
+    13 November 2025, No. 757 (G.S.R. 843(E), the commencement notification). Its status now lists the three
+    commencement stages as the notification states them. An earlier one-page summary of G.S.R. 843(E), without
+    Gazette header or signature, was not relied on. The record's Gazette link pointed at the Rules file and was removed.
+  - G-ITA's s.43A end date is now backed by G.S.R. 843(E); the rest of that record is still to check.
+  - **G-CERTIN verified** against the CERT-In Directions of 28 April 2022 (6 hours, 180 days, effective after 60 days).
+  - **G-ITR26 verified** against the Gazette of 10 February 2026 (G.S.R. 120(E), in force 20 February 2026). The summary
+    was corrected: the 2-hour deadline covers complaints about intimate images or impersonation, including artificially
+    morphed images, not only deepfakes.
+  - **Partly verified, with checked text but no official link yet:**
+    - **G-ITR21:** principal rules checked against the Gazette of 25 February 2021; the full amendment history (2022,
+      2023, 2025) is taken from the note to G.S.R. 120(E).
+    - **G-ADV-MAR24:** checked against MeitY's signed advisory of 15 March 2024. The unread comparison with the
+      1 March version was removed from the summary.
+    - **G-ITR21:** a consolidated text 'updated as on 28.10.2022' also confirms that G.S.R. 794(E) replaced rule
+      3(1)(a) and (b).
+  - **G-ITA verified** on the maintainer's confirmation that the consolidated copy came from meity.gov.in: all twelve
+    sections listed, commencement 17 October 2000 (G.S.R. 788(E)), and the s.43A end date from G.S.R. 843(E).
+  - **G-ADV-DEC23 verified** against PIB's official release of 26 December 2023 (Release ID 1990542), which quotes the
+    advisory; the date was corrected from 23 to 26 December 2023.
+  - **G-CCPA-DP verified** against the Gazette of 30 November 2023 (CCPA, F. No. CCPA-1/1/2023-CCPA-(Reg)). The summary
+    now says that applying it to AI-personalised designs is NETRA's reading, since the guidelines do not mention AI.
+  - **G-CPA:** Act text checked against the Gazette of 9 August 2019 (Act No. 35 of 2019). It stays partly verified until
+    S.O. 2351(E), the commencement notification, is seen.
+  - The other partly verified records stay as they were; the log names the site that could not be read for each. The Gazette server
+    does not send its full certificate chain, and certificate checks were not switched off.
+- **Model cards:**
+  - The 8 tests that cite MITRE ATLAS were checked against ATLAS data release 2026.10, and the 7 that cite METR against
+    METR's own report pages. All 15 summaries are supported.
+  - The AML.CS0056 test date on MOD-11 now shows 2026, the precision ATLAS gives (maintainer's decision).
+  - MOD-10's release date was removed and marked unverified: its source, a Substack post about ChatGPT, looks unrelated
+    (maintainer's decision).
+  - Still flagged: the cited ATLAS release, and release-date sources that could not be opened.
+  - All 12 cards stay unreviewed.
+- **All 13 upgrades confirmed by the maintainer, Krunal Maheshwari, on 2026-11-01.** Each record's note says so, and
+  its `checked` date is 2026-11-01.
+- Counts now read **17 verified, 11 partly verified** in the README, `CITATION.cff` and `.zenodo.json`. The test of
+  build warnings now reads the count from the data.
+- Removed mentions of a retired project from the stage note, the global-evidence note and the archived v0.1 page.
+- Fixed `tests/test_release.py`, which had been failing on `main` since the README redesign: it now reads the figures
+  from the new "At a glance" row and "Status and trust" table.
+
+### Step 2: additive fields
+
+- New optional `assessment` block on incidents. If it is absent, every field counts as "not yet assessed", so the other
+  19 cases are unchanged. The block has its own `review` status, which starts as `unreviewed`. The incident's own review
+  status does not carry over to it.
+- Fields:
+  - `ai_role` (confirmed, suspected, not established or not AI), with the source basis;
+  - `ai_system` (name, developer, deployer, version);
+  - `impact` (who was harmed, harm types, and scale only when a source gives it);
+  - `evidence_provenance` (who produced the evidence, who reported it, what it establishes and what it does not);
+  - `failure_modes` (OWASP LLM Top 10 with edition year, or MITRE ATLAS);
+  - `crosswalk` (NIST AI RMF function, ISO/IEC 42001 or OWASP label, with a 'why').
+- Trial cases:
+  - IN-INC-20 Grok: AI role confirmed.
+  - IN-INC-09 tax tribunal: AI role suspected; the AI system is "not established".
+  - IN-INC-14 WotNot: AI role "not AI", from the record's own overclaim check. The owner decides whether the case stays
+    in scope.
+- No failure mode or crosswalk tags are set on the trial cases: none of their cited sources makes such a mapping.
+- Reference lists, names only:
+  - `data/owasp_llm_top10.json`: the 2025 and 2026 editions, CC BY-SA 4.0. The numbering differs between editions, so
+    every tag carries its year.
+  - `data/atlas_techniques.json`: 221 technique IDs from MITRE ATLAS release 2026.10, Apache 2.0, © MITRE.
+- `scripts/build.py` adds `check_v3_fields`. It rejects:
+  - unknown fields;
+  - an AI role without a basis;
+  - a failure-mode ID that is not an item of its edition;
+  - a failure mode or scale whose source is not one of the incident's own sources;
+  - a NIST label that is not Govern, Map, Measure or Manage;
+  - a reviewed assessment without a reviewer and date.
+- The dossier overview shows a folded "Version 3 assessment" panel on the three trial cases only.
+- Tests: `tests/test_v3_fields.py` (13 tests) and three smoke checks.
+
+- After the owner reviewed the trial (2026-11-01):
+  - IN-INC-14 (WotNot) stays in NETRA. Its AI role changed from "not AI" to "not established": the case is AI-linked
+    through the chatbot product, but the AI's part in the harm is not shown.
+  - The assessment was extended to all 22 cases, from each record's own text and cited sources:
+    - 12 confirmed (01, 02, 04, 05, 06, 07, 08, 15, 17, 18, 20, 22);
+    - 7 suspected (03, 09, 10, 12, 13, 16, 19);
+    - 3 not established (11, 14, 21).
+    All are unreviewed.
+  - Scale is filled only where a cited source gives a figure: cases 03, 11, 12, 14, 19 and 21. View counts, song counts
+    and the POSHAN "nearly half" figure are not used as scale, and each such case says why.
+  - No crosswalk tags are set yet.
+- Failure-mode tags: the maintainer approved tagging where a cited source describes the facts, even if it does not use
+  the framework's terms, and only where AI's role is confirmed (2026-11-01).
+  - IN-INC-15 is tagged Excessive Agency (LLM06:2025 and LLM03:2026). The tag says it is NETRA's reading of the source.
+  - The validator now also checks that a tag's name matches its edition.
+  - Six confirmed deepfake cases (01, 02, 04, 07, 16, 22) are tagged with MITRE ATLAS AML.T0088 Generate Deepfakes, each
+    citing the source that describes the facts. Approved by the maintainer.
+- The maintainer checked seven AI-role calls against their sources (2026-11-01). The test: "confirmed" needs an official
+  body (police, a court, a government fact-check, or the system's operator) to say AI was used.
+  - Kept confirmed: 01, 04 and 15. Case 04 rests on the complaint recorded in the FIR. For case 15, the CERT-In
+    advisory number CIAD-2026-0049 was given by the maintainer and still needs an official link.
+  - Upgraded to confirmed: 16 (police statement).
+  - Downgraded to suspected:
+    - 06: only the actor's spokesperson says AI was used.
+    - 17: the ministry acknowledges face-scan problems but disputes exclusion.
+    - 18: the traffic chief acknowledges possible errors, not specific wrong fines.
+  - Totals are now 10 confirmed, 9 suspected and 3 not established.
+
+- New page: About › Crosswalk. It explains:
+  - the assessment fields;
+  - NETRA's NIST AI RMF mapping, which is the same one the case report uses;
+  - both OWASP editions side by side;
+  - the MITRE ATLAS release;
+  - why ISO/IEC 42001 clauses are not mapped (the text is not freely available).
+
+### Corrections
+- IN-INC-15 now rests on the CERT-In advisory itself. CIAD-2026-0049, "AI Agents as Attack Vectors" (15 October 2026,
+  Critical), was supplied by the maintainer as a browser print and checked against the official page on cert-in.org.in
+  on 2026-11-01. The page is now the case's first source.
+  - The harm and response text now follows the advisory's wording.
+  - The overclaim check and unknowns no longer say that only press coverage was read.
+  - Stages changed: S04 harm verification secondary → done; S05 evidence capture open → partial; S07 AI role
+    partial → done.
+  - The Excessive Agency tags now cite the advisory, which says the agents "exceeded their assigned task authorization".
+- G-CERTIN: the summary said the CERT-In Directions of 28 April 2022 have "No AI-specific category". That was wrong.
+  Annexure I, item xx, lists attacks or suspicious activity affecting AI and machine-learning systems as a reportable
+  incident. The summary now quotes it.
+
+### Deferred to Version 4
+- Compare tab, replay standard, test-coverage gap view, and finance and elections sector work.
+
 ## v0.2.1-dev — framework page, accurate headline, full name
 - **`docs/framework.md`**: the NETRA framework on one page: the 14 stages and their statuses, classification, the seven
   legal labels, review and verification rules, and a description of every dataset file. Linked from the README.

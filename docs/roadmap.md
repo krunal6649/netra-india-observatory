@@ -33,7 +33,7 @@ v0.2 is complete. These items are planned, not promised. Each one keeps the proj
 
 ## Record quality
 
-1. Check the 24 partly verified legal records against official Gazette and India Code texts.
+1. Check the remaining partly verified legal records against official Gazette and India Code texts.
 2. Add official links for the 359 directory bodies that have none yet, each checked by a person.
 3. Have a second coder check the risk, cause and severity codes.
 4. Review the 12 model cards and record the reviewer and date.
