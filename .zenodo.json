@@ -2,7 +2,7 @@
   "title": "NETRA India AI Risk Observatory",
   "version": "0.2.0",
   "upload_type": "dataset",
-  "description": "<p>An open record of AI harms in India, the Indian laws that may apply to them, and the authorities that can act. Version 0.2 holds 22 documented Indian incidents (all reviewed by the maintainer), 28 laws, rules, advisories and court orders (11 fully verified against official texts, 17 partly verified), 18 risks quoted from Indian government frameworks, 28 measures, 6 governance gaps, a directory of 391 Union and state bodies, 12 AI model cards (unreviewed) and a weekly, auto-selected and unreviewed update. Incidents are traced through the 14-stage NETRA method.</p><p>Live site: https://krunal6649.github.io/netra-india-observatory/. Research and decision-support material only; not legal advice.</p>",
+  "description": "<p>An open record of AI harms in India, the Indian laws that may apply to them, and the authorities that can act. Version 0.2 holds 22 documented Indian incidents (all reviewed by the maintainer), 28 laws, rules, advisories and court orders (12 fully verified against official texts, 16 partly verified), 18 risks quoted from Indian government frameworks, 28 measures, 6 governance gaps, a directory of 391 Union and state bodies, 12 AI model cards (unreviewed) and a weekly, auto-selected and unreviewed update. Incidents are traced through the 14-stage NETRA method.</p><p>Live site: https://krunal6649.github.io/netra-india-observatory/. Research and decision-support material only; not legal advice.</p>",
   "creators": [
     {"name": "Maheshwari, Krunal", "affiliation": "Independent researcher; Advocate, Bar Council of Gujarat"}
   ],

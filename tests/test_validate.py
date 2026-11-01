@@ -253,8 +253,11 @@ class Tests(unittest.TestCase):
         self.assertEqual(nos("G-ITR26"), ["G.S.R. 120(E)"])
         self.assertEqual(nos("G-DPDP"), ["G.S.R. 843(E)"])
         self.assertEqual(nos("G-DPDPR"), ["G.S.R. 846(E)"])
-        for iid in ("G-ITR21", "G-ITA", "G-CPA", "G-ITR26", "G-DPDP"):
+        for iid in ("G-ITR21", "G-ITA", "G-CPA", "G-ITR26"):
             self.assertEqual(self.ins(self.india, iid)["verified"], "partial", iid)
+        # Version 3: the DPDP Act and its commencement were checked against the Gazettes of 11 Aug 2023 and 13 Nov 2025
+        self.assertEqual(self.ins(self.india, "G-DPDP")["verified"], "yes")
+        self.assertNotIn("gazette_url", self.ins(self.india, "G-DPDP"))
         # Version 3: the DPDP Rules were checked against the Gazette of 13 November 2025 (G.S.R. 846(E))
         rules = self.ins(self.india, "G-DPDPR")
         self.assertEqual((rules["verified"], rules["url"]), ("yes", "https://egazette.gov.in/WriteReadData/2025/267650.pdf"))

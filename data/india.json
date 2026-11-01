@@ -335,7 +335,7 @@
       "type": "Statute",
       "force": "Hard law",
       "date": "2000-10-17",
-      "status": "In force. s.43A stays in force until DPDP Act s.44(2) commences on 2027-05-13",
+      "status": "In force. s.43A stays in force until DPDP Act s.44(2) commences, eighteen months after 13 November 2025 (13 May 2027 by calculation)",
       "sectors": [
         "Internet platforms & telecom",
         "Policing & security"
@@ -360,7 +360,7 @@
       "summary": "Core cyber law. Computer misuse, identity theft and personation offences, privacy violation, obscene content, blocking powers and intermediary safe harbour. No AI-specific provisions.",
       "url": "https://www.indiacode.nic.in/handle/123456789/13683",
       "verified": "partial",
-      "note": "Enforcement date from India Code. Section list and s.43A end date supplied by the project owner; Gazette copy not checked. s.79A (Examiner of Electronic Evidence) added in v0.2; section contents otherwise summarised from researcher knowledge."
+      "note": "Enforcement date from India Code. Section list and s.43A end date supplied by the project owner; Gazette copy not checked. s.79A (Examiner of Electronic Evidence) added in v0.2; section contents otherwise summarised from researcher knowledge. s.43A end date now checked on 2026-11-01 against G.S.R. 843(E) (Gazette, 13 November 2025, CG-DL-E-14112025-267647): DPDP Act s.44(2), which omits s.43A, comes into force eighteen months from publication. The rest of this record (Gazette copy of the IT Act and the section list) is still to check."
     },
     {
       "id": "G-ITR21",
@@ -545,7 +545,7 @@
       "type": "Statute",
       "force": "Hard law",
       "date": "2023-08-11",
-      "status": "Partly in force since 2025-11-13; core duties from about 2027-05-13",
+      "status": "Partly in force from 13 November 2025 (ss.1(2), 2, 18-26, 35, 38-43, 44(1) and (3)); ss.6(9) and 27(1)(d) one year after publication; ss.3-5, 6(1)-(8) and (10), 7-17, 27 (except (1)(d)), 28-34, 36, 37 and 44(2) eighteen months after publication (13 May 2027 by calculation)",
       "sectors": [
         "Finance & banking",
         "Healthcare",
@@ -571,12 +571,12 @@
       "provisions": "ss.3, 4–10 (duties), 8(5)–8(6) security and breach intimation; s.44(2) omits IT Act s.43A",
       "summary": "General data protection law. Applies to personal data used to train or run AI systems. Most obligations commence 18 months after the November 2025 notification.",
       "url": "https://www.indiacode.nic.in/bitstream/123456789/22037/2/a2023-22.pdf",
-      "verified": "partial",
-      "note": "Act text checked on 2026-11-01 against the Gazette of India Extraordinary, Part II, Section 1, No. 25, New Delhi, 11 August 2023 (CG-DL-E-12082023-248045), supplied by the maintainer: 'The Digital Personal Data Protection Act, 2023 (No. 22 of 2023)', assent of the President on 11 August 2023; s.1(2) leaves commencement to notification with different dates for different provisions; s.3 application; Chapter II (ss.4-10) obligations of Data Fiduciary; s.8(5)-(6) security safeguards and breach intimation; s.44(2)(a) 'section 43A shall be omitted' from the IT Act. Still missing for 'yes': the official text of the commencement notification G.S.R. 843(E). The dates in 'status' and 'summary' still rest on secondary summaries; a one-page summary of G.S.R. 843(E) supplied on 2026-11-01 is not an official copy (no Gazette header, ID or signature) and was not relied on. The earlier Gazette link was removed: that file (267650.pdf) holds the Rules, G.S.R. 846(E), not G.S.R. 843(E).",
+      "verified": "yes",
+      "note": "Checked on 2026-11-01 against two Gazette copies supplied by the maintainer. (1) Gazette of India Extraordinary, Part II, Section 1, No. 25, 11 August 2023 (CG-DL-E-12082023-248045): 'The Digital Personal Data Protection Act, 2023 (No. 22 of 2023)', assent 11 August 2023; s.1(2), s.3, Chapter II (ss.4-10), s.8(5)-(6) and s.44(2)(a) 'section 43A shall be omitted' checked. (2) Gazette of India Extraordinary, Part II, Section 3(i), No. 757, 13 November 2025 (CG-DL-E-14112025-267647): MeitY notification G.S.R. 843(E), F. No. AA-11038/1/2025-CL&ES, signed by Ajit Kumar, Jt. Secy., appointing (a) the date of publication for ss.1(2), 2, 18-26, 35, 38-43 and 44(1) and (3); (b) one year from publication for s.6(9) and s.27(1)(d); (c) eighteen months from publication for ss.3-5, 6(1)-(8) and (10), 7-10, 11-17, 27 except (1)(d), 28-34, 36, 37 and 44(2). '13 May 2027' is calculated from the publication date, not stated in the notification. The url is India Code's copy of the Act, which could not be opened from the build session. Checked by the AI-assisted session; awaiting the maintainer's confirmation.",
       "notifications": [
         {
           "no": "G.S.R. 843(E)",
-          "what": "Commencement notification (phased)"
+          "what": "Commencement notification (phased), 13 November 2025"
         }
       ]
     },
