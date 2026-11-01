@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 title: "NETRA India AI Risk Observatory"
-version: "0.3.0"
+version: "0.3.1"
 date-released: "2026-11-01"
 message: "If you use this data or software, please cite it as below."
 type: dataset
