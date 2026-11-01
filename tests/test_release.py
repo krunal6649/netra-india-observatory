@@ -33,13 +33,14 @@ class Tests(unittest.TestCase):
         self.assertNotEqual(cff("version"), "0.1.0-pilot")
 
     def test_readme_figures_match_the_data(self):
-        i = self.india
+        """The README's 'At a glance' row and 'Status and trust' table must agree with the data."""
+        i, n = self.india, lambda k: len(self.india[k])
         unverified = sum(1 for x in i["instruments"] if x["verified"] != "yes")
-        for text in (f"| Indian AI incidents | {len(i['incidents'])} |", f"| {len(i['instruments'])} |",
-                     f"{len(i['instruments']) - unverified} verified against official texts; {unverified} partly verified",
-                     f"| {len(i['risks'])} |", f"| Governance gaps | {len(i['gaps'])} |",
-                     f"{len(self.dir['bodies'])} bodies", f"| AI model cards | {len(self.models['models'])} |",
-                     f"data updated {i['meta']['updated']}"):
+        glance = f"| {n('incidents')} | {n('instruments')} | {n('risks')} | {n('mitigations')} | {len(self.dir['bodies'])} | {len(self.models['models'])} |"
+        for text in (glance, f"Incidents ({n('incidents')})", f"Laws, rules, advisories, court orders ({n('instruments')})",
+                     f"{n('instruments') - unverified} verified against official texts; {unverified} partly verified",
+                     f"Directory ({len(self.dir['bodies'])} bodies)", f"AI model cards ({len(self.models['models'])})",
+                     f"Gap register:** {n('gaps')} gaps", f"Data updated {i['meta']['updated']}"):
             self.assertIn(text, self.readme)
         if all(x["review"] == "human_reviewed" for x in i["incidents"]):
             self.assertIn("All reviewed by the maintainer", self.readme)

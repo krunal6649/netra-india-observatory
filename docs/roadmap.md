@@ -33,7 +33,7 @@ v0.2 is complete. These items are planned, not promised. Each one keeps the proj
 
 ## Record quality
 
-1. Check the 24 partly verified legal records against official Gazette and India Code texts.
+1. Check the remaining partly verified legal records against official Gazette and India Code texts.
 2. Add official links for the 359 directory bodies that have none yet, each checked by a person.
 3. Have a second coder check the risk, cause and severity codes.
 4. Review the 12 model cards and record the reviewer and date.
@@ -41,5 +41,4 @@ v0.2 is complete. These items are planned, not promised. Each one keeps the proj
 6. Read the PSA white paper in full. It proposes a national AI incident database, which overlaps this project.
 7. Capture primary evidence (court orders, public FIR details, platform notices) for each NETRA dossier.
 8. Add risks from RBI FREE-AI recommendations 15–26, ICMR and SEBI.
-9. Check stage names against the NETRA v0.3 core workbook.
-10. Optionally, a *Global lessons* collection of non-India cases, kept apart from the India counts.
+9. Optionally, a *Global lessons* collection of non-India cases, kept apart from the India counts.

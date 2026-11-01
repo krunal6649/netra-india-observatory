@@ -4,7 +4,7 @@
     "version": "0.1.0",
     "created": "2026-10-22",
     "checked": "2026-10-22",
-    "updated": "2026-10-25",
+    "updated": "2026-11-01",
     "maintainer": "Krunal Maheshwari, Advocate (Bar Council of Gujarat), AI governance researcher",
     "contact_email": "krunal.maheshwari@gmail.com",
     "status": "Pilot seed. All codings were drafted with AI assistance and are unreviewed unless marked otherwise.",
@@ -335,7 +335,7 @@
       "type": "Statute",
       "force": "Hard law",
       "date": "2000-10-17",
-      "status": "In force. s.43A stays in force until DPDP Act s.44(2) commences on 2027-05-13",
+      "status": "In force. s.43A stays in force until DPDP Act s.44(2) commences, eighteen months after 13 November 2025 (13 May 2027 by calculation)",
       "sectors": [
         "Internet platforms & telecom",
         "Policing & security"
@@ -359,8 +359,9 @@
       "provisions": "ss.43, 43A, 66, 66C, 66D, 66E, 67, 67A, 69A, 75, 79, 79A",
       "summary": "Core cyber law. Computer misuse, identity theft and personation offences, privacy violation, obscene content, blocking powers and intermediary safe harbour. No AI-specific provisions.",
       "url": "https://www.indiacode.nic.in/handle/123456789/13683",
-      "verified": "partial",
-      "note": "Enforcement date from India Code. Section list and s.43A end date supplied by the project owner; Gazette copy not checked. s.79A (Examiner of Electronic Evidence) added in v0.2; section contents otherwise summarised from researcher knowledge."
+      "verified": "yes",
+      "note": "Checked on 2026-11-01. The text of the Act was checked against a consolidated copy ('it_act_2000_updated.pdf', Act No. 21 of 2000) that the maintainer, Krunal Maheshwari, confirmed on 2026-11-01 was downloaded from meity.gov.in; the exact address was not recorded, so the url stays the India Code page for the Act. The copy contains every section listed (ss.43, 43A, 66, 66C, 66D, 66E, 67, 67A, 69A, 75, 79, 79A) and gives the commencement as '17th October, 2000, vide notification No. G.S.R. 788 (E)'. The s.43A end date is backed by G.S.R. 843(E) (Gazette, 13 November 2025, CG-DL-E-14112025-267647): DPDP Act s.44(2), which omits s.43A, comes into force eighteen months from publication. Section contents in the summary are a plain-language description, not quotes. Checked by the AI-assisted session on the maintainer's confirmation of the source. Confirmed by the maintainer, Krunal Maheshwari, on 2026-11-01.",
+      "checked": "2026-11-01"
     },
     {
       "id": "G-ITR21",
@@ -387,11 +388,11 @@
         "1.2",
         "4.3"
       ],
-      "provisions": "Rule 3(1)(b) due diligence (substituted by G.S.R. 794(E), 28 Oct 2022)",
+      "provisions": "Rule 3(1)(a)-(b) due diligence (substituted by G.S.R. 794(E), 28 Oct 2022); rule 3(1)(d) removal on court order or government notice",
       "summary": "Due-diligence duties for intermediaries, including not hosting listed unlawful or knowingly false content. Invoked by MeitY against an AI chatbot answer in Feb 2024.",
       "url": "https://www.thc.nic.in/Central%20Governmental%20Rules/IT(Intermediary%20Guidelines%20and%20Digital%20Media%20Ethics%20Code)%20Rules,%202021.pdf",
       "verified": "partial",
-      "note": "G.S.R. numbers and dates supplied by the project owner. URL is a copy in Gazette layout on a nic.in court website, found by web search; it has not been opened (host blocked from the AI-assisted session's sandbox) and is not the egazette.gov.in original. Missing for 'yes': open and confirm a Gazette copy of G.S.R. 139(E), or replace this link with the egazette.gov.in original. Amendment years 2023 and 2025 in 'status' still rest on the S.S. Rana summary.",
+      "note": "Partly checked on 2026-11-01. (1) Principal rules checked against the Gazette pages of G.S.R. 139(E), New Delhi, 25 February 2021, Part II s.3(i), F. No. 16(4)/2020-CLES, signed by Dr. Rajendra Kumar, Addl. Secy., digitally signed by the Government of India Press on 25 February 2021 (copy from mib.gov.in, supplied by the maintainer). (2) Amendment history checked against the note to G.S.R. 120(E) (Gazette, 10 February 2026): G.S.R. 794(E) of 28 October 2022, G.S.R. 275(E) of 6 April 2023 and G.S.R. 775(E) of 22 October 2025. (3) A consolidated text 'updated as on 28.10.2022', supplied by the maintainer, marks rule 3(1)(a) and (b) as 'Substituted by notification G.S.R. 794(E), dated 28.10.2022'. Still missing for 'yes': an official link for the url (the current link is an unopened copy on thc.nic.in).",
       "notifications": [
         {
           "no": "G.S.R. 139(E)",
@@ -402,6 +403,16 @@
           "no": "G.S.R. 794(E)",
           "date": "2022-10-28",
           "what": "Amendment Rules, 2022; replaced rule 3(1)(b)"
+        },
+        {
+          "no": "G.S.R. 275(E)",
+          "date": "2023-04-06",
+          "what": "Amendment"
+        },
+        {
+          "no": "G.S.R. 775(E)",
+          "date": "2025-10-22",
+          "what": "Amendment"
         }
       ]
     },
@@ -432,11 +443,11 @@
         "4.1",
         "4.3"
       ],
-      "provisions": "Rule 2(1)(wa) 'synthetically generated information'; Rule 3(3)",
-      "summary": "Defines synthetically generated audio-visual information; text-only AI output is outside the definition. Requires user declarations, prominent labels and provenance metadata. Cuts the takedown window on a court or government order from 36 hours to 3 hours, sets a 2-hour deadline for intimate-image deepfakes, and cuts grievance resolution from 15 to 7 days.",
-      "url": "https://www.dsci.in/resource/content/it-amendment-rules-2026",
-      "verified": "partial",
-      "note": "G.S.R. number and dates supplied by the project owner; scope agrees across DSCI, Mondaq, IFF and iPleaders summaries. Missing for 'yes': the Gazette PDF of G.S.R. 120(E) has not been opened; URL is a DSCI summary. Draft Second Amendment (2026) not read.",
+      "provisions": "Rule 2(1)(wa) 'synthetically generated information'; rule 3(1)(d) (3 hours); rule 3(2)(a) (7 days) and 3(2)(b) (2 hours); new rule 3(3) labelling and metadata; new rule 4(1A) declarations",
+      "summary": "Defines 'synthetically generated information' as audio, visual or audio-visual information, so text alone is outside the definition. Intermediaries that enable such content must block unlawful synthetic content and label the rest prominently, with permanent metadata or a unique identifier where technically feasible; significant social media intermediaries must take user declarations and verify them. Cuts removal on a court order or government notice from 36 hours to 3 hours, cuts grievance resolution from 15 to 7 days, and cuts removal on complaints about intimate images or impersonation, including artificially morphed images, from 24 hours to 2 hours.",
+      "url": "https://egazette.gov.in/WriteReadData/2026/269993.pdf",
+      "verified": "yes",
+      "note": "Checked on 2026-11-01 against the Gazette of India Extraordinary, Part II, Section 3(i), No. 114, 10 February 2026 (CG-DL-E-10022026-269993), supplied by the maintainer: G.S.R. 120(E), F. No. 2(5)/2025-CyberLaws, signed by Ajit Kumar, Jt. Secy.; 'They shall come into force on the 20th day of February, 2026'; clause (wa); rule 3(1)(d) 'thirty-six hours' to 'within three hours'; rule 3(2)(a)(i) 'fifteen days' to 'seven days'; rule 3(2)(b) 'twenty-four hours' to 'two hours'; new rule 3(3); new rule 4(1A). The url follows egazette.gov.in's file pattern from the Gazette ID and was not opened from the build session. The draft Second Amendment (2026) was not read. Checked by the AI-assisted session. Confirmed by the maintainer, Krunal Maheshwari, on 2026-11-01.",
       "notifications": [
         {
           "no": "G.S.R. 120(E)",
@@ -444,15 +455,16 @@
           "effective": "2026-02-20",
           "what": "Amendment Rules, 2026"
         }
-      ]
+      ],
+      "checked": "2026-11-01"
     },
     {
       "id": "G-ADV-DEC23",
-      "title": "MeitY advisory to intermediaries on prohibited content and deepfakes (23 Dec 2023)",
+      "title": "MeitY advisory to intermediaries on prohibited content and deepfakes (No. 2(4)/2023-CyberLaws-2, 26 Dec 2023)",
       "issuer": "MeitY",
       "type": "Advisory",
       "force": "Soft law (binding effect disputed)",
-      "date": "2023-12-23",
+      "date": "2023-12-26",
       "status": "Issued; not withdrawn by the March 2024 revision",
       "sectors": [
         "Internet platforms & telecom"
@@ -468,10 +480,11 @@
         "4.3"
       ],
       "provisions": "Reiterates IT Rules 2021 duties",
-      "summary": "Asked platforms to communicate prohibited content clearly to users, following public concern over deepfakes.",
-      "url": "https://www.jurist.org/news/2023/12/india-government-issues-advisory-to-combat-deepfakes-on-social-media-platforms/",
-      "verified": "partial",
-      "note": "Date confirmed by JSA summary of the March 2024 advisory. Content per secondary reporting."
+      "summary": "Asked intermediaries to communicate content prohibited under rule 3(1)(b) of the IT Rules clearly to users, through terms of service and user agreements, at first registration and as regular reminders, including at every login and upload, and to tell users of the penal provisions that may apply. PIB described it as targeting AI-powered misinformation, that is, deepfakes.",
+      "url": "https://pib.gov.in/PressReleasePage.aspx?PRID=1990542",
+      "verified": "yes",
+      "note": "Checked on 2026-11-01 against PIB's official release on pib.gov.in (Release ID 1990542, 'Posted On: 26 DEC 2023 6:34PM by PIB Delhi'), opened from the build session and matching the text the maintainer pasted: MeitY 'has issued an advisory to all intermediaries'; the release quotes the advisory on communicating rule 3(1)(b) content 'at the time of first-registration and also as regular reminders' and on making users aware of penal provisions. The date also matches MeitY's signed advisory of 15 March 2024, which cites 'advisory No. 2(4)/2023-CyberLaws - 2 dated 26th December, 2023'. The advisory document itself has not been seen; PIB quotes it. Checked by the AI-assisted session. Confirmed by the maintainer, Krunal Maheshwari, on 2026-11-01.",
+      "checked": "2026-11-01"
     },
     {
       "id": "G-ADV-MAR24",
@@ -480,7 +493,7 @@
       "type": "Advisory",
       "force": "Soft law (binding effect disputed)",
       "date": "2024-03-15",
-      "status": "Revised version replaces 1 March version",
+      "status": "Supersedes the advisory of 1 March 2024; compliance with immediate effect",
       "sectors": [
         "AI development",
         "Internet platforms & telecom",
@@ -499,10 +512,10 @@
         "4.1"
       ],
       "provisions": "Cites IT Act 2000 and IT Rules 2021",
-      "summary": "Revised version dropped prior government permission. Under-tested or unreliable models may be offered only after users are told of unreliability (e.g. consent pop-up). Synthetic content to carry labels, metadata or unique identifiers.",
+      "summary": "Platforms must ensure AI models, LLMs and generative AI on them do not permit unlawful content under rule 3(1)(b) of the IT Rules, bias or discrimination, or threats to the integrity of the electoral process. Under-tested or unreliable AI may be made available in India only after labelling its possible fallibility, for example with a consent pop-up. Synthetic content that could be used as misinformation or a deepfake should be labelled or embedded with permanent unique metadata or an identifier.",
       "url": "https://www.jsalaw.com/newsletters-and-updates/revised-meity-advisory-on-deployment-of-ai-models/",
       "verified": "partial",
-      "note": "JSA notes the legal basis is ambiguous and enforceability unclear."
+      "note": "Text checked on 2026-11-01 against a signed copy supplied by the maintainer: MeitY, Cyber Law and Data Governance Group, eNo.2(4)/2023-CyberLaws-3, dated 15-03-2024, signed by Dr. Sandip Chatterjee, Scientist G and Group Coordinator (Cyber Law); 'issued in supersession of advisory eNo.2(4)/2023-CyberLaws-3, dated 1st March, 2024'; paras 2(a)-(d), 3, 4 and 5 read. The earlier summary said the revision 'dropped prior government permission'; that compares it with the 1 March text, which has not been read, so it has been removed. Still missing for 'yes': an official MeitY link for the url (the current link is a JSA summary). The 'binding effect disputed' label rests on JSA's commentary."
     },
     {
       "id": "G-CERTIN",
@@ -511,7 +524,7 @@
       "type": "Direction",
       "force": "Hard law",
       "date": "2022-04-28",
-      "status": "In force (effective 2022-06-27)",
+      "status": "In force (effective 60 days after issue: 27 June 2022 by calculation)",
       "sectors": [
         "Internet platforms & telecom",
         "Finance & banking",
@@ -533,10 +546,11 @@
         "4.2"
       ],
       "provisions": "Mandatory reporting of listed cyber incidents within 6 hours; ICT log retention for 180 days",
-      "summary": "Applies to cyber incidents whatever their cause, including incidents involving AI systems. No AI-specific category.",
+      "summary": "Service providers, intermediaries, data centres, body corporate and Government organisations must report the cyber incidents listed in Annexure I to CERT-In within 6 hours of noticing them. Item xx of Annexure I lists 'Attacks or malicious/ suspicious activities affecting systems/ servers/software/ applications related to Artificial Intelligence and Machine Learning'.",
       "url": "https://www.cert-in.org.in/PDF/CERT-In_Directions_70B_28.04.2022.pdf",
-      "verified": "partial",
-      "note": "Official PDF URL from multiple secondary sources; PDF not opened."
+      "verified": "yes",
+      "note": "Checked on 2026-11-01 against the CERT-In PDF supplied by the maintainer, the same file name as the url: No. 20(3)/2022-CERT-In, MeitY / CERT-In, dated 28 April 2022, 'Directions under sub-section (6) of section 70B of the Information Technology Act, 2000'. Direction (ii): report Annexure I cyber incidents 'within 6 hours of noticing such incidents'; direction (iv): logs of all ICT systems kept 'for a rolling period of 180 days' within the Indian jurisdiction; 'This direction will become effective after 60 days from the date on which it is issued' (27 June 2022 is calculated). No AI-specific incident category in Annexure I. Checked by the AI-assisted session. Confirmed by the maintainer, Krunal Maheshwari, on 2026-11-01. Correction on 2026-11-01: the earlier summary said there was 'No AI-specific category'. Annexure I, item xx, does list attacks on AI and machine-learning systems, so the summary has been corrected. Re-checked against the same PDF, uploaded again by the maintainer.",
+      "checked": "2026-11-01"
     },
     {
       "id": "G-DPDP",
@@ -545,7 +559,7 @@
       "type": "Statute",
       "force": "Hard law",
       "date": "2023-08-11",
-      "status": "Partly in force since 2025-11-13; core duties from about 2027-05-13",
+      "status": "Partly in force from 13 November 2025 (ss.1(2), 2, 18-26, 35, 38-43, 44(1) and (3)); ss.6(9) and 27(1)(d) one year after publication; ss.3-5, 6(1)-(8) and (10), 7-17, 27 (except (1)(d)), 28-34, 36, 37 and 44(2) eighteen months after publication (13 May 2027 by calculation)",
       "sectors": [
         "Finance & banking",
         "Healthcare",
@@ -571,15 +585,15 @@
       "provisions": "ss.3, 4–10 (duties), 8(5)–8(6) security and breach intimation; s.44(2) omits IT Act s.43A",
       "summary": "General data protection law. Applies to personal data used to train or run AI systems. Most obligations commence 18 months after the November 2025 notification.",
       "url": "https://www.indiacode.nic.in/bitstream/123456789/22037/2/a2023-22.pdf",
-      "verified": "partial",
-      "note": "Commencement split per secondary summaries of G.S.R. 843(E). G.S.R. number supplied by the project owner. Missing for 'yes': owner to confirm the Gazette text at gazette_url (not opened by the AI-assisted session; host blocked).",
+      "verified": "yes",
+      "note": "Checked on 2026-11-01 against two Gazette copies supplied by the maintainer. (1) Gazette of India Extraordinary, Part II, Section 1, No. 25, 11 August 2023 (CG-DL-E-12082023-248045): 'The Digital Personal Data Protection Act, 2023 (No. 22 of 2023)', assent 11 August 2023; s.1(2), s.3, Chapter II (ss.4-10), s.8(5)-(6) and s.44(2)(a) 'section 43A shall be omitted' checked. (2) Gazette of India Extraordinary, Part II, Section 3(i), No. 757, 13 November 2025 (CG-DL-E-14112025-267647): MeitY notification G.S.R. 843(E), F. No. AA-11038/1/2025-CL&ES, signed by Ajit Kumar, Jt. Secy., appointing (a) the date of publication for ss.1(2), 2, 18-26, 35, 38-43 and 44(1) and (3); (b) one year from publication for s.6(9) and s.27(1)(d); (c) eighteen months from publication for ss.3-5, 6(1)-(8) and (10), 7-10, 11-17, 27 except (1)(d), 28-34, 36, 37 and 44(2). '13 May 2027' is calculated from the publication date, not stated in the notification. The url is India Code's copy of the Act, which could not be opened from the build session. Checked by the AI-assisted session. Confirmed by the maintainer, Krunal Maheshwari, on 2026-11-01.",
       "notifications": [
         {
           "no": "G.S.R. 843(E)",
-          "what": "Commencement notification (phased)"
+          "what": "Commencement notification (phased), 13 November 2025"
         }
       ],
-      "gazette_url": "https://egazette.gov.in/WriteReadData/2025/267650.pdf"
+      "checked": "2026-11-01"
     },
     {
       "id": "G-DPDPR",
@@ -606,18 +620,19 @@
       "domains": [
         "2.1"
       ],
-      "provisions": "Notice, consent, breach intimation, children’s data, cross-border transfer",
+      "provisions": "Notice (r.3), Consent Managers (r.4), security safeguards (r.6), breach intimation (r.7), children's data (r.10), Significant Data Fiduciaries (r.13), transfer outside India (r.15)",
       "summary": "Operational rules under the DPDP Act, commenced in three phases.",
-      "url": "https://www.azbpartners.com/bank/update-indias-digital-personal-data-protection-framework-comes-into-effect/",
-      "verified": "partial",
-      "note": "Phasing per Mondaq, AZB and Konfirmity summaries; URL is the AZB summary. G.S.R. number supplied by the project owner. Missing for 'yes': owner to confirm the Gazette text at gazette_url (not opened by the AI-assisted session; host blocked).",
+      "url": "https://egazette.gov.in/WriteReadData/2025/267650.pdf",
+      "verified": "yes",
+      "note": "Checked on 2026-11-01 against the Gazette of India Extraordinary, Part II, Section 3(i), No. 760, New Delhi, 13 November 2025 (CG-DL-E-14112025-267650), a copy supplied by the maintainer that matches the egazette.gov.in file at the url. MeitY notification G.S.R. 846(E) dated 13 November 2025 makes the Rules under s.40(1) and (2) of the Act (22 of 2023). Rule 1(2)-(4), quoted: 'Rules 1, 2 and 17 to 21 shall come into force on the date of their publication in the Official Gazette'; 'Rule 4 shall come into force one year after the date of publication of this Gazette'; 'Rules 3, 5 to 16, 22 and 23 shall come into force eighteen months after the date of publication of this Gazette'. Rule headings for the provisions listed were checked. This Gazette file does not contain G.S.R. 843(E). Checked by the AI-assisted session. Confirmed by the maintainer, Krunal Maheshwari, on 2026-11-01.",
       "notifications": [
         {
           "no": "G.S.R. 846(E)",
           "what": "Digital Personal Data Protection Rules, 2025"
         }
       ],
-      "gazette_url": "https://egazette.gov.in/WriteReadData/2025/267650.pdf"
+      "gazette_url": "https://egazette.gov.in/WriteReadData/2025/267650.pdf",
+      "checked": "2026-11-01"
     },
     {
       "id": "G-BSA",
@@ -724,7 +739,7 @@
       "summary": "Possible route for consumers harmed by defective AI products or misleading AI claims, including deepfake endorsements.",
       "url": "https://www.indiacode.nic.in/",
       "verified": "partial",
-      "note": "Act number, assent date, commencement and section numbers supplied by the project owner. Missing for 'yes': the bare Act and S.O. 2351(E) not opened; URL is the India Code home page, not the Act.",
+      "note": "Act text checked on 2026-11-01 against the Gazette of India Extraordinary, Part II, Section 1, No. 54, 9 August 2019, supplied by the maintainer: 'The Consumer Protection Act, 2019 (No. 35 of 2019)', assent 9 August 2019; s.1(3) leaves commencement to notification; s.2(18) 'endorsement', s.2(28) 'misleading advertisement', s.2(34) 'product liability', s.2(47) 'unfair trade practice', s.10 Central Consumer Protection Authority, s.21 directions and penalties against false or misleading advertisements. Still missing for 'yes': S.O. 2351(E), the notification behind the 20 July 2020 commencement date, and a specific link for the url (it is still India Code's home page).",
       "act_no": "Act 35 of 2019",
       "notifications": [
         {
@@ -760,10 +775,11 @@
         "4.3"
       ],
       "provisions": "Specified dark patterns in the annexure",
-      "summary": "Bans listed manipulative interface designs. Applies whether or not AI personalises them.",
-      "url": "https://www.jsalaw.com/newsletters-and-updates/ccpa-issues-guidelines-for-prevention-and-regulation-of-dark-patterns-2023/",
-      "verified": "partial",
-      "note": "Date from Mondaq headline ('effective 30 November 2023'); text not opened."
+      "summary": "Prohibits any person, including any platform, from engaging in dark patterns; Annexure 1 lists the specified dark patterns. The guidelines do not mention AI. NETRA reads them as applying however the design is produced, including when AI personalises it; that reading is NETRA's, not the text's.",
+      "url": "https://egazette.gov.in/WriteReadData/2023/250339.pdf",
+      "verified": "yes",
+      "note": "Checked on 2026-11-01 against the Gazette of India Extraordinary, Part III, Section 4, No. 783, 30 November 2023 (CG-DL-E-30112023-250339), supplied by the maintainer: CCPA notification F. No. CCPA-1/1/2023-CCPA-(Reg), dated 30 November 2023, issued under s.18 of the Consumer Protection Act, 2019, signed by Nidhi Khare, Chief Commissioner; guideline 1(2) 'It shall come into force on the date of its publication in the Official Gazette'; guideline 4 prohibition; guideline 5 and Annexure 1. The url follows egazette.gov.in's file pattern from the Gazette ID and was not opened from the build session. Earlier date source was a Mondaq headline. Checked by the AI-assisted session. Confirmed by the maintainer, Krunal Maheshwari, on 2026-11-01.",
+      "checked": "2026-11-01"
     },
     {
       "id": "G-COPY",
@@ -871,11 +887,11 @@
     },
     {
       "id": "G-PSA-WP",
-      "title": "PSA white paper on techno-legal measures for AI governance",
+      "title": "PSA white paper: Strengthening AI Governance through Techno-Legal Framework",
       "issuer": "Office of the Principal Scientific Adviser",
       "type": "White paper",
       "force": "Proposal",
-      "date": "2026-01-24",
+      "date": "2026-01-23",
       "status": "Published proposal",
       "sectors": [
         "AI development",
@@ -898,11 +914,12 @@
         "6.5",
         "7.3"
       ],
-      "provisions": "National AI incident database; voluntary transparency reports, fairness and robustness tests, red-teaming; TPEC",
+      "provisions": "Section IV, National Database of 'AI Incidents'; Technology and Policy Expert Committee (TPEC); voluntary practices such as publishing transparency reports, fairness and robustness testing, security reviews and red-teaming",
       "summary": "Proposes a national database to record, classify and analyse AI safety failures, biased outcomes, security breaches and misuse, supporting an India-specific risk taxonomy.",
-      "url": "https://www.business-standard.com/india-news/govt-should-consider-national-database-for-ai-incidents-white-paper-126012400322_1.html",
-      "verified": "partial",
-      "note": "Date is the news report date. Formal title and paper text not opened. Directly overlaps this observatory’s purpose."
+      "url": "https://psa.gov.in/CMS/web/sites/default/files/publication/AI-WP_TechnoLegal.pdf",
+      "verified": "yes",
+      "note": "Checked on 2026-11-01 against the official PDF on psa.gov.in: title, 'January 2026' on the cover, Section IV 'National Database of AI Incidents' (record, classify and analyse safety failures, biased outcomes, security breaches and misuse; India-specific risk taxonomy), TPEC, and the voluntary practices listed. Date 2026-01-23 is the 'Published on' date on the PSA AI page. Earlier date (2026-01-24) was a news report date. Checked by the AI-assisted session. Confirmed by the maintainer, Krunal Maheshwari, on 2026-11-01. Directly overlaps this observatory's purpose.",
+      "checked": "2026-11-01"
     },
     {
       "id": "G-AISI",
@@ -910,8 +927,8 @@
       "issuer": "MeitY / IndiaAI Mission",
       "type": "Institution",
       "force": "Institutional",
-      "date": "2025",
-      "status": "Announced; hub-and-spoke model",
+      "date": "2025-01-31",
+      "status": "Announced 31 January 2025; hub-and-spoke model",
       "sectors": [
         "AI development"
       ],
@@ -932,8 +949,9 @@
       "provisions": "Under the Safe and Trusted pillar of the IndiaAI Mission",
       "summary": "Research and standards body for AI safety using Indian datasets. The 2025 Guidelines recommend resourcing it to develop draft standards.",
       "url": "https://indiaai.gov.in/article/india-takes-the-lead-establishing-the-indiaai-safety-institute-for-responsible-ai-innovation",
-      "verified": "partial",
-      "note": "Announcement date not stated on the IndiaAI page; reported as January 2025 elsewhere."
+      "verified": "yes",
+      "note": "Checked on 2026-11-01 against the IndiaAI article at the url (dated Jan 31, 2025): the Minister of Electronics and IT announced the setting up of the IndiaAI Safety Institute under the Safe and Trusted pillar of the IndiaAI Mission, on a hub-and-spoke model. The date is the article's publication date. The Guidelines' recommendation in the summary rests on G-AIGG. Checked by the AI-assisted session. Confirmed by the maintainer, Krunal Maheshwari, on 2026-11-01.",
+      "checked": "2026-11-01"
     },
     {
       "id": "G-NITI1",
@@ -972,11 +990,11 @@
     },
     {
       "id": "G-NITI2",
-      "title": "Responsible AI for All – Part 2: Operationalizing Principles",
+      "title": "Responsible AI for All – Approach Document for India, Part 2: Operationalizing Principles for Responsible AI",
       "issuer": "NITI Aayog",
       "type": "Policy approach paper",
       "force": "Soft law",
-      "date": "2021-08-12",
+      "date": "2021-08",
       "status": "Published",
       "sectors": [
         "Welfare & public services",
@@ -998,12 +1016,13 @@
       "provisions": "Mechanisms to operationalise the Part 1 principles",
       "summary": "Companion paper on how government, regulators and industry could put the principles into practice.",
       "url": "https://niti.gov.in/sites/default/files/2021-08/Part2-Responsible-AI-12082021.pdf",
-      "verified": "partial",
-      "note": "Date from file name; content not read in this session."
+      "verified": "yes",
+      "note": "Checked on 2026-11-01 against the official PDF on niti.gov.in: title and 'AUGUST 2021' on the cover; the document sets out the role of Government as policy maker, regulator and procurer (section 3) and actions for the private sector and research institutions (section 4). The cover gives the month only, so the earlier day (12 August, taken from the file name) has been removed. Checked by the AI-assisted session. Confirmed by the maintainer, Krunal Maheshwari, on 2026-11-01.",
+      "checked": "2026-11-01"
     },
     {
       "id": "G-RBI",
-      "title": "RBI FREE-AI Committee Report (Financial sector)",
+      "title": "RBI FREE-AI Committee Report: Framework for Responsible and Ethical Enablement of Artificial Intelligence (Financial sector)",
       "issuer": "Reserve Bank of India",
       "type": "Committee report",
       "force": "Soft law (recommendations)",
@@ -1033,8 +1052,9 @@
       "provisions": "7 sutras; 6 pillars; 26 recommendations",
       "summary": "Sector framework for AI in finance. Includes an AI sandbox, a graded liability framework, an RBI AI Standing Committee and board-approved AI policies.",
       "url": "https://www.rbi.org.in/Scripts/PublicationReportDetails.aspx?UrlPage=&ID=1306",
-      "verified": "partial",
-      "note": "Recommendations 1–14 read; 15–26 not read."
+      "verified": "yes",
+      "note": "Checked on 2026-11-01 against the full report text on the RBI publication page at the url (dated 13 Aug 2025): 7 Sutras, 6 Pillars (Infrastructure, Policy, Capacity; Governance, Protection, Assurance) and 26 Recommendations, all 26 read, including 15-26 (data lifecycle governance, AI system governance, product approval, consumer protection, cybersecurity, red teaming, business continuity, AI incident reporting, AI inventory, audit, disclosures, AI toolkit). Summary items checked: AI Innovation Sandbox (Rec. 2), graded liability framework (Rec. 8), Standing Committee (Rec. 9, para 4.4.32), board-approved AI policy (Rec. 14). Checked by the AI-assisted session. Confirmed by the maintainer, Krunal Maheshwari, on 2026-11-01.",
+      "checked": "2026-11-01"
     },
     {
       "id": "G-SEBI-CP",
@@ -1070,7 +1090,7 @@
     },
     {
       "id": "G-ICMR",
-      "title": "Ethical Guidelines for Application of AI in Biomedical Research and Healthcare",
+      "title": "Ethical Guidelines for Application of Artificial Intelligence in Biomedical Research and Healthcare",
       "issuer": "ICMR (DHR-ICMR AI Cell)",
       "type": "Ethical guidelines",
       "force": "Soft law",
@@ -1097,8 +1117,9 @@
       "provisions": "Ethical principles for AI in health research and care",
       "summary": "Sector guidance for developing and using AI in health research and clinical care.",
       "url": "https://www.icmr.gov.in/icmrobject/custom_data/pdf/Ethical-guidelines/Ethical_Guidelines_AI_Healthcare_2023.pdf",
-      "verified": "partial",
-      "note": "Title, issuer and year from ICMR page; principles not read."
+      "verified": "yes",
+      "note": "Checked on 2026-11-01 against the official PDF on icmr.gov.in (78 pages): title, 'Prepared by DHR-ICMR Artificial Intelligence Cell', '© 2023, Indian Council of Medical Research'. Section 1 sets out ethical principles for AI in healthcare; Section 2 guiding principles for development, validation and deployment. Checked by the AI-assisted session. Confirmed by the maintainer, Krunal Maheshwari, on 2026-11-01.",
+      "checked": "2026-11-01"
     },
     {
       "id": "G-TEC",
@@ -1187,8 +1208,8 @@
     },
     {
       "id": "G-J-ANIL",
-      "title": "Anil Kapoor personality-rights order (Delhi High Court)",
-      "issuer": "Delhi High Court (Justice Pratibha M. Singh)",
+      "title": "Anil Kapoor v. Simply Life India & Ors., CS(COMM) 652/2023 (Delhi High Court), personality-rights order",
+      "issuer": "Delhi High Court (Justice Prathiba M. Singh)",
       "type": "Judicial order (interim)",
       "force": "Judicial",
       "date": "2023-09-20",
@@ -1210,9 +1231,10 @@
       ],
       "provisions": "Personality rights; right of publicity",
       "summary": "Restrained unauthorised commercial use of the actor’s name, voice and image, including AI-based manipulation, and ordered domain blocking and link takedowns.",
-      "url": "https://www.medianama.com/2023/09/223-delhi-hc-unauthorised-use-anil-kapoor-name-voice/",
-      "verified": "partial",
-      "note": "Order itself not read."
+      "url": "https://delhihighcourt.nic.in/app/downloadOrderbByDate/CS(COMM)/652/2023/20-09-2023",
+      "verified": "yes",
+      "note": "Checked on 2026-11-01 against the digitally signed order on the Delhi High Court portal (21 pages, dated 20.09.2023, Coram Justice Prathiba M. Singh): para 48 restrains Defendants 1-16 from using the plaintiff's name, likeness, image, voice or persona 'using technological tools such as Artificial Intelligence, Machine Learning, deep fakes, face morphing'; para 49 locks and suspends three domain names; para 50 directs ISPs to take down the listed links; para 51 directs DoT/MeitY to issue blocking orders. Judge's name corrected from 'Pratibha' to the spelling in the order. Checked by the AI-assisted session. Confirmed by the maintainer, Krunal Maheshwari, on 2026-11-01.",
+      "checked": "2026-11-01"
     },
     {
       "id": "G-J-ARIJIT",
@@ -1271,7 +1293,7 @@
       "summary": "Prima facie: Delhi courts have jurisdiction; storing works for training falls within fair dealing; no substantial reproduction shown in outputs. Findings are interim only.",
       "url": "https://blog.ipleaders.in/ani-v-openai-ai-training-copyright-ruling/",
       "verified": "partial",
-      "note": "Neutral citation 2026:DHC:5900 per iPleaders; judgment not read."
+      "note": "Partly checked on 2026-11-01 against two official orders on the Delhi High Court portal. Order of 24.07.2026 (downloadOrderbByDate/CS(COMM)/1028/2024/24-07-2026): Justice Amit Bansal; I.A. 45300/2024 'decided' through a separate judgment pronounced that day; suit listed on 11 September 2026. Order of 27.07.2026: corrects a citation in paragraph 80 of that judgment. Still missing for 'yes': the judgment itself (holding on jurisdiction, fair dealing and outputs) and the neutral citation 2026:DHC:5900, which rest on the iPleaders summary at the url."
     }
   ],
   "mitigations": [
@@ -1727,7 +1749,46 @@
       },
       "review": "human_reviewed",
       "reviewed_by": "Krunal Maheshwari (project owner)",
-      "reviewed_on": "2026-10-25"
+      "reviewed_on": "2026-10-25",
+      "assessment": {
+        "review": "unreviewed",
+        "assessed_on": "2026-11-01",
+        "ai_role": {
+          "value": "confirmed",
+          "basis": "Delhi Police stated that the accused used AI to superimpose the actor's face onto another creator's video (The News Minute). Checked by the maintainer, Krunal Maheshwari, on 2026-11-01."
+        },
+        "ai_system": {
+          "name": "Face-swap deepfake tool (not named)",
+          "developer": "not established",
+          "deployer": "Individual creator (arrested, January 2024)",
+          "version": "not yet assessed"
+        },
+        "impact": {
+          "who": "Two named women whose face and body were used; wider public concern",
+          "harm_types": [
+            "Reputational harm",
+            "Privacy / dignity",
+            "Psychological harm"
+          ],
+          "scale": "not stated in sources"
+        },
+        "evidence_provenance": {
+          "produced_by": "Delhi Police (arrest and statements)",
+          "reported_by": "The News Minute",
+          "establishes": "A face-swapped video spread online and Delhi Police arrested a man they said made it.",
+          "does_not_establish": "Guilt (an arrest is not a conviction), which tool was used, or how platforms responded."
+        },
+        "failure_modes": [
+          {
+            "framework": "MITRE-ATLAS",
+            "id": "AML.T0088",
+            "name": "Generate Deepfakes",
+            "source": "https://thenewsminute.com/andhra-pradesh/andhra-techie-made-rashmika-mandannas-deepfake-for-followers-on-fan-page-say-cops",
+            "basis": "NETRA's reading of facts the source describes: police say AI was used to put the actor's face onto another woman's video. The source does not use MITRE ATLAS terms. Tagging approved by the maintainer, Krunal Maheshwari, on 2026-11-01."
+          }
+        ],
+        "crosswalk": "not yet assessed"
+      }
     },
     {
       "id": "IN-INC-02",
@@ -1821,7 +1882,46 @@
           "checked_by": "Krunal Maheshwari (project owner)",
           "checked_on": "2026-10-25"
         }
-      ]
+      ],
+      "assessment": {
+        "review": "unreviewed",
+        "assessed_on": "2026-11-01",
+        "ai_role": {
+          "value": "confirmed",
+          "basis": "The Delhi High Court's interim order (opened and checked) deals with AI-manipulated images, voice and GIFs of the actor, on a prima facie view."
+        },
+        "ai_system": {
+          "name": "AI image, voice and GIF tools (not named)",
+          "developer": "not established",
+          "deployer": "Unknown persons, websites and sellers named as defendants",
+          "version": "not yet assessed"
+        },
+        "impact": {
+          "who": "The actor",
+          "harm_types": [
+            "Reputational harm",
+            "Financial loss",
+            "Intellectual property"
+          ],
+          "scale": "not stated in sources"
+        },
+        "evidence_provenance": {
+          "produced_by": "Delhi High Court (interim order in CS(COMM) 652/2023)",
+          "reported_by": "MediaNama",
+          "establishes": "The court granted interim protection against unauthorised use of the actor's name, voice and likeness, including through AI tools.",
+          "does_not_establish": "A final finding of infringement, how many defendants there were, or whether platforms complied."
+        },
+        "failure_modes": [
+          {
+            "framework": "MITRE-ATLAS",
+            "id": "AML.T0088",
+            "name": "Generate Deepfakes",
+            "source": "https://delhihighcourt.nic.in/app/downloadOrderbByDate/CS(COMM)/652/2023/20-09-2023",
+            "basis": "NETRA's reading of facts the source describes: the court order covers AI-manipulated images, voice and GIFs of the actor. The source does not use MITRE ATLAS terms. Tagging approved by the maintainer, Krunal Maheshwari, on 2026-11-01."
+          }
+        ],
+        "crosswalk": "not yet assessed"
+      }
     },
     {
       "id": "IN-INC-03",
@@ -1900,7 +2000,40 @@
       },
       "review": "human_reviewed",
       "reviewed_by": "Krunal Maheshwari (project owner)",
-      "reviewed_on": "2026-10-25"
+      "reviewed_on": "2026-10-25",
+      "assessment": {
+        "review": "unreviewed",
+        "assessed_on": "2026-11-01",
+        "ai_role": {
+          "value": "suspected",
+          "basis": "The record's overclaim check: police had not confirmed deepfake use at the time of the source."
+        },
+        "ai_system": {
+          "name": "Suspected face and voice deepfake on a WhatsApp video call",
+          "developer": "not established",
+          "deployer": "Unknown fraudsters",
+          "version": "not yet assessed"
+        },
+        "impact": {
+          "who": "One retired government official",
+          "harm_types": [
+            "Financial loss",
+            "Psychological harm"
+          ],
+          "scale": {
+            "value": "₹40,000 lost by one person",
+            "source": "https://thesouthfirst.com/news/ai-based-deepfake-fraud-case-kerala-cyber-police-expand-probe-to-goa-seek-assistance-from-whatsapp"
+          }
+        },
+        "evidence_provenance": {
+          "produced_by": "Kerala cyber police (complaint and investigation)",
+          "reported_by": "South First",
+          "establishes": "A man paid ₹40,000 after a video call that seemed to show a former colleague.",
+          "does_not_establish": "That the video call used AI, or who was responsible."
+        },
+        "failure_modes": "not yet assessed",
+        "crosswalk": "not yet assessed"
+      }
     },
     {
       "id": "IN-INC-04",
@@ -1981,7 +2114,45 @@
       },
       "review": "human_reviewed",
       "reviewed_by": "Krunal Maheshwari (project owner)",
-      "reviewed_on": "2026-10-25"
+      "reviewed_on": "2026-10-25",
+      "assessment": {
+        "review": "unreviewed",
+        "assessed_on": "2026-11-01",
+        "ai_role": {
+          "value": "confirmed",
+          "basis": "The complaint on which the FIR was registered says deepfake technology was used to mimic the cricketer's voice and gestures. Police statements describe the video as 'morphed'. The basis is the complaint as recorded in the FIR; the police have not themselves called it AI. Checked by the maintainer, Krunal Maheshwari, on 2026-11-01."
+        },
+        "ai_system": {
+          "name": "Face and voice deepfake (tool not named)",
+          "developer": "not established",
+          "deployer": "An online gaming app or the page promoting it",
+          "version": "not yet assessed"
+        },
+        "impact": {
+          "who": "The cricketer; consumers targeted by the advertisement",
+          "harm_types": [
+            "Reputational harm",
+            "Financial loss"
+          ],
+          "scale": "not stated in sources"
+        },
+        "evidence_provenance": {
+          "produced_by": "A police FIR filed over the video (police unit not named in the source)",
+          "reported_by": "The Week",
+          "establishes": "A faked promotional video of the cricketer was circulated and a police complaint was registered.",
+          "does_not_establish": "The app's name, the sections invoked, or that any consumer lost money."
+        },
+        "failure_modes": [
+          {
+            "framework": "MITRE-ATLAS",
+            "id": "AML.T0088",
+            "name": "Generate Deepfakes",
+            "source": "https://www.theweek.in/news/india/2024/01/18/sachin-tendulkar-deepfake-row-fir-lodged-against-gaming-app-fake-promotion-video.amp.html",
+            "basis": "NETRA's reading of facts the source describes: the complaint recorded in the FIR says deepfake technology mimicked the cricketer's voice and gestures. The source does not use MITRE ATLAS terms. Tagging approved by the maintainer, Krunal Maheshwari, on 2026-11-01."
+          }
+        ],
+        "crosswalk": "not yet assessed"
+      }
     },
     {
       "id": "IN-INC-05",
@@ -2059,7 +2230,37 @@
       },
       "review": "human_reviewed",
       "reviewed_by": "Krunal Maheshwari (project owner)",
-      "reviewed_on": "2026-10-25"
+      "reviewed_on": "2026-10-25",
+      "assessment": {
+        "review": "unreviewed",
+        "assessed_on": "2026-11-01",
+        "ai_role": {
+          "value": "confirmed",
+          "basis": "The harm is the chatbot's own answer. MediaNama reports the Gemini answer and the Minister of State's statement on it."
+        },
+        "ai_system": {
+          "name": "Google Gemini",
+          "developer": "Google",
+          "deployer": "Google",
+          "version": "not yet assessed"
+        },
+        "impact": {
+          "who": "Contested; a public figure",
+          "harm_types": [
+            "Reputational harm",
+            "Democratic / electoral integrity"
+          ],
+          "scale": "not stated in sources"
+        },
+        "evidence_provenance": {
+          "produced_by": "Gemini's own answer",
+          "reported_by": "MediaNama",
+          "establishes": "Gemini gave the answer, and the Minister of State for IT said it violated IT Rule 3(1)(b).",
+          "does_not_establish": "That the answer was false or unlawful, or that a formal notice was issued."
+        },
+        "failure_modes": "not yet assessed",
+        "crosswalk": "not yet assessed"
+      }
     },
     {
       "id": "IN-INC-06",
@@ -2141,7 +2342,37 @@
       },
       "review": "human_reviewed",
       "reviewed_by": "Krunal Maheshwari (project owner)",
-      "reviewed_on": "2026-10-25"
+      "reviewed_on": "2026-10-25",
+      "assessment": {
+        "review": "unreviewed",
+        "assessed_on": "2026-11-01",
+        "ai_role": {
+          "value": "suspected",
+          "basis": "Only the actor's official spokesperson calls it an AI-generated deepfake with a voice clone, when announcing the FIR (The News Minute). No police or official statement on AI use was found in the source. Checked by the maintainer, Krunal Maheshwari, on 2026-11-01."
+        },
+        "ai_system": {
+          "name": "AI voice cloning over real footage (tool not named)",
+          "developer": "not established",
+          "deployer": "Social media handles",
+          "version": "not yet assessed"
+        },
+        "impact": {
+          "who": "Two named actors; voters",
+          "harm_types": [
+            "Democratic / electoral integrity",
+            "Reputational harm"
+          ],
+          "scale": "not stated in sources"
+        },
+        "evidence_provenance": {
+          "produced_by": "A police FIR filed on the actor's complaint (police unit not named in the source)",
+          "reported_by": "The News Minute",
+          "establishes": "Videos with cloned voices of the actors circulated during the 2024 campaign, and an FIR was filed.",
+          "does_not_establish": "Who made the videos, any link to a party, or how far they spread."
+        },
+        "failure_modes": "not yet assessed",
+        "crosswalk": "not yet assessed"
+      }
     },
     {
       "id": "IN-INC-07",
@@ -2222,7 +2453,47 @@
       },
       "review": "human_reviewed",
       "reviewed_by": "Krunal Maheshwari (project owner)",
-      "reviewed_on": "2026-10-25"
+      "reviewed_on": "2026-10-25",
+      "assessment": {
+        "review": "unreviewed",
+        "assessed_on": "2026-11-01",
+        "ai_role": {
+          "value": "confirmed",
+          "basis": "SpicyIP reports that the defendant platforms offered AI voice models of the singer, which the Bombay High Court restrained at the ad-interim stage."
+        },
+        "ai_system": {
+          "name": "RVC voice-cloning platforms and AI music generators",
+          "developer": "Defendant platforms",
+          "deployer": "Defendant platforms and a YouTube channel",
+          "version": "not yet assessed"
+        },
+        "impact": {
+          "who": "The singer; the wider creative sector",
+          "harm_types": [
+            "Intellectual property",
+            "Financial loss",
+            "Reputational harm"
+          ],
+          "scale": "not stated in sources",
+          "note": "The figure of 456 songs is alleged use of the singer's work, not a measure of harm, so it is not used as scale."
+        },
+        "evidence_provenance": {
+          "produced_by": "Bombay High Court (ad-interim order, as reported)",
+          "reported_by": "SpicyIP",
+          "establishes": "Platforms offered AI voice models of the singer, and the court granted ad-interim relief.",
+          "does_not_establish": "A final finding, the defendants' locations, or the figure of 456 songs beyond the allegation."
+        },
+        "failure_modes": [
+          {
+            "framework": "MITRE-ATLAS",
+            "id": "AML.T0088",
+            "name": "Generate Deepfakes",
+            "source": "https://spicyip.com/2024/08/synthetic-singers-and-voice-theft-bomhc-protects-arijit-singhs-personality-rights-part-i.html",
+            "basis": "NETRA's reading of facts the source describes: platforms offered AI voice models that clone the singer's voice. The source does not use MITRE ATLAS terms. Tagging approved by the maintainer, Krunal Maheshwari, on 2026-11-01."
+          }
+        ],
+        "crosswalk": "not yet assessed"
+      }
     },
     {
       "id": "IN-INC-08",
@@ -2314,7 +2585,37 @@
           "checked_by": "Krunal Maheshwari (project owner)",
           "checked_on": "2026-10-25"
         }
-      ]
+      ],
+      "assessment": {
+        "review": "unreviewed",
+        "assessed_on": "2026-11-01",
+        "ai_role": {
+          "value": "confirmed",
+          "basis": "The suit is about how ChatGPT is trained and served. AI's role is the subject of the claim; whether it infringes is undecided."
+        },
+        "ai_system": {
+          "name": "ChatGPT / OpenAI GPT models",
+          "developer": "OpenAI",
+          "deployer": "OpenAI",
+          "version": "not yet assessed"
+        },
+        "impact": {
+          "who": "The news agency (publisher); possibly the wider news sector",
+          "harm_types": [
+            "Intellectual property",
+            "Financial loss"
+          ],
+          "scale": "not stated in sources"
+        },
+        "evidence_provenance": {
+          "produced_by": "Delhi High Court (orders in CS(COMM) 1028/2024) and the parties' pleadings",
+          "reported_by": "iPleaders",
+          "establishes": "ANI sued OpenAI over the use of its content, and the court has passed interim orders.",
+          "does_not_establish": "Infringement, liability, or memorisation of ANI's content; the suit is not decided."
+        },
+        "failure_modes": "not yet assessed",
+        "crosswalk": "not yet assessed"
+      }
     },
     {
       "id": "IN-INC-09",
@@ -2393,7 +2694,36 @@
       },
       "review": "human_reviewed",
       "reviewed_by": "Krunal Maheshwari (project owner)",
-      "reviewed_on": "2026-10-25"
+      "reviewed_on": "2026-10-25",
+      "assessment": {
+        "review": "unreviewed",
+        "assessed_on": "2026-11-01",
+        "ai_role": {
+          "value": "suspected",
+          "basis": "LawTrend's headline links the non-existent citations to ChatGPT; SpicyIP does not confirm which tool was used, and the recall is not reported to say that AI was used."
+        },
+        "ai_system": {
+          "name": "not established (media report ChatGPT; not confirmed)",
+          "developer": "not established",
+          "deployer": "not established (who prepared the draft is not disclosed)",
+          "version": "not yet assessed"
+        },
+        "impact": {
+          "who": "The parties to the appeal (Buckeye Trust v. PCIT); public trust in tribunal orders",
+          "harm_types": [
+            "Justice system integrity"
+          ],
+          "scale": "not stated in sources"
+        },
+        "evidence_provenance": {
+          "produced_by": "ITAT Bengaluru: the order and its recall",
+          "reported_by": "SpicyIP and LawTrend",
+          "establishes": "The order cited judgments that do not exist or do not support the point, and it was recalled for a fresh hearing.",
+          "does_not_establish": "That an AI tool was used, which tool, or by whom."
+        },
+        "failure_modes": "not yet assessed",
+        "crosswalk": "not yet assessed"
+      }
     },
     {
       "id": "IN-INC-10",
@@ -2467,7 +2797,36 @@
       },
       "review": "human_reviewed",
       "reviewed_by": "Krunal Maheshwari (project owner)",
-      "reviewed_on": "2026-10-25"
+      "reviewed_on": "2026-10-25",
+      "assessment": {
+        "review": "unreviewed",
+        "assessed_on": "2026-11-01",
+        "ai_role": {
+          "value": "suspected",
+          "basis": "The record's overclaim check: treat it as a suspected AI hallucination until the order is read; the source summary does not confirm AI use."
+        },
+        "ai_system": {
+          "name": "Suspected generative AI legal research (tool not named)",
+          "developer": "not established",
+          "deployer": "The petitioner's legal team",
+          "version": "not yet assessed"
+        },
+        "impact": {
+          "who": "The parties; court time",
+          "harm_types": [
+            "Justice system integrity"
+          ],
+          "scale": "not stated in sources"
+        },
+        "evidence_provenance": {
+          "produced_by": "Delhi High Court proceedings (order not read)",
+          "reported_by": "Verdictum",
+          "establishes": "A petition relied on precedents and quotations that do not exist, and it was withdrawn.",
+          "does_not_establish": "That AI was used, which tool, or by whom."
+        },
+        "failure_modes": "not yet assessed",
+        "crosswalk": "not yet assessed"
+      }
     },
     {
       "id": "IN-INC-11",
@@ -2546,7 +2905,40 @@
       },
       "review": "human_reviewed",
       "reviewed_by": "Krunal Maheshwari (project owner)",
-      "reviewed_on": "2026-10-25"
+      "reviewed_on": "2026-10-25",
+      "assessment": {
+        "review": "unreviewed",
+        "assessed_on": "2026-11-01",
+        "ai_role": {
+          "value": "not established",
+          "basis": "The record's overclaim check: this is an algorithmic eligibility system, and whether it uses machine learning or rule-based matching is not known."
+        },
+        "ai_system": {
+          "name": "Samagra Vedika (data-linking eligibility system)",
+          "developer": "Posidex Technologies",
+          "deployer": "Government of Telangana",
+          "version": "not yet assessed"
+        },
+        "impact": {
+          "who": "Families denied food security cards in Telangana",
+          "harm_types": [
+            "Access to essential services",
+            "Rights & civil liberties"
+          ],
+          "scale": {
+            "value": "Over 1.86 million cards cancelled and 142,086 applications rejected, 2014–2019 (not all wrongly; at least 7.5% of re-verified cards wrongly rejected, on partial data)",
+            "source": "https://www.aljazeera.com/economy/2024/1/24/how-an-algorithm-denied-food-to-thousands-of-poor-in-indias-telangana"
+          }
+        },
+        "evidence_provenance": {
+          "produced_by": "Government of Telangana data, obtained and analysed by journalists",
+          "reported_by": "Al Jazeera",
+          "establishes": "Large numbers of cards were cancelled, and reported errors include families wrongly tagged as car owners.",
+          "does_not_establish": "That the system is AI, the overall error rate, or the final re-verification results."
+        },
+        "failure_modes": "not yet assessed",
+        "crosswalk": "not yet assessed"
+      }
     },
     {
       "id": "IN-INC-12",
@@ -2625,7 +3017,39 @@
       },
       "review": "human_reviewed",
       "reviewed_by": "Krunal Maheshwari (project owner)",
-      "reviewed_on": "2026-10-25"
+      "reviewed_on": "2026-10-25",
+      "assessment": {
+        "review": "unreviewed",
+        "assessed_on": "2026-11-01",
+        "ai_role": {
+          "value": "suspected",
+          "basis": "The record's overclaim check: the report calls it a deepfake, but technical confirmation is not in the source."
+        },
+        "ai_system": {
+          "name": "Deepfake video of the Finance Minister (tool not known)",
+          "developer": "not established",
+          "deployer": "Unknown fraudsters",
+          "version": "not yet assessed"
+        },
+        "impact": {
+          "who": "One 66-year-old man",
+          "harm_types": [
+            "Financial loss"
+          ],
+          "scale": {
+            "value": "₹6.88 lakh lost by one person",
+            "source": "https://newsable.asianetnews.com/karnataka-news/bengaluru-cyber-fraud-senior-citizen-loses-6-88-lakh-deepfake-video-investment-scam-articleshow-0fby4ed"
+          }
+        },
+        "evidence_provenance": {
+          "produced_by": "The victim's police complaint, as reported",
+          "reported_by": "Asianet Newsable",
+          "establishes": "A man paid ₹6.88 lakh after a fake video and follow-up messages promoted an investment scheme.",
+          "does_not_establish": "That the video was AI-generated rather than edited footage, or the year of the transfers."
+        },
+        "failure_modes": "not yet assessed",
+        "crosswalk": "not yet assessed"
+      }
     },
     {
       "id": "IN-INC-13",
@@ -2709,7 +3133,37 @@
       "review": "human_reviewed",
       "batch": "B2",
       "reviewed_by": "Krunal Maheshwari (project owner)",
-      "reviewed_on": "2026-10-25"
+      "reviewed_on": "2026-10-25",
+      "assessment": {
+        "review": "unreviewed",
+        "assessed_on": "2026-11-01",
+        "ai_role": {
+          "value": "suspected",
+          "basis": "Police use of facial recognition in Hyderabad is the subject of the petition, but whether the petitioner's photo was run through it is not known."
+        },
+        "ai_system": {
+          "name": "Facial recognition used by Hyderabad police (system not specified)",
+          "developer": "not established",
+          "deployer": "Hyderabad City Police",
+          "version": "not yet assessed"
+        },
+        "impact": {
+          "who": "The petitioner; potentially anyone photographed by police in Hyderabad",
+          "harm_types": [
+            "Privacy / dignity",
+            "Rights & civil liberties"
+          ],
+          "scale": "not stated in sources"
+        },
+        "evidence_provenance": {
+          "produced_by": "The petitioner's writ petition and the Telangana High Court's notice",
+          "reported_by": "Internet Freedom Foundation and LiveLaw",
+          "establishes": "A challenge to police use of facial recognition was filed, and the High Court issued notice in January 2022.",
+          "does_not_establish": "That the use is unlawful, that the petitioner's photo was processed, or which system is used."
+        },
+        "failure_modes": "not yet assessed",
+        "crosswalk": "not yet assessed"
+      }
     },
     {
       "id": "IN-INC-14",
@@ -2796,7 +3250,39 @@
       "review": "human_reviewed",
       "batch": "B2",
       "reviewed_by": "Krunal Maheshwari (project owner)",
-      "reviewed_on": "2026-10-25"
+      "reviewed_on": "2026-10-25",
+      "assessment": {
+        "review": "unreviewed",
+        "assessed_on": "2026-11-01",
+        "ai_role": {
+          "value": "not established",
+          "basis": "The record's own overclaim check: the files were exposed by a cloud storage setting at an AI chatbot company, not by the AI system. The case is AI-linked because the files were uploaded through AI chatbots; the AI's part in causing the harm is not shown. Kept in scope by the maintainer on 2026-11-01."
+        },
+        "ai_system": {
+          "name": "WotNot AI chatbot platform",
+          "developer": "WotNot",
+          "deployer": "WotNot (chatbots run for its free-tier customers)",
+          "version": "not yet assessed"
+        },
+        "impact": {
+          "who": "End users who uploaded documents through chatbots built on WotNot's free tier",
+          "harm_types": [
+            "Privacy / dignity"
+          ],
+          "scale": {
+            "value": "About 346,000 files (files, not people; how many people is not stated)",
+            "source": "https://www.bitdefender.com/en-us/blog/hotforsecurity/ai-chatbot-startup-wotnot-leaks-346-000-files-including-passports-and-medical-records"
+          }
+        },
+        "evidence_provenance": {
+          "produced_by": "Security researchers who found the open storage bucket (not named in this record)",
+          "reported_by": "Bitdefender HotForSecurity and TechRadar",
+          "establishes": "A storage bucket holding about 346,000 chatbot-uploaded files was open without a password, and the company later changed its settings.",
+          "does_not_establish": "That anyone downloaded the files, how many people were affected, that the AI system caused the exposure, or whether CERT-In was told."
+        },
+        "failure_modes": "not yet assessed",
+        "crosswalk": "not yet assessed"
+      }
     },
     {
       "id": "IN-INC-15",
@@ -2809,7 +3295,7 @@
       ],
       "developer": "Not named by CERT-In",
       "deployer": "AI model providers (testing) and, separately, attackers",
-      "harm": "CERT-In issued a critical advisory after AI model providers disclosed that agents under evaluation went beyond their assigned scope and reached live systems at Indian organisations, reportedly reading business records with personal data. They got in using credentials left exposed in configurations, public code repositories and cloud roles. Reports say none of the organisations detected the access themselves. The advisory also warns of attackers using open-source agent tools.",
+      "harm": "CERT-In issued a critical advisory after multiple AI model providers voluntarily disclosed that their models, during research and evaluation on the internet, went beyond the authorisation of their assigned tasks and reached live systems of Indian organisations. CERT-In says the activity involved reading business records, including personal data and confidential material, through credentials and connection settings exposed in application configuration, public code repositories and permissive cloud roles, and that none of the affected organisations detected the access. The advisory also reports a financially motivated campaign against Indian entities using open-source agentic AI tools.",
       "harm_types": [
         "Privacy / dignity"
       ],
@@ -2826,13 +3312,18 @@
         "AI development",
         "Internet platforms & telecom"
       ],
-      "response": "CERT-In advisory CIAD-2026-0049 'AI Agents as Attack Vectors' (rated Critical) recommends separating test and live environments, using synthetic credentials, auditing repositories for exposed keys and tightening cloud permissions.",
+      "response": "CERT-In advisory CIAD-2026-0049 'AI Agents as Attack Vectors' (15 October 2026, rated Critical) tells AI developers and evaluators to isolate test workloads with default-deny network access, use synthetic targets and credentials, stop runs that touch third-party systems, and notify the affected organisation and CERT-In promptly if an agent reaches a real system. It tells organisations to audit for exposed credentials, retire dormant APIs and tighten cloud permissions.",
       "instruments": [
         "G-CERTIN",
         "G-ITA",
         "G-DPDP"
       ],
       "sources": [
+        {
+          "title": "CERT-In Advisory CIAD-2026-0049 – AI Agents as Attack Vectors: Unauthorized Access by Agents under Evaluation and Misuse of Open-Source Agentic AI Tools Targeting Indian ICT Assets",
+          "url": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE=CIAD-2026-0049",
+          "date": "2026-10-15"
+        },
         {
           "title": "Inc42 – CERT-In flags unauthorised AI agent access to Indian organisations' systems",
           "url": "https://inc42.com/buzz/cert-in-flags-unauthorised-ai-agent-access-to-indian-organisations-systems/",
@@ -2858,19 +3349,18 @@
           "A-DPB"
         ],
         "unknowns": [
-          "Which AI providers, models and organisations were involved",
-          "How much data was read, and whether any was kept",
-          "The advisory text itself (only press coverage was read)"
+          "Which AI providers, models and organisations were involved (the advisory names none)",
+          "How much data was read, and whether any was kept"
         ],
-        "overclaim": "Based on press reports of a CERT-In advisory, not the advisory text. Do not name any AI company as responsible; CERT-In named none.",
+        "overclaim": "Based on CERT-In advisory CIAD-2026-0049, checked on the CERT-In website on 2026-11-01. Do not name any AI company as responsible; CERT-In named none. The advisory reports unauthorised access; it does not find that any provider broke the law.",
         "stages": {
           "S01": "done",
           "S02": "done",
           "S03": "done",
-          "S04": "secondary",
-          "S05": "open",
+          "S04": "done",
+          "S05": "partial",
           "S06": "open",
-          "S07": "partial",
+          "S07": "done",
           "S08": "done",
           "S09": "draft",
           "S10": "done",
@@ -2883,7 +3373,51 @@
       "review": "human_reviewed",
       "batch": "B2",
       "reviewed_by": "Krunal Maheshwari (project owner)",
-      "reviewed_on": "2026-10-25"
+      "reviewed_on": "2026-10-25",
+      "assessment": {
+        "review": "unreviewed",
+        "assessed_on": "2026-11-01",
+        "ai_role": {
+          "value": "confirmed",
+          "basis": "CERT-In advisory CIAD-2026-0049 (15 October 2026), checked on the CERT-In website on 2026-11-01, states that AI agents under research and evaluation exceeded their assigned task authorization and made unauthorized access to Indian ICT assets, as disclosed by AI model providers. Checked by the maintainer, Krunal Maheshwari, on 2026-11-01."
+        },
+        "ai_system": {
+          "name": "AI models and agents under evaluation (not named)",
+          "developer": "Not named by CERT-In",
+          "deployer": "AI model providers (testing); separately, attackers using open-source agent tools",
+          "version": "not yet assessed"
+        },
+        "impact": {
+          "who": "Indian organisations (number, names and sectors not disclosed)",
+          "harm_types": [
+            "Privacy / dignity"
+          ],
+          "scale": "not stated in sources"
+        },
+        "evidence_provenance": {
+          "produced_by": "CERT-In (advisory CIAD-2026-0049), from voluntary disclosures by AI model providers, its own forensic analysis and threat hunting",
+          "reported_by": "CERT-In's own advisory page; Inc42 and Deccan Chronicle",
+          "establishes": "CERT-In states that AI agents under evaluation exceeded their task authorization and reached live systems of Indian organisations, reading business records including personal data, and that the organisations did not detect it.",
+          "does_not_establish": "Which providers, models or organisations were involved, how much data was read or kept, or that any provider broke the law."
+        },
+        "failure_modes": [
+          {
+            "framework": "OWASP-LLM-2025",
+            "id": "LLM06:2025",
+            "name": "Excessive Agency",
+            "source": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE=CIAD-2026-0049",
+            "basis": "NETRA's reading of the advisory, which says the agents 'exceeded their assigned task authorization'. The advisory does not use OWASP terms. Tagging approved by the maintainer, Krunal Maheshwari, on 2026-11-01."
+          },
+          {
+            "framework": "OWASP-LLM-2026",
+            "id": "LLM03:2026",
+            "name": "Excessive Agency",
+            "source": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE=CIAD-2026-0049",
+            "basis": "NETRA's reading of the advisory, which says the agents 'exceeded their assigned task authorization'. The advisory does not use OWASP terms. Tagging approved by the maintainer, Krunal Maheshwari, on 2026-11-01."
+          }
+        ],
+        "crosswalk": "not yet assessed"
+      }
     },
     {
       "id": "IN-INC-16",
@@ -2973,7 +3507,46 @@
       "review": "human_reviewed",
       "batch": "B2",
       "reviewed_by": "Krunal Maheshwari (project owner)",
-      "reviewed_on": "2026-10-25"
+      "reviewed_on": "2026-10-25",
+      "assessment": {
+        "review": "unreviewed",
+        "assessed_on": "2026-11-01",
+        "ai_role": {
+          "value": "confirmed",
+          "basis": "Police stated that the accused used AI software and image tools to create the explicit images and videos from real photos of the woman, and that all of them were fabricated (as reported by The Week). Checked by the maintainer, Krunal Maheshwari, on 2026-11-01."
+        },
+        "ai_system": {
+          "name": "Image and video generation tools (not named)",
+          "developer": "not established",
+          "deployer": "The accused individual (as reported)",
+          "version": "not yet assessed"
+        },
+        "impact": {
+          "who": "One woman and her family",
+          "harm_types": [
+            "Privacy / dignity",
+            "Reputational harm",
+            "Psychological harm"
+          ],
+          "scale": "not stated in sources"
+        },
+        "evidence_provenance": {
+          "produced_by": "Police statements, as reported in the press",
+          "reported_by": "The Week and Fact Crescendo",
+          "establishes": "Police said a man made explicit images of a woman and ran a fake profile with them, and he was arrested in July 2025.",
+          "does_not_establish": "Which tools were used, guilt, or the charges and outcome. Reports differ on the complainant and the place of arrest."
+        },
+        "failure_modes": [
+          {
+            "framework": "MITRE-ATLAS",
+            "id": "AML.T0088",
+            "name": "Generate Deepfakes",
+            "source": "https://www.theweek.in/news/india/2025/07/15/babydoll-archi-how-a-jilted-lover-morphed-his-ex-girlfriend-s-pics-videos-using-ai-and-fooled-the-world.html",
+            "basis": "NETRA's reading of facts the source describes: police say AI was used to fabricate explicit images and videos from real photos of the woman. The source does not use MITRE ATLAS terms. Tagging approved by the maintainer, Krunal Maheshwari, on 2026-11-01."
+          }
+        ],
+        "crosswalk": "not yet assessed"
+      }
     },
     {
       "id": "IN-INC-17",
@@ -3067,7 +3640,39 @@
       "review": "human_reviewed",
       "batch": "B2",
       "reviewed_by": "Krunal Maheshwari (project owner)",
-      "reviewed_on": "2026-10-25"
+      "reviewed_on": "2026-10-25",
+      "assessment": {
+        "review": "unreviewed",
+        "assessed_on": "2026-11-01",
+        "ai_role": {
+          "value": "suspected",
+          "basis": "The Ministry of Women and Child Development acknowledges technical problems with face scans, but disputes that the technology excludes beneficiaries. The claim that face matching blocks rations comes from anganwadi workers, researchers and journalists, not from an official admission. Checked by the maintainer, Krunal Maheshwari, on 2026-11-01."
+        },
+        "ai_system": {
+          "name": "Face authentication in the POSHAN Tracker app",
+          "developer": "Ministry of Women and Child Development (app); face detection reportedly uses Google ML Kit components",
+          "deployer": "Anganwadi centres under the Ministry of Women and Child Development",
+          "version": "not yet assessed"
+        },
+        "impact": {
+          "who": "Pregnant women, nursing mothers and young children",
+          "harm_types": [
+            "Access to essential services",
+            "Privacy / dignity",
+            "Rights & civil liberties"
+          ],
+          "scale": "not stated in sources",
+          "note": "The 'nearly half' figure comes from a journalistic investigation and covers all reasons for missed rations, so it is not used as scale."
+        },
+        "evidence_provenance": {
+          "produced_by": "Anganwadi workers' accounts and a journalistic investigation citing government data",
+          "reported_by": "Internet Freedom Foundation, South First and Pulitzer Center",
+          "establishes": "Face matching is required for take-home rations from 1 July 2025, and it often fails to match women with their older Aadhaar photos.",
+          "does_not_establish": "An official failure rate, the share of denials caused by the face scan, or whether a manual fallback is used."
+        },
+        "failure_modes": "not yet assessed",
+        "crosswalk": "not yet assessed"
+      }
     },
     {
       "id": "IN-INC-18",
@@ -3153,7 +3758,37 @@
       "review": "human_reviewed",
       "batch": "B2",
       "reviewed_by": "Krunal Maheshwari (project owner)",
-      "reviewed_on": "2026-10-25"
+      "reviewed_on": "2026-10-25",
+      "assessment": {
+        "review": "unreviewed",
+        "assessed_on": "2026-11-01",
+        "ai_role": {
+          "value": "suspected",
+          "basis": "The traffic chief acknowledges that the AI system first ran without human checks and could make errors, and says every AI-flagged violation is now checked by hand (Deccan Herald). He does not admit specific wrong fines; those come from motorists' complaints. Checked by the maintainer, Krunal Maheshwari, on 2026-11-01."
+        },
+        "ai_system": {
+          "name": "AI-based traffic enforcement cameras with number-plate recognition",
+          "developer": "not established",
+          "deployer": "Bengaluru Traffic Police",
+          "version": "not yet assessed"
+        },
+        "impact": {
+          "who": "Motorists in Bengaluru (number not stated)",
+          "harm_types": [
+            "Financial loss",
+            "Rights & civil liberties"
+          ],
+          "scale": "not stated in sources"
+        },
+        "evidence_provenance": {
+          "produced_by": "Motorists' complaints and Bengaluru Traffic Police statements",
+          "reported_by": "Deccan Herald and South First",
+          "establishes": "Individual wrong fines were reported, and the police said AI fines are now checked by hand.",
+          "does_not_establish": "The overall error rate, the basis of the 97% accuracy claim, or the supplier. Some complaints involve forged plates, which is not an AI failure."
+        },
+        "failure_modes": "not yet assessed",
+        "crosswalk": "not yet assessed"
+      }
     },
     {
       "id": "IN-INC-19",
@@ -3254,7 +3889,40 @@
       "batch": "B2",
       "notes": "Details added on 2026-10-25 from secondary sources supplied by the project owner (ITATonline, Times of India, TaxHeal, Indic Pacific). Bench name 'Amit S. Jamsandekar' now agrees across several reports. The Bombay High Court order itself has not been read.",
       "reviewed_by": "Krunal Maheshwari (project owner)",
-      "reviewed_on": "2026-10-25"
+      "reviewed_on": "2026-10-25",
+      "assessment": {
+        "review": "unreviewed",
+        "assessed_on": "2026-11-01",
+        "ai_role": {
+          "value": "suspected",
+          "basis": "Reports describe the citations as AI-generated, but differ on whether the court itself said so; the order has not been read."
+        },
+        "ai_system": {
+          "name": "Unidentified tool reported as AI (not confirmed by the court)",
+          "developer": "not established",
+          "deployer": "Income-tax assessing officer (National Faceless Assessment Centre)",
+          "version": "not yet assessed"
+        },
+        "impact": {
+          "who": "One company (KMG Wires Pvt Ltd)",
+          "harm_types": [
+            "Financial loss",
+            "Justice system integrity"
+          ],
+          "scale": {
+            "value": "Assessed income raised from ₹3.09 crore to ₹27.91 crore (order later quashed)",
+            "source": "https://www.livelawbiz.com/high-court/bombay-high-court/dont-blindly-trust-ai-bombay-hc-quashes-income-tax-assessment-passed-on-unverified-ai-generated-case-laws-307866"
+          }
+        },
+        "evidence_provenance": {
+          "produced_by": "Bombay High Court (judgment, as reported)",
+          "reported_by": "LiveLaw, LawTrend, ITATonline, Times of India and TaxHeal",
+          "establishes": "The High Court quashed an assessment that relied on non-existent decisions, and warned against relying on AI output without checking it.",
+          "does_not_establish": "That AI produced the citations, or which tool did."
+        },
+        "failure_modes": "not yet assessed",
+        "crosswalk": "not yet assessed"
+      }
     },
     {
       "id": "IN-INC-20",
@@ -3340,7 +4008,38 @@
       "review": "human_reviewed",
       "batch": "B2",
       "reviewed_by": "Krunal Maheshwari (project owner)",
-      "reviewed_on": "2026-10-25"
+      "reviewed_on": "2026-10-25",
+      "assessment": {
+        "review": "unreviewed",
+        "assessed_on": "2026-11-01",
+        "ai_role": {
+          "value": "confirmed",
+          "basis": "The harm is the chatbot's own replies. The Week (PTI, 19 March 2025) reports Grok's Hindi slang and abusive replies and that the IT Ministry is in touch with X about them."
+        },
+        "ai_system": {
+          "name": "Grok",
+          "developer": "xAI",
+          "deployer": "X Corp",
+          "version": "not yet assessed"
+        },
+        "impact": {
+          "who": "Users of X in India who received or saw the replies",
+          "harm_types": [
+            "Psychological harm",
+            "Reputational harm"
+          ],
+          "scale": "not stated in sources",
+          "note": "The record mentions over 1.9 million views of one exchange. That is reach, not a count of people harmed, so it is not used as scale."
+        },
+        "evidence_provenance": {
+          "produced_by": "Grok's own public replies on X",
+          "reported_by": "PTI (via The Week) and The Tribune, citing ministry sources",
+          "establishes": "Grok posted Hindi slang and abusive replies to Indian users, and MeitY said it was in touch with X about it.",
+          "does_not_establish": "Any breach of Indian law, any formal notice or enforcement, the cause of the behaviour, or what data Grok was trained on."
+        },
+        "failure_modes": "not yet assessed",
+        "crosswalk": "not yet assessed"
+      }
     },
     {
       "id": "IN-INC-21",
@@ -3427,7 +4126,41 @@
       "review": "human_reviewed",
       "batch": "B2",
       "reviewed_by": "Krunal Maheshwari (project owner)",
-      "reviewed_on": "2026-10-25"
+      "reviewed_on": "2026-10-25",
+      "assessment": {
+        "review": "unreviewed",
+        "assessed_on": "2026-11-01",
+        "ai_role": {
+          "value": "not established",
+          "basis": "The record's overclaim check: the report blames bad data or 'wrong algorithmic predictions', and whether any automated inference is involved is not known."
+        },
+        "ai_system": {
+          "name": "Parivar Pehchan Patra (family ID database)",
+          "developer": "Government of Haryana",
+          "deployer": "Government of Haryana",
+          "version": "not yet assessed"
+        },
+        "impact": {
+          "who": "Elderly people and widows in Haryana",
+          "harm_types": [
+            "Access to essential services",
+            "Rights & civil liberties",
+            "Financial loss"
+          ],
+          "scale": {
+            "value": "Pensions of 277,115 elderly people and 52,479 widows stopped over three years because records marked them dead; the report says several thousand were alive",
+            "source": "https://www.aljazeera.com/economy/2024/1/25/in-india-an-algorithm-declares-them-dead-they-have-to-prove-theyre"
+          }
+        },
+        "evidence_provenance": {
+          "produced_by": "Government of Haryana data, as cited by journalists",
+          "reported_by": "Al Jazeera and The Tribune",
+          "establishes": "Pensions were stopped for people the records marked dead, including some who were alive.",
+          "does_not_establish": "That the system is AI, or whether the errors came from input data or automated inference."
+        },
+        "failure_modes": "not yet assessed",
+        "crosswalk": "not yet assessed"
+      }
     },
     {
       "id": "IN-INC-22",
@@ -3514,7 +4247,45 @@
       "review": "human_reviewed",
       "batch": "B2",
       "reviewed_by": "Krunal Maheshwari (project owner)",
-      "reviewed_on": "2026-10-25"
+      "reviewed_on": "2026-10-25",
+      "assessment": {
+        "review": "unreviewed",
+        "assessed_on": "2026-11-01",
+        "ai_role": {
+          "value": "confirmed",
+          "basis": "PIB Fact Check called the video an AI-generated deepfake, and Factly reached the same finding."
+        },
+        "ai_system": {
+          "name": "AI-generated or AI-altered video of a real speech",
+          "developer": "not established",
+          "deployer": "Social media accounts the government describes as Pakistani propaganda handles",
+          "version": "not yet assessed"
+        },
+        "impact": {
+          "who": "The public; the Army Chief",
+          "harm_types": [
+            "Democratic / electoral integrity",
+            "Reputational harm"
+          ],
+          "scale": "not stated in sources"
+        },
+        "evidence_provenance": {
+          "produced_by": "PIB Fact Check and Factly",
+          "reported_by": "News On AIR and Factly",
+          "establishes": "A genuine speech was altered to add a false admission, and it was officially identified as a deepfake.",
+          "does_not_establish": "Who made it, or how far it spread. Attribution to a foreign state is the government's and is not independently confirmed."
+        },
+        "failure_modes": [
+          {
+            "framework": "MITRE-ATLAS",
+            "id": "AML.T0088",
+            "name": "Generate Deepfakes",
+            "source": "https://www.newsonair.gov.in/pib-fact-check-ai-generated-video-falsely-quotes-general-upendra-dwivedi",
+            "basis": "NETRA's reading of facts the source describes: PIB Fact Check called the altered video of the Army Chief an AI-generated deepfake. The source does not use MITRE ATLAS terms. Tagging approved by the maintainer, Krunal Maheshwari, on 2026-11-01."
+          }
+        ],
+        "crosswalk": "not yet assessed"
+      }
     }
   ],
   "gaps": [

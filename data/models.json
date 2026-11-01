@@ -571,13 +571,9 @@
       "id": "MOD-10",
       "name": "Microsoft 365 Copilot and Copilot Studio",
       "developer": "Microsoft",
-      "release_date": "2023-11-01",
-      "release_note": "General availability for enterprise customers, per secondary sources.",
-      "release_source": {
-        "title": "Substack – ChatGPT one year later",
-        "url": "https://bojan.substack.com/p/chatgpt-one-year-later",
-        "licence": "Cite only (developer or press page)"
-      },
+      "release_date": null,
+      "release_note": "Release date unverified. The date shown earlier (1 November 2023) cited a Substack post, 'ChatGPT one year later' (bojan.substack.com), which does not appear to be about Microsoft 365 Copilot and could not be opened from the build session. Marked unverified by the maintainer on 2026-11-01; a Microsoft announcement is needed.",
+      "release_source": null,
       "tests": [
         {
           "by": "Zenity (via MITRE ATLAS AML.CS0026)",
@@ -655,7 +651,7 @@
         },
         {
           "by": "Anthropic, reported in MITRE ATLAS AML.CS0056",
-          "date": "2026-02-23",
+          "date": "2026",
           "atlas": "AML.CS0056",
           "url": "https://atlas.mitre.org/studies/AML.CS0056",
           "what": "Incident reported by the developer: large-scale extraction of Claude's outputs to train other models.",

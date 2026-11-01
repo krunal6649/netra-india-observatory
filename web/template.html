@@ -3,7 +3,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="NETRA India">
 <meta property="og:title" content="NETRA India AI Risk Observatory">
-<meta property="og:description" content="22 India AI incidents, 28 laws and orders, a directory of 391 bodies and 12 AI model cards, mapped to a shared risk taxonomy and traced through the NETRA pipeline. Open pilot v0.2.">
+<meta property="og:description" content="22 India AI incidents, 28 laws and orders, a directory of 391 bodies and 12 AI model cards, mapped to a shared risk taxonomy and traced through the NETRA pipeline. Open pilot v0.3.">
 <meta property="og:url" content="https://krunal6649.github.io/netra-india-observatory/">
 <meta property="og:image" content="https://krunal6649.github.io/netra-india-observatory/docs/screens/og-image.png">
 <meta property="og:image:width" content="1200">
@@ -11,7 +11,7 @@
 <meta property="og:image:alt" content="NETRA India AI Risk Observatory: a coloured risk wheel beside the headline that India's AI harms are reached mostly through general statutes">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="NETRA India AI Risk Observatory">
-<meta name="twitter:description" content="India AI incidents, laws, risks and safety measures, traced through the NETRA accountability pipeline. Open pilot v0.2.">
+<meta name="twitter:description" content="India AI incidents, laws, risks and safety measures, traced through the NETRA accountability pipeline. Open pilot v0.3.">
 <meta name="twitter:image" content="https://krunal6649.github.io/netra-india-observatory/docs/screens/og-image.png">
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -429,6 +429,7 @@ const PAGES = {
   'about-method':{tab:'about', label:'Method', sub:1},
   'about-credits':{tab:'about', label:'Sources and credits', sub:1},
   'about-verification':{tab:'about', label:'Verification status', sub:1},
+  'about-crosswalk':{tab:'about', label:'Crosswalk', sub:1},
   'about-survey':{tab:'about', label:'Expert survey', sub:1}
 };
 /* v0.1 tab links, kept working so shared posts do not break */
@@ -895,6 +896,28 @@ function dirLink(a, inc){
   const go = a.directory ? `body:${a.directory[0]}` : (place!=='National' ? `body:S-${slugOf(place)}-${a.directory_state}` : 'level:state');
   return `<button type="button" class="linkbtn" data-dir="${esc(go)}">Open in directory</button>`;
 }
+const NA = 'not yet assessed';
+const ROLE_WORD = {'confirmed':'Confirmed','suspected':'Suspected','not established':'Not established','not AI':'Not AI'};
+function assessBlock(i){
+  const a = i.assessment; if (!a) return '';
+  const v = x => (x===undefined || x===NA) ? `<span class="muted">${NA}</span>` : esc(x);
+  const sys = a.ai_system && a.ai_system!==NA ? a.ai_system : {};
+  const imp = a.impact && a.impact!==NA ? a.impact : {};
+  const pv = a.evidence_provenance && a.evidence_provenance!==NA ? a.evidence_provenance : {};
+  const role = a.ai_role && a.ai_role!==NA ? a.ai_role : null;
+  const scale = imp.scale && typeof imp.scale==='object' ? `${esc(imp.scale.value)} · <a href="${esc(imp.scale.source)}" target="_blank" rel="noopener">source</a>` : v(imp.scale);
+  const tags = (list, f) => Array.isArray(list) ? (list.length ? list.map(f).join(' ') : '<span class="muted">none supported by a cited source</span>') : v(list);
+  return `<details class="callout" style="margin-top:16px"><summary><b>Version 3 assessment</b> <span class="vtag pending">${esc(a.review==='unreviewed'?'not yet reviewed':a.review)}</span></summary>
+   <p class="note" style="margin-top:6px">New in Version 3. These fields add detail and do not change the record above. Field meanings are on the <button type="button" class="linkbtn" data-go="about-crosswalk">Crosswalk</button> page.</p>
+   <dl class="kv"><dt>AI’s role</dt><dd>${role?`<b>${esc(ROLE_WORD[role.value]||role.value)}</b> · ${esc(role.basis)}`:v(NA)}</dd>
+    <dt>AI system</dt><dd>${v(sys.name)} · developer ${v(sys.developer)} · deployer ${v(sys.deployer)} · version ${v(sys.version)}</dd>
+    <dt>Who was harmed</dt><dd>${v(imp.who)}${imp.harm_types?` · ${imp.harm_types.map(esc).join(', ')}`:''}</dd>
+    <dt>Scale</dt><dd>${scale}${imp.note?`<div class="note">${esc(imp.note)}</div>`:''}</dd>
+    <dt>Evidence produced by</dt><dd>${v(pv.produced_by)}</dd><dt>Reported by</dt><dd>${v(pv.reported_by)}</dd>
+    <dt>It establishes</dt><dd>${v(pv.establishes)}</dd><dt>It does not establish</dt><dd>${v(pv.does_not_establish)}</dd>
+    <dt>Failure mode</dt><dd>${tags(a.failure_modes, t=>`<span class="chip">${esc(t.id)}${t.name?' '+esc(t.name):''}</span>`)}${Array.isArray(a.failure_modes)&&a.failure_modes.length?`<div class="note">${esc(a.failure_modes[0].basis)}</div>`:''}</dd>
+    <dt>Standards crosswalk</dt><dd>${tags(a.crosswalk, t=>`<span class="chip">${esc(t.framework)} ${esc(t.label)}</span>`)}</dd></dl></details>`;
+}
 V['analysis-dossiers'] = () => {
   const i = INC[state.inc], n = i.netra, col = dc(i.domains[0]);
   const gaps = D.gaps.filter(g=>g.incidents.includes(i.id));
@@ -918,6 +941,7 @@ V['analysis-dossiers'] = () => {
    ${panel('overview', `${H3('What happened','As reported by the sources in the Evidence tab.')}<p style="margin-top:8px;max-width:74ch">${esc(i.harm)}</p>
      <p style="margin-top:10px;max-width:74ch"><b>Response so far:</b> ${esc(i.response)}</p>
      <dl class="kv"><dt>AI system</dt><dd>${i.systems.map(esc).join('; ')}</dd><dt>Developer / deployer</dt><dd>${esc(i.developer)} / ${esc(i.deployer)}</dd><dt>AI’s role (stage 7)</dt><dd>${esc(STATE_WORD[n.stages.S07]||n.stages.S07)} · caused by ${esc(i.entity)}, ${esc(i.intent.toLowerCase())}</dd><dt>Risk areas</dt><dd><div class="row">${i.domains.map(domChip).join('')}</div></dd></dl>
+     ${assessBlock(i)}
      <div class="grid g-2" style="margin-top:16px"><div class="callout"><b>What NETRA does not know</b><ul style="margin:6px 0 0;padding-left:18px">${n.unknowns.map(u=>`<li>${esc(u)}</li>`).join('')}</ul></div>
       <div class="callout red"><b>Overclaim check</b><p style="margin-top:6px">${esc(n.overclaim)}</p></div></div>`)}
    ${panel('laws', `${H3('Legal issues (T1)','Laws, rules and orders that may bear on this case. Applicability has not been decided.')}<div class="row" style="margin-top:10px">${i.instruments.map(insChip).join('')}</div>
@@ -1438,6 +1462,38 @@ V['about-credits'] = () => {
    <li>Epoch AI benchmark data (CC BY 4.0)</li><li>AVID vulnerability database (MIT licence)</li><li>OWASP Top 10 for LLM Applications (CC BY-SA 4.0, kept in its own file)</li><li>Developer system cards and UK AI Security Institute reports (cite and summarise only)</li></ul></section>
   <section class="sheet">${H3('This project','Data, code and how to cite it.')}<p style="margin-top:6px">Maintained by ${esc(D.meta.maintainer)}${D.meta.contact_email?` (<a href="mailto:${esc(D.meta.contact_email)}">${esc(D.meta.contact_email)}</a>)`:''}. Data CC BY 4.0, code MIT licence. <a href="${REPO}" target="_blank" rel="noopener">Code and data on GitHub</a> · cite using CITATION.cff in the repository.</p></section>
   </div>`;
+};
+
+V['about-crosswalk'] = () => {
+  const R = PAYLOAD.refs, ed = R.owasp.editions, e25 = Object.entries(ed['OWASP-LLM-2025'].items), e26 = Object.entries(ed['OWASP-LLM-2026'].items);
+  const withA = D.incidents.filter(i=>i.assessment), tagged = k => withA.filter(i=>Array.isArray(i.assessment[k]) && i.assessment[k].length).length;
+  const roles = ['confirmed','suspected','not established','not AI'].map(r=>[r, withA.filter(i=>i.assessment.ai_role && i.assessment.ai_role.value===r).length]);
+  return head('Crosswalk','How NETRA’s fields line up with other frameworks','These are labels to help readers who know other frameworks. They are NETRA’s own mapping, not a certification, and NETRA is not affiliated with any of these bodies.','about','var(--d7)') +
+  `<section class="sheet">${H3('Version 3 assessment fields','Optional fields on each case. Each one is “not yet assessed” until filled, and they have their own review status.')}
+   <div class="tablewrap" style="margin-top:10px"><table><thead><tr><th>Field</th><th>What it records</th><th>Rule</th></tr></thead><tbody>
+    <tr><td>AI’s role</td><td>Confirmed, suspected, not established or not AI</td><td>Must say which source supports it</td></tr>
+    <tr><td>AI system</td><td>Name, developer, deployer, version</td><td>“Not established” when the sources do not say</td></tr>
+    <tr><td>Impact</td><td>Who was harmed, harm types, scale</td><td>Scale only when one of the case’s own sources gives it</td></tr>
+    <tr><td>Evidence provenance</td><td>Who produced the evidence, who reported it, what it establishes and what it does not</td><td>Keeps a report apart from a finding</td></tr>
+    <tr><td>Failure mode</td><td>An OWASP LLM Top 10 item (with its edition year) or a MITRE ATLAS technique</td><td>Only where one of the case’s own sources supports it</td></tr>
+    <tr><td>Standards crosswalk</td><td>A NIST AI RMF function, an ISO/IEC 42001 label or an OWASP label</td><td>Must say why; it is NETRA’s mapping, not a finding</td></tr></tbody></table></div>
+   <p class="note" style="margin-top:10px">Now: ${withA.length} of ${D.incidents.length} cases assessed (${roles.map(([r,n])=>`${n} ${r}`).join(', ')}); ${tagged('failure_modes')} with a failure-mode tag; ${tagged('crosswalk')} with a crosswalk tag. All assessments are unreviewed until the maintainer reviews them.</p></section>
+  <section class="sheet" style="margin-top:14px">${H3('NIST AI Risk Management Framework','The four functions of NIST AI 100-1 (2023), paraphrased. The case report uses the same mapping.')}
+   <div class="tablewrap" style="margin-top:10px"><table><thead><tr><th>Function</th><th>Where it shows in a NETRA record</th></tr></thead><tbody>
+    <tr><td>Govern</td><td>Developer and deployer on record; the soft-law and policy instruments linked to the case</td></tr>
+    <tr><td>Map</td><td>Sector, who was affected, and where (stage 8, location and jurisdiction)</td></tr>
+    <tr><td>Measure</td><td>Severity, harm verification (stage 4), evidence capture (stage 5) and AI’s role (stage 7)</td></tr>
+    <tr><td>Manage</td><td>The response so far and mitigation (stage 12)</td></tr></tbody></table></div>
+   <p class="note" style="margin-top:8px"><a href="${NIST_RMF}" target="_blank" rel="noopener">NIST AI RMF</a>. NETRA’s 14 stages are unchanged; this table only points to where each function’s questions are answered.</p></section>
+  <section class="sheet" style="margin-top:14px">${H3('OWASP Top 10 for LLM Applications','Both editions, because the numbering changed. A tag always carries its year.')}
+   <div class="tablewrap" style="margin-top:10px"><table><thead><tr><th>2025 edition</th><th>2026 edition</th></tr></thead><tbody>
+    ${e25.map(([k,v],n)=>`<tr><td><span class="id">${esc(k)}</span> ${esc(v)}</td><td><span class="id">${esc(e26[n][0])}</span> ${esc(e26[n][1])}</td></tr>`).join('')}</tbody></table></div>
+   <p class="note" style="margin-top:8px">Names only, © OWASP, <a href="${esc(ed['OWASP-LLM-2025'].official)}" target="_blank" rel="noopener">2025</a> and <a href="${esc(ed['OWASP-LLM-2026'].official)}" target="_blank" rel="noopener">2026</a> editions. CC BY-SA 4.0; the list is kept in its own data file, and share-alike applies to it.</p></section>
+  <div class="grid g-2" style="margin-top:14px">
+   <section class="sheet">${H3('MITRE ATLAS','Adversary techniques against AI systems.')}<p style="margin-top:6px">${R.atlas.count} technique IDs from ATLAS release ${esc(R.atlas.release)}. A case is tagged only where one of its own sources supports the technique.</p>
+    <p class="note" style="margin-top:6px">Apache License 2.0, © MITRE. Names only; descriptions are not copied. <a href="https://atlas.mitre.org/" target="_blank" rel="noopener">atlas.mitre.org</a></p></section>
+   <section class="sheet">${H3('ISO/IEC 42001','The AI management system standard (2023).')}<p style="margin-top:6px">The standard’s text is sold by ISO and is not freely available, so NETRA does not map its clauses. An ISO/IEC 42001 tag is a plain label with a reason.</p>
+    <p class="note" style="margin-top:6px">NETRA records cases. It does not certify that anyone complies with any standard.</p></section></div>`;
 };
 
 V['about-verification'] = () => {
