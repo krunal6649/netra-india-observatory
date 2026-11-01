@@ -28,8 +28,10 @@
       2023, 2025) is taken from the note to G.S.R. 120(E).
     - **G-ADV-MAR24:** checked against MeitY's signed advisory of 15 March 2024. The unread comparison with the
       1 March version was removed from the summary.
-    - **G-ITA:** sections and commencement checked against a consolidated copy that has no publisher, so it was not
-      relied on.
+    - **G-ITR21:** a consolidated text 'updated as on 28.10.2022' also confirms that G.S.R. 794(E) replaced rule
+      3(1)(a) and (b).
+  - **G-ITA verified** on the maintainer's confirmation that the consolidated copy came from meity.gov.in: all twelve
+    sections listed, commencement 17 October 2000 (G.S.R. 788(E)), and the s.43A end date from G.S.R. 843(E).
   - **G-ADV-DEC23:** date corrected from 23 to 26 December 2023, from the official reference in the March 2024 advisory.
   - The other partly verified records stay as they were; the log names the site that could not be read for each. The Gazette server
     does not send its full certificate chain, and certificate checks were not switched off.
@@ -39,7 +41,7 @@
   - Flags: the AML.CS0056 date precision, the cited ATLAS release, and release-date sources that could not be opened
     (MOD-10's looks unrelated).
   - All 12 cards stay unreviewed.
-- Counts now read **14 verified, 14 partly verified** in the README, `CITATION.cff` and `.zenodo.json`. The test of
+- Counts now read **15 verified, 13 partly verified** in the README, `CITATION.cff` and `.zenodo.json`. The test of
   build warnings now reads the count from the data.
 - Removed mentions of a retired project from the stage note, the global-evidence note and the archived v0.1 page.
 - Fixed `tests/test_release.py`, which had been failing on `main` since the README redesign: it now reads the figures

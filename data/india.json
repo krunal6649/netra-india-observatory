@@ -359,8 +359,8 @@
       "provisions": "ss.43, 43A, 66, 66C, 66D, 66E, 67, 67A, 69A, 75, 79, 79A",
       "summary": "Core cyber law. Computer misuse, identity theft and personation offences, privacy violation, obscene content, blocking powers and intermediary safe harbour. No AI-specific provisions.",
       "url": "https://www.indiacode.nic.in/handle/123456789/13683",
-      "verified": "partial",
-      "note": "Partly checked on 2026-11-01. The s.43A end date is backed by G.S.R. 843(E) (Gazette, 13 November 2025, CG-DL-E-14112025-267647): DPDP Act s.44(2), which omits s.43A, comes into force eighteen months from publication. A consolidated text of the Act supplied by the maintainer ('it_act_2000_updated.pdf', Act No. 21 of 2000) contains every section listed (ss.43, 43A, 66, 66C, 66D, 66E, 67, 67A, 69A, 75, 79, 79A) and gives the commencement as '17th October, 2000, vide notification No. G.S.R. 788 (E)'. That copy has no publisher, letterhead or Gazette header, so it is not relied on as an official source. Still missing for 'yes': an official copy (India Code or the issuing ministry) at a link that can be cited."
+      "verified": "yes",
+      "note": "Checked on 2026-11-01. The text of the Act was checked against a consolidated copy ('it_act_2000_updated.pdf', Act No. 21 of 2000) that the maintainer, Krunal Maheshwari, confirmed on 2026-11-01 was downloaded from meity.gov.in; the exact address was not recorded, so the url stays the India Code page for the Act. The copy contains every section listed (ss.43, 43A, 66, 66C, 66D, 66E, 67, 67A, 69A, 75, 79, 79A) and gives the commencement as '17th October, 2000, vide notification No. G.S.R. 788 (E)'. The s.43A end date is backed by G.S.R. 843(E) (Gazette, 13 November 2025, CG-DL-E-14112025-267647): DPDP Act s.44(2), which omits s.43A, comes into force eighteen months from publication. Section contents in the summary are a plain-language description, not quotes. Checked by the AI-assisted session on the maintainer's confirmation of the source."
     },
     {
       "id": "G-ITR21",
@@ -387,11 +387,11 @@
         "1.2",
         "4.3"
       ],
-      "provisions": "Rule 3(1)(b) due diligence (substituted by G.S.R. 794(E), 28 Oct 2022)",
+      "provisions": "Rule 3(1)(a)-(b) due diligence (substituted by G.S.R. 794(E), 28 Oct 2022); rule 3(1)(d) removal on court order or government notice",
       "summary": "Due-diligence duties for intermediaries, including not hosting listed unlawful or knowingly false content. Invoked by MeitY against an AI chatbot answer in Feb 2024.",
       "url": "https://www.thc.nic.in/Central%20Governmental%20Rules/IT(Intermediary%20Guidelines%20and%20Digital%20Media%20Ethics%20Code)%20Rules,%202021.pdf",
       "verified": "partial",
-      "note": "Partly checked on 2026-11-01. (1) Principal rules checked against the Gazette pages of G.S.R. 139(E), New Delhi, 25 February 2021, Part II s.3(i), F. No. 16(4)/2020-CLES, signed by Dr. Rajendra Kumar, Addl. Secy., digitally signed by the Government of India Press on 25 February 2021 (copy from mib.gov.in, supplied by the maintainer): rule 1(2) in force on publication; rule 3(1)(b), rule 3(1)(d) 'thirty-six hours', rule 3(2)(b) 'twenty-four hours'. (2) Amendment history checked against the note to G.S.R. 120(E) (Gazette, 10 February 2026): G.S.R. 794(E) of 28 October 2022, G.S.R. 275(E) of 6 April 2023 and G.S.R. 775(E) of 22 October 2025. Still missing for 'yes': the text of G.S.R. 794(E), to confirm that it replaced rule 3(1)(b), and an official link for the url (the current link is an unopened copy on thc.nic.in).",
+      "note": "Partly checked on 2026-11-01. (1) Principal rules checked against the Gazette pages of G.S.R. 139(E), New Delhi, 25 February 2021, Part II s.3(i), F. No. 16(4)/2020-CLES, signed by Dr. Rajendra Kumar, Addl. Secy., digitally signed by the Government of India Press on 25 February 2021 (copy from mib.gov.in, supplied by the maintainer). (2) Amendment history checked against the note to G.S.R. 120(E) (Gazette, 10 February 2026): G.S.R. 794(E) of 28 October 2022, G.S.R. 275(E) of 6 April 2023 and G.S.R. 775(E) of 22 October 2025. (3) A consolidated text 'updated as on 28.10.2022', supplied by the maintainer, marks rule 3(1)(a) and (b) as 'Substituted by notification G.S.R. 794(E), dated 28.10.2022'. Still missing for 'yes': an official link for the url (the current link is an unopened copy on thc.nic.in).",
       "notifications": [
         {
           "no": "G.S.R. 139(E)",

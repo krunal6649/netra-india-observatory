@@ -254,8 +254,9 @@ class Tests(unittest.TestCase):
         self.assertEqual(nos("G-ITR26"), ["G.S.R. 120(E)"])
         self.assertEqual(nos("G-DPDP"), ["G.S.R. 843(E)"])
         self.assertEqual(nos("G-DPDPR"), ["G.S.R. 846(E)"])
-        for iid in ("G-ITR21", "G-ITA", "G-CPA"):
+        for iid in ("G-ITR21", "G-CPA"):
             self.assertEqual(self.ins(self.india, iid)["verified"], "partial", iid)
+        self.assertEqual(self.ins(self.india, "G-ITA")["verified"], "yes")
         self.assertEqual(self.ins(self.india, "G-ITR26")["verified"], "yes")
         # Version 3: the DPDP Act and its commencement were checked against the Gazettes of 11 Aug 2023 and 13 Nov 2025
         self.assertEqual(self.ins(self.india, "G-DPDP")["verified"], "yes")
