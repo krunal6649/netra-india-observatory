@@ -210,7 +210,7 @@ Every outside source and its licence is listed on the site under **About › Sou
 
 ## Cite and licences
 
-**Cite as:** Maheshwari, K. (2026). *NETRA India AI Risk Observatory* (version 0.3.1) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.23864343. See `CITATION.cff`; `.zenodo.json` holds the matching Zenodo record. The DOI is for release v0.3.1, archived on Zenodo on 2026-11-01; earlier releases have no DOI.
+**Cite as:** Maheshwari, K. (2026). *NETRA India AI Risk Observatory* (version 0.3.1) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.23864343. To cite every version, use https://doi.org/10.5281/zenodo.23864342. ORCID: https://orcid.org/0009-0009-3832-731X. See `CITATION.cff`; `.zenodo.json` holds the matching Zenodo record. The DOI is for release v0.3.1, archived on Zenodo on 2026-11-01; earlier releases have no DOI.
 
 - **Data:** CC BY 4.0 · **Code:** MIT
 - Risk taxonomies adapted from the MIT AI Risk Repository (CC BY 4.0), with credit. This project is not affiliated with MIT.

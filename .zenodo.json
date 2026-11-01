@@ -2,9 +2,9 @@
   "title": "NETRA India AI Risk Observatory",
   "version": "0.3.1",
   "upload_type": "dataset",
-  "description": "<p>An open record of AI harms in India, the Indian laws that may apply to them, and the authorities that can act. Version 0.2 holds 22 documented Indian incidents (all reviewed by the maintainer), 28 laws, rules, advisories and court orders (17 fully verified against official texts, 11 partly verified), 18 risks quoted from Indian government frameworks, 28 measures, 6 governance gaps, a directory of 391 Union and state bodies, 12 AI model cards (unreviewed) and a weekly, auto-selected and unreviewed update. Incidents are traced through the 14-stage NETRA method.</p><p>Live site: https://krunal6649.github.io/netra-india-observatory/. Research and decision-support material only; not legal advice.</p>",
+  "description": "<p>An open record of AI harms in India, the Indian laws that may apply to them, and the authorities that can act. Version 0.3 holds 22 documented Indian incidents (all reviewed by the maintainer), each with an AI-role assessment (unreviewed), 28 laws, rules, advisories and court orders (17 fully verified against official texts, 11 partly verified), 18 risks quoted from Indian government frameworks, 28 measures, 6 governance gaps, a directory of 391 Union and state bodies, 12 AI model cards (unreviewed) and a weekly, auto-selected and unreviewed update. Incidents are traced through the 14-stage NETRA method.</p><p>Live site: https://krunal6649.github.io/netra-india-observatory/. Research and decision-support material only; not legal advice.</p>",
   "creators": [
-    {"name": "Maheshwari, Krunal", "affiliation": "Independent researcher; Advocate, Bar Council of Gujarat"}
+    {"name": "Maheshwari, Krunal", "affiliation": "Independent researcher; Advocate, Bar Council of Gujarat", "orcid": "0009-0009-3832-731X"}
   ],
   "license": "cc-by-4.0",
   "access_right": "open",

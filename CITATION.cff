@@ -8,6 +8,7 @@ type: dataset
 authors:
   - given-names: "Krunal"
     family-names: "Maheshwari"
+    orcid: "https://orcid.org/0009-0009-3832-731X"
     email: "krunal.maheshwari@gmail.com"
     affiliation: "Independent researcher; Advocate, Bar Council of Gujarat"
 repository-code: "https://github.com/krunal6649/netra-india-observatory"
