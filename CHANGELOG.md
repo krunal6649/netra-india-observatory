@@ -5,15 +5,23 @@
 ### Step 1: verification
 - **Verification log:** [`docs/verification-v3.md`](docs/verification-v3.md) records what was checked, what could not
   be opened, and what is still missing for each record.
-- **Laws (24 partly verified, including both DPDP records):** unchanged. The build session could not reach
-  `egazette.gov.in`, `indiacode.nic.in` or any issuing body's site, so nothing was upgraded. Each record keeps its own
-  note saying what is missing.
+- **Laws:** after network access was widened, 6 of the 24 partly verified records were checked against official texts
+  and upgraded to verified, each with the source link and what was checked: G-PSA-WP, G-AISI, G-NITI2, G-RBI, G-ICMR
+  and G-J-ANIL.
+  - Corrections made on the way: the PSA white paper's official title and date (2026-01-23); NITI Part 2's date to
+    the month the cover gives (2021-08); the judge's name in the Anil Kapoor order (Prathiba).
+  - G-J-ANI stays partly verified: the official orders confirm the judge, dates and that the suit continues, but not
+    the judgment's holding.
+  - The other 17, including both DPDP records, stay partly verified; the log names the site that could not be read for
+    each. The Gazette server does not send its full certificate chain, and certificate checks were not switched off.
 - **Model cards:**
-  - The 8 tests that cite MITRE ATLAS were checked against ATLAS data release 2026.10, and all are supported. Two
-    flags: the AML.CS0056 date precision, and the cited ATLAS release.
-  - The 7 tests that cite METR could not be checked against METR; they agree with NETRA's stored report summaries.
-  - Release-date sources could not be opened; MOD-10's source looks unrelated.
+  - The 8 tests that cite MITRE ATLAS were checked against ATLAS data release 2026.10, and the 7 that cite METR against
+    METR's own report pages. All 15 summaries are supported.
+  - Flags: the AML.CS0056 date precision, the cited ATLAS release, and release-date sources that could not be opened
+    (MOD-10's looks unrelated).
   - All 12 cards stay unreviewed.
+- Counts now read **10 verified, 18 partly verified** in the README, `CITATION.cff` and `.zenodo.json`. The test of
+  build warnings now reads the count from the data.
 - Removed mentions of a retired project from the stage note, the global-evidence note and the archived v0.1 page.
 - Fixed `tests/test_release.py`, which had been failing on `main` since the README redesign: it now reads the figures
   from the new "At a glance" row and "Status and trust" table.
