@@ -12,7 +12,8 @@
   "related_identifiers": [
     {"identifier": "https://github.com/krunal6649/netra-india-observatory", "relation": "isSupplementTo", "resource_type": "software"},
     {"identifier": "https://krunal6649.github.io/netra-india-observatory/", "relation": "isDocumentedBy", "resource_type": "other"},
-    {"identifier": "https://airisk.mit.edu/", "relation": "references", "resource_type": "dataset"}
+    {"identifier": "https://airisk.mit.edu/", "relation": "references", "resource_type": "dataset"},
+    {"identifier": "10.5281/zenodo.23865186", "relation": "isDescribedBy", "resource_type": "publication-workingpaper"}
   ],
   "notes": "Code under the MIT licence; data under CC BY 4.0. The risk taxonomies are from the MIT AI Risk Repository (CC BY 4.0); this project is independent and not affiliated with or endorsed by MIT. MITRE ATLAS summaries are used under Apache 2.0 (© MITRE). METR material is cited and summarised only."
 }

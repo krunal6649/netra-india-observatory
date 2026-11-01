@@ -636,6 +636,8 @@ def dataset_jsonld(india, directory, models):
         "distribution": [{"@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": f"{SITE}data/{f}"}
                          for f in ("india.json", "authorities.json", "models.json")],
         "isBasedOn": "https://airisk.mit.edu/",
+        "subjectOf": {"@type": "ScholarlyArticle", "name": "NETRA: An Open, Verification-First Observatory of AI Harms, Law and Accountability in India", "identifier": "https://doi.org/10.5281/zenodo.23865186",
+                      "author": {"@type": "Person", "name": "Krunal Maheshwari"}, "datePublished": "2026-11-01"},
     }
     if doi:
         data["identifier"] = f"https://doi.org/{doi}"

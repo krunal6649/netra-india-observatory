@@ -6,6 +6,8 @@
   licence, coverage (India, 2014–2026), keywords and links to the JSON files. `scripts/build.py` builds it from the data
   and `CITATION.cff` at every build, so its counts, version and DOI stay current. `tests/test_dataset_jsonld.py`
   checks it.
+- **Working paper** published on Zenodo: *NETRA: An Open, Verification-First Observatory of AI Harms, Law and Accountability in India*, DOI [10.5281/zenodo.23865186](https://doi.org/10.5281/zenodo.23865186). It is linked from the README (badge and
+  citation), from `.zenodo.json` (the paper describes the dataset), and from the Dataset Search description.
 
 ## v0.3.1 — navigation fixes (2026-11-01)
 
