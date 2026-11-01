@@ -38,8 +38,10 @@ class V3Fields(unittest.TestCase):
             r = self.inc(self.india, iid)["assessment"]["ai_role"]
             self.assertEqual(r["value"], role, iid)
             self.assertIn("Checked by the maintainer, Krunal Maheshwari, on 2026-11-01.", r["basis"])
-        # The CERT-In advisory number came from the maintainer and is not yet checked against an official link
-        self.assertIn("not yet been checked", self.inc(self.india, "IN-INC-15")["assessment"]["ai_role"]["basis"])
+        # The CERT-In advisory was checked on CERT-In's own site, and is now the case's first source
+        i15 = self.inc(self.india, "IN-INC-15")
+        self.assertIn("checked on the CERT-In website on 2026-11-01", i15["assessment"]["ai_role"]["basis"])
+        self.assertTrue(i15["sources"][0]["url"].startswith("https://www.cert-in.org.in/") and "CIAD-2026-0049" in i15["sources"][0]["url"])
 
     def test_wotnot_kept_in_scope_as_not_established(self):
         basis = self.inc(self.india, "IN-INC-14")["assessment"]["ai_role"]["basis"]
@@ -56,7 +58,7 @@ class V3Fields(unittest.TestCase):
                 continue
             if i["id"] == "IN-INC-15":
                 self.assertEqual([t["id"] for t in a["failure_modes"]], ["LLM06:2025", "LLM03:2026"])
-                self.assertTrue(all("does not use OWASP terms" in t["basis"] for t in a["failure_modes"]))
+                self.assertTrue(all("does not use OWASP terms" in t["basis"] and "cert-in.org.in" in t["source"] for t in a["failure_modes"]))
                 continue
             self.assertEqual(a["failure_modes"], build.NOT_ASSESSED)
             self.assertEqual(a["crosswalk"], build.NOT_ASSESSED)

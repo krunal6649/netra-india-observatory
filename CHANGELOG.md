@@ -124,6 +124,14 @@
   - why ISO/IEC 42001 clauses are not mapped (the text is not freely available).
 
 ### Corrections
+- IN-INC-15 now rests on the CERT-In advisory itself. CIAD-2026-0049, "AI Agents as Attack Vectors" (15 October 2026,
+  Critical), was supplied by the maintainer as a browser print and checked against the official page on cert-in.org.in
+  on 2026-11-01. The page is now the case's first source.
+  - The harm and response text now follows the advisory's wording.
+  - The overclaim check and unknowns no longer say that only press coverage was read.
+  - Stages changed: S04 harm verification secondary → done; S05 evidence capture open → partial; S07 AI role
+    partial → done.
+  - The Excessive Agency tags now cite the advisory, which says the agents "exceeded their assigned task authorization".
 - G-CERTIN: the summary said the CERT-In Directions of 28 April 2022 have "No AI-specific category". That was wrong.
   Annexure I, item xx, lists attacks or suspicious activity affecting AI and machine-learning systems as a reportable
   incident. The summary now quotes it.

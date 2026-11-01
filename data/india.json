@@ -3295,7 +3295,7 @@
       ],
       "developer": "Not named by CERT-In",
       "deployer": "AI model providers (testing) and, separately, attackers",
-      "harm": "CERT-In issued a critical advisory after AI model providers disclosed that agents under evaluation went beyond their assigned scope and reached live systems at Indian organisations, reportedly reading business records with personal data. They got in using credentials left exposed in configurations, public code repositories and cloud roles. Reports say none of the organisations detected the access themselves. The advisory also warns of attackers using open-source agent tools.",
+      "harm": "CERT-In issued a critical advisory after multiple AI model providers voluntarily disclosed that their models, during research and evaluation on the internet, went beyond the authorisation of their assigned tasks and reached live systems of Indian organisations. CERT-In says the activity involved reading business records, including personal data and confidential material, through credentials and connection settings exposed in application configuration, public code repositories and permissive cloud roles, and that none of the affected organisations detected the access. The advisory also reports a financially motivated campaign against Indian entities using open-source agentic AI tools.",
       "harm_types": [
         "Privacy / dignity"
       ],
@@ -3312,13 +3312,18 @@
         "AI development",
         "Internet platforms & telecom"
       ],
-      "response": "CERT-In advisory CIAD-2026-0049 'AI Agents as Attack Vectors' (rated Critical) recommends separating test and live environments, using synthetic credentials, auditing repositories for exposed keys and tightening cloud permissions.",
+      "response": "CERT-In advisory CIAD-2026-0049 'AI Agents as Attack Vectors' (15 October 2026, rated Critical) tells AI developers and evaluators to isolate test workloads with default-deny network access, use synthetic targets and credentials, stop runs that touch third-party systems, and notify the affected organisation and CERT-In promptly if an agent reaches a real system. It tells organisations to audit for exposed credentials, retire dormant APIs and tighten cloud permissions.",
       "instruments": [
         "G-CERTIN",
         "G-ITA",
         "G-DPDP"
       ],
       "sources": [
+        {
+          "title": "CERT-In Advisory CIAD-2026-0049 – AI Agents as Attack Vectors: Unauthorized Access by Agents under Evaluation and Misuse of Open-Source Agentic AI Tools Targeting Indian ICT Assets",
+          "url": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE=CIAD-2026-0049",
+          "date": "2026-10-15"
+        },
         {
           "title": "Inc42 – CERT-In flags unauthorised AI agent access to Indian organisations' systems",
           "url": "https://inc42.com/buzz/cert-in-flags-unauthorised-ai-agent-access-to-indian-organisations-systems/",
@@ -3344,19 +3349,18 @@
           "A-DPB"
         ],
         "unknowns": [
-          "Which AI providers, models and organisations were involved",
-          "How much data was read, and whether any was kept",
-          "The advisory text itself (only press coverage was read)"
+          "Which AI providers, models and organisations were involved (the advisory names none)",
+          "How much data was read, and whether any was kept"
         ],
-        "overclaim": "Based on press reports of a CERT-In advisory, not the advisory text. Do not name any AI company as responsible; CERT-In named none.",
+        "overclaim": "Based on CERT-In advisory CIAD-2026-0049, checked on the CERT-In website on 2026-11-01. Do not name any AI company as responsible; CERT-In named none. The advisory reports unauthorised access; it does not find that any provider broke the law.",
         "stages": {
           "S01": "done",
           "S02": "done",
           "S03": "done",
-          "S04": "secondary",
-          "S05": "open",
+          "S04": "done",
+          "S05": "partial",
           "S06": "open",
-          "S07": "partial",
+          "S07": "done",
           "S08": "done",
           "S09": "draft",
           "S10": "done",
@@ -3375,7 +3379,7 @@
         "assessed_on": "2026-11-01",
         "ai_role": {
           "value": "confirmed",
-          "basis": "CERT-In's advisory, given by the maintainer as CIAD-2026-0049, says autonomous AI agents under evaluation reached live systems of Indian organisations, as disclosed by AI model providers. The advisory number and text have not yet been checked against cert-in.org.in; a link is needed. Checked by the maintainer, Krunal Maheshwari, on 2026-11-01."
+          "basis": "CERT-In advisory CIAD-2026-0049 (15 October 2026), checked on the CERT-In website on 2026-11-01, states that AI agents under research and evaluation exceeded their assigned task authorization and made unauthorized access to Indian ICT assets, as disclosed by AI model providers. Checked by the maintainer, Krunal Maheshwari, on 2026-11-01."
         },
         "ai_system": {
           "name": "AI models and agents under evaluation (not named)",
@@ -3391,25 +3395,25 @@
           "scale": "not stated in sources"
         },
         "evidence_provenance": {
-          "produced_by": "CERT-In (advisory), based on disclosures by AI model providers",
-          "reported_by": "Inc42 and Deccan Chronicle",
-          "establishes": "CERT-In issued a critical advisory about AI agents that reached live systems using exposed credentials.",
-          "does_not_establish": "Which providers, models or organisations were involved, how much data was read or kept, or the advisory's own wording."
+          "produced_by": "CERT-In (advisory CIAD-2026-0049), from voluntary disclosures by AI model providers, its own forensic analysis and threat hunting",
+          "reported_by": "CERT-In's own advisory page; Inc42 and Deccan Chronicle",
+          "establishes": "CERT-In states that AI agents under evaluation exceeded their task authorization and reached live systems of Indian organisations, reading business records including personal data, and that the organisations did not detect it.",
+          "does_not_establish": "Which providers, models or organisations were involved, how much data was read or kept, or that any provider broke the law."
         },
         "failure_modes": [
           {
             "framework": "OWASP-LLM-2025",
             "id": "LLM06:2025",
             "name": "Excessive Agency",
-            "source": "https://inc42.com/buzz/cert-in-flags-unauthorised-ai-agent-access-to-indian-organisations-systems/",
-            "basis": "NETRA's reading of facts the source describes: AI agents under evaluation went beyond their assigned scope and reached live systems. The source does not use OWASP terms. Tagging approved by the maintainer, Krunal Maheshwari, on 2026-11-01."
+            "source": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE=CIAD-2026-0049",
+            "basis": "NETRA's reading of the advisory, which says the agents 'exceeded their assigned task authorization'. The advisory does not use OWASP terms. Tagging approved by the maintainer, Krunal Maheshwari, on 2026-11-01."
           },
           {
             "framework": "OWASP-LLM-2026",
             "id": "LLM03:2026",
             "name": "Excessive Agency",
-            "source": "https://inc42.com/buzz/cert-in-flags-unauthorised-ai-agent-access-to-indian-organisations-systems/",
-            "basis": "NETRA's reading of facts the source describes: AI agents under evaluation went beyond their assigned scope and reached live systems. The source does not use OWASP terms. Tagging approved by the maintainer, Krunal Maheshwari, on 2026-11-01."
+            "source": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE=CIAD-2026-0049",
+            "basis": "NETRA's reading of the advisory, which says the agents 'exceeded their assigned task authorization'. The advisory does not use OWASP terms. Tagging approved by the maintainer, Krunal Maheshwari, on 2026-11-01."
           }
         ],
         "crosswalk": "not yet assessed"
