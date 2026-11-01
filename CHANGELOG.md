@@ -56,6 +56,38 @@
 - Fixed `tests/test_release.py`, which had been failing on `main` since the README redesign: it now reads the figures
   from the new "At a glance" row and "Status and trust" table.
 
+### Step 2: additive fields (trial on three cases; paused for the owner's review)
+
+- New optional `assessment` block on incidents. If it is absent, every field counts as "not yet assessed", so the other
+  19 cases are unchanged. The block has its own `review` status, which starts as `unreviewed`. The incident's own review
+  status does not carry over to it.
+- Fields:
+  - `ai_role` (confirmed, suspected, not established or not AI), with the source basis;
+  - `ai_system` (name, developer, deployer, version);
+  - `impact` (who was harmed, harm types, and scale only when a source gives it);
+  - `evidence_provenance` (who produced the evidence, who reported it, what it establishes and what it does not);
+  - `failure_modes` (OWASP LLM Top 10 with edition year, or MITRE ATLAS);
+  - `crosswalk` (NIST AI RMF function, ISO/IEC 42001 or OWASP label, with a 'why').
+- Trial cases:
+  - IN-INC-20 Grok: AI role confirmed.
+  - IN-INC-09 tax tribunal: AI role suspected; the AI system is "not established".
+  - IN-INC-14 WotNot: AI role "not AI", from the record's own overclaim check. The owner decides whether the case stays
+    in scope.
+- No failure mode or crosswalk tags are set on the trial cases: none of their cited sources makes such a mapping.
+- Reference lists, names only:
+  - `data/owasp_llm_top10.json`: the 2025 and 2026 editions, CC BY-SA 4.0. The numbering differs between editions, so
+    every tag carries its year.
+  - `data/atlas_techniques.json`: 221 technique IDs from MITRE ATLAS release 2026.10, Apache 2.0, © MITRE.
+- `scripts/build.py` adds `check_v3_fields`. It rejects:
+  - unknown fields;
+  - an AI role without a basis;
+  - a failure-mode ID that is not an item of its edition;
+  - a failure mode or scale whose source is not one of the incident's own sources;
+  - a NIST label that is not Govern, Map, Measure or Manage;
+  - a reviewed assessment without a reviewer and date.
+- The dossier overview shows a folded "Version 3 assessment" panel on the three trial cases only.
+- Tests: `tests/test_v3_fields.py` (13 tests) and three smoke checks.
+
 ### Deferred to Version 4
 - Compare tab, replay standard, test-coverage gap view, and finance and elections sector work.
 

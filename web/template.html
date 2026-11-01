@@ -895,6 +895,28 @@ function dirLink(a, inc){
   const go = a.directory ? `body:${a.directory[0]}` : (place!=='National' ? `body:S-${slugOf(place)}-${a.directory_state}` : 'level:state');
   return `<button type="button" class="linkbtn" data-dir="${esc(go)}">Open in directory</button>`;
 }
+const NA = 'not yet assessed';
+const ROLE_WORD = {'confirmed':'Confirmed','suspected':'Suspected','not established':'Not established','not AI':'Not AI'};
+function assessBlock(i){
+  const a = i.assessment; if (!a) return '';
+  const v = x => (x===undefined || x===NA) ? `<span class="muted">${NA}</span>` : esc(x);
+  const sys = a.ai_system && a.ai_system!==NA ? a.ai_system : {};
+  const imp = a.impact && a.impact!==NA ? a.impact : {};
+  const pv = a.evidence_provenance && a.evidence_provenance!==NA ? a.evidence_provenance : {};
+  const role = a.ai_role && a.ai_role!==NA ? a.ai_role : null;
+  const scale = imp.scale && typeof imp.scale==='object' ? `${esc(imp.scale.value)} · <a href="${esc(imp.scale.source)}" target="_blank" rel="noopener">source</a>` : v(imp.scale);
+  const tags = (list, f) => Array.isArray(list) ? (list.length ? list.map(f).join(' ') : '<span class="muted">none supported by a cited source</span>') : v(list);
+  return `<details class="callout" style="margin-top:16px"><summary><b>Version 3 assessment</b> <span class="vtag pending">${esc(a.review==='unreviewed'?'trial, not yet reviewed':a.review)}</span></summary>
+   <p class="note" style="margin-top:6px">New fields being trialled on three cases. They add detail and do not change the record above.</p>
+   <dl class="kv"><dt>AI’s role</dt><dd>${role?`<b>${esc(ROLE_WORD[role.value]||role.value)}</b> · ${esc(role.basis)}`:v(NA)}</dd>
+    <dt>AI system</dt><dd>${v(sys.name)} · developer ${v(sys.developer)} · deployer ${v(sys.deployer)} · version ${v(sys.version)}</dd>
+    <dt>Who was harmed</dt><dd>${v(imp.who)}${imp.harm_types?` · ${imp.harm_types.map(esc).join(', ')}`:''}</dd>
+    <dt>Scale</dt><dd>${scale}${imp.note?`<div class="note">${esc(imp.note)}</div>`:''}</dd>
+    <dt>Evidence produced by</dt><dd>${v(pv.produced_by)}</dd><dt>Reported by</dt><dd>${v(pv.reported_by)}</dd>
+    <dt>It establishes</dt><dd>${v(pv.establishes)}</dd><dt>It does not establish</dt><dd>${v(pv.does_not_establish)}</dd>
+    <dt>Failure mode</dt><dd>${tags(a.failure_modes, t=>`<span class="chip">${esc(t.id)}</span>`)}</dd>
+    <dt>Standards crosswalk</dt><dd>${tags(a.crosswalk, t=>`<span class="chip">${esc(t.framework)} ${esc(t.label)}</span>`)}</dd></dl></details>`;
+}
 V['analysis-dossiers'] = () => {
   const i = INC[state.inc], n = i.netra, col = dc(i.domains[0]);
   const gaps = D.gaps.filter(g=>g.incidents.includes(i.id));
@@ -918,6 +940,7 @@ V['analysis-dossiers'] = () => {
    ${panel('overview', `${H3('What happened','As reported by the sources in the Evidence tab.')}<p style="margin-top:8px;max-width:74ch">${esc(i.harm)}</p>
      <p style="margin-top:10px;max-width:74ch"><b>Response so far:</b> ${esc(i.response)}</p>
      <dl class="kv"><dt>AI system</dt><dd>${i.systems.map(esc).join('; ')}</dd><dt>Developer / deployer</dt><dd>${esc(i.developer)} / ${esc(i.deployer)}</dd><dt>AI’s role (stage 7)</dt><dd>${esc(STATE_WORD[n.stages.S07]||n.stages.S07)} · caused by ${esc(i.entity)}, ${esc(i.intent.toLowerCase())}</dd><dt>Risk areas</dt><dd><div class="row">${i.domains.map(domChip).join('')}</div></dd></dl>
+     ${assessBlock(i)}
      <div class="grid g-2" style="margin-top:16px"><div class="callout"><b>What NETRA does not know</b><ul style="margin:6px 0 0;padding-left:18px">${n.unknowns.map(u=>`<li>${esc(u)}</li>`).join('')}</ul></div>
       <div class="callout red"><b>Overclaim check</b><p style="margin-top:6px">${esc(n.overclaim)}</p></div></div>`)}
    ${panel('laws', `${H3('Legal issues (T1)','Laws, rules and orders that may bear on this case. Applicability has not been decided.')}<div class="row" style="margin-top:10px">${i.instruments.map(insChip).join('')}</div>

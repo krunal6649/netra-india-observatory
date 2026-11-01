@@ -135,6 +135,113 @@ class ValidationError(Exception):
     pass
 
 
+# ---- Version 3: additive assessment fields (all optional; absent means "not yet assessed") ----
+NOT_ASSESSED = "not yet assessed"
+AI_ROLES = {"confirmed", "suspected", "not established", "not AI"}
+CROSSWALK = {"NIST-AI-RMF", "ISO-42001", "OWASP-LLM-2025", "OWASP-LLM-2026"}
+NIST_FUNCTIONS = {"GOVERN", "MAP", "MEASURE", "MANAGE"}
+
+
+def failure_mode_ids():
+    """Allowed failure-mode tags, read from the two reference lists in data/."""
+    owasp, atlas = load("owasp_llm_top10.json"), load("atlas_techniques.json")
+    ids = {ed: set(e["items"]) for ed, e in owasp["editions"].items()}
+    ids["MITRE-ATLAS"] = set(atlas["techniques"])
+    return ids
+
+
+def check_v3_fields(inc, harms, errors, fm_ids=None):
+    """Check an incident's optional `assessment` block. Records without one pass unchanged."""
+    a = inc.get("assessment")
+    if a is None:
+        return
+    iid = f"{inc['id']} assessment"
+    if not isinstance(a, dict):
+        errors.append(f"{iid}: must be an object")
+        return
+    known = {"review", "reviewed_by", "reviewed_on", "assessed_on", "ai_role", "ai_system", "impact",
+             "evidence_provenance", "failure_modes", "crosswalk"}
+    for k in sorted(set(a) - known):
+        errors.append(f"{iid}: unknown field {k}")
+    # The assessment has its own review status; a reviewed incident does not make its new fields reviewed
+    if a.get("review") not in {"unreviewed", "source_checked", "human_reviewed", "published"}:
+        errors.append(f"{iid}: review must be unreviewed, source_checked, human_reviewed or published")
+    if a.get("review") in REVIEWED and (not a.get("reviewed_by") or not is_date(a.get("reviewed_on"))):
+        errors.append(f"{iid}: a reviewed assessment needs reviewed_by and an ISO reviewed_on date")
+    if a.get("review") not in REVIEWED and (a.get("reviewed_by") or a.get("reviewed_on")):
+        errors.append(f"{iid}: reviewed_by / reviewed_on set on an assessment that is not reviewed")
+    if "assessed_on" in a and not is_date(a["assessed_on"]):
+        errors.append(f"{iid}: assessed_on must be an ISO date")
+    cited = {s["url"] for s in inc.get("sources", [])} | {d.get("url") for d in inc.get("court_documents", [])}
+
+    def text(v, label):
+        if not isinstance(v, str) or not v.strip():
+            errors.append(f"{iid}: {label} must be text (use '{NOT_ASSESSED}' if unknown)")
+
+    role = a.get("ai_role", NOT_ASSESSED)
+    if role != NOT_ASSESSED:
+        if not isinstance(role, dict) or role.get("value") not in AI_ROLES:
+            errors.append(f"{iid}: ai_role value must be one of {sorted(AI_ROLES)}")
+        elif not role.get("basis"):
+            errors.append(f"{iid}: ai_role needs a basis saying which source supports it")
+    sysrec = a.get("ai_system", NOT_ASSESSED)
+    if sysrec != NOT_ASSESSED:
+        if not isinstance(sysrec, dict):
+            errors.append(f"{iid}: ai_system must be an object")
+        else:
+            for f in ("name", "developer", "deployer", "version"):
+                text(sysrec.get(f, NOT_ASSESSED), f"ai_system.{f}")
+    imp = a.get("impact", NOT_ASSESSED)
+    if imp != NOT_ASSESSED:
+        if not isinstance(imp, dict):
+            errors.append(f"{iid}: impact must be an object")
+        else:
+            text(imp.get("who", NOT_ASSESSED), "impact.who")
+            for h in imp.get("harm_types", []):
+                if h not in harms:
+                    errors.append(f"{iid}: unknown harm type {h}")
+            sc = imp.get("scale", NOT_ASSESSED)
+            if sc not in (NOT_ASSESSED, "not stated in sources"):
+                if not isinstance(sc, dict) or not sc.get("value") or sc.get("source") not in cited:
+                    errors.append(f"{iid}: impact.scale needs a value and a source that is one of this incident's sources")
+    prov = a.get("evidence_provenance", NOT_ASSESSED)
+    if prov != NOT_ASSESSED:
+        if not isinstance(prov, dict):
+            errors.append(f"{iid}: evidence_provenance must be an object")
+        else:
+            for f in ("produced_by", "reported_by", "establishes", "does_not_establish"):
+                text(prov.get(f, NOT_ASSESSED), f"evidence_provenance.{f}")
+    fms = a.get("failure_modes", NOT_ASSESSED)
+    if fms != NOT_ASSESSED:
+        if not isinstance(fms, list):
+            errors.append(f"{iid}: failure_modes must be a list or '{NOT_ASSESSED}'")
+        else:
+            fm_ids = fm_ids or failure_mode_ids()
+            for t in fms:
+                fw, tid = t.get("framework"), t.get("id")
+                if fw not in fm_ids:
+                    errors.append(f"{iid}: failure-mode framework must be one of {sorted(fm_ids)}")
+                elif tid not in fm_ids[fw]:
+                    errors.append(f"{iid}: {tid} is not an item of {fw}")
+                # Only where a cited source supports it: the tag must point at one of the incident's own sources
+                if t.get("source") not in cited or not t.get("basis"):
+                    errors.append(f"{iid}: failure mode {tid} needs a basis and a source that is one of this incident's sources")
+    cw = a.get("crosswalk", NOT_ASSESSED)
+    if cw != NOT_ASSESSED:
+        if not isinstance(cw, list):
+            errors.append(f"{iid}: crosswalk must be a list or '{NOT_ASSESSED}'")
+        else:
+            for t in cw:
+                if t.get("framework") not in CROSSWALK:
+                    errors.append(f"{iid}: crosswalk framework must be one of {sorted(CROSSWALK)}")
+                elif t["framework"] == "NIST-AI-RMF" and t.get("label") not in NIST_FUNCTIONS:
+                    errors.append(f"{iid}: a NIST AI RMF crosswalk label must be one of {sorted(NIST_FUNCTIONS)}")
+                elif not t.get("label"):
+                    errors.append(f"{iid}: crosswalk needs a label")
+                if not t.get("why"):
+                    errors.append(f"{iid}: crosswalk {t.get('label')} needs a 'why' (it is NETRA's mapping, not a finding)")
+
+
 def load(name):
     with open(DATA / name, encoding="utf-8") as f:
         return json.load(f)
@@ -343,6 +450,7 @@ def validate(tax, india, glob, directory=None, models=None, terms=None, weekly=N
     if len(su["states"]) != 28 or len(su["union_territories"]) != 8:
         errors.append("states_uts must list 28 states and 8 union territories")
     causal = tax["causal"]
+    fm_ids = failure_mode_ids()
 
     # The home page shows this date beside the cases-tracked counter
     if not is_date(india["meta"].get("updated")):
@@ -441,6 +549,7 @@ def validate(tax, india, glob, directory=None, models=None, terms=None, weekly=N
         if inc["state"].split(" (")[0] not in places:
             errors.append(f"{inc['id']}: state must start with one of the 28 states, 8 UTs or 'National', not '{inc['state']}'")
         check_documents(inc, errors)
+        check_v3_fields(inc, harms, errors, fm_ids)
         if "batch" in inc and not re.match(r"^B\d+$", str(inc["batch"])):
             errors.append(f"{inc['id']}: batch must look like 'B2'")
         for a in n["authorities"]:

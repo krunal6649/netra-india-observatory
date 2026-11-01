@@ -31,6 +31,10 @@ Every incident is traced through the same stages, recorded in `netra.stages` on 
 Each stage carries one status: `done`, `partial`, `draft`, `secondary` (from secondary sources only), `open`,
 `contested`, `possible` or `n/a`. A record cannot mark S11 `done` unless it names its reviewer and review date.
 
+Version 3 (in trial) adds an optional `assessment` block to an incident: AI role, AI system, impact, evidence
+provenance, failure modes and a standards crosswalk. If a field is absent, it counts as "not yet assessed". The block
+has its own review status, and a failure-mode tag needs one of the incident's own sources to support it.
+
 Every dossier also ends with two fields:
 
 - **What NETRA does not know** (`netra.unknowns`): the facts the sources do not give.
@@ -120,6 +124,8 @@ All data is open JSON in `data/`.
 | `taxonomy.json` | The MIT taxonomies, NETRA's scales and the 14 stages | `domains`, `causal`, `mitigation`, `severity`, `harm_types`, `sectors`, `netra_stages` |
 | `check_terms.json` | Keyword lists for the in-browser report check | `risk_areas`, `instruments` |
 | `weekly.json` | The weekly update, last 12 weeks | `top`, `cyber`, `models`, `sources`, `notes` |
+| `owasp_llm_top10.json` | OWASP Top 10 for LLM Applications, 2025 and 2026 editions (names only, CC BY-SA 4.0) | `editions` |
+| `atlas_techniques.json` | MITRE ATLAS technique IDs and names, release 2026.10 (Apache 2.0, © MITRE) | `techniques` |
 
 ## 6. Reusing the framework
 

@@ -2415,7 +2415,36 @@
       },
       "review": "human_reviewed",
       "reviewed_by": "Krunal Maheshwari (project owner)",
-      "reviewed_on": "2026-10-25"
+      "reviewed_on": "2026-10-25",
+      "assessment": {
+        "review": "unreviewed",
+        "assessed_on": "2026-11-01",
+        "ai_role": {
+          "value": "suspected",
+          "basis": "LawTrend's headline links the non-existent citations to ChatGPT; SpicyIP does not confirm which tool was used, and the recall is not reported to say that AI was used."
+        },
+        "ai_system": {
+          "name": "not established (media report ChatGPT; not confirmed)",
+          "developer": "not established",
+          "deployer": "not established (who prepared the draft is not disclosed)",
+          "version": "not yet assessed"
+        },
+        "impact": {
+          "who": "The parties to the appeal (Buckeye Trust v. PCIT); public trust in tribunal orders",
+          "harm_types": [
+            "Justice system integrity"
+          ],
+          "scale": "not stated in sources"
+        },
+        "evidence_provenance": {
+          "produced_by": "ITAT Bengaluru: the order and its recall",
+          "reported_by": "SpicyIP and LawTrend",
+          "establishes": "The order cited judgments that do not exist or do not support the point, and it was recalled for a fresh hearing.",
+          "does_not_establish": "That an AI tool was used, which tool, or by whom."
+        },
+        "failure_modes": "not yet assessed",
+        "crosswalk": "not yet assessed"
+      }
     },
     {
       "id": "IN-INC-10",
@@ -2818,7 +2847,39 @@
       "review": "human_reviewed",
       "batch": "B2",
       "reviewed_by": "Krunal Maheshwari (project owner)",
-      "reviewed_on": "2026-10-25"
+      "reviewed_on": "2026-10-25",
+      "assessment": {
+        "review": "unreviewed",
+        "assessed_on": "2026-11-01",
+        "ai_role": {
+          "value": "not AI",
+          "basis": "Per the record's own overclaim check: the files were exposed by a cloud storage setting at an AI chatbot company, not by the AI system. Kept for the owner to decide whether the case stays in scope."
+        },
+        "ai_system": {
+          "name": "WotNot AI chatbot platform",
+          "developer": "WotNot",
+          "deployer": "WotNot (chatbots run for its free-tier customers)",
+          "version": "not yet assessed"
+        },
+        "impact": {
+          "who": "End users who uploaded documents through chatbots built on WotNot's free tier",
+          "harm_types": [
+            "Privacy / dignity"
+          ],
+          "scale": {
+            "value": "About 346,000 files (files, not people; how many people is not stated)",
+            "source": "https://www.bitdefender.com/en-us/blog/hotforsecurity/ai-chatbot-startup-wotnot-leaks-346-000-files-including-passports-and-medical-records"
+          }
+        },
+        "evidence_provenance": {
+          "produced_by": "Security researchers who found the open storage bucket (not named in this record)",
+          "reported_by": "Bitdefender HotForSecurity and TechRadar",
+          "establishes": "A storage bucket holding about 346,000 chatbot-uploaded files was open without a password, and the company later changed its settings.",
+          "does_not_establish": "That anyone downloaded the files, how many people were affected, that the AI system caused the exposure, or whether CERT-In was told."
+        },
+        "failure_modes": "not yet assessed",
+        "crosswalk": "not yet assessed"
+      }
     },
     {
       "id": "IN-INC-15",
@@ -3362,7 +3423,38 @@
       "review": "human_reviewed",
       "batch": "B2",
       "reviewed_by": "Krunal Maheshwari (project owner)",
-      "reviewed_on": "2026-10-25"
+      "reviewed_on": "2026-10-25",
+      "assessment": {
+        "review": "unreviewed",
+        "assessed_on": "2026-11-01",
+        "ai_role": {
+          "value": "confirmed",
+          "basis": "The harm is the chatbot's own replies. The Week (PTI, 19 March 2025) reports Grok's Hindi slang and abusive replies and that the IT Ministry is in touch with X about them."
+        },
+        "ai_system": {
+          "name": "Grok",
+          "developer": "xAI",
+          "deployer": "X Corp",
+          "version": "not yet assessed"
+        },
+        "impact": {
+          "who": "Users of X in India who received or saw the replies",
+          "harm_types": [
+            "Psychological harm",
+            "Reputational harm"
+          ],
+          "scale": "not stated in sources",
+          "note": "The record mentions over 1.9 million views of one exchange. That is reach, not a count of people harmed, so it is not used as scale."
+        },
+        "evidence_provenance": {
+          "produced_by": "Grok's own public replies on X",
+          "reported_by": "PTI (via The Week) and The Tribune, citing ministry sources",
+          "establishes": "Grok posted Hindi slang and abusive replies to Indian users, and MeitY said it was in touch with X about it.",
+          "does_not_establish": "Any breach of Indian law, any formal notice or enforcement, the cause of the behaviour, or what data Grok was trained on."
+        },
+        "failure_modes": "not yet assessed",
+        "crosswalk": "not yet assessed"
+      }
     },
     {
       "id": "IN-INC-21",
