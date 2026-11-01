@@ -780,7 +780,7 @@
     }
   ],
   "netra": {
-    "note": "This view organises findings in a NETRA-compatible shape. It does not run, alter or substitute for NETRA’s frozen validation protocol (v0.3, Experiment X).",
+    "note": "This view organises findings in a NETRA-compatible shape. It does not run, alter or substitute for NETRA’s own validation protocol.",
     "stages": [
       "AI-related incident",
       "Evidence capture",
