@@ -70,5 +70,5 @@
     {"id": "S13", "name": "Retest"},
     {"id": "S14", "name": "Policy & system feedback (T2–T3 gaps)"}
   ],
-  "netra_note": "Stage names follow the NETRA master lifecycle as stated by the researcher, with T1/T2–T3 labels and the 'What NETRA does not know' and overclaim checks taken from the NETRA v0.3 site. This observatory is a public research interface. It does not run, alter or replace NETRA’s frozen v0.3 validation protocol (Experiment X, P1–P6). Check stage names against the v0.3 core workbook before citing."
+  "netra_note": "Stage names follow the NETRA 14-stage lifecycle (S01 to S14) as defined by the researcher. The 'What NETRA does not know' and overclaim checks are part of this observatory's method. This observatory is a public research interface."
 }
