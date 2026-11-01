@@ -14,6 +14,7 @@
 [![Live site](https://img.shields.io/badge/live%20site-open-4f6df5?style=for-the-badge)](https://krunal6649.github.io/netra-india-observatory/)
 [![Version](https://img.shields.io/badge/version-3%20(0.3.1)-0f9d76?style=for-the-badge)](CHANGELOG.md)
 [![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.23864343-1682d4?style=for-the-badge)](https://doi.org/10.5281/zenodo.23864343)
+[![Working paper](https://img.shields.io/badge/working%20paper-10.5281%2Fzenodo.23865186-1682d4?style=for-the-badge)](https://doi.org/10.5281/zenodo.23865186)
 [![Data licence](https://img.shields.io/badge/data-CC%20BY%204.0-f2a20c?style=for-the-badge)](LICENSE-DATA.md)
 [![Code licence](https://img.shields.io/badge/code-MIT-7b6cf2?style=for-the-badge)](LICENSE)
 [![Not legal advice](https://img.shields.io/badge/not%20legal%20advice-e64a8a?style=for-the-badge)](#status-and-trust)
@@ -211,6 +212,8 @@ Every outside source and its licence is listed on the site under **About › Sou
 ## Cite and licences
 
 **Cite as:** Maheshwari, K. (2026). *NETRA India AI Risk Observatory* (version 0.3.1) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.23864343. To cite every version, use https://doi.org/10.5281/zenodo.23864342. ORCID: https://orcid.org/0009-0009-3832-731X. See `CITATION.cff`; `.zenodo.json` holds the matching Zenodo record. The DOI is for release v0.3.1, archived on Zenodo on 2026-11-01; earlier releases have no DOI.
+
+**Working paper:** Maheshwari, K. (2026). *NETRA: An Open, Verification-First Observatory of AI Harms, Law and Accountability in India* [Working paper]. Zenodo. https://doi.org/10.5281/zenodo.23865186
 
 - **Data:** CC BY 4.0 · **Code:** MIT
 - Risk taxonomies adapted from the MIT AI Risk Repository (CC BY 4.0), with credit. This project is not affiliated with MIT.
