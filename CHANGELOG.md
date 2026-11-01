@@ -12,15 +12,19 @@
     the month the cover gives (2021-08); the judge's name in the Anil Kapoor order (Prathiba).
   - G-J-ANI stays partly verified: the official orders confirm the judge, dates and that the suit continues, but not
     the judgment's holding.
-  - The other 17, including both DPDP records, stay partly verified; the log names the site that could not be read for
-    each. The Gazette server does not send its full certificate chain, and certificate checks were not switched off.
+  - **G-DPDPR verified** against the Gazette of 13 November 2025 (G.S.R. 846(E)), from a copy the maintainer supplied:
+    Rule 1(2)-(4) phasing quoted exactly.
+  - **G-DPDP stays partly verified.** The maintainer's two Gazette copies hold the 2023 Bill as introduced and the
+    Rules, but not G.S.R. 843(E) or the Act as passed.
+  - The other 16 stay partly verified; the log names the site that could not be read for each. The Gazette server
+    does not send its full certificate chain, and certificate checks were not switched off.
 - **Model cards:**
   - The 8 tests that cite MITRE ATLAS were checked against ATLAS data release 2026.10, and the 7 that cite METR against
     METR's own report pages. All 15 summaries are supported.
   - Flags: the AML.CS0056 date precision, the cited ATLAS release, and release-date sources that could not be opened
     (MOD-10's looks unrelated).
   - All 12 cards stay unreviewed.
-- Counts now read **10 verified, 18 partly verified** in the README, `CITATION.cff` and `.zenodo.json`. The test of
+- Counts now read **11 verified, 17 partly verified** in the README, `CITATION.cff` and `.zenodo.json`. The test of
   build warnings now reads the count from the data.
 - Removed mentions of a retired project from the stage note, the global-evidence note and the archived v0.1 page.
 - Fixed `tests/test_release.py`, which had been failing on `main` since the README redesign: it now reads the figures

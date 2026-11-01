@@ -572,7 +572,7 @@
       "summary": "General data protection law. Applies to personal data used to train or run AI systems. Most obligations commence 18 months after the November 2025 notification.",
       "url": "https://www.indiacode.nic.in/bitstream/123456789/22037/2/a2023-22.pdf",
       "verified": "partial",
-      "note": "Partly checked on 2026-11-01 against a Gazette copy supplied by the maintainer: Gazette of India Extraordinary, Part II, Section 2, No. 18, 3 August 2023 (CG-DL-E-04082023-247847), which prints the Digital Personal Data Protection Bill, 2023 (Bill No. 113 of 2023) as introduced in Lok Sabha. The Bill's clause 1(2) leaves commencement to notification, with different dates for different provisions; clause 8(5)-(6) sets security safeguards and breach intimation; clause 44(2)(a) omits IT Act s.43A. These match the provisions cited here, but a Bill as introduced is not the Act as passed. Still missing for 'yes': the Act as enacted (Act 22 of 2023) and the commencement notification G.S.R. 843(E); the commencement split still rests on secondary summaries.",
+      "note": "Partly checked on 2026-11-01 against a Gazette copy supplied by the maintainer: Gazette of India Extraordinary, Part II, Section 2, No. 18, 3 August 2023 (CG-DL-E-04082023-247847), which prints the Digital Personal Data Protection Bill, 2023 (Bill No. 113 of 2023) as introduced in Lok Sabha. The Bill's clause 1(2) leaves commencement to notification, with different dates for different provisions; clause 8(5)-(6) sets security safeguards and breach intimation; clause 44(2)(a) omits IT Act s.43A. These match the provisions cited here, but a Bill as introduced is not the Act as passed. The Rules Gazette of 13 November 2025 (G.S.R. 846(E), see G-DPDPR) cites the Act as '22 of 2023' but does not contain G.S.R. 843(E). Still missing for 'yes': the Act as enacted and the commencement notification G.S.R. 843(E); the commencement split still rests on secondary summaries.",
       "notifications": [
         {
           "no": "G.S.R. 843(E)",
@@ -606,11 +606,11 @@
       "domains": [
         "2.1"
       ],
-      "provisions": "Notice, consent, breach intimation, children’s data, cross-border transfer",
+      "provisions": "Notice (r.3), Consent Managers (r.4), security safeguards (r.6), breach intimation (r.7), children's data (r.10), Significant Data Fiduciaries (r.13), transfer outside India (r.15)",
       "summary": "Operational rules under the DPDP Act, commenced in three phases.",
-      "url": "https://www.azbpartners.com/bank/update-indias-digital-personal-data-protection-framework-comes-into-effect/",
-      "verified": "partial",
-      "note": "Phasing per Mondaq, AZB and Konfirmity summaries; URL is the AZB summary. G.S.R. number supplied by the project owner. Missing for 'yes': owner to confirm the Gazette text at gazette_url (not opened by the AI-assisted session; host blocked).",
+      "url": "https://egazette.gov.in/WriteReadData/2025/267650.pdf",
+      "verified": "yes",
+      "note": "Checked on 2026-11-01 against the Gazette of India Extraordinary, Part II, Section 3(i), No. 760, New Delhi, 13 November 2025 (CG-DL-E-14112025-267650), a copy supplied by the maintainer that matches the egazette.gov.in file at the url. MeitY notification G.S.R. 846(E) dated 13 November 2025 makes the Rules under s.40(1) and (2) of the Act (22 of 2023). Rule 1(2)-(4), quoted: 'Rules 1, 2 and 17 to 21 shall come into force on the date of their publication in the Official Gazette'; 'Rule 4 shall come into force one year after the date of publication of this Gazette'; 'Rules 3, 5 to 16, 22 and 23 shall come into force eighteen months after the date of publication of this Gazette'. Rule headings for the provisions listed were checked. This Gazette file does not contain G.S.R. 843(E). Checked by the AI-assisted session; awaiting the maintainer's confirmation.",
       "notifications": [
         {
           "no": "G.S.R. 846(E)",

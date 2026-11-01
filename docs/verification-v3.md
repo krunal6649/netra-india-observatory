@@ -18,7 +18,7 @@ upgraded on the strength of memory or secondary summaries.
 | Record | Before | After | Why |
 |---|---|---|---|
 | G-DPDP (G.S.R. 843(E), commencement) | partly verified | partly verified (unchanged) | The Gazette PDF at egazette.gov.in/WriteReadData/2025/267650.pdf still could not be read. With access widened, the server now answers, but it does not send the intermediate certificate (Let's Encrypt "YR1") that proves its identity. Certificate checks were not switched off to get round this. India Code, the other official copy of the Act, answered 504 (gateway timeout) on every try. |
-| G-DPDPR (G.S.R. 846(E), Rules) | partly verified | partly verified (unchanged) | Same Gazette PDF, same reason. The phasing (Rules 1, 2, 17–21 now; Rule 4 after one year; Rules 3, 5–16, 22–23 after 18 months) still rests on law-firm summaries. |
+| G-DPDPR (G.S.R. 846(E), Rules) | partly verified | **verified** | Checked against the Gazette of India Extraordinary, Part II, Section 3(i), No. 760, 13 November 2025 (CG-DL-E-14112025-267650), supplied by the maintainer. Rule 1(2)–(4) quoted exactly: Rules 1, 2 and 17–21 in force on publication; Rule 4 one year after; Rules 3, 5–16, 22 and 23 eighteen months after. This file does not contain G.S.R. 843(E). |
 
 **Gazette copy supplied by the maintainer (2026-11-01):** Gazette of India Extraordinary, Part II, Section 2, No. 18,
 3 August 2023 (CG-DL-E-04082023-247847). It prints the **DPDP Bill, 2023 (Bill No. 113 of 2023) as introduced in Lok
@@ -121,8 +121,8 @@ None of the release-date sources could be opened.
 
 ## What the maintainer needs to do to finish Step 1
 
-1. **DPDP:** the copy supplied is the Bill as introduced. Still needed: the Gazette with G.S.R. 843(E) and 846(E)
-   (egazette.gov.in/WriteReadData/2025/267650.pdf), and the Act as passed (Act 22 of 2023).
+1. **DPDP Act (G-DPDP):** still needed are the commencement notification G.S.R. 843(E), a separate Gazette file from
+   267650.pdf, and the Act as passed (Act 22 of 2023, Gazette Part II, Section 1, 11 August 2023, or India Code).
 2. **The other 17 partly verified records:** each needs a site that refused automated access or did not answer from the
    build session (India Code, MeitY, SEBI, ECI, CERT-In, Consumer Affairs, TEC, DPIIT, Bombay High Court). The fastest
    route is to download those official PDFs in your own browser and add them here; the table names what each one is.
