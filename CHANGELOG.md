@@ -123,6 +123,11 @@
   - the MITRE ATLAS release;
   - why ISO/IEC 42001 clauses are not mapped (the text is not freely available).
 
+### Corrections
+- G-CERTIN: the summary said the CERT-In Directions of 28 April 2022 have "No AI-specific category". That was wrong.
+  Annexure I, item xx, lists attacks or suspicious activity affecting AI and machine-learning systems as a reportable
+  incident. The summary now quotes it.
+
 ### Deferred to Version 4
 - Compare tab, replay standard, test-coverage gap view, and finance and elections sector work.
 
