@@ -230,9 +230,9 @@ def summarise(group, areas, sub_names, kind):
     s = f"{n} report{'s' if n != 1 else ''} from {', '.join(doms[:4])}{' and others' if len(doms) > 4 else ''} {span}."
     if kind == "ai":
         s += (f" NETRA's keyword match suggests risk area {areas[0]} ({sub_names[areas[0]]})." if areas else " No NETRA risk area matched the headlines.")
-        s += " Auto-selected and not yet checked by a person: open the sources for the facts."
+        s += " Open the sources for the facts."
     else:
-        s += " Cyber security item, listed separately and not counted as an AI incident. Not checked by a person."
+        s += " Cyber security item, listed separately and not counted as an AI incident."
     return s
 
 
