@@ -1,5 +1,26 @@
 # Changelog
 
+## Version 3 (in progress, branch `v3/verification-first`)
+
+### Step 1: verification
+- **Verification log:** [`docs/verification-v3.md`](docs/verification-v3.md) records what was checked, what could not
+  be opened, and what is still missing for each record.
+- **Laws (24 partly verified, including both DPDP records):** unchanged. The build session could not reach
+  `egazette.gov.in`, `indiacode.nic.in` or any issuing body's site, so nothing was upgraded. Each record keeps its own
+  note saying what is missing.
+- **Model cards:**
+  - The 8 tests that cite MITRE ATLAS were checked against ATLAS data release 2026.10, and all are supported. Two
+    flags: the AML.CS0056 date precision, and the cited ATLAS release.
+  - The 7 tests that cite METR could not be checked against METR; they agree with NETRA's stored report summaries.
+  - Release-date sources could not be opened; MOD-10's source looks unrelated.
+  - All 12 cards stay unreviewed.
+- Removed mentions of a retired project from the stage note, the global-evidence note and the archived v0.1 page.
+- Fixed `tests/test_release.py`, which had been failing on `main` since the README redesign: it now reads the figures
+  from the new "At a glance" row and "Status and trust" table.
+
+### Deferred to Version 4
+- Compare tab, replay standard, test-coverage gap view, and finance and elections sector work.
+
 ## v0.2.1-dev — framework page, accurate headline, full name
 - **`docs/framework.md`**: the NETRA framework on one page: the 14 stages and their statuses, classification, the seven
   legal labels, review and verification rules, and a description of every dataset file. Linked from the README.

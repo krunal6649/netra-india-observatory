@@ -177,8 +177,8 @@ Adding data, the weekly update, the AI-assisted draft workflow and the expert su
 |---|---|---|
 | **1** (`v0.1.0-pilot`, 2026-10-22) | First public pilot, kept frozen as the reference | Released |
 | **2** (`v0.2`) | Cleaner navigation, 22 cases, report generator, "Whom to approach" directory, model register, weekly update | **Live** |
-| **3** | Verification first: confirm the partly verified laws and model cards. Then an additive layer for AI-linked cases: AI system record, AI-role tag, evaluation-evidence record, OWASP and MITRE ATLAS failure-mode tags, evidence provenance (who produced the evidence, who reported it, what it establishes), and a Compare view | Planned, not built |
-| **4** | Deeper sector work, starting with finance and elections | Idea |
+| **3** | Verification first: confirm the partly verified laws and model cards. Then an additive layer for AI-linked cases: AI system record, AI-role tag, evaluation-evidence record, OWASP and MITRE ATLAS failure-mode tags, evidence provenance (who produced the evidence, who reported it, what it establishes), and a standards crosswalk | In progress |
+| **4** | A Compare view, a replay standard, a test-coverage gap view, and deeper sector work starting with finance and elections | Idea |
 
 Scope rule: NETRA records AI-linked cases only. Details change as work proceeds; see [CHANGELOG.md](CHANGELOG.md).
 
