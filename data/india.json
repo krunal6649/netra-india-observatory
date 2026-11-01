@@ -360,7 +360,8 @@
       "summary": "Core cyber law. Computer misuse, identity theft and personation offences, privacy violation, obscene content, blocking powers and intermediary safe harbour. No AI-specific provisions.",
       "url": "https://www.indiacode.nic.in/handle/123456789/13683",
       "verified": "yes",
-      "note": "Checked on 2026-11-01. The text of the Act was checked against a consolidated copy ('it_act_2000_updated.pdf', Act No. 21 of 2000) that the maintainer, Krunal Maheshwari, confirmed on 2026-11-01 was downloaded from meity.gov.in; the exact address was not recorded, so the url stays the India Code page for the Act. The copy contains every section listed (ss.43, 43A, 66, 66C, 66D, 66E, 67, 67A, 69A, 75, 79, 79A) and gives the commencement as '17th October, 2000, vide notification No. G.S.R. 788 (E)'. The s.43A end date is backed by G.S.R. 843(E) (Gazette, 13 November 2025, CG-DL-E-14112025-267647): DPDP Act s.44(2), which omits s.43A, comes into force eighteen months from publication. Section contents in the summary are a plain-language description, not quotes. Checked by the AI-assisted session on the maintainer's confirmation of the source."
+      "note": "Checked on 2026-11-01. The text of the Act was checked against a consolidated copy ('it_act_2000_updated.pdf', Act No. 21 of 2000) that the maintainer, Krunal Maheshwari, confirmed on 2026-11-01 was downloaded from meity.gov.in; the exact address was not recorded, so the url stays the India Code page for the Act. The copy contains every section listed (ss.43, 43A, 66, 66C, 66D, 66E, 67, 67A, 69A, 75, 79, 79A) and gives the commencement as '17th October, 2000, vide notification No. G.S.R. 788 (E)'. The s.43A end date is backed by G.S.R. 843(E) (Gazette, 13 November 2025, CG-DL-E-14112025-267647): DPDP Act s.44(2), which omits s.43A, comes into force eighteen months from publication. Section contents in the summary are a plain-language description, not quotes. Checked by the AI-assisted session on the maintainer's confirmation of the source. Confirmed by the maintainer, Krunal Maheshwari, on 2026-11-01.",
+      "checked": "2026-11-01"
     },
     {
       "id": "G-ITR21",
@@ -446,7 +447,7 @@
       "summary": "Defines 'synthetically generated information' as audio, visual or audio-visual information, so text alone is outside the definition. Intermediaries that enable such content must block unlawful synthetic content and label the rest prominently, with permanent metadata or a unique identifier where technically feasible; significant social media intermediaries must take user declarations and verify them. Cuts removal on a court order or government notice from 36 hours to 3 hours, cuts grievance resolution from 15 to 7 days, and cuts removal on complaints about intimate images or impersonation, including artificially morphed images, from 24 hours to 2 hours.",
       "url": "https://egazette.gov.in/WriteReadData/2026/269993.pdf",
       "verified": "yes",
-      "note": "Checked on 2026-11-01 against the Gazette of India Extraordinary, Part II, Section 3(i), No. 114, 10 February 2026 (CG-DL-E-10022026-269993), supplied by the maintainer: G.S.R. 120(E), F. No. 2(5)/2025-CyberLaws, signed by Ajit Kumar, Jt. Secy.; 'They shall come into force on the 20th day of February, 2026'; clause (wa); rule 3(1)(d) 'thirty-six hours' to 'within three hours'; rule 3(2)(a)(i) 'fifteen days' to 'seven days'; rule 3(2)(b) 'twenty-four hours' to 'two hours'; new rule 3(3); new rule 4(1A). The url follows egazette.gov.in's file pattern from the Gazette ID and was not opened from the build session. The draft Second Amendment (2026) was not read. Checked by the AI-assisted session; awaiting the maintainer's confirmation.",
+      "note": "Checked on 2026-11-01 against the Gazette of India Extraordinary, Part II, Section 3(i), No. 114, 10 February 2026 (CG-DL-E-10022026-269993), supplied by the maintainer: G.S.R. 120(E), F. No. 2(5)/2025-CyberLaws, signed by Ajit Kumar, Jt. Secy.; 'They shall come into force on the 20th day of February, 2026'; clause (wa); rule 3(1)(d) 'thirty-six hours' to 'within three hours'; rule 3(2)(a)(i) 'fifteen days' to 'seven days'; rule 3(2)(b) 'twenty-four hours' to 'two hours'; new rule 3(3); new rule 4(1A). The url follows egazette.gov.in's file pattern from the Gazette ID and was not opened from the build session. The draft Second Amendment (2026) was not read. Checked by the AI-assisted session. Confirmed by the maintainer, Krunal Maheshwari, on 2026-11-01.",
       "notifications": [
         {
           "no": "G.S.R. 120(E)",
@@ -454,7 +455,8 @@
           "effective": "2026-02-20",
           "what": "Amendment Rules, 2026"
         }
-      ]
+      ],
+      "checked": "2026-11-01"
     },
     {
       "id": "G-ADV-DEC23",
@@ -481,7 +483,8 @@
       "summary": "Asked intermediaries to communicate content prohibited under rule 3(1)(b) of the IT Rules clearly to users, through terms of service and user agreements, at first registration and as regular reminders, including at every login and upload, and to tell users of the penal provisions that may apply. PIB described it as targeting AI-powered misinformation, that is, deepfakes.",
       "url": "https://pib.gov.in/PressReleasePage.aspx?PRID=1990542",
       "verified": "yes",
-      "note": "Checked on 2026-11-01 against PIB's official release on pib.gov.in (Release ID 1990542, 'Posted On: 26 DEC 2023 6:34PM by PIB Delhi'), opened from the build session and matching the text the maintainer pasted: MeitY 'has issued an advisory to all intermediaries'; the release quotes the advisory on communicating rule 3(1)(b) content 'at the time of first-registration and also as regular reminders' and on making users aware of penal provisions. The date also matches MeitY's signed advisory of 15 March 2024, which cites 'advisory No. 2(4)/2023-CyberLaws - 2 dated 26th December, 2023'. The advisory document itself has not been seen; PIB quotes it. Checked by the AI-assisted session; awaiting the maintainer's confirmation."
+      "note": "Checked on 2026-11-01 against PIB's official release on pib.gov.in (Release ID 1990542, 'Posted On: 26 DEC 2023 6:34PM by PIB Delhi'), opened from the build session and matching the text the maintainer pasted: MeitY 'has issued an advisory to all intermediaries'; the release quotes the advisory on communicating rule 3(1)(b) content 'at the time of first-registration and also as regular reminders' and on making users aware of penal provisions. The date also matches MeitY's signed advisory of 15 March 2024, which cites 'advisory No. 2(4)/2023-CyberLaws - 2 dated 26th December, 2023'. The advisory document itself has not been seen; PIB quotes it. Checked by the AI-assisted session. Confirmed by the maintainer, Krunal Maheshwari, on 2026-11-01.",
+      "checked": "2026-11-01"
     },
     {
       "id": "G-ADV-MAR24",
@@ -546,7 +549,8 @@
       "summary": "Applies to cyber incidents whatever their cause, including incidents involving AI systems. No AI-specific category.",
       "url": "https://www.cert-in.org.in/PDF/CERT-In_Directions_70B_28.04.2022.pdf",
       "verified": "yes",
-      "note": "Checked on 2026-11-01 against the CERT-In PDF supplied by the maintainer, the same file name as the url: No. 20(3)/2022-CERT-In, MeitY / CERT-In, dated 28 April 2022, 'Directions under sub-section (6) of section 70B of the Information Technology Act, 2000'. Direction (ii): report Annexure I cyber incidents 'within 6 hours of noticing such incidents'; direction (iv): logs of all ICT systems kept 'for a rolling period of 180 days' within the Indian jurisdiction; 'This direction will become effective after 60 days from the date on which it is issued' (27 June 2022 is calculated). No AI-specific incident category in Annexure I. Checked by the AI-assisted session; awaiting the maintainer's confirmation."
+      "note": "Checked on 2026-11-01 against the CERT-In PDF supplied by the maintainer, the same file name as the url: No. 20(3)/2022-CERT-In, MeitY / CERT-In, dated 28 April 2022, 'Directions under sub-section (6) of section 70B of the Information Technology Act, 2000'. Direction (ii): report Annexure I cyber incidents 'within 6 hours of noticing such incidents'; direction (iv): logs of all ICT systems kept 'for a rolling period of 180 days' within the Indian jurisdiction; 'This direction will become effective after 60 days from the date on which it is issued' (27 June 2022 is calculated). No AI-specific incident category in Annexure I. Checked by the AI-assisted session. Confirmed by the maintainer, Krunal Maheshwari, on 2026-11-01.",
+      "checked": "2026-11-01"
     },
     {
       "id": "G-DPDP",
@@ -582,13 +586,14 @@
       "summary": "General data protection law. Applies to personal data used to train or run AI systems. Most obligations commence 18 months after the November 2025 notification.",
       "url": "https://www.indiacode.nic.in/bitstream/123456789/22037/2/a2023-22.pdf",
       "verified": "yes",
-      "note": "Checked on 2026-11-01 against two Gazette copies supplied by the maintainer. (1) Gazette of India Extraordinary, Part II, Section 1, No. 25, 11 August 2023 (CG-DL-E-12082023-248045): 'The Digital Personal Data Protection Act, 2023 (No. 22 of 2023)', assent 11 August 2023; s.1(2), s.3, Chapter II (ss.4-10), s.8(5)-(6) and s.44(2)(a) 'section 43A shall be omitted' checked. (2) Gazette of India Extraordinary, Part II, Section 3(i), No. 757, 13 November 2025 (CG-DL-E-14112025-267647): MeitY notification G.S.R. 843(E), F. No. AA-11038/1/2025-CL&ES, signed by Ajit Kumar, Jt. Secy., appointing (a) the date of publication for ss.1(2), 2, 18-26, 35, 38-43 and 44(1) and (3); (b) one year from publication for s.6(9) and s.27(1)(d); (c) eighteen months from publication for ss.3-5, 6(1)-(8) and (10), 7-10, 11-17, 27 except (1)(d), 28-34, 36, 37 and 44(2). '13 May 2027' is calculated from the publication date, not stated in the notification. The url is India Code's copy of the Act, which could not be opened from the build session. Checked by the AI-assisted session; awaiting the maintainer's confirmation.",
+      "note": "Checked on 2026-11-01 against two Gazette copies supplied by the maintainer. (1) Gazette of India Extraordinary, Part II, Section 1, No. 25, 11 August 2023 (CG-DL-E-12082023-248045): 'The Digital Personal Data Protection Act, 2023 (No. 22 of 2023)', assent 11 August 2023; s.1(2), s.3, Chapter II (ss.4-10), s.8(5)-(6) and s.44(2)(a) 'section 43A shall be omitted' checked. (2) Gazette of India Extraordinary, Part II, Section 3(i), No. 757, 13 November 2025 (CG-DL-E-14112025-267647): MeitY notification G.S.R. 843(E), F. No. AA-11038/1/2025-CL&ES, signed by Ajit Kumar, Jt. Secy., appointing (a) the date of publication for ss.1(2), 2, 18-26, 35, 38-43 and 44(1) and (3); (b) one year from publication for s.6(9) and s.27(1)(d); (c) eighteen months from publication for ss.3-5, 6(1)-(8) and (10), 7-10, 11-17, 27 except (1)(d), 28-34, 36, 37 and 44(2). '13 May 2027' is calculated from the publication date, not stated in the notification. The url is India Code's copy of the Act, which could not be opened from the build session. Checked by the AI-assisted session. Confirmed by the maintainer, Krunal Maheshwari, on 2026-11-01.",
       "notifications": [
         {
           "no": "G.S.R. 843(E)",
           "what": "Commencement notification (phased), 13 November 2025"
         }
-      ]
+      ],
+      "checked": "2026-11-01"
     },
     {
       "id": "G-DPDPR",
@@ -619,14 +624,15 @@
       "summary": "Operational rules under the DPDP Act, commenced in three phases.",
       "url": "https://egazette.gov.in/WriteReadData/2025/267650.pdf",
       "verified": "yes",
-      "note": "Checked on 2026-11-01 against the Gazette of India Extraordinary, Part II, Section 3(i), No. 760, New Delhi, 13 November 2025 (CG-DL-E-14112025-267650), a copy supplied by the maintainer that matches the egazette.gov.in file at the url. MeitY notification G.S.R. 846(E) dated 13 November 2025 makes the Rules under s.40(1) and (2) of the Act (22 of 2023). Rule 1(2)-(4), quoted: 'Rules 1, 2 and 17 to 21 shall come into force on the date of their publication in the Official Gazette'; 'Rule 4 shall come into force one year after the date of publication of this Gazette'; 'Rules 3, 5 to 16, 22 and 23 shall come into force eighteen months after the date of publication of this Gazette'. Rule headings for the provisions listed were checked. This Gazette file does not contain G.S.R. 843(E). Checked by the AI-assisted session; awaiting the maintainer's confirmation.",
+      "note": "Checked on 2026-11-01 against the Gazette of India Extraordinary, Part II, Section 3(i), No. 760, New Delhi, 13 November 2025 (CG-DL-E-14112025-267650), a copy supplied by the maintainer that matches the egazette.gov.in file at the url. MeitY notification G.S.R. 846(E) dated 13 November 2025 makes the Rules under s.40(1) and (2) of the Act (22 of 2023). Rule 1(2)-(4), quoted: 'Rules 1, 2 and 17 to 21 shall come into force on the date of their publication in the Official Gazette'; 'Rule 4 shall come into force one year after the date of publication of this Gazette'; 'Rules 3, 5 to 16, 22 and 23 shall come into force eighteen months after the date of publication of this Gazette'. Rule headings for the provisions listed were checked. This Gazette file does not contain G.S.R. 843(E). Checked by the AI-assisted session. Confirmed by the maintainer, Krunal Maheshwari, on 2026-11-01.",
       "notifications": [
         {
           "no": "G.S.R. 846(E)",
           "what": "Digital Personal Data Protection Rules, 2025"
         }
       ],
-      "gazette_url": "https://egazette.gov.in/WriteReadData/2025/267650.pdf"
+      "gazette_url": "https://egazette.gov.in/WriteReadData/2025/267650.pdf",
+      "checked": "2026-11-01"
     },
     {
       "id": "G-BSA",
@@ -772,7 +778,8 @@
       "summary": "Prohibits any person, including any platform, from engaging in dark patterns; Annexure 1 lists the specified dark patterns. The guidelines do not mention AI. NETRA reads them as applying however the design is produced, including when AI personalises it; that reading is NETRA's, not the text's.",
       "url": "https://egazette.gov.in/WriteReadData/2023/250339.pdf",
       "verified": "yes",
-      "note": "Checked on 2026-11-01 against the Gazette of India Extraordinary, Part III, Section 4, No. 783, 30 November 2023 (CG-DL-E-30112023-250339), supplied by the maintainer: CCPA notification F. No. CCPA-1/1/2023-CCPA-(Reg), dated 30 November 2023, issued under s.18 of the Consumer Protection Act, 2019, signed by Nidhi Khare, Chief Commissioner; guideline 1(2) 'It shall come into force on the date of its publication in the Official Gazette'; guideline 4 prohibition; guideline 5 and Annexure 1. The url follows egazette.gov.in's file pattern from the Gazette ID and was not opened from the build session. Earlier date source was a Mondaq headline. Checked by the AI-assisted session; awaiting the maintainer's confirmation."
+      "note": "Checked on 2026-11-01 against the Gazette of India Extraordinary, Part III, Section 4, No. 783, 30 November 2023 (CG-DL-E-30112023-250339), supplied by the maintainer: CCPA notification F. No. CCPA-1/1/2023-CCPA-(Reg), dated 30 November 2023, issued under s.18 of the Consumer Protection Act, 2019, signed by Nidhi Khare, Chief Commissioner; guideline 1(2) 'It shall come into force on the date of its publication in the Official Gazette'; guideline 4 prohibition; guideline 5 and Annexure 1. The url follows egazette.gov.in's file pattern from the Gazette ID and was not opened from the build session. Earlier date source was a Mondaq headline. Checked by the AI-assisted session. Confirmed by the maintainer, Krunal Maheshwari, on 2026-11-01.",
+      "checked": "2026-11-01"
     },
     {
       "id": "G-COPY",
@@ -911,7 +918,8 @@
       "summary": "Proposes a national database to record, classify and analyse AI safety failures, biased outcomes, security breaches and misuse, supporting an India-specific risk taxonomy.",
       "url": "https://psa.gov.in/CMS/web/sites/default/files/publication/AI-WP_TechnoLegal.pdf",
       "verified": "yes",
-      "note": "Checked on 2026-11-01 against the official PDF on psa.gov.in: title, 'January 2026' on the cover, Section IV 'National Database of AI Incidents' (record, classify and analyse safety failures, biased outcomes, security breaches and misuse; India-specific risk taxonomy), TPEC, and the voluntary practices listed. Date 2026-01-23 is the 'Published on' date on the PSA AI page. Earlier date (2026-01-24) was a news report date. Checked by the AI-assisted session; awaiting the maintainer's confirmation. Directly overlaps this observatory's purpose."
+      "note": "Checked on 2026-11-01 against the official PDF on psa.gov.in: title, 'January 2026' on the cover, Section IV 'National Database of AI Incidents' (record, classify and analyse safety failures, biased outcomes, security breaches and misuse; India-specific risk taxonomy), TPEC, and the voluntary practices listed. Date 2026-01-23 is the 'Published on' date on the PSA AI page. Earlier date (2026-01-24) was a news report date. Checked by the AI-assisted session. Confirmed by the maintainer, Krunal Maheshwari, on 2026-11-01. Directly overlaps this observatory's purpose.",
+      "checked": "2026-11-01"
     },
     {
       "id": "G-AISI",
@@ -942,7 +950,8 @@
       "summary": "Research and standards body for AI safety using Indian datasets. The 2025 Guidelines recommend resourcing it to develop draft standards.",
       "url": "https://indiaai.gov.in/article/india-takes-the-lead-establishing-the-indiaai-safety-institute-for-responsible-ai-innovation",
       "verified": "yes",
-      "note": "Checked on 2026-11-01 against the IndiaAI article at the url (dated Jan 31, 2025): the Minister of Electronics and IT announced the setting up of the IndiaAI Safety Institute under the Safe and Trusted pillar of the IndiaAI Mission, on a hub-and-spoke model. The date is the article's publication date. The Guidelines' recommendation in the summary rests on G-AIGG. Checked by the AI-assisted session; awaiting the maintainer's confirmation."
+      "note": "Checked on 2026-11-01 against the IndiaAI article at the url (dated Jan 31, 2025): the Minister of Electronics and IT announced the setting up of the IndiaAI Safety Institute under the Safe and Trusted pillar of the IndiaAI Mission, on a hub-and-spoke model. The date is the article's publication date. The Guidelines' recommendation in the summary rests on G-AIGG. Checked by the AI-assisted session. Confirmed by the maintainer, Krunal Maheshwari, on 2026-11-01.",
+      "checked": "2026-11-01"
     },
     {
       "id": "G-NITI1",
@@ -1008,7 +1017,8 @@
       "summary": "Companion paper on how government, regulators and industry could put the principles into practice.",
       "url": "https://niti.gov.in/sites/default/files/2021-08/Part2-Responsible-AI-12082021.pdf",
       "verified": "yes",
-      "note": "Checked on 2026-11-01 against the official PDF on niti.gov.in: title and 'AUGUST 2021' on the cover; the document sets out the role of Government as policy maker, regulator and procurer (section 3) and actions for the private sector and research institutions (section 4). The cover gives the month only, so the earlier day (12 August, taken from the file name) has been removed. Checked by the AI-assisted session; awaiting the maintainer's confirmation."
+      "note": "Checked on 2026-11-01 against the official PDF on niti.gov.in: title and 'AUGUST 2021' on the cover; the document sets out the role of Government as policy maker, regulator and procurer (section 3) and actions for the private sector and research institutions (section 4). The cover gives the month only, so the earlier day (12 August, taken from the file name) has been removed. Checked by the AI-assisted session. Confirmed by the maintainer, Krunal Maheshwari, on 2026-11-01.",
+      "checked": "2026-11-01"
     },
     {
       "id": "G-RBI",
@@ -1043,7 +1053,8 @@
       "summary": "Sector framework for AI in finance. Includes an AI sandbox, a graded liability framework, an RBI AI Standing Committee and board-approved AI policies.",
       "url": "https://www.rbi.org.in/Scripts/PublicationReportDetails.aspx?UrlPage=&ID=1306",
       "verified": "yes",
-      "note": "Checked on 2026-11-01 against the full report text on the RBI publication page at the url (dated 13 Aug 2025): 7 Sutras, 6 Pillars (Infrastructure, Policy, Capacity; Governance, Protection, Assurance) and 26 Recommendations, all 26 read, including 15-26 (data lifecycle governance, AI system governance, product approval, consumer protection, cybersecurity, red teaming, business continuity, AI incident reporting, AI inventory, audit, disclosures, AI toolkit). Summary items checked: AI Innovation Sandbox (Rec. 2), graded liability framework (Rec. 8), Standing Committee (Rec. 9, para 4.4.32), board-approved AI policy (Rec. 14). Checked by the AI-assisted session; awaiting the maintainer's confirmation."
+      "note": "Checked on 2026-11-01 against the full report text on the RBI publication page at the url (dated 13 Aug 2025): 7 Sutras, 6 Pillars (Infrastructure, Policy, Capacity; Governance, Protection, Assurance) and 26 Recommendations, all 26 read, including 15-26 (data lifecycle governance, AI system governance, product approval, consumer protection, cybersecurity, red teaming, business continuity, AI incident reporting, AI inventory, audit, disclosures, AI toolkit). Summary items checked: AI Innovation Sandbox (Rec. 2), graded liability framework (Rec. 8), Standing Committee (Rec. 9, para 4.4.32), board-approved AI policy (Rec. 14). Checked by the AI-assisted session. Confirmed by the maintainer, Krunal Maheshwari, on 2026-11-01.",
+      "checked": "2026-11-01"
     },
     {
       "id": "G-SEBI-CP",
@@ -1107,7 +1118,8 @@
       "summary": "Sector guidance for developing and using AI in health research and clinical care.",
       "url": "https://www.icmr.gov.in/icmrobject/custom_data/pdf/Ethical-guidelines/Ethical_Guidelines_AI_Healthcare_2023.pdf",
       "verified": "yes",
-      "note": "Checked on 2026-11-01 against the official PDF on icmr.gov.in (78 pages): title, 'Prepared by DHR-ICMR Artificial Intelligence Cell', '© 2023, Indian Council of Medical Research'. Section 1 sets out ethical principles for AI in healthcare; Section 2 guiding principles for development, validation and deployment. Checked by the AI-assisted session; awaiting the maintainer's confirmation."
+      "note": "Checked on 2026-11-01 against the official PDF on icmr.gov.in (78 pages): title, 'Prepared by DHR-ICMR Artificial Intelligence Cell', '© 2023, Indian Council of Medical Research'. Section 1 sets out ethical principles for AI in healthcare; Section 2 guiding principles for development, validation and deployment. Checked by the AI-assisted session. Confirmed by the maintainer, Krunal Maheshwari, on 2026-11-01.",
+      "checked": "2026-11-01"
     },
     {
       "id": "G-TEC",
@@ -1221,7 +1233,8 @@
       "summary": "Restrained unauthorised commercial use of the actor’s name, voice and image, including AI-based manipulation, and ordered domain blocking and link takedowns.",
       "url": "https://delhihighcourt.nic.in/app/downloadOrderbByDate/CS(COMM)/652/2023/20-09-2023",
       "verified": "yes",
-      "note": "Checked on 2026-11-01 against the digitally signed order on the Delhi High Court portal (21 pages, dated 20.09.2023, Coram Justice Prathiba M. Singh): para 48 restrains Defendants 1-16 from using the plaintiff's name, likeness, image, voice or persona 'using technological tools such as Artificial Intelligence, Machine Learning, deep fakes, face morphing'; para 49 locks and suspends three domain names; para 50 directs ISPs to take down the listed links; para 51 directs DoT/MeitY to issue blocking orders. Judge's name corrected from 'Pratibha' to the spelling in the order. Checked by the AI-assisted session; awaiting the maintainer's confirmation."
+      "note": "Checked on 2026-11-01 against the digitally signed order on the Delhi High Court portal (21 pages, dated 20.09.2023, Coram Justice Prathiba M. Singh): para 48 restrains Defendants 1-16 from using the plaintiff's name, likeness, image, voice or persona 'using technological tools such as Artificial Intelligence, Machine Learning, deep fakes, face morphing'; para 49 locks and suspends three domain names; para 50 directs ISPs to take down the listed links; para 51 directs DoT/MeitY to issue blocking orders. Judge's name corrected from 'Pratibha' to the spelling in the order. Checked by the AI-assisted session. Confirmed by the maintainer, Krunal Maheshwari, on 2026-11-01.",
+      "checked": "2026-11-01"
     },
     {
       "id": "G-J-ARIJIT",

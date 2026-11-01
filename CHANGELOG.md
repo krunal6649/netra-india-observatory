@@ -46,6 +46,8 @@
   - Flags: the AML.CS0056 date precision, the cited ATLAS release, and release-date sources that could not be opened
     (MOD-10's looks unrelated).
   - All 12 cards stay unreviewed.
+- **All 13 upgrades confirmed by the maintainer, Krunal Maheshwari, on 2026-11-01.** Each record's note says so, and
+  its `checked` date is 2026-11-01.
 - Counts now read **17 verified, 11 partly verified** in the README, `CITATION.cff` and `.zenodo.json`. The test of
   build warnings now reads the count from the data.
 - Removed mentions of a retired project from the stage note, the global-evidence note and the archived v0.1 page.

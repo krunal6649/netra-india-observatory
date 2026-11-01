@@ -267,6 +267,14 @@ class Tests(unittest.TestCase):
         # one warning per law record that is not fully verified
         self.assertEqual(len(build.validate(self.tax, self.india, self.glob)), sum(1 for i in self.india["instruments"] if i["verified"] != "yes"))
 
+    def test_v3_upgrades_record_the_maintainers_confirmation(self):
+        for iid in ("G-ITA", "G-ITR26", "G-ADV-DEC23", "G-CERTIN", "G-DPDP", "G-DPDPR", "G-CCPA-DP",
+                    "G-PSA-WP", "G-AISI", "G-NITI2", "G-RBI", "G-ICMR", "G-J-ANIL"):
+            rec = self.ins(self.india, iid)
+            self.assertEqual((rec["verified"], rec["checked"]), ("yes", "2026-11-01"), iid)
+            self.assertIn("Confirmed by the maintainer, Krunal Maheshwari, on 2026-11-01", rec["note"], iid)
+            self.assertNotIn("awaiting the maintainer", rec["note"], iid)
+
     def test_meta_updated_date(self):
         d = copy.deepcopy(self.india); d["meta"]["updated"] = "last week"
         self.rejects(d, "meta.updated")
