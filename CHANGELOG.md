@@ -32,7 +32,12 @@
       3(1)(a) and (b).
   - **G-ITA verified** on the maintainer's confirmation that the consolidated copy came from meity.gov.in: all twelve
     sections listed, commencement 17 October 2000 (G.S.R. 788(E)), and the s.43A end date from G.S.R. 843(E).
-  - **G-ADV-DEC23:** date corrected from 23 to 26 December 2023, from the official reference in the March 2024 advisory.
+  - **G-ADV-DEC23 verified** against PIB's official release of 26 December 2023 (Release ID 1990542), which quotes the
+    advisory; the date was corrected from 23 to 26 December 2023.
+  - **G-CCPA-DP verified** against the Gazette of 30 November 2023 (CCPA, F. No. CCPA-1/1/2023-CCPA-(Reg)). The summary
+    now says that applying it to AI-personalised designs is NETRA's reading, since the guidelines do not mention AI.
+  - **G-CPA:** Act text checked against the Gazette of 9 August 2019 (Act No. 35 of 2019). It stays partly verified until
+    S.O. 2351(E), the commencement notification, is seen.
   - The other partly verified records stay as they were; the log names the site that could not be read for each. The Gazette server
     does not send its full certificate chain, and certificate checks were not switched off.
 - **Model cards:**
@@ -41,7 +46,7 @@
   - Flags: the AML.CS0056 date precision, the cited ATLAS release, and release-date sources that could not be opened
     (MOD-10's looks unrelated).
   - All 12 cards stay unreviewed.
-- Counts now read **15 verified, 13 partly verified** in the README, `CITATION.cff` and `.zenodo.json`. The test of
+- Counts now read **17 verified, 11 partly verified** in the README, `CITATION.cff` and `.zenodo.json`. The test of
   build warnings now reads the count from the data.
 - Removed mentions of a retired project from the stage note, the global-evidence note and the archived v0.1 page.
 - Fixed `tests/test_release.py`, which had been failing on `main` since the README redesign: it now reads the figures
