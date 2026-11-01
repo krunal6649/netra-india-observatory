@@ -1,6 +1,9 @@
 # Changelog
 
-## Version 3 (in progress, branch `v3/verification-first`)
+## v0.3.0 — Version 3 (2026-11-01)
+
+Still open after this release: official links for 11 partly verified laws, and the maintainer's review of the 12 model cards
+and the 22 assessments (all unreviewed).
 
 ### Step 1: verification
 - **Verification log:** [`docs/verification-v3.md`](docs/verification-v3.md) records what was checked, what could not

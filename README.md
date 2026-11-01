@@ -12,7 +12,7 @@
 **[Cite](#cite-and-licences)**
 
 [![Live site](https://img.shields.io/badge/live%20site-open-4f6df5?style=for-the-badge)](https://krunal6649.github.io/netra-india-observatory/)
-[![Version](https://img.shields.io/badge/version-2%20(0.2)-0f9d76?style=for-the-badge)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-3%20(0.3)-0f9d76?style=for-the-badge)](CHANGELOG.md)
 [![Data licence](https://img.shields.io/badge/data-CC%20BY%204.0-f2a20c?style=for-the-badge)](LICENSE-DATA.md)
 [![Code licence](https://img.shields.io/badge/code-MIT-7b6cf2?style=for-the-badge)](LICENSE)
 [![Not legal advice](https://img.shields.io/badge/not%20legal%20advice-e64a8a?style=for-the-badge)](#status-and-trust)
@@ -34,7 +34,7 @@ Each case is traced through NETRA, a 14-stage method, and says what is still unk
 |:---:|:---:|:---:|:---:|:---:|:---:|
 | **Indian AI incidents** | **Laws, rules, advisories, court orders** | **Risks quoted from government frameworks** | **Measures** | **Bodies in the "Whom to approach" directory** | **AI model cards** |
 
-Data updated 2026-10-25. Every record says whether a person has reviewed it.
+Data updated 2026-11-01. Every record says whether a person has reviewed it.
 
 ## Why it exists
 
@@ -176,8 +176,8 @@ Adding data, the weekly update, the AI-assisted draft workflow and the expert su
 | Version | What it is | State |
 |---|---|---|
 | **1** (`v0.1.0-pilot`, 2026-10-22) | First public pilot, kept frozen as the reference | Released |
-| **2** (`v0.2`) | Cleaner navigation, 22 cases, report generator, "Whom to approach" directory, model register, weekly update | **Live** |
-| **3** | Verification first: confirm the partly verified laws and model cards. Then an additive layer for AI-linked cases: AI system record, AI-role tag, evaluation-evidence record, OWASP and MITRE ATLAS failure-mode tags, evidence provenance (who produced the evidence, who reported it, what it establishes), and a standards crosswalk | In progress |
+| **2** (`v0.2.0`) | Cleaner navigation, 22 cases, report generator, "Whom to approach" directory, model register, weekly update | Released |
+| **3** (`v0.3.0`, 2026-11-01) | Verification first: 17 of 28 laws verified against official texts, model-card tests checked. Then an additive assessment layer on all 22 cases: AI-role tag, AI system record, impact, evidence provenance, OWASP and MITRE ATLAS failure-mode tags, and a Crosswalk page. 11 laws and the 12 model cards still await the maintainer | **Live** |
 | **4** | A Compare view, a replay standard, a test-coverage gap view, and deeper sector work starting with finance and elections | Idea |
 
 Scope rule: NETRA records AI-linked cases only. Details change as work proceeds; see [CHANGELOG.md](CHANGELOG.md).
@@ -209,11 +209,11 @@ Every outside source and its licence is listed on the site under **About › Sou
 
 ## Cite and licences
 
-**Cite as:** Maheshwari, K. (2026). *NETRA India AI Risk Observatory* (version 0.2.0) [Data set]. https://github.com/krunal6649/netra-india-observatory. See `CITATION.cff`; `.zenodo.json` holds the matching Zenodo record.
+**Cite as:** Maheshwari, K. (2026). *NETRA India AI Risk Observatory* (version 0.3.0) [Data set]. https://github.com/krunal6649/netra-india-observatory. See `CITATION.cff`; `.zenodo.json` holds the matching Zenodo record.
 
 - **Data:** CC BY 4.0 · **Code:** MIT
 - Risk taxonomies adapted from the MIT AI Risk Repository (CC BY 4.0), with credit. This project is not affiliated with MIT.
-- `v0.1.0-pilot` is frozen and never edited. Tag `v0.2.0` on `main` once this release is merged; GitHub's Zenodo integration can then archive it with a DOI.
+- `v0.1.0-pilot` is frozen and never edited. Tag `v0.3.0` on `main` once this release is merged; GitHub's Zenodo integration can then archive it with a DOI.
 
 ## Contact
 

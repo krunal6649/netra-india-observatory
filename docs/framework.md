@@ -42,8 +42,7 @@ Every dossier also ends with two fields:
   person as guilty; the source reports an arrest, not a conviction".
 
 Stage names follow the NETRA lifecycle as stated by the researcher; the "what it settles" lines are short
-summaries for this page. Check them against the NETRA v0.3 core workbook
-before citing.
+summaries for this page. Have a second reader check them before citing.
 
 ## 2. Classification
 
@@ -131,6 +130,6 @@ All data is open JSON in `data/`.
 
 - To apply NETRA to another country or sector, keep sections 1 to 4 and replace the instruments, authorities and
   states with your own. The build script checks the same rules.
-- Cite the framework as: Maheshwari, K. (2026). *NETRA India AI Risk Observatory* (version 0.2.0) [Data set].
+- Cite the framework as: Maheshwari, K. (2026). *NETRA India AI Risk Observatory* (version 0.3.0) [Data set].
   https://github.com/krunal6649/netra-india-observatory
 - Corrections and suggestions are welcome through the repository's issue forms.

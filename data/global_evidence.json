@@ -780,7 +780,7 @@
     }
   ],
   "netra": {
-    "note": "This view organises findings in a NETRA-compatible shape. It does not run, alter or substitute for NETRA’s own validation protocol.",
+    "note": "This view organises findings in the same stage order as the NETRA lifecycle.",
     "stages": [
       "AI-related incident",
       "Evidence capture",
