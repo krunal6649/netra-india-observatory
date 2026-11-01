@@ -871,11 +871,11 @@
     },
     {
       "id": "G-PSA-WP",
-      "title": "PSA white paper on techno-legal measures for AI governance",
+      "title": "PSA white paper: Strengthening AI Governance through Techno-Legal Framework",
       "issuer": "Office of the Principal Scientific Adviser",
       "type": "White paper",
       "force": "Proposal",
-      "date": "2026-01-24",
+      "date": "2026-01-23",
       "status": "Published proposal",
       "sectors": [
         "AI development",
@@ -898,11 +898,11 @@
         "6.5",
         "7.3"
       ],
-      "provisions": "National AI incident database; voluntary transparency reports, fairness and robustness tests, red-teaming; TPEC",
+      "provisions": "Section IV, National Database of 'AI Incidents'; Technology and Policy Expert Committee (TPEC); voluntary practices such as publishing transparency reports, fairness and robustness testing, security reviews and red-teaming",
       "summary": "Proposes a national database to record, classify and analyse AI safety failures, biased outcomes, security breaches and misuse, supporting an India-specific risk taxonomy.",
-      "url": "https://www.business-standard.com/india-news/govt-should-consider-national-database-for-ai-incidents-white-paper-126012400322_1.html",
-      "verified": "partial",
-      "note": "Date is the news report date. Formal title and paper text not opened. Directly overlaps this observatory’s purpose."
+      "url": "https://psa.gov.in/CMS/web/sites/default/files/publication/AI-WP_TechnoLegal.pdf",
+      "verified": "yes",
+      "note": "Checked on 2026-11-01 against the official PDF on psa.gov.in: title, 'January 2026' on the cover, Section IV 'National Database of AI Incidents' (record, classify and analyse safety failures, biased outcomes, security breaches and misuse; India-specific risk taxonomy), TPEC, and the voluntary practices listed. Date 2026-01-23 is the 'Published on' date on the PSA AI page. Earlier date (2026-01-24) was a news report date. Checked by the AI-assisted session; awaiting the maintainer's confirmation. Directly overlaps this observatory's purpose."
     },
     {
       "id": "G-AISI",
@@ -910,8 +910,8 @@
       "issuer": "MeitY / IndiaAI Mission",
       "type": "Institution",
       "force": "Institutional",
-      "date": "2025",
-      "status": "Announced; hub-and-spoke model",
+      "date": "2025-01-31",
+      "status": "Announced 31 January 2025; hub-and-spoke model",
       "sectors": [
         "AI development"
       ],
@@ -932,8 +932,8 @@
       "provisions": "Under the Safe and Trusted pillar of the IndiaAI Mission",
       "summary": "Research and standards body for AI safety using Indian datasets. The 2025 Guidelines recommend resourcing it to develop draft standards.",
       "url": "https://indiaai.gov.in/article/india-takes-the-lead-establishing-the-indiaai-safety-institute-for-responsible-ai-innovation",
-      "verified": "partial",
-      "note": "Announcement date not stated on the IndiaAI page; reported as January 2025 elsewhere."
+      "verified": "yes",
+      "note": "Checked on 2026-11-01 against the IndiaAI article at the url (dated Jan 31, 2025): the Minister of Electronics and IT announced the setting up of the IndiaAI Safety Institute under the Safe and Trusted pillar of the IndiaAI Mission, on a hub-and-spoke model. The date is the article's publication date. The Guidelines' recommendation in the summary rests on G-AIGG. Checked by the AI-assisted session; awaiting the maintainer's confirmation."
     },
     {
       "id": "G-NITI1",
@@ -972,11 +972,11 @@
     },
     {
       "id": "G-NITI2",
-      "title": "Responsible AI for All – Part 2: Operationalizing Principles",
+      "title": "Responsible AI for All – Approach Document for India, Part 2: Operationalizing Principles for Responsible AI",
       "issuer": "NITI Aayog",
       "type": "Policy approach paper",
       "force": "Soft law",
-      "date": "2021-08-12",
+      "date": "2021-08",
       "status": "Published",
       "sectors": [
         "Welfare & public services",
@@ -998,12 +998,12 @@
       "provisions": "Mechanisms to operationalise the Part 1 principles",
       "summary": "Companion paper on how government, regulators and industry could put the principles into practice.",
       "url": "https://niti.gov.in/sites/default/files/2021-08/Part2-Responsible-AI-12082021.pdf",
-      "verified": "partial",
-      "note": "Date from file name; content not read in this session."
+      "verified": "yes",
+      "note": "Checked on 2026-11-01 against the official PDF on niti.gov.in: title and 'AUGUST 2021' on the cover; the document sets out the role of Government as policy maker, regulator and procurer (section 3) and actions for the private sector and research institutions (section 4). The cover gives the month only, so the earlier day (12 August, taken from the file name) has been removed. Checked by the AI-assisted session; awaiting the maintainer's confirmation."
     },
     {
       "id": "G-RBI",
-      "title": "RBI FREE-AI Committee Report (Financial sector)",
+      "title": "RBI FREE-AI Committee Report: Framework for Responsible and Ethical Enablement of Artificial Intelligence (Financial sector)",
       "issuer": "Reserve Bank of India",
       "type": "Committee report",
       "force": "Soft law (recommendations)",
@@ -1033,8 +1033,8 @@
       "provisions": "7 sutras; 6 pillars; 26 recommendations",
       "summary": "Sector framework for AI in finance. Includes an AI sandbox, a graded liability framework, an RBI AI Standing Committee and board-approved AI policies.",
       "url": "https://www.rbi.org.in/Scripts/PublicationReportDetails.aspx?UrlPage=&ID=1306",
-      "verified": "partial",
-      "note": "Recommendations 1–14 read; 15–26 not read."
+      "verified": "yes",
+      "note": "Checked on 2026-11-01 against the full report text on the RBI publication page at the url (dated 13 Aug 2025): 7 Sutras, 6 Pillars (Infrastructure, Policy, Capacity; Governance, Protection, Assurance) and 26 Recommendations, all 26 read, including 15-26 (data lifecycle governance, AI system governance, product approval, consumer protection, cybersecurity, red teaming, business continuity, AI incident reporting, AI inventory, audit, disclosures, AI toolkit). Summary items checked: AI Innovation Sandbox (Rec. 2), graded liability framework (Rec. 8), Standing Committee (Rec. 9, para 4.4.32), board-approved AI policy (Rec. 14). Checked by the AI-assisted session; awaiting the maintainer's confirmation."
     },
     {
       "id": "G-SEBI-CP",
@@ -1070,7 +1070,7 @@
     },
     {
       "id": "G-ICMR",
-      "title": "Ethical Guidelines for Application of AI in Biomedical Research and Healthcare",
+      "title": "Ethical Guidelines for Application of Artificial Intelligence in Biomedical Research and Healthcare",
       "issuer": "ICMR (DHR-ICMR AI Cell)",
       "type": "Ethical guidelines",
       "force": "Soft law",
@@ -1097,8 +1097,8 @@
       "provisions": "Ethical principles for AI in health research and care",
       "summary": "Sector guidance for developing and using AI in health research and clinical care.",
       "url": "https://www.icmr.gov.in/icmrobject/custom_data/pdf/Ethical-guidelines/Ethical_Guidelines_AI_Healthcare_2023.pdf",
-      "verified": "partial",
-      "note": "Title, issuer and year from ICMR page; principles not read."
+      "verified": "yes",
+      "note": "Checked on 2026-11-01 against the official PDF on icmr.gov.in (78 pages): title, 'Prepared by DHR-ICMR Artificial Intelligence Cell', '© 2023, Indian Council of Medical Research'. Section 1 sets out ethical principles for AI in healthcare; Section 2 guiding principles for development, validation and deployment. Checked by the AI-assisted session; awaiting the maintainer's confirmation."
     },
     {
       "id": "G-TEC",
@@ -1187,8 +1187,8 @@
     },
     {
       "id": "G-J-ANIL",
-      "title": "Anil Kapoor personality-rights order (Delhi High Court)",
-      "issuer": "Delhi High Court (Justice Pratibha M. Singh)",
+      "title": "Anil Kapoor v. Simply Life India & Ors., CS(COMM) 652/2023 (Delhi High Court), personality-rights order",
+      "issuer": "Delhi High Court (Justice Prathiba M. Singh)",
       "type": "Judicial order (interim)",
       "force": "Judicial",
       "date": "2023-09-20",
@@ -1210,9 +1210,9 @@
       ],
       "provisions": "Personality rights; right of publicity",
       "summary": "Restrained unauthorised commercial use of the actor’s name, voice and image, including AI-based manipulation, and ordered domain blocking and link takedowns.",
-      "url": "https://www.medianama.com/2023/09/223-delhi-hc-unauthorised-use-anil-kapoor-name-voice/",
-      "verified": "partial",
-      "note": "Order itself not read."
+      "url": "https://delhihighcourt.nic.in/app/downloadOrderbByDate/CS(COMM)/652/2023/20-09-2023",
+      "verified": "yes",
+      "note": "Checked on 2026-11-01 against the digitally signed order on the Delhi High Court portal (21 pages, dated 20.09.2023, Coram Justice Prathiba M. Singh): para 48 restrains Defendants 1-16 from using the plaintiff's name, likeness, image, voice or persona 'using technological tools such as Artificial Intelligence, Machine Learning, deep fakes, face morphing'; para 49 locks and suspends three domain names; para 50 directs ISPs to take down the listed links; para 51 directs DoT/MeitY to issue blocking orders. Judge's name corrected from 'Pratibha' to the spelling in the order. Checked by the AI-assisted session; awaiting the maintainer's confirmation."
     },
     {
       "id": "G-J-ARIJIT",
@@ -1271,7 +1271,7 @@
       "summary": "Prima facie: Delhi courts have jurisdiction; storing works for training falls within fair dealing; no substantial reproduction shown in outputs. Findings are interim only.",
       "url": "https://blog.ipleaders.in/ani-v-openai-ai-training-copyright-ruling/",
       "verified": "partial",
-      "note": "Neutral citation 2026:DHC:5900 per iPleaders; judgment not read."
+      "note": "Partly checked on 2026-11-01 against two official orders on the Delhi High Court portal. Order of 24.07.2026 (downloadOrderbByDate/CS(COMM)/1028/2024/24-07-2026): Justice Amit Bansal; I.A. 45300/2024 'decided' through a separate judgment pronounced that day; suit listed on 11 September 2026. Order of 27.07.2026: corrects a citation in paragraph 80 of that judgment. Still missing for 'yes': the judgment itself (holding on jurisdiction, fair dealing and outputs) and the neutral citation 2026:DHC:5900, which rest on the iPleaders summary at the url."
     }
   ],
   "mitigations": [

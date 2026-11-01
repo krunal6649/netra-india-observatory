@@ -143,7 +143,7 @@ The one-page version is in [docs/framework.md](docs/framework.md).
 | Part | Review status |
 |---|---|
 | Incidents (22) | All reviewed by the maintainer, Krunal Maheshwari, on 2026-10-25 |
-| Laws, rules, advisories, court orders (28) | 4 verified against official texts; 24 partly verified, each saying what is missing |
+| Laws, rules, advisories, court orders (28) | 10 verified against official texts; 18 partly verified, each saying what is missing |
 | Risks (18), measures (28) | Quoted or summarised from the cited instruments, with location |
 | Directory (391 bodies) | 32 official links checked by the maintainer |
 | AI model cards (12) | Unreviewed |

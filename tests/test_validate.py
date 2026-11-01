@@ -255,7 +255,8 @@ class Tests(unittest.TestCase):
         self.assertEqual(nos("G-DPDPR"), ["G.S.R. 846(E)"])
         for iid in ("G-ITR21", "G-ITA", "G-CPA", "G-ITR26", "G-DPDP", "G-DPDPR"):
             self.assertEqual(self.ins(self.india, iid)["verified"], "partial", iid)
-        self.assertEqual(len(build.validate(self.tax, self.india, self.glob)), 24)
+        # one warning per law record that is not fully verified
+        self.assertEqual(len(build.validate(self.tax, self.india, self.glob)), sum(1 for i in self.india["instruments"] if i["verified"] != "yes"))
 
     def test_meta_updated_date(self):
         d = copy.deepcopy(self.india); d["meta"]["updated"] = "last week"
