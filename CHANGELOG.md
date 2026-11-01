@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- **`CLAUDE.md`** records the standing rules, the state after v0.3.1, open items and environment notes, so a
+  new AI-assisted session can continue without the earlier conversation. `docs/maintainers.md` now covers Version 3
+  assessments, how to review model cards, and releases with DOIs.
 - **Google Dataset Search.** The page now carries a `schema.org/Dataset` description: title, author with ORCID, DOI,
   licence, coverage (India, 2014–2026), keywords and links to the JSON files. `scripts/build.py` builds it from the data
   and `CITATION.cff` at every build, so its counts, version and DOI stay current. `tests/test_dataset_jsonld.py`
