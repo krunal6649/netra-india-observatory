@@ -598,6 +598,53 @@ def slim_global(glob):
     return keep
 
 
+JSONLD = "<!--__JSONLD__-->"
+SITE = "https://krunal6649.github.io/netra-india-observatory/"
+REPO_URL = "https://github.com/krunal6649/netra-india-observatory"
+
+
+def dataset_jsonld(india, directory, models):
+    """schema.org/Dataset description for Google Dataset Search, built from the data so counts never go stale.
+    Version, DOI and ORCID are read from CITATION.cff, the release's own citation file."""
+    cff = (ROOT / "CITATION.cff").read_text(encoding="utf-8")
+    pick = lambda key: (re.search(rf'^\s*{key}:\s*"?([^"\n]+)"?', cff, re.M) or [None, None])[1]
+    version, doi, orcid = pick("version"), pick("doi"), pick("orcid")
+    zen = json.loads((ROOT / ".zenodo.json").read_text(encoding="utf-8"))
+    inc, ins = india["incidents"], india["instruments"]
+    verified = sum(i["verified"] == "yes" for i in ins)
+    dates = sorted(str(i["date"])[:4] for i in inc if re.match(r"^\d{4}", str(i["date"])))
+    author = {"@type": "Person", "name": "Krunal Maheshwari",
+              "affiliation": {"@type": "Organization", "name": "Independent researcher; Advocate, Bar Council of Gujarat"}}
+    if orcid:
+        author["@id"] = author["sameAs"] = orcid
+    data = {
+        "@context": "https://schema.org", "@type": "Dataset",
+        "name": "NETRA India AI Risk Observatory",
+        "description": (f"Open record of AI-linked harms in India, the Indian laws that may apply and the authorities that can act. "
+                        f"Holds {len(inc)} documented Indian AI incidents traced through a 14-stage method, {len(ins)} laws, rules, "
+                        f"advisories and court orders ({verified} verified against official texts), {len(india['risks'])} risks "
+                        f"quoted from Indian government frameworks, {len(india['mitigations'])} measures, {len(india['gaps'])} "
+                        f"governance gaps, a directory of {len(directory['bodies'])} Union and state bodies and "
+                        f"{len(models['models'])} AI model cards. Research material, not legal advice."),
+        "url": SITE, "sameAs": REPO_URL, "version": version,
+        "creator": author, "license": "https://creativecommons.org/licenses/by/4.0/",
+        "isAccessibleForFree": True, "inLanguage": "en",
+        "keywords": zen.get("keywords", []),
+        "spatialCoverage": {"@type": "Place", "name": "India"},
+        "temporalCoverage": f"{dates[0]}/{dates[-1]}" if dates else None,
+        "dateModified": india["meta"].get("updated"),
+        "distribution": [{"@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": f"{SITE}data/{f}"}
+                         for f in ("india.json", "authorities.json", "models.json")],
+        "isBasedOn": "https://airisk.mit.edu/",
+    }
+    if doi:
+        data["identifier"] = f"https://doi.org/{doi}"
+        data["citation"] = f"Maheshwari, K. (2026). NETRA India AI Risk Observatory (version {version}) [Data set]. Zenodo. https://doi.org/{doi}"
+    data = {k: v for k, v in data.items() if v is not None}
+    blob = json.dumps(data, ensure_ascii=False, indent=1).replace("</", "<\\/")
+    return f'<script type="application/ld+json">\n{blob}\n</script>'
+
+
 def build(check_only=False):
     tax, india, glob, directory, models, terms = (load("taxonomy.json"), load("india.json"), load("global_evidence.json"),
                                                   load("authorities.json"), load("models.json"), load("check_terms.json"))
@@ -620,6 +667,7 @@ def build(check_only=False):
     if PLACEHOLDER not in html:
         raise SystemExit("Template placeholder missing")
     OUT.parent.mkdir(exist_ok=True)
+    html = html.replace(JSONLD, dataset_jsonld(india, directory, models))
     OUT.write_text(html.replace(PLACEHOLDER, blob), encoding="utf-8")
     print(f"Built dist/index.html ({OUT.stat().st_size // 1024} KB)")
     write_pages(OUT.read_text(encoding="utf-8"))

@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+- **Google Dataset Search.** The page now carries a `schema.org/Dataset` description: title, author with ORCID, DOI,
+  licence, coverage (India, 2014–2026), keywords and links to the JSON files. `scripts/build.py` builds it from the data
+  and `CITATION.cff` at every build, so its counts, version and DOI stay current. `tests/test_dataset_jsonld.py`
+  checks it.
+
 ## v0.3.1 — navigation fixes (2026-11-01)
 
 The first release archived on Zenodo: DOI [10.5281/zenodo.23864343](https://doi.org/10.5281/zenodo.23864343). v0.3.0 was published before the Zenodo switch was turned on and has no DOI. The DOI for all versions is 10.5281/zenodo.23864342. The maintainer's ORCID iD (0009-0009-3832-731X) has been added to `CITATION.cff` and `.zenodo.json`, so future releases carry it.
