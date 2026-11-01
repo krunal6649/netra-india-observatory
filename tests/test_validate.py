@@ -249,12 +249,14 @@ class Tests(unittest.TestCase):
         # The case was read only through a report, so it must not be marked verified
         self.assertEqual(bsa["cases"][0]["verified"], "partial")
         nos = lambda iid: [n["no"] for n in self.ins(self.india, iid)["notifications"]]
-        self.assertEqual(nos("G-ITR21"), ["G.S.R. 139(E)", "G.S.R. 794(E)"])
+        # Version 3: amendment history from the note to G.S.R. 120(E), Gazette of 10 February 2026
+        self.assertEqual(nos("G-ITR21"), ["G.S.R. 139(E)", "G.S.R. 794(E)", "G.S.R. 275(E)", "G.S.R. 775(E)"])
         self.assertEqual(nos("G-ITR26"), ["G.S.R. 120(E)"])
         self.assertEqual(nos("G-DPDP"), ["G.S.R. 843(E)"])
         self.assertEqual(nos("G-DPDPR"), ["G.S.R. 846(E)"])
-        for iid in ("G-ITR21", "G-ITA", "G-CPA", "G-ITR26"):
+        for iid in ("G-ITR21", "G-ITA", "G-CPA"):
             self.assertEqual(self.ins(self.india, iid)["verified"], "partial", iid)
+        self.assertEqual(self.ins(self.india, "G-ITR26")["verified"], "yes")
         # Version 3: the DPDP Act and its commencement were checked against the Gazettes of 11 Aug 2023 and 13 Nov 2025
         self.assertEqual(self.ins(self.india, "G-DPDP")["verified"], "yes")
         self.assertNotIn("gazette_url", self.ins(self.india, "G-DPDP"))

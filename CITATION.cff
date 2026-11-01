@@ -14,7 +14,7 @@ url: "https://krunal6649.github.io/netra-india-observatory/"
 abstract: >-
   An open record of AI harms in India, the Indian laws that may apply to them, and the authorities that can act.
   Version 0.2 holds 22 documented Indian incidents (all reviewed by the maintainer), 28 laws, rules, advisories and
-  court orders (12 fully verified against official texts, 16 partly verified), 18 risks quoted from Indian government
+  court orders (14 fully verified against official texts, 14 partly verified), 18 risks quoted from Indian government
   frameworks, 28 measures, 6 governance gaps, a directory of 391 Union and state bodies, 12 AI model cards (unreviewed)
   and a weekly, auto-selected and unreviewed update. Incidents are traced through the 14-stage NETRA method. Not legal advice.
 license: CC-BY-4.0

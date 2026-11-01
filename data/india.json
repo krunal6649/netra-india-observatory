@@ -360,7 +360,7 @@
       "summary": "Core cyber law. Computer misuse, identity theft and personation offences, privacy violation, obscene content, blocking powers and intermediary safe harbour. No AI-specific provisions.",
       "url": "https://www.indiacode.nic.in/handle/123456789/13683",
       "verified": "partial",
-      "note": "Enforcement date from India Code. Section list and s.43A end date supplied by the project owner; Gazette copy not checked. s.79A (Examiner of Electronic Evidence) added in v0.2; section contents otherwise summarised from researcher knowledge. s.43A end date now checked on 2026-11-01 against G.S.R. 843(E) (Gazette, 13 November 2025, CG-DL-E-14112025-267647): DPDP Act s.44(2), which omits s.43A, comes into force eighteen months from publication. The rest of this record (Gazette copy of the IT Act and the section list) is still to check."
+      "note": "Partly checked on 2026-11-01. The s.43A end date is backed by G.S.R. 843(E) (Gazette, 13 November 2025, CG-DL-E-14112025-267647): DPDP Act s.44(2), which omits s.43A, comes into force eighteen months from publication. A consolidated text of the Act supplied by the maintainer ('it_act_2000_updated.pdf', Act No. 21 of 2000) contains every section listed (ss.43, 43A, 66, 66C, 66D, 66E, 67, 67A, 69A, 75, 79, 79A) and gives the commencement as '17th October, 2000, vide notification No. G.S.R. 788 (E)'. That copy has no publisher, letterhead or Gazette header, so it is not relied on as an official source. Still missing for 'yes': an official copy (India Code or the issuing ministry) at a link that can be cited."
     },
     {
       "id": "G-ITR21",
@@ -391,7 +391,7 @@
       "summary": "Due-diligence duties for intermediaries, including not hosting listed unlawful or knowingly false content. Invoked by MeitY against an AI chatbot answer in Feb 2024.",
       "url": "https://www.thc.nic.in/Central%20Governmental%20Rules/IT(Intermediary%20Guidelines%20and%20Digital%20Media%20Ethics%20Code)%20Rules,%202021.pdf",
       "verified": "partial",
-      "note": "G.S.R. numbers and dates supplied by the project owner. URL is a copy in Gazette layout on a nic.in court website, found by web search; it has not been opened (host blocked from the AI-assisted session's sandbox) and is not the egazette.gov.in original. Missing for 'yes': open and confirm a Gazette copy of G.S.R. 139(E), or replace this link with the egazette.gov.in original. Amendment years 2023 and 2025 in 'status' still rest on the S.S. Rana summary.",
+      "note": "Partly checked on 2026-11-01. (1) Principal rules checked against the Gazette pages of G.S.R. 139(E), New Delhi, 25 February 2021, Part II s.3(i), F. No. 16(4)/2020-CLES, signed by Dr. Rajendra Kumar, Addl. Secy., digitally signed by the Government of India Press on 25 February 2021 (copy from mib.gov.in, supplied by the maintainer): rule 1(2) in force on publication; rule 3(1)(b), rule 3(1)(d) 'thirty-six hours', rule 3(2)(b) 'twenty-four hours'. (2) Amendment history checked against the note to G.S.R. 120(E) (Gazette, 10 February 2026): G.S.R. 794(E) of 28 October 2022, G.S.R. 275(E) of 6 April 2023 and G.S.R. 775(E) of 22 October 2025. Still missing for 'yes': the text of G.S.R. 794(E), to confirm that it replaced rule 3(1)(b), and an official link for the url (the current link is an unopened copy on thc.nic.in).",
       "notifications": [
         {
           "no": "G.S.R. 139(E)",
@@ -402,6 +402,16 @@
           "no": "G.S.R. 794(E)",
           "date": "2022-10-28",
           "what": "Amendment Rules, 2022; replaced rule 3(1)(b)"
+        },
+        {
+          "no": "G.S.R. 275(E)",
+          "date": "2023-04-06",
+          "what": "Amendment"
+        },
+        {
+          "no": "G.S.R. 775(E)",
+          "date": "2025-10-22",
+          "what": "Amendment"
         }
       ]
     },
@@ -432,11 +442,11 @@
         "4.1",
         "4.3"
       ],
-      "provisions": "Rule 2(1)(wa) 'synthetically generated information'; Rule 3(3)",
-      "summary": "Defines synthetically generated audio-visual information; text-only AI output is outside the definition. Requires user declarations, prominent labels and provenance metadata. Cuts the takedown window on a court or government order from 36 hours to 3 hours, sets a 2-hour deadline for intimate-image deepfakes, and cuts grievance resolution from 15 to 7 days.",
-      "url": "https://www.dsci.in/resource/content/it-amendment-rules-2026",
-      "verified": "partial",
-      "note": "G.S.R. number and dates supplied by the project owner; scope agrees across DSCI, Mondaq, IFF and iPleaders summaries. Missing for 'yes': the Gazette PDF of G.S.R. 120(E) has not been opened; URL is a DSCI summary. Draft Second Amendment (2026) not read.",
+      "provisions": "Rule 2(1)(wa) 'synthetically generated information'; rule 3(1)(d) (3 hours); rule 3(2)(a) (7 days) and 3(2)(b) (2 hours); new rule 3(3) labelling and metadata; new rule 4(1A) declarations",
+      "summary": "Defines 'synthetically generated information' as audio, visual or audio-visual information, so text alone is outside the definition. Intermediaries that enable such content must block unlawful synthetic content and label the rest prominently, with permanent metadata or a unique identifier where technically feasible; significant social media intermediaries must take user declarations and verify them. Cuts removal on a court order or government notice from 36 hours to 3 hours, cuts grievance resolution from 15 to 7 days, and cuts removal on complaints about intimate images or impersonation, including artificially morphed images, from 24 hours to 2 hours.",
+      "url": "https://egazette.gov.in/WriteReadData/2026/269993.pdf",
+      "verified": "yes",
+      "note": "Checked on 2026-11-01 against the Gazette of India Extraordinary, Part II, Section 3(i), No. 114, 10 February 2026 (CG-DL-E-10022026-269993), supplied by the maintainer: G.S.R. 120(E), F. No. 2(5)/2025-CyberLaws, signed by Ajit Kumar, Jt. Secy.; 'They shall come into force on the 20th day of February, 2026'; clause (wa); rule 3(1)(d) 'thirty-six hours' to 'within three hours'; rule 3(2)(a)(i) 'fifteen days' to 'seven days'; rule 3(2)(b) 'twenty-four hours' to 'two hours'; new rule 3(3); new rule 4(1A). The url follows egazette.gov.in's file pattern from the Gazette ID and was not opened from the build session. The draft Second Amendment (2026) was not read. Checked by the AI-assisted session; awaiting the maintainer's confirmation.",
       "notifications": [
         {
           "no": "G.S.R. 120(E)",
@@ -448,11 +458,11 @@
     },
     {
       "id": "G-ADV-DEC23",
-      "title": "MeitY advisory to intermediaries on prohibited content and deepfakes (23 Dec 2023)",
+      "title": "MeitY advisory to intermediaries on prohibited content and deepfakes (No. 2(4)/2023-CyberLaws-2, 26 Dec 2023)",
       "issuer": "MeitY",
       "type": "Advisory",
       "force": "Soft law (binding effect disputed)",
-      "date": "2023-12-23",
+      "date": "2023-12-26",
       "status": "Issued; not withdrawn by the March 2024 revision",
       "sectors": [
         "Internet platforms & telecom"
@@ -471,7 +481,7 @@
       "summary": "Asked platforms to communicate prohibited content clearly to users, following public concern over deepfakes.",
       "url": "https://www.jurist.org/news/2023/12/india-government-issues-advisory-to-combat-deepfakes-on-social-media-platforms/",
       "verified": "partial",
-      "note": "Date confirmed by JSA summary of the March 2024 advisory. Content per secondary reporting."
+      "note": "Date corrected on 2026-11-01 from 23 to 26 December 2023: MeitY's signed advisory of 15 March 2024 (eNo.2(4)/2023-CyberLaws-3) refers to 'advisory No. 2(4)/2023-CyberLaws - 2 dated 26th December, 2023' and lists it as its Annexure A. The earlier date came from a JSA summary. Still missing for 'yes': the advisory's own text (Annexure A was not in the copy supplied); content still rests on secondary reporting."
     },
     {
       "id": "G-ADV-MAR24",
@@ -480,7 +490,7 @@
       "type": "Advisory",
       "force": "Soft law (binding effect disputed)",
       "date": "2024-03-15",
-      "status": "Revised version replaces 1 March version",
+      "status": "Supersedes the advisory of 1 March 2024; compliance with immediate effect",
       "sectors": [
         "AI development",
         "Internet platforms & telecom",
@@ -499,10 +509,10 @@
         "4.1"
       ],
       "provisions": "Cites IT Act 2000 and IT Rules 2021",
-      "summary": "Revised version dropped prior government permission. Under-tested or unreliable models may be offered only after users are told of unreliability (e.g. consent pop-up). Synthetic content to carry labels, metadata or unique identifiers.",
+      "summary": "Platforms must ensure AI models, LLMs and generative AI on them do not permit unlawful content under rule 3(1)(b) of the IT Rules, bias or discrimination, or threats to the integrity of the electoral process. Under-tested or unreliable AI may be made available in India only after labelling its possible fallibility, for example with a consent pop-up. Synthetic content that could be used as misinformation or a deepfake should be labelled or embedded with permanent unique metadata or an identifier.",
       "url": "https://www.jsalaw.com/newsletters-and-updates/revised-meity-advisory-on-deployment-of-ai-models/",
       "verified": "partial",
-      "note": "JSA notes the legal basis is ambiguous and enforceability unclear."
+      "note": "Text checked on 2026-11-01 against a signed copy supplied by the maintainer: MeitY, Cyber Law and Data Governance Group, eNo.2(4)/2023-CyberLaws-3, dated 15-03-2024, signed by Dr. Sandip Chatterjee, Scientist G and Group Coordinator (Cyber Law); 'issued in supersession of advisory eNo.2(4)/2023-CyberLaws-3, dated 1st March, 2024'; paras 2(a)-(d), 3, 4 and 5 read. The earlier summary said the revision 'dropped prior government permission'; that compares it with the 1 March text, which has not been read, so it has been removed. Still missing for 'yes': an official MeitY link for the url (the current link is a JSA summary). The 'binding effect disputed' label rests on JSA's commentary."
     },
     {
       "id": "G-CERTIN",
@@ -511,7 +521,7 @@
       "type": "Direction",
       "force": "Hard law",
       "date": "2022-04-28",
-      "status": "In force (effective 2022-06-27)",
+      "status": "In force (effective 60 days after issue: 27 June 2022 by calculation)",
       "sectors": [
         "Internet platforms & telecom",
         "Finance & banking",
@@ -535,8 +545,8 @@
       "provisions": "Mandatory reporting of listed cyber incidents within 6 hours; ICT log retention for 180 days",
       "summary": "Applies to cyber incidents whatever their cause, including incidents involving AI systems. No AI-specific category.",
       "url": "https://www.cert-in.org.in/PDF/CERT-In_Directions_70B_28.04.2022.pdf",
-      "verified": "partial",
-      "note": "Official PDF URL from multiple secondary sources; PDF not opened."
+      "verified": "yes",
+      "note": "Checked on 2026-11-01 against the CERT-In PDF supplied by the maintainer, the same file name as the url: No. 20(3)/2022-CERT-In, MeitY / CERT-In, dated 28 April 2022, 'Directions under sub-section (6) of section 70B of the Information Technology Act, 2000'. Direction (ii): report Annexure I cyber incidents 'within 6 hours of noticing such incidents'; direction (iv): logs of all ICT systems kept 'for a rolling period of 180 days' within the Indian jurisdiction; 'This direction will become effective after 60 days from the date on which it is issued' (27 June 2022 is calculated). No AI-specific incident category in Annexure I. Checked by the AI-assisted session; awaiting the maintainer's confirmation."
     },
     {
       "id": "G-DPDP",

@@ -19,7 +19,19 @@
     commencement stages as the notification states them. An earlier one-page summary of G.S.R. 843(E), without
     Gazette header or signature, was not relied on. The record's Gazette link pointed at the Rules file and was removed.
   - G-ITA's s.43A end date is now backed by G.S.R. 843(E); the rest of that record is still to check.
-  - The other 15 stay partly verified; the log names the site that could not be read for each. The Gazette server
+  - **G-CERTIN verified** against the CERT-In Directions of 28 April 2022 (6 hours, 180 days, effective after 60 days).
+  - **G-ITR26 verified** against the Gazette of 10 February 2026 (G.S.R. 120(E), in force 20 February 2026). The summary
+    was corrected: the 2-hour deadline covers complaints about intimate images or impersonation, including artificially
+    morphed images, not only deepfakes.
+  - **Partly verified, with checked text but no official link yet:**
+    - **G-ITR21:** principal rules checked against the Gazette of 25 February 2021; the full amendment history (2022,
+      2023, 2025) is taken from the note to G.S.R. 120(E).
+    - **G-ADV-MAR24:** checked against MeitY's signed advisory of 15 March 2024. The unread comparison with the
+      1 March version was removed from the summary.
+    - **G-ITA:** sections and commencement checked against a consolidated copy that has no publisher, so it was not
+      relied on.
+  - **G-ADV-DEC23:** date corrected from 23 to 26 December 2023, from the official reference in the March 2024 advisory.
+  - The other partly verified records stay as they were; the log names the site that could not be read for each. The Gazette server
     does not send its full certificate chain, and certificate checks were not switched off.
 - **Model cards:**
   - The 8 tests that cite MITRE ATLAS were checked against ATLAS data release 2026.10, and the 7 that cite METR against
@@ -27,7 +39,7 @@
   - Flags: the AML.CS0056 date precision, the cited ATLAS release, and release-date sources that could not be opened
     (MOD-10's looks unrelated).
   - All 12 cards stay unreviewed.
-- Counts now read **12 verified, 16 partly verified** in the README, `CITATION.cff` and `.zenodo.json`. The test of
+- Counts now read **14 verified, 14 partly verified** in the README, `CITATION.cff` and `.zenodo.json`. The test of
   build warnings now reads the count from the data.
 - Removed mentions of a retired project from the stage note, the global-evidence note and the archived v0.1 page.
 - Fixed `tests/test_release.py`, which had been failing on `main` since the README redesign: it now reads the figures
