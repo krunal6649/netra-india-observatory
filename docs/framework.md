@@ -130,6 +130,6 @@ All data is open JSON in `data/`.
 
 - To apply NETRA to another country or sector, keep sections 1 to 4 and replace the instruments, authorities and
   states with your own. The build script checks the same rules.
-- Cite the framework as: Maheshwari, K. (2026). *NETRA India AI Risk Observatory* (version 0.3.1) [Data set].
-  https://github.com/krunal6649/netra-india-observatory
+- Cite the framework as: Maheshwari, K. (2026). *NETRA India AI Risk Observatory* (version 0.3.1) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.23864343.
+  Repository: https://github.com/krunal6649/netra-india-observatory
 - Corrections and suggestions are welcome through the repository's issue forms.

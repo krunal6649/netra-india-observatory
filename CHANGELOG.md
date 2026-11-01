@@ -2,7 +2,7 @@
 
 ## v0.3.1 — navigation fixes (2026-11-01)
 
-The first release archived on Zenodo; v0.3.0 was published before the Zenodo switch was turned on.
+The first release archived on Zenodo: DOI [10.5281/zenodo.23864343](https://doi.org/10.5281/zenodo.23864343). v0.3.0 was published before the Zenodo switch was turned on and has no DOI.
 
 - **Back and Forward work**, on desktop and phones. Each page, case, dossier tab and step of "Whom to approach" is now
   an entry in the browser's history. The address still shows only the page (`#analysis-dossiers`), so shared links
