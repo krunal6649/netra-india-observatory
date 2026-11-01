@@ -32,6 +32,13 @@ class Tests(unittest.TestCase):
     def test_frozen_pilot_tag_is_not_reused(self):
         self.assertNotEqual(cff("version"), "0.1.0-pilot")
 
+    def test_dataset_version_matches_the_release(self):
+        india = json.loads((ROOT / "data" / "india.json").read_text(encoding="utf-8"))
+        cff = (ROOT / "CITATION.cff").read_text(encoding="utf-8")
+        self.assertIn(f'version: "{india["meta"]["version"]}"', cff)
+        self.assertEqual(india["meta"]["version"], self.zen["version"])
+        self.assertNotIn("Version 0.2 holds", cff)
+
     def test_readme_figures_match_the_data(self):
         """The README's 'At a glance' row and 'Status and trust' table must agree with the data."""
         i, n = self.india, lambda k: len(self.india[k])

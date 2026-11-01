@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- **Integrity fixes after an outside review (2026-11-02).**
+  - `data/india.json` `meta.version` now reads 0.3.1, and the `CITATION.cff` abstract says Version 0.3; both had been
+    left at older values. A new test keeps `meta.version`, `CITATION.cff` and `.zenodo.json` in step.
+  - In `docs/verification-v3.md`, the early DPDP paragraph now says the records were verified later that day.
+  - In this changelog, the first AI-role counts (12/7/3) are now marked as superseded by the maintainer's check
+    (10/9/3).
 - **`CLAUDE.md`** records the standing rules, the state after v0.3.1, open items and environment notes, so a
   new AI-assisted session can continue without the earlier conversation. `docs/maintainers.md` now covers Version 3
   assessments, how to review model cards, and releases with DOIs.
@@ -122,7 +128,8 @@ and the 22 assessments (all unreviewed).
     - 12 confirmed (01, 02, 04, 05, 06, 07, 08, 15, 17, 18, 20, 22);
     - 7 suspected (03, 09, 10, 12, 13, 16, 19);
     - 3 not established (11, 14, 21).
-    All are unreviewed.
+    All are unreviewed. These were the first counts. After the maintainer's check below they are 10 confirmed,
+    9 suspected and 3 not established.
   - Scale is filled only where a cited source gives a figure: cases 03, 11, 12, 14, 19 and 21. View counts, song counts
     and the POSHAN "nearly half" figure are not used as scale, and each such case says why.
   - No crosswalk tags are set yet.

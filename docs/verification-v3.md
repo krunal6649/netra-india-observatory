@@ -27,7 +27,11 @@ Sabha**, not the Act as passed, the commencement notification G.S.R. 843(E) or t
 - **What it confirms:** the clauses G-DPDP cites. Clause 1(2) leaves commencement to notification, with different
   dates allowed for different provisions; clause 8(5)–(6) covers security safeguards and breach intimation; clause
   44(2)(a) omits IT Act s.43A. This is recorded in G-DPDP's note.
-- **What it does not confirm:** the enacted text, or any commencement date. Both DPDP records stay partly verified.
+- **What it does not confirm:** the enacted text, or any commencement date. At this point both DPDP records stayed
+  partly verified.
+- **Later on 2026-11-01:** the maintainer supplied the Gazette copies of the Act as passed (11 August 2023) and of the
+  Rules and G.S.R. 843(E) (13 November 2025). Both records were checked against them and verified; see the table
+  above and section 1b.
 
 **To finish, either:**
 - download the PDF in your own browser and add it to this chat or the repository; or
