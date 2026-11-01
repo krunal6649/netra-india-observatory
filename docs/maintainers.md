@@ -25,6 +25,47 @@ Edit `data/india.json` (incidents, instruments, risks, mitigations, gaps) or `da
 
 `data/taxonomy.json` holds MIT’s taxonomies (keep the attribution line). `data/global_evidence.json` is the earlier METR pilot.
 
+## Version 3 assessments
+
+Each incident has an optional `assessment` block with its own `review` status. A missing field means "not yet
+assessed". The fields are explained on the site under About › Crosswalk. The build refuses:
+
+- an AI role that is not confirmed, suspected, not established or not AI, or that has no `basis`;
+- a failure-mode ID that is not an item of its edition (`data/owasp_llm_top10.json`, `data/atlas_techniques.json`),
+  or whose name does not match;
+- a failure mode or a scale whose `source` is not one of the incident's own sources;
+- a NIST crosswalk label other than GOVERN, MAP, MEASURE or MANAGE, or a crosswalk entry without a `why`;
+- an assessment marked reviewed without `reviewed_by` and a date, and any unknown field.
+
+Rules used so far: "confirmed" needs an official body (police, a court, a government fact-check, the operator) to say
+AI was used. Failure-mode tags go only on confirmed cases, where a cited source describes the facts, and each tag
+says it is NETRA's reading.
+
+## Reviewing model cards and assessments
+
+Open each card under Analysis › Models and evaluations and check five things:
+
+1. Is each law labelled possible, interpretive question or gap, with nothing claiming a law applies?
+2. Are the authorities the right ones to approach in India?
+3. Does the overclaim check say that a test abroad is not harm in India?
+4. Is anything important missing from "not known"?
+5. Is the release date blank or wrong?
+
+Send notes such as `MOD-01 ok` or `MOD-03 fix: …` to a Claude Code session on this repository. Cards marked "ok" are
+recorded as reviewed by you, with the date. Fixed cards stay unreviewed until you pass them.
+
+## Releases and DOIs
+
+Zenodo archives every GitHub release automatically: publish a release on `main` with a new tag (for example
+`v0.3.2`). Before releasing, raise the version in `CITATION.cff`, `.zenodo.json`, the README and
+`docs/framework.md`. Current DOIs:
+
+- dataset v0.3.1: 10.5281/zenodo.23864343;
+- all versions: 10.5281/zenodo.23864342;
+- working paper: 10.5281/zenodo.23865186.
+
+`CLAUDE.md` holds the standing rules and open items for AI-assisted sessions.
+
 ## Add a report and the NETRA check
 
 On the public site, **Add a report** reads the file in the visitor's browser and runs the **NETRA check**: plain keyword
