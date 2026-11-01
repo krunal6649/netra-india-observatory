@@ -56,7 +56,7 @@
 - Fixed `tests/test_release.py`, which had been failing on `main` since the README redesign: it now reads the figures
   from the new "At a glance" row and "Status and trust" table.
 
-### Step 2: additive fields (trial on three cases; paused for the owner's review)
+### Step 2: additive fields
 
 - New optional `assessment` block on incidents. If it is absent, every field counts as "not yet assessed", so the other
   19 cases are unchanged. The block has its own `review` status, which starts as `unreviewed`. The incident's own review
@@ -87,6 +87,24 @@
   - a reviewed assessment without a reviewer and date.
 - The dossier overview shows a folded "Version 3 assessment" panel on the three trial cases only.
 - Tests: `tests/test_v3_fields.py` (13 tests) and three smoke checks.
+
+- After the owner reviewed the trial (2026-11-01):
+  - IN-INC-14 (WotNot) stays in NETRA. Its AI role changed from "not AI" to "not established": the case is AI-linked
+    through the chatbot product, but the AI's part in the harm is not shown.
+  - The assessment was extended to all 22 cases, from each record's own text and cited sources:
+    - 12 confirmed (01, 02, 04, 05, 06, 07, 08, 15, 17, 18, 20, 22);
+    - 7 suspected (03, 09, 10, 12, 13, 16, 19);
+    - 3 not established (11, 14, 21).
+    All are unreviewed.
+  - Scale is filled only where a cited source gives a figure: cases 03, 11, 12, 14, 19 and 21. View counts, song counts
+    and the POSHAN "nearly half" figure are not used as scale, and each such case says why.
+  - No failure-mode or crosswalk tags are set yet.
+- New page: About › Crosswalk. It explains:
+  - the assessment fields;
+  - NETRA's NIST AI RMF mapping, which is the same one the case report uses;
+  - both OWASP editions side by side;
+  - the MITRE ATLAS release;
+  - why ISO/IEC 42001 clauses are not mapped (the text is not freely available).
 
 ### Deferred to Version 4
 - Compare tab, replay standard, test-coverage gap view, and finance and elections sector work.

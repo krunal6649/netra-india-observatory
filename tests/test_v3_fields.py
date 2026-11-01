@@ -9,7 +9,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "scripts"))
 import build  # noqa: E402
 
-TRIAL = {"IN-INC-20": "confirmed", "IN-INC-09": "suspected", "IN-INC-14": "not AI"}
+TRIAL = {"IN-INC-20": "confirmed", "IN-INC-09": "suspected", "IN-INC-14": "not established"}
 
 
 class V3Fields(unittest.TestCase):
@@ -24,13 +24,19 @@ class V3Fields(unittest.TestCase):
             build.validate(self.tax, d, self.glob)
         self.assertIn(text, str(c.exception))
 
-    def test_only_the_three_trial_cases_carry_an_assessment(self):
+    def test_every_case_carries_an_assessment(self):
         have = {i["id"]: i["assessment"]["ai_role"]["value"] for i in self.india["incidents"] if "assessment" in i}
-        self.assertEqual(have, TRIAL)
+        self.assertEqual(len(have), len(self.india["incidents"]))
+        for iid, role in TRIAL.items():
+            self.assertEqual(have[iid], role)
 
-    def test_trial_assessments_are_unreviewed_and_tag_nothing_yet(self):
-        for iid in TRIAL:
-            a = self.inc(self.india, iid)["assessment"]
+    def test_wotnot_kept_in_scope_as_not_established(self):
+        basis = self.inc(self.india, "IN-INC-14")["assessment"]["ai_role"]["basis"]
+        self.assertIn("Kept in scope by the maintainer on 2026-11-01", basis)
+
+    def test_assessments_are_unreviewed_and_tag_nothing_yet(self):
+        for i in self.india["incidents"]:
+            a = i["assessment"]
             self.assertEqual(a["review"], "unreviewed")
             self.assertEqual(a["failure_modes"], build.NOT_ASSESSED)
             self.assertEqual(a["crosswalk"], build.NOT_ASSESSED)

@@ -1749,7 +1749,38 @@
       },
       "review": "human_reviewed",
       "reviewed_by": "Krunal Maheshwari (project owner)",
-      "reviewed_on": "2026-10-25"
+      "reviewed_on": "2026-10-25",
+      "assessment": {
+        "review": "unreviewed",
+        "assessed_on": "2026-11-01",
+        "ai_role": {
+          "value": "confirmed",
+          "basis": "The News Minute reports that Delhi Police arrested a man who made the deepfake, which put the actor's face on another woman's video."
+        },
+        "ai_system": {
+          "name": "Face-swap deepfake tool (not named)",
+          "developer": "not established",
+          "deployer": "Individual creator (arrested, January 2024)",
+          "version": "not yet assessed"
+        },
+        "impact": {
+          "who": "Two named women whose face and body were used; wider public concern",
+          "harm_types": [
+            "Reputational harm",
+            "Privacy / dignity",
+            "Psychological harm"
+          ],
+          "scale": "not stated in sources"
+        },
+        "evidence_provenance": {
+          "produced_by": "Delhi Police (arrest and statements)",
+          "reported_by": "The News Minute",
+          "establishes": "A face-swapped video spread online and Delhi Police arrested a man they said made it.",
+          "does_not_establish": "Guilt (an arrest is not a conviction), which tool was used, or how platforms responded."
+        },
+        "failure_modes": "not yet assessed",
+        "crosswalk": "not yet assessed"
+      }
     },
     {
       "id": "IN-INC-02",
@@ -1843,7 +1874,38 @@
           "checked_by": "Krunal Maheshwari (project owner)",
           "checked_on": "2026-10-25"
         }
-      ]
+      ],
+      "assessment": {
+        "review": "unreviewed",
+        "assessed_on": "2026-11-01",
+        "ai_role": {
+          "value": "confirmed",
+          "basis": "The Delhi High Court's interim order (opened and checked) deals with AI-manipulated images, voice and GIFs of the actor, on a prima facie view."
+        },
+        "ai_system": {
+          "name": "AI image, voice and GIF tools (not named)",
+          "developer": "not established",
+          "deployer": "Unknown persons, websites and sellers named as defendants",
+          "version": "not yet assessed"
+        },
+        "impact": {
+          "who": "The actor",
+          "harm_types": [
+            "Reputational harm",
+            "Financial loss",
+            "Intellectual property"
+          ],
+          "scale": "not stated in sources"
+        },
+        "evidence_provenance": {
+          "produced_by": "Delhi High Court (interim order in CS(COMM) 652/2023)",
+          "reported_by": "MediaNama",
+          "establishes": "The court granted interim protection against unauthorised use of the actor's name, voice and likeness, including through AI tools.",
+          "does_not_establish": "A final finding of infringement, how many defendants there were, or whether platforms complied."
+        },
+        "failure_modes": "not yet assessed",
+        "crosswalk": "not yet assessed"
+      }
     },
     {
       "id": "IN-INC-03",
@@ -1922,7 +1984,40 @@
       },
       "review": "human_reviewed",
       "reviewed_by": "Krunal Maheshwari (project owner)",
-      "reviewed_on": "2026-10-25"
+      "reviewed_on": "2026-10-25",
+      "assessment": {
+        "review": "unreviewed",
+        "assessed_on": "2026-11-01",
+        "ai_role": {
+          "value": "suspected",
+          "basis": "The record's overclaim check: police had not confirmed deepfake use at the time of the source."
+        },
+        "ai_system": {
+          "name": "Suspected face and voice deepfake on a WhatsApp video call",
+          "developer": "not established",
+          "deployer": "Unknown fraudsters",
+          "version": "not yet assessed"
+        },
+        "impact": {
+          "who": "One retired government official",
+          "harm_types": [
+            "Financial loss",
+            "Psychological harm"
+          ],
+          "scale": {
+            "value": "₹40,000 lost by one person",
+            "source": "https://thesouthfirst.com/news/ai-based-deepfake-fraud-case-kerala-cyber-police-expand-probe-to-goa-seek-assistance-from-whatsapp"
+          }
+        },
+        "evidence_provenance": {
+          "produced_by": "Kerala cyber police (complaint and investigation)",
+          "reported_by": "South First",
+          "establishes": "A man paid ₹40,000 after a video call that seemed to show a former colleague.",
+          "does_not_establish": "That the video call used AI, or who was responsible."
+        },
+        "failure_modes": "not yet assessed",
+        "crosswalk": "not yet assessed"
+      }
     },
     {
       "id": "IN-INC-04",
@@ -2003,7 +2098,37 @@
       },
       "review": "human_reviewed",
       "reviewed_by": "Krunal Maheshwari (project owner)",
-      "reviewed_on": "2026-10-25"
+      "reviewed_on": "2026-10-25",
+      "assessment": {
+        "review": "unreviewed",
+        "assessed_on": "2026-11-01",
+        "ai_role": {
+          "value": "confirmed",
+          "basis": "The Week reports an FIR over a morphed video that used the cricketer's face and voice to promote a gaming app."
+        },
+        "ai_system": {
+          "name": "Face and voice deepfake (tool not named)",
+          "developer": "not established",
+          "deployer": "An online gaming app or the page promoting it",
+          "version": "not yet assessed"
+        },
+        "impact": {
+          "who": "The cricketer; consumers targeted by the advertisement",
+          "harm_types": [
+            "Reputational harm",
+            "Financial loss"
+          ],
+          "scale": "not stated in sources"
+        },
+        "evidence_provenance": {
+          "produced_by": "A police FIR filed over the video (police unit not named in the source)",
+          "reported_by": "The Week",
+          "establishes": "A faked promotional video of the cricketer was circulated and a police complaint was registered.",
+          "does_not_establish": "The app's name, the sections invoked, or that any consumer lost money."
+        },
+        "failure_modes": "not yet assessed",
+        "crosswalk": "not yet assessed"
+      }
     },
     {
       "id": "IN-INC-05",
@@ -2081,7 +2206,37 @@
       },
       "review": "human_reviewed",
       "reviewed_by": "Krunal Maheshwari (project owner)",
-      "reviewed_on": "2026-10-25"
+      "reviewed_on": "2026-10-25",
+      "assessment": {
+        "review": "unreviewed",
+        "assessed_on": "2026-11-01",
+        "ai_role": {
+          "value": "confirmed",
+          "basis": "The harm is the chatbot's own answer. MediaNama reports the Gemini answer and the Minister of State's statement on it."
+        },
+        "ai_system": {
+          "name": "Google Gemini",
+          "developer": "Google",
+          "deployer": "Google",
+          "version": "not yet assessed"
+        },
+        "impact": {
+          "who": "Contested; a public figure",
+          "harm_types": [
+            "Reputational harm",
+            "Democratic / electoral integrity"
+          ],
+          "scale": "not stated in sources"
+        },
+        "evidence_provenance": {
+          "produced_by": "Gemini's own answer",
+          "reported_by": "MediaNama",
+          "establishes": "Gemini gave the answer, and the Minister of State for IT said it violated IT Rule 3(1)(b).",
+          "does_not_establish": "That the answer was false or unlawful, or that a formal notice was issued."
+        },
+        "failure_modes": "not yet assessed",
+        "crosswalk": "not yet assessed"
+      }
     },
     {
       "id": "IN-INC-06",
@@ -2163,7 +2318,37 @@
       },
       "review": "human_reviewed",
       "reviewed_by": "Krunal Maheshwari (project owner)",
-      "reviewed_on": "2026-10-25"
+      "reviewed_on": "2026-10-25",
+      "assessment": {
+        "review": "unreviewed",
+        "assessed_on": "2026-11-01",
+        "ai_role": {
+          "value": "confirmed",
+          "basis": "The News Minute reports an FIR by the actor over a deepfake video with a cloned voice over real footage."
+        },
+        "ai_system": {
+          "name": "AI voice cloning over real footage (tool not named)",
+          "developer": "not established",
+          "deployer": "Social media handles",
+          "version": "not yet assessed"
+        },
+        "impact": {
+          "who": "Two named actors; voters",
+          "harm_types": [
+            "Democratic / electoral integrity",
+            "Reputational harm"
+          ],
+          "scale": "not stated in sources"
+        },
+        "evidence_provenance": {
+          "produced_by": "A police FIR filed on the actor's complaint (police unit not named in the source)",
+          "reported_by": "The News Minute",
+          "establishes": "Videos with cloned voices of the actors circulated during the 2024 campaign, and an FIR was filed.",
+          "does_not_establish": "Who made the videos, any link to a party, or how far they spread."
+        },
+        "failure_modes": "not yet assessed",
+        "crosswalk": "not yet assessed"
+      }
     },
     {
       "id": "IN-INC-07",
@@ -2244,7 +2429,39 @@
       },
       "review": "human_reviewed",
       "reviewed_by": "Krunal Maheshwari (project owner)",
-      "reviewed_on": "2026-10-25"
+      "reviewed_on": "2026-10-25",
+      "assessment": {
+        "review": "unreviewed",
+        "assessed_on": "2026-11-01",
+        "ai_role": {
+          "value": "confirmed",
+          "basis": "SpicyIP reports that the defendant platforms offered AI voice models of the singer, which the Bombay High Court restrained at the ad-interim stage."
+        },
+        "ai_system": {
+          "name": "RVC voice-cloning platforms and AI music generators",
+          "developer": "Defendant platforms",
+          "deployer": "Defendant platforms and a YouTube channel",
+          "version": "not yet assessed"
+        },
+        "impact": {
+          "who": "The singer; the wider creative sector",
+          "harm_types": [
+            "Intellectual property",
+            "Financial loss",
+            "Reputational harm"
+          ],
+          "scale": "not stated in sources",
+          "note": "The figure of 456 songs is alleged use of the singer's work, not a measure of harm, so it is not used as scale."
+        },
+        "evidence_provenance": {
+          "produced_by": "Bombay High Court (ad-interim order, as reported)",
+          "reported_by": "SpicyIP",
+          "establishes": "Platforms offered AI voice models of the singer, and the court granted ad-interim relief.",
+          "does_not_establish": "A final finding, the defendants' locations, or the figure of 456 songs beyond the allegation."
+        },
+        "failure_modes": "not yet assessed",
+        "crosswalk": "not yet assessed"
+      }
     },
     {
       "id": "IN-INC-08",
@@ -2336,7 +2553,37 @@
           "checked_by": "Krunal Maheshwari (project owner)",
           "checked_on": "2026-10-25"
         }
-      ]
+      ],
+      "assessment": {
+        "review": "unreviewed",
+        "assessed_on": "2026-11-01",
+        "ai_role": {
+          "value": "confirmed",
+          "basis": "The suit is about how ChatGPT is trained and served. AI's role is the subject of the claim; whether it infringes is undecided."
+        },
+        "ai_system": {
+          "name": "ChatGPT / OpenAI GPT models",
+          "developer": "OpenAI",
+          "deployer": "OpenAI",
+          "version": "not yet assessed"
+        },
+        "impact": {
+          "who": "The news agency (publisher); possibly the wider news sector",
+          "harm_types": [
+            "Intellectual property",
+            "Financial loss"
+          ],
+          "scale": "not stated in sources"
+        },
+        "evidence_provenance": {
+          "produced_by": "Delhi High Court (orders in CS(COMM) 1028/2024) and the parties' pleadings",
+          "reported_by": "iPleaders",
+          "establishes": "ANI sued OpenAI over the use of its content, and the court has passed interim orders.",
+          "does_not_establish": "Infringement, liability, or memorisation of ANI's content; the suit is not decided."
+        },
+        "failure_modes": "not yet assessed",
+        "crosswalk": "not yet assessed"
+      }
     },
     {
       "id": "IN-INC-09",
@@ -2518,7 +2765,36 @@
       },
       "review": "human_reviewed",
       "reviewed_by": "Krunal Maheshwari (project owner)",
-      "reviewed_on": "2026-10-25"
+      "reviewed_on": "2026-10-25",
+      "assessment": {
+        "review": "unreviewed",
+        "assessed_on": "2026-11-01",
+        "ai_role": {
+          "value": "suspected",
+          "basis": "The record's overclaim check: treat it as a suspected AI hallucination until the order is read; the source summary does not confirm AI use."
+        },
+        "ai_system": {
+          "name": "Suspected generative AI legal research (tool not named)",
+          "developer": "not established",
+          "deployer": "The petitioner's legal team",
+          "version": "not yet assessed"
+        },
+        "impact": {
+          "who": "The parties; court time",
+          "harm_types": [
+            "Justice system integrity"
+          ],
+          "scale": "not stated in sources"
+        },
+        "evidence_provenance": {
+          "produced_by": "Delhi High Court proceedings (order not read)",
+          "reported_by": "Verdictum",
+          "establishes": "A petition relied on precedents and quotations that do not exist, and it was withdrawn.",
+          "does_not_establish": "That AI was used, which tool, or by whom."
+        },
+        "failure_modes": "not yet assessed",
+        "crosswalk": "not yet assessed"
+      }
     },
     {
       "id": "IN-INC-11",
@@ -2597,7 +2873,40 @@
       },
       "review": "human_reviewed",
       "reviewed_by": "Krunal Maheshwari (project owner)",
-      "reviewed_on": "2026-10-25"
+      "reviewed_on": "2026-10-25",
+      "assessment": {
+        "review": "unreviewed",
+        "assessed_on": "2026-11-01",
+        "ai_role": {
+          "value": "not established",
+          "basis": "The record's overclaim check: this is an algorithmic eligibility system, and whether it uses machine learning or rule-based matching is not known."
+        },
+        "ai_system": {
+          "name": "Samagra Vedika (data-linking eligibility system)",
+          "developer": "Posidex Technologies",
+          "deployer": "Government of Telangana",
+          "version": "not yet assessed"
+        },
+        "impact": {
+          "who": "Families denied food security cards in Telangana",
+          "harm_types": [
+            "Access to essential services",
+            "Rights & civil liberties"
+          ],
+          "scale": {
+            "value": "Over 1.86 million cards cancelled and 142,086 applications rejected, 2014–2019 (not all wrongly; at least 7.5% of re-verified cards wrongly rejected, on partial data)",
+            "source": "https://www.aljazeera.com/economy/2024/1/24/how-an-algorithm-denied-food-to-thousands-of-poor-in-indias-telangana"
+          }
+        },
+        "evidence_provenance": {
+          "produced_by": "Government of Telangana data, obtained and analysed by journalists",
+          "reported_by": "Al Jazeera",
+          "establishes": "Large numbers of cards were cancelled, and reported errors include families wrongly tagged as car owners.",
+          "does_not_establish": "That the system is AI, the overall error rate, or the final re-verification results."
+        },
+        "failure_modes": "not yet assessed",
+        "crosswalk": "not yet assessed"
+      }
     },
     {
       "id": "IN-INC-12",
@@ -2676,7 +2985,39 @@
       },
       "review": "human_reviewed",
       "reviewed_by": "Krunal Maheshwari (project owner)",
-      "reviewed_on": "2026-10-25"
+      "reviewed_on": "2026-10-25",
+      "assessment": {
+        "review": "unreviewed",
+        "assessed_on": "2026-11-01",
+        "ai_role": {
+          "value": "suspected",
+          "basis": "The record's overclaim check: the report calls it a deepfake, but technical confirmation is not in the source."
+        },
+        "ai_system": {
+          "name": "Deepfake video of the Finance Minister (tool not known)",
+          "developer": "not established",
+          "deployer": "Unknown fraudsters",
+          "version": "not yet assessed"
+        },
+        "impact": {
+          "who": "One 66-year-old man",
+          "harm_types": [
+            "Financial loss"
+          ],
+          "scale": {
+            "value": "₹6.88 lakh lost by one person",
+            "source": "https://newsable.asianetnews.com/karnataka-news/bengaluru-cyber-fraud-senior-citizen-loses-6-88-lakh-deepfake-video-investment-scam-articleshow-0fby4ed"
+          }
+        },
+        "evidence_provenance": {
+          "produced_by": "The victim's police complaint, as reported",
+          "reported_by": "Asianet Newsable",
+          "establishes": "A man paid ₹6.88 lakh after a fake video and follow-up messages promoted an investment scheme.",
+          "does_not_establish": "That the video was AI-generated rather than edited footage, or the year of the transfers."
+        },
+        "failure_modes": "not yet assessed",
+        "crosswalk": "not yet assessed"
+      }
     },
     {
       "id": "IN-INC-13",
@@ -2760,7 +3101,37 @@
       "review": "human_reviewed",
       "batch": "B2",
       "reviewed_by": "Krunal Maheshwari (project owner)",
-      "reviewed_on": "2026-10-25"
+      "reviewed_on": "2026-10-25",
+      "assessment": {
+        "review": "unreviewed",
+        "assessed_on": "2026-11-01",
+        "ai_role": {
+          "value": "suspected",
+          "basis": "Police use of facial recognition in Hyderabad is the subject of the petition, but whether the petitioner's photo was run through it is not known."
+        },
+        "ai_system": {
+          "name": "Facial recognition used by Hyderabad police (system not specified)",
+          "developer": "not established",
+          "deployer": "Hyderabad City Police",
+          "version": "not yet assessed"
+        },
+        "impact": {
+          "who": "The petitioner; potentially anyone photographed by police in Hyderabad",
+          "harm_types": [
+            "Privacy / dignity",
+            "Rights & civil liberties"
+          ],
+          "scale": "not stated in sources"
+        },
+        "evidence_provenance": {
+          "produced_by": "The petitioner's writ petition and the Telangana High Court's notice",
+          "reported_by": "Internet Freedom Foundation and LiveLaw",
+          "establishes": "A challenge to police use of facial recognition was filed, and the High Court issued notice in January 2022.",
+          "does_not_establish": "That the use is unlawful, that the petitioner's photo was processed, or which system is used."
+        },
+        "failure_modes": "not yet assessed",
+        "crosswalk": "not yet assessed"
+      }
     },
     {
       "id": "IN-INC-14",
@@ -2852,8 +3223,8 @@
         "review": "unreviewed",
         "assessed_on": "2026-11-01",
         "ai_role": {
-          "value": "not AI",
-          "basis": "Per the record's own overclaim check: the files were exposed by a cloud storage setting at an AI chatbot company, not by the AI system. Kept for the owner to decide whether the case stays in scope."
+          "value": "not established",
+          "basis": "The record's own overclaim check: the files were exposed by a cloud storage setting at an AI chatbot company, not by the AI system. The case is AI-linked because the files were uploaded through AI chatbots; the AI's part in causing the harm is not shown. Kept in scope by the maintainer on 2026-11-01."
         },
         "ai_system": {
           "name": "WotNot AI chatbot platform",
@@ -2966,7 +3337,36 @@
       "review": "human_reviewed",
       "batch": "B2",
       "reviewed_by": "Krunal Maheshwari (project owner)",
-      "reviewed_on": "2026-10-25"
+      "reviewed_on": "2026-10-25",
+      "assessment": {
+        "review": "unreviewed",
+        "assessed_on": "2026-11-01",
+        "ai_role": {
+          "value": "confirmed",
+          "basis": "Inc42 and Deccan Chronicle report that CERT-In's advisory says AI agents under evaluation went beyond their scope and reached live systems. This rests on press reports; the advisory text has not been read."
+        },
+        "ai_system": {
+          "name": "AI models and agents under evaluation (not named)",
+          "developer": "Not named by CERT-In",
+          "deployer": "AI model providers (testing); separately, attackers using open-source agent tools",
+          "version": "not yet assessed"
+        },
+        "impact": {
+          "who": "Indian organisations (number, names and sectors not disclosed)",
+          "harm_types": [
+            "Privacy / dignity"
+          ],
+          "scale": "not stated in sources"
+        },
+        "evidence_provenance": {
+          "produced_by": "CERT-In (advisory), based on disclosures by AI model providers",
+          "reported_by": "Inc42 and Deccan Chronicle",
+          "establishes": "CERT-In issued a critical advisory about AI agents that reached live systems using exposed credentials.",
+          "does_not_establish": "Which providers, models or organisations were involved, how much data was read or kept, or the advisory's own wording."
+        },
+        "failure_modes": "not yet assessed",
+        "crosswalk": "not yet assessed"
+      }
     },
     {
       "id": "IN-INC-16",
@@ -3056,7 +3456,38 @@
       "review": "human_reviewed",
       "batch": "B2",
       "reviewed_by": "Krunal Maheshwari (project owner)",
-      "reviewed_on": "2026-10-25"
+      "reviewed_on": "2026-10-25",
+      "assessment": {
+        "review": "unreviewed",
+        "assessed_on": "2026-11-01",
+        "ai_role": {
+          "value": "suspected",
+          "basis": "Police said AI tools were used, as reported in the press. The record's overclaim check notes there is no forensic report."
+        },
+        "ai_system": {
+          "name": "Image and video generation tools (not named)",
+          "developer": "not established",
+          "deployer": "The accused individual (as reported)",
+          "version": "not yet assessed"
+        },
+        "impact": {
+          "who": "One woman and her family",
+          "harm_types": [
+            "Privacy / dignity",
+            "Reputational harm",
+            "Psychological harm"
+          ],
+          "scale": "not stated in sources"
+        },
+        "evidence_provenance": {
+          "produced_by": "Police statements, as reported in the press",
+          "reported_by": "The Week and Fact Crescendo",
+          "establishes": "Police said a man made explicit images of a woman and ran a fake profile with them, and he was arrested in July 2025.",
+          "does_not_establish": "Which tools were used, guilt, or the charges and outcome. Reports differ on the complainant and the place of arrest."
+        },
+        "failure_modes": "not yet assessed",
+        "crosswalk": "not yet assessed"
+      }
     },
     {
       "id": "IN-INC-17",
@@ -3150,7 +3581,39 @@
       "review": "human_reviewed",
       "batch": "B2",
       "reviewed_by": "Krunal Maheshwari (project owner)",
-      "reviewed_on": "2026-10-25"
+      "reviewed_on": "2026-10-25",
+      "assessment": {
+        "review": "unreviewed",
+        "assessed_on": "2026-11-01",
+        "ai_role": {
+          "value": "confirmed",
+          "basis": "Anganwadi workers and researchers (IFF, South First, Pulitzer Center) report that the face-matching step itself fails and blocks rations. How many denials it causes is not established."
+        },
+        "ai_system": {
+          "name": "Face authentication in the POSHAN Tracker app",
+          "developer": "Ministry of Women and Child Development (app); face detection reportedly uses Google ML Kit components",
+          "deployer": "Anganwadi centres under the Ministry of Women and Child Development",
+          "version": "not yet assessed"
+        },
+        "impact": {
+          "who": "Pregnant women, nursing mothers and young children",
+          "harm_types": [
+            "Access to essential services",
+            "Privacy / dignity",
+            "Rights & civil liberties"
+          ],
+          "scale": "not stated in sources",
+          "note": "The 'nearly half' figure comes from a journalistic investigation and covers all reasons for missed rations, so it is not used as scale."
+        },
+        "evidence_provenance": {
+          "produced_by": "Anganwadi workers' accounts and a journalistic investigation citing government data",
+          "reported_by": "Internet Freedom Foundation, South First and Pulitzer Center",
+          "establishes": "Face matching is required for take-home rations from 1 July 2025, and it often fails to match women with their older Aadhaar photos.",
+          "does_not_establish": "An official failure rate, the share of denials caused by the face scan, or whether a manual fallback is used."
+        },
+        "failure_modes": "not yet assessed",
+        "crosswalk": "not yet assessed"
+      }
     },
     {
       "id": "IN-INC-18",
@@ -3236,7 +3699,37 @@
       "review": "human_reviewed",
       "batch": "B2",
       "reviewed_by": "Krunal Maheshwari (project owner)",
-      "reviewed_on": "2026-10-25"
+      "reviewed_on": "2026-10-25",
+      "assessment": {
+        "review": "unreviewed",
+        "assessed_on": "2026-11-01",
+        "ai_role": {
+          "value": "confirmed",
+          "basis": "Deccan Herald reports the traffic chief saying AI-generated fines are revalidated by hand, and both sources report wrong fines from misread plates and seat belts."
+        },
+        "ai_system": {
+          "name": "AI-based traffic enforcement cameras with number-plate recognition",
+          "developer": "not established",
+          "deployer": "Bengaluru Traffic Police",
+          "version": "not yet assessed"
+        },
+        "impact": {
+          "who": "Motorists in Bengaluru (number not stated)",
+          "harm_types": [
+            "Financial loss",
+            "Rights & civil liberties"
+          ],
+          "scale": "not stated in sources"
+        },
+        "evidence_provenance": {
+          "produced_by": "Motorists' complaints and Bengaluru Traffic Police statements",
+          "reported_by": "Deccan Herald and South First",
+          "establishes": "Individual wrong fines were reported, and the police said AI fines are now checked by hand.",
+          "does_not_establish": "The overall error rate, the basis of the 97% accuracy claim, or the supplier. Some complaints involve forged plates, which is not an AI failure."
+        },
+        "failure_modes": "not yet assessed",
+        "crosswalk": "not yet assessed"
+      }
     },
     {
       "id": "IN-INC-19",
@@ -3337,7 +3830,40 @@
       "batch": "B2",
       "notes": "Details added on 2026-10-25 from secondary sources supplied by the project owner (ITATonline, Times of India, TaxHeal, Indic Pacific). Bench name 'Amit S. Jamsandekar' now agrees across several reports. The Bombay High Court order itself has not been read.",
       "reviewed_by": "Krunal Maheshwari (project owner)",
-      "reviewed_on": "2026-10-25"
+      "reviewed_on": "2026-10-25",
+      "assessment": {
+        "review": "unreviewed",
+        "assessed_on": "2026-11-01",
+        "ai_role": {
+          "value": "suspected",
+          "basis": "Reports describe the citations as AI-generated, but differ on whether the court itself said so; the order has not been read."
+        },
+        "ai_system": {
+          "name": "Unidentified tool reported as AI (not confirmed by the court)",
+          "developer": "not established",
+          "deployer": "Income-tax assessing officer (National Faceless Assessment Centre)",
+          "version": "not yet assessed"
+        },
+        "impact": {
+          "who": "One company (KMG Wires Pvt Ltd)",
+          "harm_types": [
+            "Financial loss",
+            "Justice system integrity"
+          ],
+          "scale": {
+            "value": "Assessed income raised from ₹3.09 crore to ₹27.91 crore (order later quashed)",
+            "source": "https://www.livelawbiz.com/high-court/bombay-high-court/dont-blindly-trust-ai-bombay-hc-quashes-income-tax-assessment-passed-on-unverified-ai-generated-case-laws-307866"
+          }
+        },
+        "evidence_provenance": {
+          "produced_by": "Bombay High Court (judgment, as reported)",
+          "reported_by": "LiveLaw, LawTrend, ITATonline, Times of India and TaxHeal",
+          "establishes": "The High Court quashed an assessment that relied on non-existent decisions, and warned against relying on AI output without checking it.",
+          "does_not_establish": "That AI produced the citations, or which tool did."
+        },
+        "failure_modes": "not yet assessed",
+        "crosswalk": "not yet assessed"
+      }
     },
     {
       "id": "IN-INC-20",
@@ -3541,7 +4067,41 @@
       "review": "human_reviewed",
       "batch": "B2",
       "reviewed_by": "Krunal Maheshwari (project owner)",
-      "reviewed_on": "2026-10-25"
+      "reviewed_on": "2026-10-25",
+      "assessment": {
+        "review": "unreviewed",
+        "assessed_on": "2026-11-01",
+        "ai_role": {
+          "value": "not established",
+          "basis": "The record's overclaim check: the report blames bad data or 'wrong algorithmic predictions', and whether any automated inference is involved is not known."
+        },
+        "ai_system": {
+          "name": "Parivar Pehchan Patra (family ID database)",
+          "developer": "Government of Haryana",
+          "deployer": "Government of Haryana",
+          "version": "not yet assessed"
+        },
+        "impact": {
+          "who": "Elderly people and widows in Haryana",
+          "harm_types": [
+            "Access to essential services",
+            "Rights & civil liberties",
+            "Financial loss"
+          ],
+          "scale": {
+            "value": "Pensions of 277,115 elderly people and 52,479 widows stopped over three years because records marked them dead; the report says several thousand were alive",
+            "source": "https://www.aljazeera.com/economy/2024/1/25/in-india-an-algorithm-declares-them-dead-they-have-to-prove-theyre"
+          }
+        },
+        "evidence_provenance": {
+          "produced_by": "Government of Haryana data, as cited by journalists",
+          "reported_by": "Al Jazeera and The Tribune",
+          "establishes": "Pensions were stopped for people the records marked dead, including some who were alive.",
+          "does_not_establish": "That the system is AI, or whether the errors came from input data or automated inference."
+        },
+        "failure_modes": "not yet assessed",
+        "crosswalk": "not yet assessed"
+      }
     },
     {
       "id": "IN-INC-22",
@@ -3628,7 +4188,37 @@
       "review": "human_reviewed",
       "batch": "B2",
       "reviewed_by": "Krunal Maheshwari (project owner)",
-      "reviewed_on": "2026-10-25"
+      "reviewed_on": "2026-10-25",
+      "assessment": {
+        "review": "unreviewed",
+        "assessed_on": "2026-11-01",
+        "ai_role": {
+          "value": "confirmed",
+          "basis": "PIB Fact Check called the video an AI-generated deepfake, and Factly reached the same finding."
+        },
+        "ai_system": {
+          "name": "AI-generated or AI-altered video of a real speech",
+          "developer": "not established",
+          "deployer": "Social media accounts the government describes as Pakistani propaganda handles",
+          "version": "not yet assessed"
+        },
+        "impact": {
+          "who": "The public; the Army Chief",
+          "harm_types": [
+            "Democratic / electoral integrity",
+            "Reputational harm"
+          ],
+          "scale": "not stated in sources"
+        },
+        "evidence_provenance": {
+          "produced_by": "PIB Fact Check and Factly",
+          "reported_by": "News On AIR and Factly",
+          "establishes": "A genuine speech was altered to add a false admission, and it was officially identified as a deepfake.",
+          "does_not_establish": "Who made it, or how far it spread. Attribution to a foreign state is the government's and is not independently confirmed."
+        },
+        "failure_modes": "not yet assessed",
+        "crosswalk": "not yet assessed"
+      }
     }
   ],
   "gaps": [

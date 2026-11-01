@@ -31,9 +31,9 @@ Every incident is traced through the same stages, recorded in `netra.stages` on 
 Each stage carries one status: `done`, `partial`, `draft`, `secondary` (from secondary sources only), `open`,
 `contested`, `possible` or `n/a`. A record cannot mark S11 `done` unless it names its reviewer and review date.
 
-Version 3 (in trial) adds an optional `assessment` block to an incident: AI role, AI system, impact, evidence
+Version 3 adds an `assessment` block to an incident: AI role, AI system, impact, evidence
 provenance, failure modes and a standards crosswalk. If a field is absent, it counts as "not yet assessed". The block
-has its own review status, and a failure-mode tag needs one of the incident's own sources to support it.
+has its own review status, and a failure-mode tag needs one of the incident's own sources to support it. The Crosswalk page under About explains each field and how it maps to NIST AI RMF, OWASP, MITRE ATLAS and ISO/IEC 42001.
 
 Every dossier also ends with two fields:
 

@@ -90,6 +90,7 @@ class Tests(unittest.TestCase):
         new["id"] = "IN-INC-99"; new["title"] = new["title"].replace("Kozhikode man", "Kozhikode resident")
         new["sources"] = [{"title": "x", "url": "https://example.org/other-report", "date": "2026"}]
         new["distinct_from"] = ["IN-INC-03"]
+        new.pop("assessment", None)  # a new case starts without one; the copied one cites IN-INC-03's sources
         d["incidents"].append(new)
         build.validate(self.tax, d, self.glob)
 

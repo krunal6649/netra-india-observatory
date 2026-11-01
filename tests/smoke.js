@@ -145,13 +145,14 @@ check(dz.indexOf('<th>Case</th>') > dz.indexOf('Compare all cases by stage') && 
 check(['overview', 'laws', 'report', 'evidence'].every(k => dz.includes(`data-dtab="${k}"`)) && (dz.match(/role="tabpanel"[^>]*hidden/g) || []).length === 3, 'dossier has four tabs with one panel showing');
 check(dz.includes('id="dossier-pick"') && dz.includes('NETRA stages:') && dz.includes('class="strip"'), 'dossier has a case picker and a one-line stage strip');
 check(!dz.includes('class="verify">to verify') && dz.includes('not yet checked'), 'authorities carry a quiet "not yet checked" tag, not red "to verify" on every line');
-// Version 3 trial: only the three trial cases show the assessment block, and it says it is unreviewed
+// Version 3: every case shows its assessment, marked unreviewed; the Crosswalk page lists both OWASP editions
 N.state.inc = 'IN-INC-14'; const v3 = N.page('analysis-dossiers');
-check(v3.includes('Version 3 assessment') && v3.includes('trial, not yet reviewed') && v3.includes('Not AI') && v3.includes('About 346,000 files'), 'trial case shows its Version 3 assessment, marked unreviewed');
+check(v3.includes('Version 3 assessment') && v3.includes('not yet reviewed') && v3.includes('Not established') && v3.includes('About 346,000 files'), 'a case shows its Version 3 assessment, marked unreviewed');
 N.state.inc = 'IN-INC-20';
 check(N.page('analysis-dossiers').includes('not yet assessed'), 'unassessed fields say "not yet assessed"');
+const cw = N.page('about-crosswalk');
+check(cw.includes('LLM08:2025') && cw.includes('LLM08:2026') && cw.includes('Hidden Context Exposure') && cw.includes('2026.10') && cw.includes(`${D.incidents.length} of ${D.incidents.length} cases assessed`), 'Crosswalk page lists both OWASP editions, the ATLAS release and the assessment count');
 N.state.inc = 'IN-INC-03';
-check(!N.page('analysis-dossiers').includes('Version 3 assessment'), 'cases without an assessment look exactly as before');
 N.state.dtab = 'laws';
 check(/id="dtab-laws"(?![^>]*hidden)/.test(N.page('analysis-dossiers')), 'clicking a tab shows that panel');
 N.state.dtab = 'overview';

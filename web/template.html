@@ -429,6 +429,7 @@ const PAGES = {
   'about-method':{tab:'about', label:'Method', sub:1},
   'about-credits':{tab:'about', label:'Sources and credits', sub:1},
   'about-verification':{tab:'about', label:'Verification status', sub:1},
+  'about-crosswalk':{tab:'about', label:'Crosswalk', sub:1},
   'about-survey':{tab:'about', label:'Expert survey', sub:1}
 };
 /* v0.1 tab links, kept working so shared posts do not break */
@@ -906,8 +907,8 @@ function assessBlock(i){
   const role = a.ai_role && a.ai_role!==NA ? a.ai_role : null;
   const scale = imp.scale && typeof imp.scale==='object' ? `${esc(imp.scale.value)} · <a href="${esc(imp.scale.source)}" target="_blank" rel="noopener">source</a>` : v(imp.scale);
   const tags = (list, f) => Array.isArray(list) ? (list.length ? list.map(f).join(' ') : '<span class="muted">none supported by a cited source</span>') : v(list);
-  return `<details class="callout" style="margin-top:16px"><summary><b>Version 3 assessment</b> <span class="vtag pending">${esc(a.review==='unreviewed'?'trial, not yet reviewed':a.review)}</span></summary>
-   <p class="note" style="margin-top:6px">New fields being trialled on three cases. They add detail and do not change the record above.</p>
+  return `<details class="callout" style="margin-top:16px"><summary><b>Version 3 assessment</b> <span class="vtag pending">${esc(a.review==='unreviewed'?'not yet reviewed':a.review)}</span></summary>
+   <p class="note" style="margin-top:6px">New in Version 3. These fields add detail and do not change the record above. Field meanings are on the <button type="button" class="linkbtn" data-go="about-crosswalk">Crosswalk</button> page.</p>
    <dl class="kv"><dt>AI’s role</dt><dd>${role?`<b>${esc(ROLE_WORD[role.value]||role.value)}</b> · ${esc(role.basis)}`:v(NA)}</dd>
     <dt>AI system</dt><dd>${v(sys.name)} · developer ${v(sys.developer)} · deployer ${v(sys.deployer)} · version ${v(sys.version)}</dd>
     <dt>Who was harmed</dt><dd>${v(imp.who)}${imp.harm_types?` · ${imp.harm_types.map(esc).join(', ')}`:''}</dd>
@@ -1461,6 +1462,38 @@ V['about-credits'] = () => {
    <li>Epoch AI benchmark data (CC BY 4.0)</li><li>AVID vulnerability database (MIT licence)</li><li>OWASP Top 10 for LLM Applications (CC BY-SA 4.0, kept in its own file)</li><li>Developer system cards and UK AI Security Institute reports (cite and summarise only)</li></ul></section>
   <section class="sheet">${H3('This project','Data, code and how to cite it.')}<p style="margin-top:6px">Maintained by ${esc(D.meta.maintainer)}${D.meta.contact_email?` (<a href="mailto:${esc(D.meta.contact_email)}">${esc(D.meta.contact_email)}</a>)`:''}. Data CC BY 4.0, code MIT licence. <a href="${REPO}" target="_blank" rel="noopener">Code and data on GitHub</a> · cite using CITATION.cff in the repository.</p></section>
   </div>`;
+};
+
+V['about-crosswalk'] = () => {
+  const R = PAYLOAD.refs, ed = R.owasp.editions, e25 = Object.entries(ed['OWASP-LLM-2025'].items), e26 = Object.entries(ed['OWASP-LLM-2026'].items);
+  const withA = D.incidents.filter(i=>i.assessment), tagged = k => withA.filter(i=>Array.isArray(i.assessment[k]) && i.assessment[k].length).length;
+  const roles = ['confirmed','suspected','not established','not AI'].map(r=>[r, withA.filter(i=>i.assessment.ai_role && i.assessment.ai_role.value===r).length]);
+  return head('Crosswalk','How NETRA’s fields line up with other frameworks','These are labels to help readers who know other frameworks. They are NETRA’s own mapping, not a certification, and NETRA is not affiliated with any of these bodies.','about','var(--d7)') +
+  `<section class="sheet">${H3('Version 3 assessment fields','Optional fields on each case. Each one is “not yet assessed” until filled, and they have their own review status.')}
+   <div class="tablewrap" style="margin-top:10px"><table><thead><tr><th>Field</th><th>What it records</th><th>Rule</th></tr></thead><tbody>
+    <tr><td>AI’s role</td><td>Confirmed, suspected, not established or not AI</td><td>Must say which source supports it</td></tr>
+    <tr><td>AI system</td><td>Name, developer, deployer, version</td><td>“Not established” when the sources do not say</td></tr>
+    <tr><td>Impact</td><td>Who was harmed, harm types, scale</td><td>Scale only when one of the case’s own sources gives it</td></tr>
+    <tr><td>Evidence provenance</td><td>Who produced the evidence, who reported it, what it establishes and what it does not</td><td>Keeps a report apart from a finding</td></tr>
+    <tr><td>Failure mode</td><td>An OWASP LLM Top 10 item (with its edition year) or a MITRE ATLAS technique</td><td>Only where one of the case’s own sources supports it</td></tr>
+    <tr><td>Standards crosswalk</td><td>A NIST AI RMF function, an ISO/IEC 42001 label or an OWASP label</td><td>Must say why; it is NETRA’s mapping, not a finding</td></tr></tbody></table></div>
+   <p class="note" style="margin-top:10px">Now: ${withA.length} of ${D.incidents.length} cases assessed (${roles.map(([r,n])=>`${n} ${r}`).join(', ')}); ${tagged('failure_modes')} with a failure-mode tag; ${tagged('crosswalk')} with a crosswalk tag. All assessments are unreviewed until the maintainer reviews them.</p></section>
+  <section class="sheet" style="margin-top:14px">${H3('NIST AI Risk Management Framework','The four functions of NIST AI 100-1 (2023), paraphrased. The case report uses the same mapping.')}
+   <div class="tablewrap" style="margin-top:10px"><table><thead><tr><th>Function</th><th>Where it shows in a NETRA record</th></tr></thead><tbody>
+    <tr><td>Govern</td><td>Developer and deployer on record; the soft-law and policy instruments linked to the case</td></tr>
+    <tr><td>Map</td><td>Sector, who was affected, and where (stage 8, location and jurisdiction)</td></tr>
+    <tr><td>Measure</td><td>Severity, harm verification (stage 4), evidence capture (stage 5) and AI’s role (stage 7)</td></tr>
+    <tr><td>Manage</td><td>The response so far and mitigation (stage 12)</td></tr></tbody></table></div>
+   <p class="note" style="margin-top:8px"><a href="${NIST_RMF}" target="_blank" rel="noopener">NIST AI RMF</a>. NETRA’s 14 stages are unchanged; this table only points to where each function’s questions are answered.</p></section>
+  <section class="sheet" style="margin-top:14px">${H3('OWASP Top 10 for LLM Applications','Both editions, because the numbering changed. A tag always carries its year.')}
+   <div class="tablewrap" style="margin-top:10px"><table><thead><tr><th>2025 edition</th><th>2026 edition</th></tr></thead><tbody>
+    ${e25.map(([k,v],n)=>`<tr><td><span class="id">${esc(k)}</span> ${esc(v)}</td><td><span class="id">${esc(e26[n][0])}</span> ${esc(e26[n][1])}</td></tr>`).join('')}</tbody></table></div>
+   <p class="note" style="margin-top:8px">Names only, © OWASP, <a href="${esc(ed['OWASP-LLM-2025'].official)}" target="_blank" rel="noopener">2025</a> and <a href="${esc(ed['OWASP-LLM-2026'].official)}" target="_blank" rel="noopener">2026</a> editions. CC BY-SA 4.0; the list is kept in its own data file, and share-alike applies to it.</p></section>
+  <div class="grid g-2" style="margin-top:14px">
+   <section class="sheet">${H3('MITRE ATLAS','Adversary techniques against AI systems.')}<p style="margin-top:6px">${R.atlas.count} technique IDs from ATLAS release ${esc(R.atlas.release)}. A case is tagged only where one of its own sources supports the technique.</p>
+    <p class="note" style="margin-top:6px">Apache License 2.0, © MITRE. Names only; descriptions are not copied. <a href="https://atlas.mitre.org/" target="_blank" rel="noopener">atlas.mitre.org</a></p></section>
+   <section class="sheet">${H3('ISO/IEC 42001','The AI management system standard (2023).')}<p style="margin-top:6px">The standard’s text is sold by ISO and is not freely available, so NETRA does not map its clauses. An ISO/IEC 42001 tag is a plain label with a reason.</p>
+    <p class="note" style="margin-top:6px">NETRA records cases. It does not certify that anyone complies with any standard.</p></section></div>`;
 };
 
 V['about-verification'] = () => {

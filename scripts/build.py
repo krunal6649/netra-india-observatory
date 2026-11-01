@@ -608,7 +608,10 @@ def build(check_only=False):
         for w in warnings:
             print("  ! " + w)
         return
-    payload = {"tax": tax, "india": india, "global": slim_global(glob), "directory": directory, "models": models, "check": terms, "weekly": weekly, "warnings": warnings,
+    atlas = load("atlas_techniques.json")
+    refs = {"owasp": load("owasp_llm_top10.json"),
+            "atlas": {**atlas["meta"], "count": len(atlas["techniques"])}}
+    payload = {"refs": refs, "tax": tax, "india": india, "global": slim_global(glob), "directory": directory, "models": models, "check": terms, "weekly": weekly, "warnings": warnings,
                "built": date.today().isoformat()}
     blob = json.dumps(payload, ensure_ascii=False).replace("</", "<\\/")
     html = TEMPLATE.read_text(encoding="utf-8")
