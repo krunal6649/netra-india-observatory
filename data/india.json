@@ -1778,7 +1778,15 @@
           "establishes": "A face-swapped video spread online and Delhi Police arrested a man they said made it.",
           "does_not_establish": "Guilt (an arrest is not a conviction), which tool was used, or how platforms responded."
         },
-        "failure_modes": "not yet assessed",
+        "failure_modes": [
+          {
+            "framework": "MITRE-ATLAS",
+            "id": "AML.T0088",
+            "name": "Generate Deepfakes",
+            "source": "https://thenewsminute.com/andhra-pradesh/andhra-techie-made-rashmika-mandannas-deepfake-for-followers-on-fan-page-say-cops",
+            "basis": "NETRA's reading of facts the source describes: police say AI was used to put the actor's face onto another woman's video. The source does not use MITRE ATLAS terms. Tagging approved by the maintainer, Krunal Maheshwari, on 2026-11-01."
+          }
+        ],
         "crosswalk": "not yet assessed"
       }
     },
@@ -1903,7 +1911,15 @@
           "establishes": "The court granted interim protection against unauthorised use of the actor's name, voice and likeness, including through AI tools.",
           "does_not_establish": "A final finding of infringement, how many defendants there were, or whether platforms complied."
         },
-        "failure_modes": "not yet assessed",
+        "failure_modes": [
+          {
+            "framework": "MITRE-ATLAS",
+            "id": "AML.T0088",
+            "name": "Generate Deepfakes",
+            "source": "https://delhihighcourt.nic.in/app/downloadOrderbByDate/CS(COMM)/652/2023/20-09-2023",
+            "basis": "NETRA's reading of facts the source describes: the court order covers AI-manipulated images, voice and GIFs of the actor. The source does not use MITRE ATLAS terms. Tagging approved by the maintainer, Krunal Maheshwari, on 2026-11-01."
+          }
+        ],
         "crosswalk": "not yet assessed"
       }
     },
@@ -2126,7 +2142,15 @@
           "establishes": "A faked promotional video of the cricketer was circulated and a police complaint was registered.",
           "does_not_establish": "The app's name, the sections invoked, or that any consumer lost money."
         },
-        "failure_modes": "not yet assessed",
+        "failure_modes": [
+          {
+            "framework": "MITRE-ATLAS",
+            "id": "AML.T0088",
+            "name": "Generate Deepfakes",
+            "source": "https://www.theweek.in/news/india/2024/01/18/sachin-tendulkar-deepfake-row-fir-lodged-against-gaming-app-fake-promotion-video.amp.html",
+            "basis": "NETRA's reading of facts the source describes: the complaint recorded in the FIR says deepfake technology mimicked the cricketer's voice and gestures. The source does not use MITRE ATLAS terms. Tagging approved by the maintainer, Krunal Maheshwari, on 2026-11-01."
+          }
+        ],
         "crosswalk": "not yet assessed"
       }
     },
@@ -2459,7 +2483,15 @@
           "establishes": "Platforms offered AI voice models of the singer, and the court granted ad-interim relief.",
           "does_not_establish": "A final finding, the defendants' locations, or the figure of 456 songs beyond the allegation."
         },
-        "failure_modes": "not yet assessed",
+        "failure_modes": [
+          {
+            "framework": "MITRE-ATLAS",
+            "id": "AML.T0088",
+            "name": "Generate Deepfakes",
+            "source": "https://spicyip.com/2024/08/synthetic-singers-and-voice-theft-bomhc-protects-arijit-singhs-personality-rights-part-i.html",
+            "basis": "NETRA's reading of facts the source describes: platforms offered AI voice models that clone the singer's voice. The source does not use MITRE ATLAS terms. Tagging approved by the maintainer, Krunal Maheshwari, on 2026-11-01."
+          }
+        ],
         "crosswalk": "not yet assessed"
       }
     },
@@ -3500,7 +3532,15 @@
           "establishes": "Police said a man made explicit images of a woman and ran a fake profile with them, and he was arrested in July 2025.",
           "does_not_establish": "Which tools were used, guilt, or the charges and outcome. Reports differ on the complainant and the place of arrest."
         },
-        "failure_modes": "not yet assessed",
+        "failure_modes": [
+          {
+            "framework": "MITRE-ATLAS",
+            "id": "AML.T0088",
+            "name": "Generate Deepfakes",
+            "source": "https://www.theweek.in/news/india/2025/07/15/babydoll-archi-how-a-jilted-lover-morphed-his-ex-girlfriend-s-pics-videos-using-ai-and-fooled-the-world.html",
+            "basis": "NETRA's reading of facts the source describes: police say AI was used to fabricate explicit images and videos from real photos of the woman. The source does not use MITRE ATLAS terms. Tagging approved by the maintainer, Krunal Maheshwari, on 2026-11-01."
+          }
+        ],
         "crosswalk": "not yet assessed"
       }
     },
@@ -4231,7 +4271,15 @@
           "establishes": "A genuine speech was altered to add a false admission, and it was officially identified as a deepfake.",
           "does_not_establish": "Who made it, or how far it spread. Attribution to a foreign state is the government's and is not independently confirmed."
         },
-        "failure_modes": "not yet assessed",
+        "failure_modes": [
+          {
+            "framework": "MITRE-ATLAS",
+            "id": "AML.T0088",
+            "name": "Generate Deepfakes",
+            "source": "https://www.newsonair.gov.in/pib-fact-check-ai-generated-video-falsely-quotes-general-upendra-dwivedi",
+            "basis": "NETRA's reading of facts the source describes: PIB Fact Check called the altered video of the Army Chief an AI-generated deepfake. The source does not use MITRE ATLAS terms. Tagging approved by the maintainer, Krunal Maheshwari, on 2026-11-01."
+          }
+        ],
         "crosswalk": "not yet assessed"
       }
     }

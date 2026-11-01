@@ -103,6 +103,8 @@
   the framework's terms, and only where AI's role is confirmed (2026-11-01).
   - IN-INC-15 is tagged Excessive Agency (LLM06:2025 and LLM03:2026). The tag says it is NETRA's reading of the source.
   - The validator now also checks that a tag's name matches its edition.
+  - Six confirmed deepfake cases (01, 02, 04, 07, 16, 22) are tagged with MITRE ATLAS AML.T0088 Generate Deepfakes, each
+    citing the source that describes the facts. Approved by the maintainer.
 - The maintainer checked seven AI-role calls against their sources (2026-11-01). The test: "confirmed" needs an official
   body (police, a court, a government fact-check, or the system's operator) to say AI was used.
   - Kept confirmed: 01, 04 and 15. Case 04 rests on the complaint recorded in the FIR. For case 15, the CERT-In

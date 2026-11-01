@@ -153,7 +153,7 @@ check(N.page('analysis-dossiers').includes('LLM06:2025 Excessive Agency') && N.p
 N.state.inc = 'IN-INC-20';
 check(N.page('analysis-dossiers').includes('not yet assessed'), 'unassessed fields say "not yet assessed"');
 const cw = N.page('about-crosswalk');
-check(cw.includes('LLM08:2025') && cw.includes('LLM08:2026') && cw.includes('Hidden Context Exposure') && cw.includes('2026.10') && cw.includes(`${D.incidents.length} of ${D.incidents.length} cases assessed`) && cw.includes('1 with a failure-mode tag'), 'Crosswalk page lists both OWASP editions, the ATLAS release and the assessment count');
+check(cw.includes('LLM08:2025') && cw.includes('LLM08:2026') && cw.includes('Hidden Context Exposure') && cw.includes('2026.10') && cw.includes(`${D.incidents.length} of ${D.incidents.length} cases assessed`) && cw.includes('7 with a failure-mode tag'), 'Crosswalk page lists both OWASP editions, the ATLAS release and the assessment count');
 N.state.inc = 'IN-INC-03';
 N.state.dtab = 'laws';
 check(/id="dtab-laws"(?![^>]*hidden)/.test(N.page('analysis-dossiers')), 'clicking a tab shows that panel');

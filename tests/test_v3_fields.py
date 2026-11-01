@@ -9,6 +9,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "scripts"))
 import build  # noqa: E402
 
+DEEPFAKE_TAGGED = {"IN-INC-01", "IN-INC-02", "IN-INC-04", "IN-INC-07", "IN-INC-16", "IN-INC-22"}
 TRIAL = {"IN-INC-20": "confirmed", "IN-INC-09": "suspected", "IN-INC-14": "not established"}
 
 
@@ -44,10 +45,15 @@ class V3Fields(unittest.TestCase):
         basis = self.inc(self.india, "IN-INC-14")["assessment"]["ai_role"]["basis"]
         self.assertIn("Kept in scope by the maintainer on 2026-11-01", basis)
 
-    def test_assessments_are_unreviewed_and_only_inc15_is_tagged(self):
+    def test_assessments_are_unreviewed_and_only_approved_tags_are_set(self):
         for i in self.india["incidents"]:
             a = i["assessment"]
             self.assertEqual(a["review"], "unreviewed")
+            if i["id"] in DEEPFAKE_TAGGED:
+                self.assertEqual([(t["id"], t["name"]) for t in a["failure_modes"]], [("AML.T0088", "Generate Deepfakes")])
+                self.assertEqual(a["ai_role"]["value"], "confirmed")
+                self.assertIn("does not use MITRE ATLAS terms", a["failure_modes"][0]["basis"])
+                continue
             if i["id"] == "IN-INC-15":
                 self.assertEqual([t["id"] for t in a["failure_modes"]], ["LLM06:2025", "LLM03:2026"])
                 self.assertTrue(all("does not use OWASP terms" in t["basis"] for t in a["failure_modes"]))
