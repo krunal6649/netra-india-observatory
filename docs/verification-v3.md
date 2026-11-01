@@ -95,7 +95,7 @@ cited source. Review status stays **unreviewed** on all 12.
 | MOD-10 M365 Copilot | AML.CS0026 Financial Transaction Hijacking with M365 Copilot as an Insider | Supported: email with retrieval content and a prompt injection returns the attacker's bank details as a trusted reference. 8 August 2024. |
 | MOD-10 Copilot Studio | AML.CS0037 Data Exfiltration via Agent Tools in Copilot Studio | Supported: prompt injections by email led the agent to exfiltrate customer data. Note: the agent was built by Zenity for the exercise, modelled on a real one; ATLAS records that Microsoft fixed the issue. June 2025. |
 | MOD-11 Claude computer use | AML.CS0046 Data Destruction via Indirect Prompt Injection Targeting Claude Computer-Use | Supported: injection in a PDF bypassed guardrails and ran a command to delete the file system. 24 October 2024. |
-| MOD-11 Claude computer use | AML.CS0056 Model Distillation Campaigns Targeting Anthropic Claude | Supported: about 24,000 accounts and 16 million queries, attributed by Anthropic to three labs; Anthropic warned distilled models could lack safeguards. **Flag:** ATLAS gives this date at year granularity (2026); the card shows 2026-02-23. Suggest showing "2026" unless Anthropic's own report gives the day. |
+| MOD-11 Claude computer use | AML.CS0056 Model Distillation Campaigns Targeting Anthropic Claude | Supported: about 24,000 accounts and 16 million queries, attributed by Anthropic to three labs; Anthropic warned distilled models could lack safeguards. ATLAS gives this date at year granularity; **the card now shows 2026**, as the maintainer decided on 2026-11-01. |
 
 The cards cite MITRE ATLAS v5.6.0; the text checked here is release 2026.10, and it supports every summary. Suggest
 updating the cited release when the cards are reviewed.
@@ -119,7 +119,7 @@ None of the release-date sources could be opened.
 | MOD-03 Claude Opus 4.6 | 2026-02-05 | llmreference.com comparison page | Third-party comparison site, not the developer; not opened |
 | MOD-06 DeepSeek-R1 | 2025-01-20 | llmreference.com comparison page | Third-party comparison site, not the developer; not opened |
 | MOD-09 Gemini | 2024-02-08 | Wikipedia | Secondary source; not opened |
-| MOD-10 M365 Copilot | 2023-11-01 | Substack post "ChatGPT one year later" | **Likely unsupported:** the title is about ChatGPT, not Microsoft 365 Copilot. Replace with Microsoft's own announcement, or mark the date unverified. |
+| MOD-10 M365 Copilot | was 2023-11-01 | Substack post "ChatGPT one year later" | **Marked unverified** by the maintainer on 2026-11-01: the source looks unrelated. The date and source were removed; a Microsoft announcement is needed. |
 | MOD-02, 04, 05, 07, 11, 12 | not recorded | none | Developer announcement needed if a date is to be shown |
 
 ### Other flags
@@ -137,5 +137,4 @@ None of the release-date sources could be opened.
    build session (India Code, MeitY, SEBI, ECI, CERT-In, Consumer Affairs, TEC, DPIIT, Bombay High Court). The fastest
    route is to download those official PDFs in your own browser and add them here; the table names what each one is.
 3. **Confirm or reject the 6 upgrades** made in this pass (G-PSA-WP, G-AISI, G-NITI2, G-RBI, G-ICMR, G-J-ANIL).
-4. **Model cards:** decide on the AML.CS0056 date and the MOD-10 release source, and confirm if any card should move
-   from unreviewed after your own reading.
+4. **Model cards:** both flags decided on 2026-11-01. Confirm if any card should move from unreviewed after your own reading.

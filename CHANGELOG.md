@@ -43,8 +43,10 @@
 - **Model cards:**
   - The 8 tests that cite MITRE ATLAS were checked against ATLAS data release 2026.10, and the 7 that cite METR against
     METR's own report pages. All 15 summaries are supported.
-  - Flags: the AML.CS0056 date precision, the cited ATLAS release, and release-date sources that could not be opened
-    (MOD-10's looks unrelated).
+  - The AML.CS0056 test date on MOD-11 now shows 2026, the precision ATLAS gives (maintainer's decision).
+  - MOD-10's release date was removed and marked unverified: its source, a Substack post about ChatGPT, looks unrelated
+    (maintainer's decision).
+  - Still flagged: the cited ATLAS release, and release-date sources that could not be opened.
   - All 12 cards stay unreviewed.
 - **All 13 upgrades confirmed by the maintainer, Krunal Maheshwari, on 2026-11-01.** Each record's note says so, and
   its `checked` date is 2026-11-01.
