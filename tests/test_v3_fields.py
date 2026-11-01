@@ -30,6 +30,16 @@ class V3Fields(unittest.TestCase):
         for iid, role in TRIAL.items():
             self.assertEqual(have[iid], role)
 
+    def test_maintainer_checked_ai_roles(self):
+        want = {"IN-INC-01": "confirmed", "IN-INC-04": "confirmed", "IN-INC-06": "suspected", "IN-INC-15": "confirmed",
+                "IN-INC-16": "confirmed", "IN-INC-17": "suspected", "IN-INC-18": "suspected"}
+        for iid, role in want.items():
+            r = self.inc(self.india, iid)["assessment"]["ai_role"]
+            self.assertEqual(r["value"], role, iid)
+            self.assertIn("Checked by the maintainer, Krunal Maheshwari, on 2026-11-01.", r["basis"])
+        # The CERT-In advisory number came from the maintainer and is not yet checked against an official link
+        self.assertIn("not yet been checked", self.inc(self.india, "IN-INC-15")["assessment"]["ai_role"]["basis"])
+
     def test_wotnot_kept_in_scope_as_not_established(self):
         basis = self.inc(self.india, "IN-INC-14")["assessment"]["ai_role"]["basis"]
         self.assertIn("Kept in scope by the maintainer on 2026-11-01", basis)

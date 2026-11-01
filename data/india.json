@@ -1755,7 +1755,7 @@
         "assessed_on": "2026-11-01",
         "ai_role": {
           "value": "confirmed",
-          "basis": "The News Minute reports that Delhi Police arrested a man who made the deepfake, which put the actor's face on another woman's video."
+          "basis": "Delhi Police stated that the accused used AI to superimpose the actor's face onto another creator's video (The News Minute). Checked by the maintainer, Krunal Maheshwari, on 2026-11-01."
         },
         "ai_system": {
           "name": "Face-swap deepfake tool (not named)",
@@ -2104,7 +2104,7 @@
         "assessed_on": "2026-11-01",
         "ai_role": {
           "value": "confirmed",
-          "basis": "The Week reports an FIR over a morphed video that used the cricketer's face and voice to promote a gaming app."
+          "basis": "The complaint on which the FIR was registered says deepfake technology was used to mimic the cricketer's voice and gestures. Police statements describe the video as 'morphed'. The basis is the complaint as recorded in the FIR; the police have not themselves called it AI. Checked by the maintainer, Krunal Maheshwari, on 2026-11-01."
         },
         "ai_system": {
           "name": "Face and voice deepfake (tool not named)",
@@ -2323,8 +2323,8 @@
         "review": "unreviewed",
         "assessed_on": "2026-11-01",
         "ai_role": {
-          "value": "confirmed",
-          "basis": "The News Minute reports an FIR by the actor over a deepfake video with a cloned voice over real footage."
+          "value": "suspected",
+          "basis": "Only the actor's official spokesperson calls it an AI-generated deepfake with a voice clone, when announcing the FIR (The News Minute). No police or official statement on AI use was found in the source. Checked by the maintainer, Krunal Maheshwari, on 2026-11-01."
         },
         "ai_system": {
           "name": "AI voice cloning over real footage (tool not named)",
@@ -3343,7 +3343,7 @@
         "assessed_on": "2026-11-01",
         "ai_role": {
           "value": "confirmed",
-          "basis": "Inc42 and Deccan Chronicle report that CERT-In's advisory says AI agents under evaluation went beyond their scope and reached live systems. This rests on press reports; the advisory text has not been read."
+          "basis": "CERT-In's advisory, given by the maintainer as CIAD-2026-0049, says autonomous AI agents under evaluation reached live systems of Indian organisations, as disclosed by AI model providers. The advisory number and text have not yet been checked against cert-in.org.in; a link is needed. Checked by the maintainer, Krunal Maheshwari, on 2026-11-01."
         },
         "ai_system": {
           "name": "AI models and agents under evaluation (not named)",
@@ -3461,8 +3461,8 @@
         "review": "unreviewed",
         "assessed_on": "2026-11-01",
         "ai_role": {
-          "value": "suspected",
-          "basis": "Police said AI tools were used, as reported in the press. The record's overclaim check notes there is no forensic report."
+          "value": "confirmed",
+          "basis": "Police stated that the accused used AI software and image tools to create the explicit images and videos from real photos of the woman, and that all of them were fabricated (as reported by The Week). Checked by the maintainer, Krunal Maheshwari, on 2026-11-01."
         },
         "ai_system": {
           "name": "Image and video generation tools (not named)",
@@ -3586,8 +3586,8 @@
         "review": "unreviewed",
         "assessed_on": "2026-11-01",
         "ai_role": {
-          "value": "confirmed",
-          "basis": "Anganwadi workers and researchers (IFF, South First, Pulitzer Center) report that the face-matching step itself fails and blocks rations. How many denials it causes is not established."
+          "value": "suspected",
+          "basis": "The Ministry of Women and Child Development acknowledges technical problems with face scans, but disputes that the technology excludes beneficiaries. The claim that face matching blocks rations comes from anganwadi workers, researchers and journalists, not from an official admission. Checked by the maintainer, Krunal Maheshwari, on 2026-11-01."
         },
         "ai_system": {
           "name": "Face authentication in the POSHAN Tracker app",
@@ -3704,8 +3704,8 @@
         "review": "unreviewed",
         "assessed_on": "2026-11-01",
         "ai_role": {
-          "value": "confirmed",
-          "basis": "Deccan Herald reports the traffic chief saying AI-generated fines are revalidated by hand, and both sources report wrong fines from misread plates and seat belts."
+          "value": "suspected",
+          "basis": "The traffic chief acknowledges that the AI system first ran without human checks and could make errors, and says every AI-flagged violation is now checked by hand (Deccan Herald). He does not admit specific wrong fines; those come from motorists' complaints. Checked by the maintainer, Krunal Maheshwari, on 2026-11-01."
         },
         "ai_system": {
           "name": "AI-based traffic enforcement cameras with number-plate recognition",

@@ -99,6 +99,17 @@
   - Scale is filled only where a cited source gives a figure: cases 03, 11, 12, 14, 19 and 21. View counts, song counts
     and the POSHAN "nearly half" figure are not used as scale, and each such case says why.
   - No failure-mode or crosswalk tags are set yet.
+- The maintainer checked seven AI-role calls against their sources (2026-11-01). The test: "confirmed" needs an official
+  body (police, a court, a government fact-check, or the system's operator) to say AI was used.
+  - Kept confirmed: 01, 04 and 15. Case 04 rests on the complaint recorded in the FIR. For case 15, the CERT-In
+    advisory number CIAD-2026-0049 was given by the maintainer and still needs an official link.
+  - Upgraded to confirmed: 16 (police statement).
+  - Downgraded to suspected:
+    - 06: only the actor's spokesperson says AI was used.
+    - 17: the ministry acknowledges face-scan problems but disputes exclusion.
+    - 18: the traffic chief acknowledges possible errors, not specific wrong fines.
+  - Totals are now 10 confirmed, 9 suspected and 3 not established.
+
 - New page: About › Crosswalk. It explains:
   - the assessment fields;
   - NETRA's NIST AI RMF mapping, which is the same one the case report uses;
