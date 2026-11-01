@@ -14,8 +14,10 @@
     the judgment's holding.
   - **G-DPDPR verified** against the Gazette of 13 November 2025 (G.S.R. 846(E)), from a copy the maintainer supplied:
     Rule 1(2)-(4) phasing quoted exactly.
-  - **G-DPDP stays partly verified.** The maintainer's two Gazette copies hold the 2023 Bill as introduced and the
-    Rules, but not G.S.R. 843(E) or the Act as passed.
+  - **G-DPDP stays partly verified.** The Act's text was checked against the Gazette of 11 August 2023 (Act 22 of
+    2023), but the official text of the commencement notification G.S.R. 843(E) is still missing. A one-page summary of
+    it, without Gazette header or signature, was not relied on. The record's Gazette link pointed at the Rules file and
+    was removed.
   - The other 16 stay partly verified; the log names the site that could not be read for each. The Gazette server
     does not send its full certificate chain, and certificate checks were not switched off.
 - **Model cards:**
