@@ -2,8 +2,7 @@
 
 ## Unreleased
 
-- **Model cards: release dates checked against developers' own pages (2026-11-02).** Nine cards (MOD-03 to MOD-12, except
-  MOD-10's earlier problem and MOD-01/02) now have a release date and a developer source in place of a blank or a
+- **Model cards: release dates checked against developers' own pages (2026-11-02).** Ten cards (MOD-03 to MOD-12) now have a release date and a developer source in place of a blank or a
   secondary source: Claude Opus 4.6 (2026-02-05), o3 (2025-04-16), Claude Opus 4 (2025-05-22), DeepSeek-R1 (2025-01-20),
   Gemini 2.5 Pro (2025-03-25, first availability; later preview editions and METR's tested version not established),
   ChatGPT (2022-11-30), Gemini (Bard renamed 2024-02-08), Microsoft 365 Copilot (generally available 2023-11-01 per
