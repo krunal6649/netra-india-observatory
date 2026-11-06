@@ -7,6 +7,179 @@
   },
   "weeks": [
     {
+      "week_start": "2026-10-31",
+      "week_end": "2026-11-06",
+      "generated": "2026-11-07",
+      "news_ok": true,
+      "sources": [
+        {
+          "name": "GDELT: AI news",
+          "url": "https://api.gdeltproject.org/api/v2/doc/doc",
+          "status": "ok",
+          "items": 160
+        },
+        {
+          "name": "GDELT: cyber news",
+          "url": "https://api.gdeltproject.org/api/v2/doc/doc",
+          "status": "ok",
+          "items": 14
+        },
+        {
+          "name": "Press Information Bureau: press releases (RSS, as listed)",
+          "url": "https://pib.gov.in/RssMain.aspx?ModId=6&Lang=2&Regid=3",
+          "status": "off",
+          "items": 0,
+          "error": "Exact address listed on PIB's own RSS page (pib.gov.in/ViewRss.aspx). That page is in Hindi, so the language of this feed is to confirm on the first workflow run. First workflow run on 2026-10-25: HTTP 403 (forbidden) from GitHub's servers. Switched off: NETRA does not work around a site that refuses automated access. PIB releases can still be added by hand."
+        },
+        {
+          "name": "Press Information Bureau: press releases (RSS, Lang=1)",
+          "url": "https://pib.gov.in/RssMain.aspx?ModId=6&Lang=1&Regid=3",
+          "status": "off",
+          "items": 0,
+          "error": "Same feed with Lang=1, tried in case it is the English edition. Not confirmed; if it fails or repeats the other feed, the run report says so and it can be switched off. First workflow run on 2026-10-25: HTTP 403 (forbidden) from GitHub's servers. Switched off: NETRA does not work around a site that refuses automated access. PIB releases can still be added by hand."
+        },
+        {
+          "name": "CERT-In advisories",
+          "url": "",
+          "status": "off",
+          "items": 0,
+          "error": "No official CERT-In RSS or API address could be confirmed. Left off until the owner confirms one; NETRA does not scrape the CERT-In site."
+        },
+        {
+          "name": "METR publications (RSS)",
+          "url": "https://metr.org/feed.xml",
+          "status": "ok",
+          "items": 2
+        },
+        {
+          "name": "MITRE ATLAS case studies (release 2026.10)",
+          "url": "https://raw.githubusercontent.com/mitre-atlas/atlas-data/main/dist/v6/ATLAS-latest.yaml",
+          "status": "ok",
+          "items": 0
+        }
+      ],
+      "top": [
+        {
+          "title": "Google AI lawsuit: Google sued over suicide-related AI chats on school computer",
+          "summary": "3 reports from economictimes.indiatimes.com, newindianexpress.com, thehindu.com on 2026-11-06. No NETRA risk area matched the headlines. Open the sources for the facts.",
+          "risk_areas": [],
+          "sources": [
+            {
+              "title": "Google AI lawsuit: Google sued over suicide-related AI chats on school computer",
+              "url": "https://economictimes.indiatimes.com/tech/artificial-intelligence/google-sued-over-suicide-related-ai-chats-on-school-computer/articleshow/135591823.cms",
+              "domain": "economictimes.indiatimes.com",
+              "date": "2026-11-06",
+              "via": "GDELT"
+            },
+            {
+              "title": "Google sued over suicide-related AI chats on school computer",
+              "url": "https://www.thehindu.com/sci-tech/technology/google-sued-over-suicide-related-ai-chats-on-school-computer/article71672701.ece",
+              "domain": "thehindu.com",
+              "date": "2026-11-06",
+              "via": "GDELT"
+            },
+            {
+              "title": "Google sued over suicide-related AI chats on school computer",
+              "url": "https://www.newindianexpress.com/world/2026/Nov/06/google-sued-over-suicide-related-ai-chats-on-school-computer",
+              "domain": "newindianexpress.com",
+              "date": "2026-11-06",
+              "via": "GDELT"
+            }
+          ],
+          "score": 8,
+          "auto_selected": true,
+          "review": "unreviewed",
+          "id": "W-2026-10-31-1"
+        },
+        {
+          "title": "Anthropic largest IPO on record ambition on hold? AI backlash could threaten timing, $1.5 trillion valuation",
+          "summary": "2 reports from economictimes.indiatimes.com, livemint.com on 2026-11-06. No NETRA risk area matched the headlines. Open the sources for the facts.",
+          "risk_areas": [],
+          "sources": [
+            {
+              "title": "Anthropic largest IPO on record ambition on hold? AI backlash could threaten timing, $1.5 trillion valuation",
+              "url": "https://www.livemint.com/companies/news/anthropics-largest-ipo-on-record-ambition-on-hold-ai-backlash-could-threaten-timing-1-5-trillion-valuation-11793930460210.html",
+              "domain": "livemint.com",
+              "date": "2026-11-06",
+              "via": "GDELT"
+            },
+            {
+              "title": "AI backlash could threaten Anthropic IPO timing, potential investors say",
+              "url": "https://economictimes.indiatimes.com/markets/us-stocks/news/ai-backlash-could-threaten-anthropic-ipo-timing-potential-investors-say/articleshow/135589533.cms",
+              "domain": "economictimes.indiatimes.com",
+              "date": "2026-11-06",
+              "via": "GDELT"
+            }
+          ],
+          "score": 4,
+          "auto_selected": true,
+          "review": "unreviewed",
+          "id": "W-2026-10-31-2"
+        }
+      ],
+      "cyber": [
+        {
+          "title": "OpenAI launches GPT-6 Cyber with Critical cybersecurity rating: What it does",
+          "summary": "1 report from moneycontrol.com on 2026-11-06. Cyber security item, listed separately and not counted as an AI incident.",
+          "risk_areas": [],
+          "sources": [
+            {
+              "title": "OpenAI launches GPT-6 Cyber with Critical cybersecurity rating: What it does",
+              "url": "https://www.moneycontrol.com/technology/openai-launches-gpt-6-cyber-with-critical-cybersecurity-rating-what-it-does-article-14072359.html",
+              "domain": "moneycontrol.com",
+              "date": "2026-11-06",
+              "via": "GDELT"
+            }
+          ],
+          "score": 1,
+          "auto_selected": true,
+          "review": "unreviewed",
+          "id": "C-2026-10-31-1"
+        },
+        {
+          "title": "French Bank Crédit Mutuel Arkéa Loses €100 Million in Cyberattack-Trak. in-Indian Business of Tech, Mobile & Startups",
+          "summary": "1 report from trak.in on 2026-11-06. Cyber security item, listed separately and not counted as an AI incident.",
+          "risk_areas": [],
+          "sources": [
+            {
+              "title": "French Bank Crédit Mutuel Arkéa Loses €100 Million in Cyberattack-Trak. in-Indian Business of Tech, Mobile & Startups",
+              "url": "https://trak.in/stories/french-bank-credit-mutuel-arkea-loses-e100-million-in-cyberattack/",
+              "domain": "trak.in",
+              "date": "2026-11-06",
+              "via": "GDELT"
+            }
+          ],
+          "score": 1,
+          "auto_selected": true,
+          "review": "unreviewed",
+          "id": "C-2026-10-31-2"
+        }
+      ],
+      "models": [
+        {
+          "kind": "METR publication",
+          "title": "Review of the \"Risks from automated R&D\" section in Anthropic's Risk Report (August 2026)",
+          "url": "https://metr.org/blog/2026-11-05-rd-section-anthropic-risk-report-august-2026-review/",
+          "date": "2026-11-05",
+          "note": "New METR publication. Cite and summarise only; NETRA has not read or mapped it yet.",
+          "review": "unreviewed"
+        },
+        {
+          "kind": "METR publication",
+          "title": "Independent Assessment of AI R&D Acceleration at Anthropic in October 2026",
+          "url": "https://metr.org/blog/2026-11-05-anthropic-ai-rd-acceleration-assessment/",
+          "date": "2026-11-05",
+          "note": "New METR publication. Cite and summarise only; NETRA has not read or mapped it yet.",
+          "review": "unreviewed"
+        }
+      ],
+      "notes": [
+        "MITRE ATLAS release 2026.10: 77 case studies in total, 69 not yet in NETRA's model register.",
+        "Only 2 AI items met the selection rules this week; NETRA does not pad the list."
+      ],
+      "review": "unreviewed"
+    },
+    {
       "week_start": "2026-10-24",
       "week_end": "2026-10-30",
       "generated": "2026-10-31",
