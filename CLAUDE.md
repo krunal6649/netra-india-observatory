@@ -45,7 +45,7 @@ without the earlier conversation. Last updated 2026-11-01, after release v0.3.1 
 
 ## Version 3 (v0.3.0 / v0.3.1): what exists
 
-- 28 legal instruments: 17 verified against official texts, 11 partly verified (each note says what is missing).
+- 33 legal instruments: 17 verified against official texts, 16 partly verified (each note says what is missing). Five CERT-In AI items were added on 2026-11-08, all partly verified: G-CERTIN-AIAUD (CISG-2026-04), G-CERTIN-OEM (CISG-2026-03), G-CERTIN-BLUEPRINT (CISG-2026-02), G-CIAD-2026-0020 and G-CIAD-2026-0058.
 - 22 incidents, all reviewed by the maintainer. Each has an `assessment` block (its own review status, all
   `unreviewed`): AI role (10 confirmed, 9 suspected, 3 not established), AI system, impact, evidence provenance,
   failure modes, crosswalk.
@@ -64,7 +64,7 @@ without the earlier conversation. Last updated 2026-11-01, after release v0.3.1 
 
 ## Open items
 
-1. Official links for the 11 partly verified laws: G-ITR21, G-ADV-MAR24 (MeitY), G-CPA (S.O. 2351(E)), G-J-ANI
+1. Official links for the 11 older partly verified laws (the 5 CERT-In items need the maintainer's check too): G-ITR21, G-ADV-MAR24 (MeitY), G-CPA (S.O. 2351(E)), G-J-ANI
    (judgment), G-COPY (India Code), G-DPIIT-WP, G-SEBI-CP, G-TEC, G-ECI-24, G-ECI-25, G-J-ARIJIT.
 2. Maintainer review of the 12 model cards. The maintainer sends notes like `MOD-01 ok` or `MOD-03 fix: …`; mark
    "ok" cards reviewed by Krunal Maheshwari with the date, apply fixes and leave those unreviewed.
