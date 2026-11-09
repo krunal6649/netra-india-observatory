@@ -36,7 +36,7 @@ Each case is traced through NETRA, a 14-stage method, and says what is still unk
 |:---:|:---:|:---:|:---:|:---:|:---:|
 | **Indian AI incidents** | **Laws, rules, advisories, court orders** | **Risks quoted from government frameworks** | **Measures** | **Bodies in the "Whom to approach" directory** | **AI model cards** |
 
-Data updated 2026-11-08. Every record says whether a person has reviewed it.
+Data updated 2026-11-09. Every record says whether a person has reviewed it.
 
 ## Why it exists
 
@@ -145,7 +145,7 @@ The one-page version is in [docs/framework.md](docs/framework.md).
 | Part | Review status |
 |---|---|
 | Incidents (22) | All reviewed by the maintainer, Krunal Maheshwari, on 2026-10-25 |
-| Laws, rules, advisories, court orders (33) | 17 verified against official texts; 16 partly verified, each saying what is missing |
+| Laws, rules, advisories, court orders (33) | 22 verified against official texts; 11 partly verified, each saying what is missing |
 | Risks (18), measures (28) | Quoted or summarised from the cited instruments, with location |
 | Directory (391 bodies) | 32 official links checked by the maintainer |
 | AI model cards (12) | Unreviewed |
