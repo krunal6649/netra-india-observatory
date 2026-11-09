@@ -58,103 +58,8 @@
           "items": 0
         }
       ],
-      "top": [
-        {
-          "title": "Google AI lawsuit: Google sued over suicide-related AI chats on school computer",
-          "summary": "3 reports from economictimes.indiatimes.com, newindianexpress.com, thehindu.com on 2026-11-06. No NETRA risk area matched the headlines. Open the sources for the facts.",
-          "risk_areas": [],
-          "sources": [
-            {
-              "title": "Google AI lawsuit: Google sued over suicide-related AI chats on school computer",
-              "url": "https://economictimes.indiatimes.com/tech/artificial-intelligence/google-sued-over-suicide-related-ai-chats-on-school-computer/articleshow/135591823.cms",
-              "domain": "economictimes.indiatimes.com",
-              "date": "2026-11-06",
-              "via": "GDELT"
-            },
-            {
-              "title": "Google sued over suicide-related AI chats on school computer",
-              "url": "https://www.thehindu.com/sci-tech/technology/google-sued-over-suicide-related-ai-chats-on-school-computer/article71672701.ece",
-              "domain": "thehindu.com",
-              "date": "2026-11-06",
-              "via": "GDELT"
-            },
-            {
-              "title": "Google sued over suicide-related AI chats on school computer",
-              "url": "https://www.newindianexpress.com/world/2026/Nov/06/google-sued-over-suicide-related-ai-chats-on-school-computer",
-              "domain": "newindianexpress.com",
-              "date": "2026-11-06",
-              "via": "GDELT"
-            }
-          ],
-          "score": 8,
-          "auto_selected": true,
-          "review": "unreviewed",
-          "id": "W-2026-10-31-1"
-        },
-        {
-          "title": "Anthropic largest IPO on record ambition on hold? AI backlash could threaten timing, $1.5 trillion valuation",
-          "summary": "2 reports from economictimes.indiatimes.com, livemint.com on 2026-11-06. No NETRA risk area matched the headlines. Open the sources for the facts.",
-          "risk_areas": [],
-          "sources": [
-            {
-              "title": "Anthropic largest IPO on record ambition on hold? AI backlash could threaten timing, $1.5 trillion valuation",
-              "url": "https://www.livemint.com/companies/news/anthropics-largest-ipo-on-record-ambition-on-hold-ai-backlash-could-threaten-timing-1-5-trillion-valuation-11793930460210.html",
-              "domain": "livemint.com",
-              "date": "2026-11-06",
-              "via": "GDELT"
-            },
-            {
-              "title": "AI backlash could threaten Anthropic IPO timing, potential investors say",
-              "url": "https://economictimes.indiatimes.com/markets/us-stocks/news/ai-backlash-could-threaten-anthropic-ipo-timing-potential-investors-say/articleshow/135589533.cms",
-              "domain": "economictimes.indiatimes.com",
-              "date": "2026-11-06",
-              "via": "GDELT"
-            }
-          ],
-          "score": 4,
-          "auto_selected": true,
-          "review": "unreviewed",
-          "id": "W-2026-10-31-2"
-        }
-      ],
-      "cyber": [
-        {
-          "title": "OpenAI launches GPT-6 Cyber with Critical cybersecurity rating: What it does",
-          "summary": "1 report from moneycontrol.com on 2026-11-06. Cyber security item, listed separately and not counted as an AI incident.",
-          "risk_areas": [],
-          "sources": [
-            {
-              "title": "OpenAI launches GPT-6 Cyber with Critical cybersecurity rating: What it does",
-              "url": "https://www.moneycontrol.com/technology/openai-launches-gpt-6-cyber-with-critical-cybersecurity-rating-what-it-does-article-14072359.html",
-              "domain": "moneycontrol.com",
-              "date": "2026-11-06",
-              "via": "GDELT"
-            }
-          ],
-          "score": 1,
-          "auto_selected": true,
-          "review": "unreviewed",
-          "id": "C-2026-10-31-1"
-        },
-        {
-          "title": "French Bank Crédit Mutuel Arkéa Loses €100 Million in Cyberattack-Trak. in-Indian Business of Tech, Mobile & Startups",
-          "summary": "1 report from trak.in on 2026-11-06. Cyber security item, listed separately and not counted as an AI incident.",
-          "risk_areas": [],
-          "sources": [
-            {
-              "title": "French Bank Crédit Mutuel Arkéa Loses €100 Million in Cyberattack-Trak. in-Indian Business of Tech, Mobile & Startups",
-              "url": "https://trak.in/stories/french-bank-credit-mutuel-arkea-loses-e100-million-in-cyberattack/",
-              "domain": "trak.in",
-              "date": "2026-11-06",
-              "via": "GDELT"
-            }
-          ],
-          "score": 1,
-          "auto_selected": true,
-          "review": "unreviewed",
-          "id": "C-2026-10-31-2"
-        }
-      ],
+      "top": [],
+      "cyber": [],
       "models": [
         {
           "kind": "METR publication",
@@ -175,7 +80,7 @@
       ],
       "notes": [
         "MITRE ATLAS release 2026.10: 77 case studies in total, 69 not yet in NETRA's model register.",
-        "Only 2 AI items met the selection rules this week; NETRA does not pad the list."
+        "Removed by the maintainer before merging: 2 AI items (not India-linked, or not a harm) and 2 cyber items (a product launch, and an incident outside India)."
       ],
       "review": "unreviewed"
     },

@@ -57,7 +57,7 @@ without the earlier conversation. Last updated 2026-11-01, after release v0.3.1 
   - IN-INC-15 rests on CERT-In advisory CIAD-2026-0049, checked on cert-in.org.in.
 - Reference lists: `data/owasp_llm_top10.json` (2025 and 2026, CC BY-SA, names only) and
   `data/atlas_techniques.json` (ATLAS 2026.10, Apache 2.0, names only).
-- 12 model cards (`data/models.json`), all unreviewed. MOD-10's release date is unverified.
+- 12 model cards (`data/models.json`), all unreviewed. Release dates for 10 cards are checked against developer pages (2026-11-02); MOD-01 is press-only and MOD-02 is internal.
 - About › Crosswalk page; Google Dataset Search description built into the page head from the data.
 - Weekly update: `.github/workflows/weekly.yml`, Saturdays 00:00 IST, opens a PR. Items are candidates only;
   nothing becomes a case without the maintainer.

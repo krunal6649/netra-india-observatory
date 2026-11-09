@@ -96,7 +96,9 @@ const wkHas = WK && (WK.top.length + WK.cyber.length + WK.models.length) > 0;
 check(wkHas ? (hw.indexOf('This week in India') > hw.indexOf('click a segment to open that risk area') && hw.indexOf('This week in India') < hw.indexOf('Where incidents outrun binding law') && hw.includes('GDELT'))
             : !hw.includes('This week in India'), 'This week in India sits just below the risk areas, and is hidden when the week is empty');
 check(hw.indexOf('class="hero"') < hw.indexOf('click a segment to open that risk area') && hw.indexOf('click a segment to open that risk area') < hw.indexOf('id="directory"') && (!wkHas || hw.indexOf('This week in India') < hw.indexOf('id="directory"')) && hw.includes('Whom to approach') && !hw.includes('Who to approach'), 'Home order: risk wheel, legend, This week in India, then Whom to approach');
-check(!/Nothing this week|Nothing new this week|No AI item met|not yet checked by a person|did not answer this week/.test(hw) && (!WK || WK.cyber.length || !hw.includes('Cyber watch')) && (!WK || WK.top.length || !hw.includes('W-' + (WK && WK.week_start))), 'empty parts of the weekly section are not shown at all');
+// Only the current week is checked here; earlier weeks are folded away under "Earlier weeks" and keep their own parts
+const hwNow = hw.split('Earlier weeks (')[0];
+check(!/Nothing this week|Nothing new this week|No AI item met|not yet checked by a person|did not answer this week/.test(hw) && (!WK || WK.cyber.length || !hwNow.slice(hwNow.indexOf('This week in India')).includes('Cyber watch')) && (!WK || WK.top.length || !hwNow.includes('W-' + (WK && WK.week_start))), 'empty parts of the weekly section are not shown at all');
 check(N.page('about-credits').includes('CERT-In: not used yet'), 'Credits list the weekly sources and say CERT-In is not used yet');
 const mt = N.page('about-method');
 check(mt.includes('Planned for v0.3') && mt.includes('Live reporting') && mt.includes('MIT AI Risk Repository import') && mt.includes('Further sources') && !/undefined|NaN/.test(mt), 'About › Method lists what is planned for v0.3, with counts from the data');

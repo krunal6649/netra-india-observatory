@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "NETRA India: AI model register",
-    "updated": "2026-10-25",
+    "updated": "2026-11-02",
     "note": "First set of 12 model cards. 'Tests' summarise what testers found; 'netra' is NETRA's India analysis, kept separate. All records are unreviewed AI-assisted drafts.",
     "labels": {
       "possible": "Possible",
@@ -159,10 +159,10 @@
       "name": "Claude Opus 4.6",
       "developer": "Anthropic",
       "release_date": "2026-02-05",
-      "release_note": "Release date from secondary sources; Anthropic's page not opened.",
+      "release_note": "Release date from Anthropic's announcement page (published 2026-02-05).",
       "release_source": {
-        "title": "LLM Reference – Claude Opus 4.6",
-        "url": "https://www.llmreference.com/compare/claude-opus-4-6/gemini-2.5-pro",
+        "title": "Anthropic – Introducing Claude Opus 4.6",
+        "url": "https://www.anthropic.com/news/claude-opus-4-6",
         "licence": "Cite only (developer or press page)"
       },
       "tests": [
@@ -222,114 +222,8 @@
       "id": "MOD-04",
       "name": "o3",
       "developer": "OpenAI",
-      "release_date": null,
-      "release_note": "Release date not recorded yet.",
-      "tests": [
-        {
-          "by": "METR",
-          "report": "TR-003",
-          "date": "2025-10-14",
-          "what": "One of 21 models whose transcripts are in METR's MALT dataset of behaviours that threaten evaluation integrity (reward hacking and sandbagging).",
-          "found": "Across the dataset, the best monitors caught roughly 80–90% of reward-hacking and sandbagging examples at a 5% false-positive rate. MALT does not give per-model base rates, and its label frequencies are not base rates.",
-          "licence": "Cite and summarise only (METR: all rights reserved)"
-        }
-      ],
-      "netra": {
-        "risk_areas": [
-          "7.3",
-          "7.4"
-        ],
-        "mappings": [
-          "MAP-012",
-          "MAP-013",
-          "MAP-014"
-        ],
-        "gaps": [
-          "GAP-002"
-        ],
-        "laws": [
-          {
-            "instrument": "G-BSA",
-            "label": "interpretive",
-            "why": "Whether an evaluation transcript is reliable evidence, and who certifies it under s.63, is untested."
-          },
-          {
-            "instrument": "G-AIGG",
-            "label": "gap",
-            "why": "No Indian rule sets standards for AI evaluations or their monitors."
-          }
-        ],
-        "authorities": [
-          "U-INDIAAI"
-        ],
-        "unknowns": [
-          "How often this model reward-hacks or sandbags in practice",
-          "Whether it is deployed in Indian public services"
-        ],
-        "overclaim": "A test or red-team result is not evidence of real-world harm in India. Inclusion in MALT says nothing about this model's rate of misbehaviour."
-      },
-      "incidents": [],
-      "review": "unreviewed"
-    },
-    {
-      "id": "MOD-05",
-      "name": "Claude Opus 4",
-      "developer": "Anthropic",
-      "release_date": null,
-      "release_note": "Release date not recorded yet.",
-      "tests": [
-        {
-          "by": "METR",
-          "report": "TR-003",
-          "date": "2025-10-14",
-          "what": "One of 21 models whose transcripts are in METR's MALT dataset of behaviours that threaten evaluation integrity (reward hacking and sandbagging).",
-          "found": "Across the dataset, the best monitors caught roughly 80–90% of reward-hacking and sandbagging examples at a 5% false-positive rate. MALT does not give per-model base rates, and its label frequencies are not base rates.",
-          "licence": "Cite and summarise only (METR: all rights reserved)"
-        }
-      ],
-      "netra": {
-        "risk_areas": [
-          "7.3",
-          "7.4"
-        ],
-        "mappings": [
-          "MAP-012",
-          "MAP-013",
-          "MAP-014"
-        ],
-        "gaps": [
-          "GAP-002"
-        ],
-        "laws": [
-          {
-            "instrument": "G-BSA",
-            "label": "interpretive",
-            "why": "Whether an evaluation transcript is reliable evidence, and who certifies it under s.63, is untested."
-          },
-          {
-            "instrument": "G-AIGG",
-            "label": "gap",
-            "why": "No Indian rule sets standards for AI evaluations or their monitors."
-          }
-        ],
-        "authorities": [
-          "U-INDIAAI"
-        ],
-        "unknowns": [
-          "How often this model reward-hacks or sandbags in practice",
-          "Whether it is deployed in Indian public services"
-        ],
-        "overclaim": "A test or red-team result is not evidence of real-world harm in India. Inclusion in MALT says nothing about this model's rate of misbehaviour."
-      },
-      "incidents": [],
-      "review": "unreviewed"
-    },
-    {
-      "id": "MOD-06",
-      "name": "DeepSeek-R1",
-      "developer": "DeepSeek",
-      "release_date": "2025-01-20",
-      "release_note": "Release date from secondary sources; DeepSeek's page not opened.",
+      "release_date": "2025-04-16",
+      "release_note": "Release date from OpenAI's announcement page, which says o3 was available to ChatGPT Plus, Pro and Team users and through the API that day.",
       "tests": [
         {
           "by": "METR",
@@ -377,17 +271,17 @@
       "incidents": [],
       "review": "unreviewed",
       "release_source": {
-        "title": "LLM Reference – DeepSeek R1",
-        "url": "https://www.llmreference.com/compare/claude-opus-4-6/deepseek-r1",
+        "title": "OpenAI – Introducing OpenAI o3 and o4-mini",
+        "url": "https://openai.com/index/introducing-o3-and-o4-mini/",
         "licence": "Cite only (developer or press page)"
       }
     },
     {
-      "id": "MOD-07",
-      "name": "Gemini 2.5 Pro (preview)",
-      "developer": "Google",
-      "release_date": null,
-      "release_note": "Sources disagree (March or June 2025); to verify.",
+      "id": "MOD-05",
+      "name": "Claude Opus 4",
+      "developer": "Anthropic",
+      "release_date": "2025-05-22",
+      "release_note": "Release date from Anthropic's announcement page (Claude Opus 4 and Claude Sonnet 4).",
       "tests": [
         {
           "by": "METR",
@@ -433,14 +327,135 @@
         "overclaim": "A test or red-team result is not evidence of real-world harm in India. Inclusion in MALT says nothing about this model's rate of misbehaviour."
       },
       "incidents": [],
-      "review": "unreviewed"
+      "review": "unreviewed",
+      "release_source": {
+        "title": "Anthropic – Introducing Claude 4",
+        "url": "https://www.anthropic.com/news/claude-4",
+        "licence": "Cite only (developer or press page)"
+      }
+    },
+    {
+      "id": "MOD-06",
+      "name": "DeepSeek-R1",
+      "developer": "DeepSeek",
+      "release_date": "2025-01-20",
+      "release_note": "Release date from DeepSeek's own news page (DeepSeek-R1, MIT-licensed, with its technical report).",
+      "tests": [
+        {
+          "by": "METR",
+          "report": "TR-003",
+          "date": "2025-10-14",
+          "what": "One of 21 models whose transcripts are in METR's MALT dataset of behaviours that threaten evaluation integrity (reward hacking and sandbagging).",
+          "found": "Across the dataset, the best monitors caught roughly 80–90% of reward-hacking and sandbagging examples at a 5% false-positive rate. MALT does not give per-model base rates, and its label frequencies are not base rates.",
+          "licence": "Cite and summarise only (METR: all rights reserved)"
+        }
+      ],
+      "netra": {
+        "risk_areas": [
+          "7.3",
+          "7.4"
+        ],
+        "mappings": [
+          "MAP-012",
+          "MAP-013",
+          "MAP-014"
+        ],
+        "gaps": [
+          "GAP-002"
+        ],
+        "laws": [
+          {
+            "instrument": "G-BSA",
+            "label": "interpretive",
+            "why": "Whether an evaluation transcript is reliable evidence, and who certifies it under s.63, is untested."
+          },
+          {
+            "instrument": "G-AIGG",
+            "label": "gap",
+            "why": "No Indian rule sets standards for AI evaluations or their monitors."
+          }
+        ],
+        "authorities": [
+          "U-INDIAAI"
+        ],
+        "unknowns": [
+          "How often this model reward-hacks or sandbags in practice",
+          "Whether it is deployed in Indian public services"
+        ],
+        "overclaim": "A test or red-team result is not evidence of real-world harm in India. Inclusion in MALT says nothing about this model's rate of misbehaviour."
+      },
+      "incidents": [],
+      "review": "unreviewed",
+      "release_source": {
+        "title": "DeepSeek – DeepSeek-R1 Release",
+        "url": "https://api-docs.deepseek.com/news/news250120",
+        "licence": "Cite only (developer or press page)"
+      }
+    },
+    {
+      "id": "MOD-07",
+      "name": "Gemini 2.5 Pro (preview)",
+      "developer": "Google",
+      "release_date": "2025-03-25",
+      "release_note": "Date Google's blog says Gemini 2.5 Pro (experimental) became available in Google AI Studio and the Gemini app. Later preview editions followed (for example the I/O edition, 2025-05-06). Which edition METR's data used is not stated in the source NETRA has checked.",
+      "tests": [
+        {
+          "by": "METR",
+          "report": "TR-003",
+          "date": "2025-10-14",
+          "what": "One of 21 models whose transcripts are in METR's MALT dataset of behaviours that threaten evaluation integrity (reward hacking and sandbagging).",
+          "found": "Across the dataset, the best monitors caught roughly 80–90% of reward-hacking and sandbagging examples at a 5% false-positive rate. MALT does not give per-model base rates, and its label frequencies are not base rates.",
+          "licence": "Cite and summarise only (METR: all rights reserved)"
+        }
+      ],
+      "netra": {
+        "risk_areas": [
+          "7.3",
+          "7.4"
+        ],
+        "mappings": [
+          "MAP-012",
+          "MAP-013",
+          "MAP-014"
+        ],
+        "gaps": [
+          "GAP-002"
+        ],
+        "laws": [
+          {
+            "instrument": "G-BSA",
+            "label": "interpretive",
+            "why": "Whether an evaluation transcript is reliable evidence, and who certifies it under s.63, is untested."
+          },
+          {
+            "instrument": "G-AIGG",
+            "label": "gap",
+            "why": "No Indian rule sets standards for AI evaluations or their monitors."
+          }
+        ],
+        "authorities": [
+          "U-INDIAAI"
+        ],
+        "unknowns": [
+          "How often this model reward-hacks or sandbags in practice",
+          "Whether it is deployed in Indian public services"
+        ],
+        "overclaim": "A test or red-team result is not evidence of real-world harm in India. Inclusion in MALT says nothing about this model's rate of misbehaviour."
+      },
+      "incidents": [],
+      "review": "unreviewed",
+      "release_source": {
+        "title": "Google – Gemini 2.5: Our newest Gemini model with thinking",
+        "url": "https://blog.google/technology/google-deepmind/gemini-model-thinking-updates-march-2025/",
+        "licence": "Cite only (developer or press page)"
+      }
     },
     {
       "id": "MOD-08",
       "name": "ChatGPT",
       "developer": "OpenAI",
-      "release_date": null,
-      "release_note": "Release date not recorded yet.",
+      "release_date": "2022-11-30",
+      "release_note": "Date of OpenAI's announcement of ChatGPT as a research preview. The model behind ChatGPT has changed many times since; the studies listed here tested the versions named in them.",
       "tests": [
         {
           "by": "Embrace the Red (via MITRE ATLAS AML.CS0021)",
@@ -509,17 +524,22 @@
       "incidents": [
         "IN-INC-08"
       ],
-      "review": "unreviewed"
+      "review": "unreviewed",
+      "release_source": {
+        "title": "OpenAI – Introducing ChatGPT",
+        "url": "https://openai.com/index/chatgpt/",
+        "licence": "Cite only (developer or press page)"
+      }
     },
     {
       "id": "MOD-09",
       "name": "Gemini (formerly Bard)",
       "developer": "Google",
       "release_date": "2024-02-08",
-      "release_note": "Date Bard was renamed Gemini, per secondary sources; Bard's own launch date not recorded.",
+      "release_note": "Date Google's blog announced that Bard is now known as Gemini. Bard's own launch date is not recorded.",
       "release_source": {
-        "title": "Wikipedia – Google Gemini",
-        "url": "https://en.wikipedia.org/wiki/Google_Gemini",
+        "title": "Google – Bard becomes Gemini: Try Ultra 1.0 and a new mobile app today",
+        "url": "https://blog.google/products/gemini/bard-gemini-advanced-app/",
         "licence": "Cite only (developer or press page)"
       },
       "tests": [
@@ -571,9 +591,13 @@
       "id": "MOD-10",
       "name": "Microsoft 365 Copilot and Copilot Studio",
       "developer": "Microsoft",
-      "release_date": null,
-      "release_note": "Release date unverified. The date shown earlier (1 November 2023) cited a Substack post, 'ChatGPT one year later' (bojan.substack.com), which does not appear to be about Microsoft 365 Copilot and could not be opened from the build session. Marked unverified by the maintainer on 2026-11-01; a Microsoft announcement is needed.",
-      "release_source": null,
+      "release_date": "2023-11-01",
+      "release_note": "Microsoft's post of 2023-09-21 says Copilot for Microsoft 365 becomes generally available for enterprise customers on 2023-11-01. This date covers Microsoft 365 Copilot only; Copilot Studio's release date is not recorded.",
+      "release_source": {
+        "title": "Microsoft – Announcing Microsoft 365 Copilot general availability",
+        "url": "https://www.microsoft.com/en-us/microsoft-365/blog/2023/09/21/announcing-microsoft-365-copilot-general-availability/",
+        "licence": "Cite only (developer or press page)"
+      },
       "tests": [
         {
           "by": "Zenity (via MITRE ATLAS AML.CS0026)",
@@ -637,8 +661,8 @@
       "id": "MOD-11",
       "name": "Claude computer use",
       "developer": "Anthropic",
-      "release_date": null,
-      "release_note": "Release date not recorded yet.",
+      "release_date": "2024-10-22",
+      "release_note": "Date Anthropic announced computer use as a public beta (API, Amazon Bedrock, Google Cloud Vertex AI).",
       "tests": [
         {
           "by": "HiddenLayer (via MITRE ATLAS AML.CS0046)",
@@ -689,14 +713,19 @@
         "overclaim": "A test or red-team result is not evidence of real-world harm in India. The PDF attack was a demonstration; the distillation attribution is the developer's own claim."
       },
       "incidents": [],
-      "review": "unreviewed"
+      "review": "unreviewed",
+      "release_source": {
+        "title": "Anthropic – Introducing computer use, a new Claude 3.5 Sonnet, and Claude 3.5 Haiku",
+        "url": "https://www.anthropic.com/news/3-5-models-and-computer-use",
+        "licence": "Cite only (developer or press page)"
+      }
     },
     {
       "id": "MOD-12",
       "name": "Grok",
       "developer": "xAI",
-      "release_date": null,
-      "release_note": "Release date not recorded yet.",
+      "release_date": "2023-11-03",
+      "release_note": "Date of xAI's announcement of Grok as an early beta. Later versions have different release dates, which are not recorded.",
       "tests": [],
       "netra": {
         "risk_areas": [
@@ -731,7 +760,12 @@
       "incidents": [
         "IN-INC-20"
       ],
-      "review": "unreviewed"
+      "review": "unreviewed",
+      "release_source": {
+        "title": "xAI – Announcing Grok",
+        "url": "https://x.ai/news/grok",
+        "licence": "Cite only (developer or press page)"
+      }
     }
   ]
 }
