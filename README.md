@@ -32,11 +32,11 @@ Each case is traced through NETRA, a 14-stage method, and says what is still unk
 
 ## At a glance
 
-| 22 | 28 | 18 | 28 | 391 | 12 |
+| 22 | 33 | 18 | 28 | 391 | 12 |
 |:---:|:---:|:---:|:---:|:---:|:---:|
 | **Indian AI incidents** | **Laws, rules, advisories, court orders** | **Risks quoted from government frameworks** | **Measures** | **Bodies in the "Whom to approach" directory** | **AI model cards** |
 
-Data updated 2026-11-01. Every record says whether a person has reviewed it.
+Data updated 2026-11-08. Every record says whether a person has reviewed it.
 
 ## Why it exists
 
@@ -60,7 +60,7 @@ Data updated 2026-11-01. Every record says whether a person has reviewed it.
 <td width="50%" valign="top">
 
 ### Explore
-- One searchable list of **Risks (18)**, **Incidents (22)**, **Laws (28)** and **Measures (28)**
+- One searchable list of **Risks (18)**, **Incidents (22)**, **Laws (33)** and **Measures (28)**
 - Filters, sort, a compact list or cards view, and links straight to each record
 - Incidents carry a state, year and review status
 
@@ -83,7 +83,7 @@ Data updated 2026-11-01. Every record says whether a person has reviewed it.
 
 ### Analysis
 - **NETRA dossiers:** each incident through the 14 stages
-- **Gap register:** 6 gaps tied to incidents and laws
+- **Gap register:** 7 gaps tied to incidents and laws
 - **Report generator:** a plain report for any incident, risk area or model, built in your browser with no AI. Copy, download as Markdown, or print as PDF
 - **Add a report:** read a PDF, Word, text or Markdown file in your browser only and run the **NETRA check**
 
@@ -145,7 +145,7 @@ The one-page version is in [docs/framework.md](docs/framework.md).
 | Part | Review status |
 |---|---|
 | Incidents (22) | All reviewed by the maintainer, Krunal Maheshwari, on 2026-10-25 |
-| Laws, rules, advisories, court orders (28) | 17 verified against official texts; 11 partly verified, each saying what is missing |
+| Laws, rules, advisories, court orders (33) | 17 verified against official texts; 16 partly verified, each saying what is missing |
 | Risks (18), measures (28) | Quoted or summarised from the cited instruments, with location |
 | Directory (391 bodies) | 32 official links checked by the maintainer |
 | AI model cards (12) | Unreviewed |
