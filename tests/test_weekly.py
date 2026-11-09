@@ -157,6 +157,42 @@ class Tests(unittest.TestCase):
         self.assertFalse(wk.india_nexus("US court fines chatbot maker over fake citations", [], indian_outlet=True))
         self.assertFalse(wk.india_nexus("Deepfake scam hits elderly", [], indian_outlet=False))
 
+    def picked(self, kind, domain, title):
+        """Whether select() keeps one headline from an Indian outlet via GDELT."""
+        a = {"title": title, "url": "https://" + domain + "/x", "domain": domain, "date": "2026-11-01", "via": "GDELT"}
+        terms = json.loads((wk.DATA / "check_terms.json").read_text(encoding="utf-8"))
+        states = json.loads((wk.DATA / "india.json").read_text(encoding="utf-8"))["states_uts"]["states"]
+        got, _ = wk.select([a], kind, [], set(), states, terms, {s: s for s in terms["risk_areas"]})
+        return bool(got)
+
+    def test_real_false_positives_from_past_weeks_are_dropped(self):
+        # Picked by the looser rules on 2026-10-31 and 2026-11-07 and removed by the maintainer (headlines as published)
+        drop = [("ai", "economictimes.indiatimes.com", "Google AI lawsuit: Google sued over suicide-related AI chats on school computer"),
+                ("ai", "livemint.com", "Anthropic largest IPO on record ambition on hold? AI backlash could threaten timing, $1.5 trillion valuation"),
+                ("cyber", "moneycontrol.com", "OpenAI launches GPT-6 Cyber with Critical cybersecurity rating: What it does"),
+                ("cyber", "trak.in", "French Bank Crédit Mutuel Arkéa Loses €100 Million in Cyberattack-Trak. in-Indian Business of Tech, Mobile & Startups"),
+                ("cyber", "business-standard.com", "Critical flaw affecting 70% of websites has cybersecurity world panicked")]
+        for kind, dom, title in drop:
+            self.assertFalse(self.picked(kind, dom, title), title)
+
+    def test_real_indian_stories_from_past_weeks_are_still_kept(self):
+        keep = [("ai", "prokerala.com", "Man arrested in Bengal for threatening traffic cops with AI-generated police identity card"),
+                ("cyber", "hindustantimes.com", "Hacker group claims to have accessed 86.3 lakh Rajasthan police emails; probe on"),
+                ("cyber", "rediff.com", "Jamtara Cyber Fraud: BTech Graduate Arrested For Credit Card Scams"),
+                ("cyber", "gulte.com", "Massive CBFC Data Breach Leaks 500 Films Scripts?"),
+                ("cyber", "thehindu.com", "Road Ministry seeks forensic audit of its portals after vehicle data leak")]
+        for kind, dom, title in keep:
+            self.assertTrue(self.picked(kind, dom, title), title)
+
+    def test_launching_a_probe_is_not_product_news(self):
+        self.assertTrue(self.picked("ai", "example.in", "Police launch probe into deepfake video of Gujarat minister"))
+        self.assertFalse(self.picked("ai", "example.in", "Startup launches AI chatbot to fight fraud in Mumbai"))
+
+    def test_outlet_name_is_dropped_before_matching(self):
+        self.assertEqual(wk.strip_outlet("Bank loses money in cyberattack-Trak. in-Indian Business of Tech", "trak.in"),
+                         "Bank loses money in cyberattack")
+        self.assertEqual(wk.strip_outlet("Man held for AI-generated ID card", "prokerala.com"), "Man held for AI-generated ID card")
+
     def test_old_feed_items_are_outside_the_window(self):
         urls = {s["url"] for c in self.week["cyber"] + self.week["top"] for s in c["sources"]}
         self.assertNotIn("https://pib.gov.in/PressReleasePage.aspx?PRID=2", urls)

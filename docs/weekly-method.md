@@ -35,11 +35,17 @@ run reports whether each source answered.
 The rules work on headlines only, so they are simple and can be checked.
 
 1. **AI item:** the headline has an AI term (for example *deepfake*, *chatbot*, *voice clone*, *AI*), a harm term (for
-   example *fraud*, *arrested*, *FIR*, *leak*, *court*) and a link to India. A link to India means an Indian state,
-   union territory, city or institution, or ₹, lakh or crore; or an official Indian source; or a headline from an
-   Indian outlet that names no other country.
+   example *fraud*, *arrested*, *FIR*, *leak*, *court*) and a link to India. A link to India means one of these:
+   - an Indian state, union territory, city or institution named in the headline, or ₹, lakh or crore;
+   - an official Indian source;
+   - a headline from an Indian outlet that names no other country, no global tech company (Google, OpenAI,
+     Anthropic, Meta, Microsoft and others) and is not business or product news.
+
+   An outlet's own name at the end of a headline ("… – Trak.in – Indian Business of Tech") is removed first. Business
+   and product news is never an item: an IPO, a valuation, shares, or a product launch or unveiling. "Launches a
+   probe" still counts.
 2. **Cyber item:** the headline has a cyber term (for example *ransomware*, *data breach*, *phishing*), a link to India,
-   and **no** AI term. Violence such as "hacked to death" is not counted. Cyber items are never counted as AI incidents
+   **no** AI term (OpenAI and GPT count as AI terms), and is not a product launch. Violence such as "hacked to death" is not counted. Cyber items are never counted as AI incidents
    and carry no risk area.
 3. Headlines about the same story are grouped together. They are grouped when they share most of their key words,
    including names and figures such as "3.75 lakh", or a specific three-word phrase such as "SBI data breach". A
