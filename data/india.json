@@ -4,7 +4,7 @@
     "version": "0.3.1",
     "created": "2026-10-22",
     "checked": "2026-10-22",
-    "updated": "2026-11-01",
+    "updated": "2026-11-08",
     "maintainer": "Krunal Maheshwari, Advocate (Bar Council of Gujarat), AI governance researcher",
     "contact_email": "krunal.maheshwari@gmail.com",
     "status": "Pilot seed. All codings were drafted with AI assistance and are unreviewed unless marked otherwise.",
@@ -1294,6 +1294,170 @@
       "url": "https://blog.ipleaders.in/ani-v-openai-ai-training-copyright-ruling/",
       "verified": "partial",
       "note": "Partly checked on 2026-11-01 against two official orders on the Delhi High Court portal. Order of 24.07.2026 (downloadOrderbByDate/CS(COMM)/1028/2024/24-07-2026): Justice Amit Bansal; I.A. 45300/2024 'decided' through a separate judgment pronounced that day; suit listed on 11 September 2026. Order of 27.07.2026: corrects a citation in paragraph 80 of that judgment. Still missing for 'yes': the judgment itself (holding on jurisdiction, fair dealing and outputs) and the neutral citation 2026:DHC:5900, which rest on the iPleaders summary at the url."
+    },
+    {
+      "id": "G-CERTIN-AIAUD",
+      "title": "CERT-In AI Security Auditing Guidelines v1.0 (CISG-2026-04)",
+      "issuer": "CERT-In (MeitY), Sub-group 03 of the Working Group on Indian Standards for Cybersecurity Auditing",
+      "type": "Guidelines",
+      "force": "Soft law (binding effect not stated)",
+      "date": "2026-11-04",
+      "status": "Issued 4 Nov 2026; the text does not say what gives it binding effect",
+      "sectors": [
+        "AI development",
+        "Finance & banking",
+        "Welfare & public services"
+      ],
+      "lifecycle": [
+        "Plan & design",
+        "Build & train",
+        "Deploy",
+        "Operate & monitor"
+      ],
+      "actors": [
+        "Government organisations",
+        "Body corporates",
+        "AI developers",
+        "Regulators"
+      ],
+      "domains": [
+        "6.5",
+        "2.2",
+        "7.4"
+      ],
+      "provisions": "Four risk tiers scored on eight factors (Table 11): Tier 2 and above need an independent audit by CERT-In empanelled auditors; scope and exclusions (s.4.9); AI incident reporting within 6 hours where CERT-In criteria are met (s.10.6); contestability and human decision review (s.11); link to the India AI Governance Guidelines (s.15)",
+      "summary": "An audit framework for AI systems that organisations in India build, buy or run, with nine audit domains and extra controls for generative and agentic AI. It is addressed to organisations and auditors. Its contestability section describes internal review by authorised personnel, not a route for affected people.",
+      "url": "https://www.cert-in.org.in/PDF/AI_Security_Auditing_Guidelines.pdf",
+      "note": "Checked on 2026-11-08 against the 107-page PDF supplied by the maintainer (SHA-256 38eb1fa895f8b356acd8cc28f79c6e13259b35fd5bc9ac4f9237470fd637d0a5): cover 'AI Security Auditing Guidelines v1.0, 04 November 2026, prepared by CERT-In Sub-group 03'; and against CERT-In's guidelines list, which gives the code CISG-2026-04. Read in the text: contents, s.4.9-4.10, Table 11, s.10.6, s.11.1, s.12.7, s.15 and s.16. Other sections were searched by keyword only. The text uses 'shall' and 'mandatory' but does not say what gives the guidelines binding effect (no direction under s.70B, no statute, no penalty found); s.15 says the MeitY AI Governance Guidelines give the policy authority. The 6-hour report applies only to incidents meeting existing CERT-In criteria. Checked by the AI-assisted session; not yet confirmed by the maintainer. Still missing for 'yes': a full read of every section and the maintainer's confirmation.",
+      "verified": "partial",
+      "checked": "2026-11-08"
+    },
+    {
+      "id": "G-CERTIN-OEM",
+      "title": "CERT-In guidelines on AI-accelerated vulnerability protection and response for OEMs and technology providers (CISG-2026-03)",
+      "issuer": "CERT-In (MeitY)",
+      "type": "Guidelines",
+      "force": "Soft law (mostly advisory)",
+      "date": "2026-06-10",
+      "status": "Issued 10 Jun 2026, v1.0; uses 'advised', 'recommended' and 'should'",
+      "sectors": [
+        "AI development",
+        "Internet platforms & telecom"
+      ],
+      "lifecycle": [
+        "Build & train",
+        "Deploy",
+        "Operate & monitor"
+      ],
+      "actors": [
+        "Developers",
+        "Industry",
+        "Service providers"
+      ],
+      "domains": [
+        "2.2",
+        "6.5"
+      ],
+      "provisions": "Vulnerability disclosure and patch timelines (shorter where a flaw is likely to be exploited with AI); risk assessment of AI-enabled services, APIs and plugins; bills of materials including AI; reporting to CERT-In within 6 hours as under the 2022 Directions",
+      "summary": "Guidance for equipment makers and technology providers operating in India on handling vulnerabilities when attackers use AI. The 6-hour reporting duty it mentions comes from the 2022 Directions, not from these guidelines.",
+      "url": "https://www.cert-in.org.in/PDF/OEM_and_Technology_Providers_Guidelines.pdf",
+      "note": "Checked on 2026-11-08 against the text of the 12-page PDF at the url as returned by a web fetch, and against CERT-In's guidelines list (code CISG-2026-03, 10 June 2026). The cover page leaves 'Issued by' blank; the body names CERT-In. The maintainer has not supplied a copy, so no file hash is recorded. Checked by the AI-assisted session; not yet confirmed by the maintainer. Still missing for 'yes': a saved copy of the PDF and the maintainer's confirmation.",
+      "verified": "partial",
+      "checked": "2026-11-08"
+    },
+    {
+      "id": "G-CERTIN-BLUEPRINT",
+      "title": "CERT-In Blueprint for Reducing Exposure and Defending against AI-Assisted Vulnerabilities Exploitation in Digital Infrastructure (CISG-2026-02)",
+      "issuer": "CERT-In (MeitY)",
+      "type": "Guidelines",
+      "force": "Soft law (advisory)",
+      "date": "2026-05-25",
+      "status": "Issued 25 May 2026, v1.0; organisations are 'encouraged' to implement",
+      "sectors": [
+        "AI development",
+        "Internet platforms & telecom",
+        "Finance & banking"
+      ],
+      "lifecycle": [
+        "Deploy",
+        "Operate & monitor"
+      ],
+      "actors": [
+        "Body corporates",
+        "Government organisations",
+        "Service providers"
+      ],
+      "domains": [
+        "4.2",
+        "4.3",
+        "2.2"
+      ],
+      "provisions": "Threat landscape (s.4) including deepfake-enabled impersonation and fraud (s.4.2) and attacks on AI systems (s.4.4); secure adoption of AI in 14 areas (s.12) including agentic AI override and shutdown; phased roadmap (s.13); reporting to CERT-In within 6 hours 'in accordance with the directions' (s.10)",
+      "summary": "Security guidance for organisations facing attackers who use AI, plus 14 areas for adopting AI safely. It describes expected controls and does not itself set a penalty or a duty beyond the existing CERT-In Directions.",
+      "url": "https://www.cert-in.org.in/PDF/Blueprint_for_Defending_against_AI_Assisted_Exploitation.pdf",
+      "note": "Checked on 2026-11-08 against the 38-page PDF supplied by the maintainer (SHA-256 fe4148487a390bb0183b8bebbda18b8c3a7d81dbc8115b6fd7467b28cd278d8f): 'Version 1.0 | 25.05.2026', issued by CERT-In; and against CERT-In's guidelines list (code CISG-2026-02). Read in the text: contents, ss.1-4, s.10 reporting line, s.12 and ss.13-14. The language is advisory ('encouraged', 'should'). It names no Indian incident. Checked by the AI-assisted session; not yet confirmed by the maintainer. Still missing for 'yes': the maintainer's confirmation.",
+      "verified": "partial",
+      "checked": "2026-11-08"
+    },
+    {
+      "id": "G-CIAD-2026-0020",
+      "title": "CERT-In Advisory CIAD-2026-0020: Defending Against Frontier AI Driven Cyber Risks",
+      "issuer": "CERT-In (MeitY)",
+      "type": "Advisory",
+      "force": "Soft law",
+      "date": "2026-04-26",
+      "status": "Issued 26 Apr 2026, rated High",
+      "sectors": [
+        "Internet platforms & telecom",
+        "Finance & banking"
+      ],
+      "lifecycle": [
+        "Operate & monitor"
+      ],
+      "actors": [
+        "Body corporates",
+        "Users"
+      ],
+      "domains": [
+        "4.2",
+        "4.3"
+      ],
+      "provisions": "Recommended actions for organisations, MSMEs and individuals, including faster patching, monitoring for automated activity, training on AI-generated phishing and deepfakes, and verifying urgent requests independently",
+      "summary": "Warns that frontier AI systems lower the barrier to cyber attacks and speed up exploitation. Advice only; it names no incident.",
+      "url": "https://www.cert-in.org.in/s2cMainServlet?VLCODE=CIAD-2026-0020&pageid=PUBVLNOTES02",
+      "note": "Checked on 2026-11-08 against the advisory page on cert-in.org.in as returned by a web fetch: title, original issue date 26 April 2026, severity High and recommended actions. Checked by the AI-assisted session; not yet confirmed by the maintainer. Still missing for 'yes': a saved copy and the maintainer's confirmation.",
+      "verified": "partial",
+      "checked": "2026-11-08"
+    },
+    {
+      "id": "G-CIAD-2026-0058",
+      "title": "CERT-In Advisory CIAD-2026-0058: Escalation of AI-Driven Attacks on BFSI Entities by Threat Actor 'CRAFTY FALCON'",
+      "issuer": "CERT-In (MeitY)",
+      "type": "Advisory",
+      "force": "Soft law",
+      "date": "2026-11-04",
+      "status": "Issued 4 Nov 2026, last updated 8 Nov 2026, rated Critical",
+      "sectors": [
+        "Finance & banking"
+      ],
+      "lifecycle": [
+        "Operate & monitor"
+      ],
+      "actors": [
+        "Body corporates",
+        "Service providers"
+      ],
+      "domains": [
+        "4.2",
+        "4.3",
+        "2.2"
+      ],
+      "provisions": "Recommended actions: 24x7 monitoring, server-side validation of transactions, fraud-control rules for micro-value test transfers, governance of AI coding-agent and offensive-tool use, reporting to incident@cert-in.org.in and to I4C for bulk fraudulent transactions",
+      "summary": "Reports an active campaign against NBFCs, digital lenders, fintechs, payment aggregators and crypto exchanges in which the actor is said to use publicly available AI offensive tools. It updates CIAD-2026-0046. No victim count or loss figure is given in the page text read.",
+      "url": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE=CIAD-2026-0058",
+      "note": "Checked on 2026-11-08 against the advisory page on cert-in.org.in as returned by a web fetch: title, issue date 4 November 2026 (updated 8 November), severity Critical, and the statement that the actor uses AI-driven offensive tools. The earlier advisory CIAD-2026-0046 could not be opened and is not checked. Checked by the AI-assisted session; not yet confirmed by the maintainer. Still missing for 'yes': a saved copy and the maintainer's confirmation. It is context, not an incident record.",
+      "verified": "partial",
+      "checked": "2026-11-08"
     }
   ],
   "mitigations": [
@@ -4293,7 +4457,7 @@
       "id": "T2-01",
       "title": "No duty to report AI incidents to a central body",
       "type": "Governance gap",
-      "basis": "CERT-In covers cyber incidents only; the 2025 Guidelines and 2026 PSA paper both recommend an AI incidents database, which does not yet exist.",
+      "basis": "CERT-In covers cyber incidents only; the 2025 Guidelines and 2026 PSA paper both recommend an AI incidents database, which does not yet exist. The CERT-In AI Security Auditing Guidelines (4 Nov 2026) tie AI incident reporting to the existing 6-hour rule and say they align with the database the MeitY Guidelines recommend; they do not set one up.",
       "incidents": [
         "IN-INC-09",
         "IN-INC-10",
@@ -4302,14 +4466,15 @@
       "instruments": [
         "G-AIGG",
         "G-PSA-WP",
-        "G-CERTIN"
+        "G-CERTIN",
+        "G-CERTIN-AIAUD"
       ]
     },
     {
       "id": "T2-02",
       "title": "Deepfake fraud is handled as ordinary cheating, with no AI-specific evidence protocol",
       "type": "Possible legal gap",
-      "basis": "Scam cases are booked under general cheating and IT Act personation provisions. Police could not confirm whether a deepfake was used (IN-INC-03). No forensic standard for detecting synthetic media in evidence was found.",
+      "basis": "Scam cases are booked under general cheating and IT Act personation provisions. Police could not confirm whether a deepfake was used (IN-INC-03). No forensic standard for detecting synthetic media in evidence was found. CERT-In's Blueprint (May 2026, s.4.2) and advisory CIAD-2026-0020 treat deepfake fraud as an AI-enabled threat, but they give organisations security advice, not an evidence protocol.",
       "incidents": [
         "IN-INC-03",
         "IN-INC-12"
@@ -4317,7 +4482,9 @@
       "instruments": [
         "G-ITA",
         "G-BSA",
-        "G-BNS"
+        "G-BNS",
+        "G-CERTIN-BLUEPRINT",
+        "G-CIAD-2026-0020"
       ]
     },
     {
@@ -4339,13 +4506,14 @@
       "id": "T2-04",
       "title": "Public-sector algorithms lack disclosure and contestability",
       "type": "Governance gap",
-      "basis": "RTI requests for Samagra Vedika source code were refused on the vendor’s rights. NITI Aayog principles flag exclusion risk, but no binding audit or explanation duty applies to state eligibility systems.",
+      "basis": "RTI requests for Samagra Vedika source code were refused on the vendor’s rights. NITI Aayog principles flag exclusion risk, but no clearly binding audit or explanation duty was found for state eligibility systems. The CERT-In AI Security Auditing Guidelines (4 Nov 2026) cover government bodies and use 'shall', but do not say what gives them binding effect.",
       "incidents": [
         "IN-INC-11"
       ],
       "instruments": [
         "G-NITI1",
-        "G-AIGG"
+        "G-AIGG",
+        "G-CERTIN-AIAUD"
       ]
     },
     {
@@ -4373,6 +4541,18 @@
         "G-ITR26",
         "G-ITR21",
         "G-ADV-MAR24"
+      ]
+    },
+    {
+      "id": "T2-07",
+      "title": "CERT-In's AI audit guidelines give affected people no route to contest an AI decision",
+      "type": "Interpretive question",
+      "basis": "Section 11 of the CERT-In AI Security Auditing Guidelines (4 Nov 2026) defines contestability as review of an AI decision by authorised personnel inside the organisation. The text read gives affected people no right to challenge a decision. Other routes, such as the DPDP Act's grievance provisions, are outside these guidelines and were not assessed here.",
+      "incidents": [
+        "IN-INC-11"
+      ],
+      "instruments": [
+        "G-CERTIN-AIAUD"
       ]
     }
   ],

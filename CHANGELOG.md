@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+- **CERT-In AI guidance added (2026-11-08).** Five new instruments, all `partly verified` until the maintainer
+  confirms them: the AI Security Auditing Guidelines (CISG-2026-04), the OEM and technology providers guidelines
+  (CISG-2026-03), the Blueprint for defending against AI-assisted exploitation (CISG-2026-02), and advisories
+  CIAD-2026-0020 and CIAD-2026-0058. Their notes say what was read and what was not. Both guidelines and the
+  Blueprint are guidance with unclear or advisory force; none is listed as a confirmed obligation.
+  - Gaps T2-01, T2-02 and T2-04 now cite them; T2-04 no longer says no binding audit duty exists, only that no clearly
+    binding one was found. New gap T2-07 (interpretive question): the audit guidelines give affected people no route to
+    contest an AI decision. Laws are now 33 (16 partly verified) and gaps 7.
+  - `CITATION.cff` and `.zenodo.json` still describe release v0.3.1 and change only at the next release.
 - **Model cards: release dates checked against developers' own pages (2026-11-02).** Ten cards (MOD-03 to MOD-12) now have a release date and a developer source in place of a blank or a
   secondary source: Claude Opus 4.6 (2026-02-05), o3 (2025-04-16), Claude Opus 4 (2025-05-22), DeepSeek-R1 (2025-01-20),
   Gemini 2.5 Pro (2025-03-25, first availability; later preview editions and METR's tested version not established),

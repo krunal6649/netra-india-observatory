@@ -113,7 +113,7 @@ All data is open JSON in `data/`.
 | File | Holds | Main fields |
 |---|---|---|
 | `india.json` · `incidents` | 22 Indian AI incidents | `id`, `title`, `date`, `state`, `systems`, `developer`, `deployer`, `harm`, `harm_types`, `severity`, `affected`, `domains`, `entity`, `intent`, `timing`, `sectors`, `response`, `instruments`, `sources`, `netra`, `review`, `reviewed_by`, `reviewed_on` |
-| `india.json` · `instruments` | 28 laws, rules, advisories, standards and court orders | `id`, `title`, `issuer`, `type`, `force`, `date`, `status`, `provisions`, `summary`, `url`, `verified`, `note`, plus Act numbers, Gazette notifications and cases where known |
+| `india.json` · `instruments` | 33 laws, rules, advisories, standards and court orders | `id`, `title`, `issuer`, `type`, `force`, `date`, `status`, `provisions`, `summary`, `url`, `verified`, `note`, plus Act numbers, Gazette notifications and cases where known |
 | `india.json` · `risks` | 18 risks quoted from Indian government frameworks | `framework`, `locator`, `quote`, `title`, `domain`, `entity`, `intent`, `timing` |
 | `india.json` · `mitigations` | 28 measures from those instruments | `source`, `locator`, `quote`, `category`, `actor`, `force` |
 | `india.json` · `gaps` | 6 governance gaps | `title`, `type`, `basis`, `incidents`, `instruments` |
