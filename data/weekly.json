@@ -7,6 +7,84 @@
   },
   "weeks": [
     {
+      "week_start": "2026-10-31",
+      "week_end": "2026-11-06",
+      "generated": "2026-11-07",
+      "news_ok": true,
+      "sources": [
+        {
+          "name": "GDELT: AI news",
+          "url": "https://api.gdeltproject.org/api/v2/doc/doc",
+          "status": "ok",
+          "items": 160
+        },
+        {
+          "name": "GDELT: cyber news",
+          "url": "https://api.gdeltproject.org/api/v2/doc/doc",
+          "status": "ok",
+          "items": 14
+        },
+        {
+          "name": "Press Information Bureau: press releases (RSS, as listed)",
+          "url": "https://pib.gov.in/RssMain.aspx?ModId=6&Lang=2&Regid=3",
+          "status": "off",
+          "items": 0,
+          "error": "Exact address listed on PIB's own RSS page (pib.gov.in/ViewRss.aspx). That page is in Hindi, so the language of this feed is to confirm on the first workflow run. First workflow run on 2026-10-25: HTTP 403 (forbidden) from GitHub's servers. Switched off: NETRA does not work around a site that refuses automated access. PIB releases can still be added by hand."
+        },
+        {
+          "name": "Press Information Bureau: press releases (RSS, Lang=1)",
+          "url": "https://pib.gov.in/RssMain.aspx?ModId=6&Lang=1&Regid=3",
+          "status": "off",
+          "items": 0,
+          "error": "Same feed with Lang=1, tried in case it is the English edition. Not confirmed; if it fails or repeats the other feed, the run report says so and it can be switched off. First workflow run on 2026-10-25: HTTP 403 (forbidden) from GitHub's servers. Switched off: NETRA does not work around a site that refuses automated access. PIB releases can still be added by hand."
+        },
+        {
+          "name": "CERT-In advisories",
+          "url": "",
+          "status": "off",
+          "items": 0,
+          "error": "No official CERT-In RSS or API address could be confirmed. Left off until the owner confirms one; NETRA does not scrape the CERT-In site."
+        },
+        {
+          "name": "METR publications (RSS)",
+          "url": "https://metr.org/feed.xml",
+          "status": "ok",
+          "items": 2
+        },
+        {
+          "name": "MITRE ATLAS case studies (release 2026.10)",
+          "url": "https://raw.githubusercontent.com/mitre-atlas/atlas-data/main/dist/v6/ATLAS-latest.yaml",
+          "status": "ok",
+          "items": 0
+        }
+      ],
+      "top": [],
+      "cyber": [],
+      "models": [
+        {
+          "kind": "METR publication",
+          "title": "Review of the \"Risks from automated R&D\" section in Anthropic's Risk Report (August 2026)",
+          "url": "https://metr.org/blog/2026-11-05-rd-section-anthropic-risk-report-august-2026-review/",
+          "date": "2026-11-05",
+          "note": "New METR publication. Cite and summarise only; NETRA has not read or mapped it yet.",
+          "review": "unreviewed"
+        },
+        {
+          "kind": "METR publication",
+          "title": "Independent Assessment of AI R&D Acceleration at Anthropic in October 2026",
+          "url": "https://metr.org/blog/2026-11-05-anthropic-ai-rd-acceleration-assessment/",
+          "date": "2026-11-05",
+          "note": "New METR publication. Cite and summarise only; NETRA has not read or mapped it yet.",
+          "review": "unreviewed"
+        }
+      ],
+      "notes": [
+        "MITRE ATLAS release 2026.10: 77 case studies in total, 69 not yet in NETRA's model register.",
+        "Removed by the maintainer before merging: 2 AI items (not India-linked, or not a harm) and 2 cyber items (a product launch, and an incident outside India)."
+      ],
+      "review": "unreviewed"
+    },
+    {
       "week_start": "2026-10-24",
       "week_end": "2026-10-30",
       "generated": "2026-10-31",
