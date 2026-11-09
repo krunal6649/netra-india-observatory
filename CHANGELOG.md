@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- **The 5 CERT-In AI documents are verified (2026-11-09).** The maintainer, Krunal Maheshwari, reviewed and confirmed
+  G-CERTIN-AIAUD, G-CERTIN-BLUEPRINT, G-CERTIN-OEM, G-CIAD-2026-0020 and G-CIAD-2026-0058, with their force labels. Laws
+  are now 22 verified and 11 partly verified.
+  - For the three items read only online, the official file or page was re-opened, and its SHA-256 recorded in the
+    note; no copies are stored here.
+  - CIAD-2026-0058 no longer says "last updated 8 November": that date does not appear in the advisory text.
 - **Weekly selection tightened (2026-11-09).** In the week ending 2026-11-07 all four news items were wrong, so the
   maintainer removed them.
   - Outlet names at the end of headlines are now removed before matching. The French-bank headline counted as Indian
