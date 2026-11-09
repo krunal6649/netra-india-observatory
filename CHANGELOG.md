@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+- **Model cards: release dates checked against developers' own pages (2026-11-02).** Ten cards (MOD-03 to MOD-12) now have a release date and a developer source in place of a blank or a
+  secondary source: Claude Opus 4.6 (2026-02-05), o3 (2025-04-16), Claude Opus 4 (2025-05-22), DeepSeek-R1 (2025-01-20),
+  Gemini 2.5 Pro (2025-03-25, first availability; later preview editions and METR's tested version not established),
+  ChatGPT (2022-11-30), Gemini (Bard renamed 2024-02-08), Microsoft 365 Copilot (generally available 2023-11-01 per
+  Microsoft's post of 2023-09-21; Copilot Studio's date not recorded), Claude computer use (2024-10-22 public beta) and
+  Grok (2023-11-03 early beta). MOD-01 still rests on press reports (OpenAI's own page not found) and MOD-02 is internal.
+  All 12 cards stay `unreviewed`.
+
 - **Integrity fixes after an outside review (2026-11-02).**
   - `data/india.json` `meta.version` now reads 0.3.1, and the `CITATION.cff` abstract says Version 0.3; both had been
     left at older values. A new test keeps `meta.version`, `CITATION.cff` and `.zenodo.json` in step.
