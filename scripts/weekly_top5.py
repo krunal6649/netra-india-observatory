@@ -33,7 +33,8 @@ UA = "NETRA-India-Observatory-weekly/1.0 (+https://github.com/krunal6649/netra-i
 
 AI_TERMS = ["artificial intelligence", "deepfake", "deep fake", "deepfakes", "ai-generated", "ai generated", "chatbot",
             "voice clone", "voice cloning", "cloned voice", "generative ai", "genai", "chatgpt", "gemini", "grok", "copilot",
-            "ai tool", "ai app", "ai model", "ai-based", "ai based", "algorithm", "facial recognition", "morphed", "ai"]
+            "ai tool", "ai app", "ai model", "ai-based", "ai based", "algorithm", "facial recognition", "morphed", "openai", "gpt",
+            "ai"]
 HARM_TERMS = ["fraud", "scam", "scammed", "cheat", "cheated", "duped", "arrest", "arrested", "fir", "booked", "deepfake",
               "morphed", "fake", "leak", "leaked", "breach", "extortion", "extort", "sextortion", "harass", "harassment",
               "misuse", "lawsuit", "sued", "suit", "court", "ban", "banned", "blocked", "notice", "probe", "complaint",
@@ -49,11 +50,21 @@ NOT_CYBER = ["hacked to death", "hacking to death", "machete", "axe", "sickle", 
 # A headline from an Indian outlet counts as about India unless it names another country first
 FOREIGN_TERMS = ["u.s.", "usa", "america", "american", "uk", "britain", "british", "china", "chinese", "pakistan",
                  "europe", "european", "eu", "california", "new york", "washington", "canada", "australia", "japan",
-                 "korea", "russia", "ukraine", "israel", "iran", "dubai", "uae", "singapore", "trump", "global"]
+                 "korea", "russia", "ukraine", "israel", "iran", "dubai", "uae", "singapore", "trump", "global", "french",
+                 "france", "german", "germany", "spain", "spanish", "italy", "italian", "brazil", "mexico", "nigeria",
+                 "bangladesh", "nepal", "sri lanka", "world", "worldwide"]
 INDIA_TERMS = ["india", "indian", "delhi", "mumbai", "bengaluru", "bangalore", "hyderabad", "chennai", "kolkata", "pune",
                "ahmedabad", "lucknow", "jaipur", "noida", "gurugram", "gurgaon", "high court", "supreme court", "police",
                "meity", "rbi", "sebi", "cert-in", "i4c", "cybercrime", "₹", "rs", "lakh", "crore", "pib", "union minister",
-               "jammu", "kashmir", "ladakh", "arunachal"]
+               "jammu", "kashmir", "ladakh", "arunachal", "bengal", "modi", "cbfc", "uidai", "aadhaar", "upi", "npci", "trai",
+               "lok sabha", "rajya sabha"]
+# The Indian-outlet fallback (a headline with no Indian place) is not used for these: Indian papers carry global tech
+# and business news, which is not an Indian incident (week of 2026-10-31: a US lawsuit against Google, an IPO story)
+BIG_TECH = ["google", "openai", "anthropic", "meta", "microsoft", "apple", "amazon", "nvidia", "xai", "tesla", "samsung",
+            "ibm", "deepmind", "perplexity", "mistral"]
+BUSINESS = re.compile(r"\b(ipo|valuation|shares|stocks?|earnings|revenue|funding|investors|market cap|"
+                      r"launch(?:es|ed)?|unveil(?:s|ed)?|rolls? out)\b(?! (?:a |an |the )?(?:probe|investigation|inquiry|"
+                      r"crackdown|drive|campaign|case|fir))", re.I)
 STOP = set("a an the of to in on for and or with by from at as is are was were be has have had its it this that new over after "
            "says said say amid into via up out about against how why what who will can could may".split())
 
@@ -198,7 +209,24 @@ def india_nexus(title, states, official=False, indian_outlet=False):
     if named or official:
         return named or ["official Indian source"]
     foreign = has(title, FOREIGN_TERMS) or re.search(r"\bUS\b", title)   # 'US' only in capitals, so 'fool us' is not foreign
-    return ["Indian outlet"] if indian_outlet and not foreign else []
+    elsewhere = foreign or has(title, BIG_TECH) or BUSINESS.search(title)
+    return ["Indian outlet"] if indian_outlet and not elsewhere else []
+
+
+def strip_outlet(title, domain):
+    """Drop a trailing outlet name ('… -Trak.in -Indian Business of Tech'): its words are not the story's, and an
+    outlet called 'Indian …' would otherwise make any headline look Indian."""
+    label = next((p for p in (domain or "").lower().split(".") if p not in ("www", "m", "amp", "english")), "")
+    if len(label) < 4:
+        return title
+    parts = re.split(r"\s*[-|–—]\s*", title)
+    compact = lambda x: re.sub(r"[^a-z]", "", x.lower())
+    for k in range(len(parts) - 1, 0, -1):
+        if label[:8] in compact(parts[k]):
+            cut = title.lower().rfind(parts[k].lower())
+            head = title[:cut].rstrip(" -|–—")
+            return head or title
+    return title
 
 
 def cluster(items):
@@ -243,10 +271,11 @@ def select(articles, kind, existing, seen_urls, states, terms, sub_names, limit=
     for a in articles:
         if not a["title"] or a["url"] in seen_urls:
             continue
-        t = a["title"]
+        t = strip_outlet(a["title"], a.get("domain"))
         ai, harm, cyber = has(t, AI_TERMS), has(t, HARM_TERMS), has(t, CYBER_TERMS)
         ind = india_nexus(t, states, a.get("official", False), a.get("via") == "GDELT")
-        ok = (ai and harm and ind) if kind == "ai" else (cyber and ind and not ai and not has(t, NOT_CYBER))
+        product = BUSINESS.search(t)   # a launch, IPO or valuation is business news, not an incident
+        ok = (ai and harm and ind and not product) if kind == "ai" else (cyber and ind and not ai and not product and not has(t, NOT_CYBER))
         if ok:
             cands.append({**a, "_score": len(set(harm)) + len(set(ai)) + (2 if a.get("official") else 0) if kind == "ai" else len(set(cyber)) + (2 if a.get("official") else 0)})
     picked = []

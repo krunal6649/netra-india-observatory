@@ -2,6 +2,17 @@
 
 ## Unreleased
 
+- **Weekly selection tightened (2026-11-09).** In the week ending 2026-11-07 all four news items were wrong, so the
+  maintainer removed them.
+  - Outlet names at the end of headlines are now removed before matching. The French-bank headline counted as Indian
+    because its outlet is "Trak.in – Indian Business of Tech".
+  - The Indian-outlet fallback no longer applies to headlines naming a global tech company, or to business and product
+    news.
+  - Business and product news (IPO, valuation, shares, launches) is never an item; "launches a probe" still counts.
+  - Added Indian names: Bengal, Modi, CBFC, UIDAI, Aadhaar, UPI, NPCI, TRAI, Lok Sabha, Rajya Sabha. Added foreign
+    names: French, German, world and others. OpenAI and GPT count as AI terms.
+  - Tested on every headline the script has picked so far. The 5 removed are now dropped, and the 5 genuine Indian
+    stories are still kept (`tests/test_weekly.py`).
 - **CERT-In AI guidance added (2026-11-08).** Five new instruments, all `partly verified` until the maintainer
   confirms them: the AI Security Auditing Guidelines (CISG-2026-04), the OEM and technology providers guidelines
   (CISG-2026-03), the Blueprint for defending against AI-assisted exploitation (CISG-2026-02), and advisories
