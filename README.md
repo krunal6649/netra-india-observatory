@@ -53,8 +53,8 @@ Data updated 2026-11-09. Every record says whether a person has reviewed it.
 
 ### Home
 - **Whom to approach:** a drill-down directory (Level → Authority → Bodies → body page) of 31 Union bodies and 10 standard bodies for each of the 36 states and UTs
-- **This week in India:** a weekly, auto-selected, unreviewed list of AI items, a Cyber watch and a Model watch
-- One honest **cases tracked** counter and the risk wheel
+- **This week in India:** a short strip of auto-selected, unreviewed AI candidates, with Cyber watch and Model watch folded away; the full list is under Explore › This week
+- One honest **cases tracked** counter, the risk wheel and the **recently added cases**
 
 </td>
 <td width="50%" valign="top">
