@@ -10,7 +10,7 @@
       "week_start": "2026-11-07",
       "week_end": "2026-11-13",
       "generated": "2026-11-14",
-      "news_ok": true,
+      "news_ok": false,
       "sources": [
         {
           "name": "GDELT: AI news",
@@ -22,8 +22,9 @@
         {
           "name": "GDELT: cyber news",
           "url": "https://api.gdeltproject.org/api/v2/doc/doc",
-          "status": "ok",
-          "items": 23
+          "status": "failed",
+          "items": 0,
+          "error": "HTTPError: HTTP Error 429: Too Many Requests"
         },
         {
           "name": "Press Information Bureau: press releases (RSS, as listed)",
@@ -60,102 +61,11 @@
         }
       ],
       "top": [],
-      "cyber": [
-        {
-          "title": "CERT-In flags critical Google Chrome vulnerabilities, users advised to update browser immediately",
-          "summary": "1 report from moneycontrol.com on 2026-11-12. Cyber security item, listed separately and not counted as an AI incident.",
-          "risk_areas": [],
-          "sources": [
-            {
-              "title": "CERT-In flags critical Google Chrome vulnerabilities, users advised to update browser immediately",
-              "url": "https://www.moneycontrol.com/technology/cert-in-flags-critical-google-chrome-vulnerabilities-users-advised-to-update-browser-immediately-article-14078028.html",
-              "domain": "moneycontrol.com",
-              "date": "2026-11-12",
-              "via": "GDELT"
-            }
-          ],
-          "score": 1,
-          "auto_selected": true,
-          "review": "unreviewed",
-          "id": "C-2026-11-07-1"
-        },
-        {
-          "title": "CERT-In Warns of Serious Chrome Vulnerabilities, Advises Immediate Updates",
-          "summary": "1 report from udaipurkiran.com on 2026-11-12. Cyber security item, listed separately and not counted as an AI incident.",
-          "risk_areas": [],
-          "sources": [
-            {
-              "title": "CERT-In Warns of Serious Chrome Vulnerabilities, Advises Immediate Updates",
-              "url": "https://udaipurkiran.com/cert-in-warns-of-serious-chrome-vulnerabilities-advises-immediate-updates/",
-              "domain": "udaipurkiran.com",
-              "date": "2026-11-12",
-              "via": "GDELT"
-            }
-          ],
-          "score": 1,
-          "auto_selected": true,
-          "review": "unreviewed",
-          "id": "C-2026-11-07-2"
-        },
-        {
-          "title": "Seceon Brings Cybersecurity Intelligence to Real-Time Financial Fraud Prevention",
-          "summary": "1 report from indianewengland.com on 2026-11-11. Cyber security item, listed separately and not counted as an AI incident.",
-          "risk_areas": [],
-          "sources": [
-            {
-              "title": "Seceon Brings Cybersecurity Intelligence to Real-Time Financial Fraud Prevention",
-              "url": "https://indianewengland.com/seceon-brings-cybersecurity-intelligence-to-real-time-financial-fraud-prevention/",
-              "domain": "indianewengland.com",
-              "date": "2026-11-11",
-              "via": "GDELT"
-            }
-          ],
-          "score": 1,
-          "auto_selected": true,
-          "review": "unreviewed",
-          "id": "C-2026-11-07-3"
-        },
-        {
-          "title": "Why Indian Enterprises Are Switching IT Resellers and Managed Service Providers in 2026 – 2027: Pricing, Cybersecurity and Service Quality",
-          "summary": "1 report from infotechlead.com on 2026-11-08. Cyber security item, listed separately and not counted as an AI incident.",
-          "risk_areas": [],
-          "sources": [
-            {
-              "title": "Why Indian Enterprises Are Switching IT Resellers and Managed Service Providers in 2026 – 2027: Pricing, Cybersecurity and Service Quality",
-              "url": "https://infotechlead.com/channels/why-indian-enterprises-are-switching-it-resellers-and-managed-service-providers-in-2026-2027-pricing-cybersecurity-and-service-quality-99470",
-              "domain": "infotechlead.com",
-              "date": "2026-11-08",
-              "via": "GDELT"
-            }
-          ],
-          "score": 1,
-          "auto_selected": true,
-          "review": "unreviewed",
-          "id": "C-2026-11-07-4"
-        },
-        {
-          "title": "Kannur Cyber Fraud: Man Loses Rs 2.69 Lakh Via WhatsApp Video Call Hack",
-          "summary": "1 report from rediff.com on 2026-11-08. Cyber security item, listed separately and not counted as an AI incident.",
-          "risk_areas": [],
-          "sources": [
-            {
-              "title": "Kannur Cyber Fraud: Man Loses Rs 2.69 Lakh Via WhatsApp Video Call Hack",
-              "url": "https://www.rediff.com/news/report/man-loses-rs-269-lakh-to-whatsapp-cyber-fraud-in-kannur/20261108.htm",
-              "domain": "rediff.com",
-              "date": "2026-11-08",
-              "via": "GDELT"
-            }
-          ],
-          "score": 1,
-          "auto_selected": true,
-          "review": "unreviewed",
-          "id": "C-2026-11-07-5"
-        }
-      ],
+      "cyber": [],
       "models": [],
       "notes": [
         "MITRE ATLAS release 2026.10: 77 case studies in total, 69 not yet in NETRA's model register.",
-        "Only 0 AI items met the selection rules this week; NETRA does not pad the list."
+        "The news source (GDELT) did not answer this week, so no news items could be picked. This does not mean nothing happened."
       ],
       "review": "unreviewed"
     },
