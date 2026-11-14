@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+- **Home page: reviewed cases first, weekly news as a short strip (2026-11-15).** The maintainer found the home page
+  repetitive and confusing: five large auto-selected cyber headlines sat above the reviewed cases.
+  - "Latest incidents" is now **Recently added cases**, placed right under the risk wheel, with each card's review
+    status.
+  - **This week in India** is a compact strip under it. It shows AI candidates as a short list, folds Cyber watch and
+    Model watch away ("Cyber watch (5)"), and links to the full view.
+  - The full weekly view (all weeks, source status, credits) moved to a new **Explore › This week** page; old
+    `#weekly` links open it.
 - **Weekly: an earlier week can be redone (2026-11-15).** *Run workflow* now has an optional *run_date* box. Started
   after midnight IST, a run without a date covers a different seven days, so a faulty week could not be replaced.
   The redone week replaces the old one, weeks stay newest first, and the retry checks that week's own news status.

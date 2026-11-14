@@ -93,8 +93,15 @@ check(mv.includes('By evaluation report') && ev.includes('TR-001') && ev.include
 const hw = N.page('home');
 const WK = JSON.parse(script.match(/const PAYLOAD = (\{[\s\S]*?\});\n\(function/)[1]).weekly.weeks[0];
 const wkHas = WK && (WK.top.length + WK.cyber.length + WK.models.length) > 0;
-check(wkHas ? (hw.indexOf('This week in India') > hw.indexOf('click a segment to open that risk area') && hw.indexOf('This week in India') < hw.indexOf('Where incidents outrun binding law') && hw.includes('GDELT'))
-            : !hw.includes('This week in India'), 'This week in India sits just below the risk areas, and is hidden when the week is empty');
+check(wkHas ? (hw.indexOf('Recently added cases') > hw.indexOf('click a segment to open that risk area') && hw.indexOf('This week in India') > hw.indexOf('Recently added cases') && hw.indexOf('This week in India') < hw.indexOf('Where incidents outrun binding law'))
+            : !hw.includes('This week in India'), 'Home: risk wheel, then reviewed cases, then the weekly strip; the strip is hidden when the week is empty');
+// The strip keeps Cyber watch and Model watch folded away, and points to the full page
+const strip = hw.slice(hw.indexOf('This week in India'), hw.indexOf('id="directory"'));
+check(!wkHas || ((!WK.cyber.length || /<details[^>]*><summary>Cyber watch \(\d+\)/.test(strip)) && (!WK.models.length || /<details[^>]*><summary>Model watch \(\d+\)/.test(strip)) && strip.includes('data-go="explore-weekly"') && !strip.includes('class="card edge"')),
+  'weekly strip is compact: Cyber watch and Model watch are folded, no big cards, and it links to Explore › This week');
+const wpage = N.page('explore-weekly');
+check(wpage.includes('GDELT') && wpage.includes('Candidates only') === false && wpage.includes('none becomes a NETRA case') && (!WK || wpage.includes(WK.week_start)), 'Explore › This week shows the full weekly view, its sources and credit');
+check(N.resolve('weekly') === 'explore-weekly', 'an old #weekly link opens Explore › This week');
 check(hw.indexOf('class="hero"') < hw.indexOf('click a segment to open that risk area') && hw.indexOf('click a segment to open that risk area') < hw.indexOf('id="directory"') && (!wkHas || hw.indexOf('This week in India') < hw.indexOf('id="directory"')) && hw.includes('Whom to approach') && !hw.includes('Who to approach'), 'Home order: risk wheel, legend, This week in India, then Whom to approach');
 // Only the current week is checked here; earlier weeks are folded away under "Earlier weeks" and keep their own parts
 const hwNow = hw.split('Earlier weeks (')[0];
