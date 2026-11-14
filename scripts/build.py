@@ -425,6 +425,12 @@ def check_weekly(weekly, india, subs, errors):
         for m in w.get("models", []):
             if m.get("review") != "unreviewed" or not str(m.get("url", "")).startswith("https://"):
                 errors.append(f"{wid} model item {m.get('title', '?')[:40]}: must be unreviewed with an https link")
+        if len(w.get("official", [])) > 10:
+            errors.append(f"{wid}: at most 10 official items")
+        for o in w.get("official", []):
+            if (o.get("review") != "unreviewed" or not str(o.get("url", "")).startswith("https://") or not is_date(o.get("date"))
+                    or o.get("kind") not in {"CERT-In advisory", "CERT-In guidelines"} or not o.get("title")):
+                errors.append(f"{wid} official item {o.get('title', '?')[:40]}: needs a known kind, a title, an ISO date, an https link and 'unreviewed'")
 
 
 def validate(tax, india, glob, directory=None, models=None, terms=None, weekly=None):

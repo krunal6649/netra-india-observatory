@@ -1,6 +1,8 @@
 """Checks the weekly selection with fixture feeds; no network is used.
 Run from the repo root:  python3 -m unittest discover tests
 """
+import contextlib
+import io
 import json
 import sys
 import unittest
@@ -28,6 +30,13 @@ def fake_get(url):
         return (FIX / "atlas_latest.txt").read_bytes()
     if url.endswith("ATLAS-2026.10.yaml"):
         return (FIX / "atlas.yaml").read_bytes()
+    if "cert-in.org.in" in url:
+        if "PUBADVLIST02" in url:
+            return (FIX / "certin_list.html").read_bytes()
+        if "GUIDLNVIEW01" in url:
+            return (FIX / "certin_guidelines.html").read_bytes()
+        code = url.split("VLCODE=")[-1]
+        return (FIX / f"certin_{code}.html").read_bytes()
     raise wk.SourceError("unexpected url " + url)
 
 
@@ -101,7 +110,8 @@ class Tests(unittest.TestCase):
     def test_failed_and_switched_off_sources_are_reported(self):
         status = {s["name"]: s["status"] for s in self.week["sources"]}
         self.assertEqual(status["Press Information Bureau: press releases (RSS, Lang=1)"], "failed")
-        self.assertEqual(status["CERT-In advisories"], "off")
+        self.assertEqual(status["CERT-In advisories (public list)"], "ok")
+        self.assertEqual(status["CERT-In guidelines (public list)"], "ok")
         self.assertEqual(status["GDELT: AI news"], "ok")
 
     def test_gdelt_busy_is_retried_then_reported(self):
@@ -237,6 +247,46 @@ class Tests(unittest.TestCase):
             self.assertEqual(wk.main(["--news-ok", "--date", "2026-10-24"]), 0)
             self.assertEqual(wk.main(["--news-ok", "--date", "2026-11-21"]), 1)   # a week that was never run
         finally:
+            if had is not None:
+                real.write_text(had, encoding="utf-8")
+            elif real.exists():
+                real.unlink()
+
+    def test_week_runs_saturday_to_friday_and_daily_runs_fill_it(self):
+        self.assertEqual(wk.week_window(date(2026, 11, 14)), (date(2026, 11, 7), date(2026, 11, 13)))    # Saturday: full week
+        self.assertEqual(wk.week_window(date(2026, 11, 15)), (date(2026, 11, 14), date(2026, 11, 14)))   # Sunday: one day
+        self.assertEqual(wk.week_window(date(2026, 11, 20)), (date(2026, 11, 14), date(2026, 11, 19)))   # Friday: six days
+
+    def test_certin_official_items_mention_ai_in_their_own_text_and_fall_in_the_week(self):
+        got = {o["code"]: o for o in self.week["official"]}
+        self.assertIn("CIAD-2026-0042", got)          # deepfake phishing, 20 Oct
+        self.assertNotIn("CIAD-2026-0043", got)       # 'ai' only in a reference link and the site menu
+        self.assertNotIn("CIAD-2026-0041", got)       # mentions AI but issued in September
+        self.assertIn("CISG-2026-09", got)            # AI in the guideline's title, 19 Oct
+        self.assertNotIn("CISG-2026-08", got)         # no AI
+        self.assertTrue(all(o["review"] == "unreviewed" and o["url"].startswith("https://www.cert-in.org.in/") for o in got.values()))
+
+    def test_certin_items_netra_already_holds_are_skipped(self):
+        items, _ = wk.certin_items(fake_get, date(2026, 10, 17), date(2026, 10, 23), {"CIAD-2026-0042"})
+        self.assertNotIn("CIAD-2026-0042", [i["code"] for i in items])
+
+    def test_new_items_are_listed_against_an_earlier_version(self):
+        real = wk.DATA / "weekly.json"
+        had = real.read_text(encoding="utf-8") if real.exists() else None
+        tmp = FIX.parent / "_earlier.json"
+        try:
+            store, week = wk.run(date(2026, 10, 24), get=fake_get, sleep=lambda s: None)
+            real.write_text(json.dumps(store), encoding="utf-8")
+            out = io.StringIO()
+            with contextlib.redirect_stdout(out):
+                self.assertEqual(wk.main(["--new-since", "", "--date", "2026-10-24"]), 0)      # nothing earlier: all new
+                tmp.write_text(json.dumps(store), encoding="utf-8")
+                self.assertEqual(wk.main(["--new-since", str(tmp), "--date", "2026-10-24"]), 1)   # same version: nothing new
+                self.assertEqual(wk.main(["--print-week", "--date", "2026-10-28"]), 0)
+            self.assertIn("**Official:** [CIAD-2026-0042", out.getvalue())
+            self.assertTrue(out.getvalue().rstrip().endswith("2026-10-24"))
+        finally:
+            tmp.unlink(missing_ok=True)
             if had is not None:
                 real.write_text(had, encoding="utf-8")
             elif real.exists():

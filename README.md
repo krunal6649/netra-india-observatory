@@ -149,7 +149,7 @@ The one-page version is in [docs/framework.md](docs/framework.md).
 | Risks (18), measures (28) | Quoted or summarised from the cited instruments, with location |
 | Directory (391 bodies) | 32 official links checked by the maintainer |
 | AI model cards (12) | Unreviewed |
-| Weekly update | Auto-selected, unreviewed |
+| Daily check (This week in India) | Auto-selected, unreviewed; checked every morning at 07:00 IST |
 
 **Safeguards built into the build:** it refuses a risk without a verbatim quote, an incident without an overclaim check and a "what we do not know" list, a human review marked done on an unreviewed record, unknown risk areas or authorities, non-https sources, and possible duplicate cases. See [docs/maintainers.md](docs/maintainers.md) for the full list.
 
@@ -192,7 +192,7 @@ Every outside source and its licence is listed on the site under **About › Sou
 - **Indian government documents, laws and court orders**, linked to official copies where available.
 - **News and legal reporting**, linked only; short facts, no copied text.
 - **MITRE ATLAS** case studies (Apache 2.0, © MITRE). **METR** reports are cited and summarised only.
-- **GDELT Project**, PIB, METR and MITRE ATLAS feeds for the weekly update.
+- **GDELT Project**, METR and MITRE ATLAS feeds, and CERT-In's public lists, for the daily check.
 - **pdf.js** (Apache 2.0, Mozilla) for reading PDFs in the browser. Google Fonts: Newsreader, IBM Plex Sans and Mono, Noto Serif Devanagari (SIL OFL 1.1).
 
 ## Documents

@@ -59,7 +59,8 @@ without the earlier conversation. Last updated 2026-11-01, after release v0.3.1 
   `data/atlas_techniques.json` (ATLAS 2026.10, Apache 2.0, names only).
 - 12 model cards (`data/models.json`), all unreviewed. Release dates for 10 cards are checked against developer pages (2026-11-02); MOD-01 is press-only and MOD-02 is internal.
 - About › Crosswalk page; Google Dataset Search description built into the page head from the data.
-- Weekly update: `.github/workflows/weekly.yml`, Saturdays 00:00 IST, opens a PR. Items are candidates only;
+- Daily check: `.github/workflows/weekly.yml`, every morning 07:00 IST (weeks run Saturday to Friday, one PR per week, a
+  comment when new items appear; CERT-In lists switched on 2026-11-15). Items are candidates only;
   nothing becomes a case without the maintainer.
 
 ## Open items

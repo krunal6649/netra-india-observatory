@@ -106,7 +106,7 @@ check(hw.indexOf('class="hero"') < hw.indexOf('click a segment to open that risk
 // Only the current week is checked here; earlier weeks are folded away under "Earlier weeks" and keep their own parts
 const hwNow = hw.split('Earlier weeks (')[0];
 check(!/Nothing this week|Nothing new this week|No AI item met|not yet checked by a person|did not answer this week/.test(hw) && (!WK || WK.cyber.length || !hwNow.slice(hwNow.indexOf('This week in India')).includes('Cyber watch')) && (!WK || WK.top.length || !hwNow.includes('W-' + (WK && WK.week_start))), 'empty parts of the weekly section are not shown at all');
-check(N.page('about-credits').includes('CERT-In: not used yet'), 'Credits list the weekly sources and say CERT-In is not used yet');
+check(N.page('about-credits').includes('daily 07:00 IST check') && N.page('about-credits').includes('Only items whose own text mentions AI are kept'), 'Credits list the daily sources, including how CERT-In is read');
 const mt = N.page('about-method');
 check(mt.includes('Planned for v0.3') && mt.includes('Live reporting') && mt.includes('MIT AI Risk Repository import') && mt.includes('Further sources') && !/undefined|NaN/.test(mt), 'About › Method lists what is planned for v0.3, with counts from the data');
 check(!html.includes('pilot v0.1') && html.includes('content="22 India AI incidents'), 'link-preview text is current');
