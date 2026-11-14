@@ -11,7 +11,7 @@ Friday). It can also be started by hand from *Actions › Weekly update (unrevie
 starts scheduled runs a few minutes late. If the repository has no activity for 60 days, GitHub pauses scheduled
 workflows. Re-enable it from the Actions tab.
 
-GDELT limits requests per address, and GitHub's runners are shared, so GDELT sometimes answers "too many requests". The script retries after 20, 45 and 90 seconds. If GDELT is still busy, the workflow waits 10 minutes and runs once more. If news still cannot be fetched, the site says that the news source did not answer, not that nothing happened.
+GDELT limits requests per address, and GitHub's runners are shared, so GDELT sometimes answers "too many requests". The script retries after 20, 45 and 90 seconds. If GDELT is still busy, the workflow waits 10 minutes and runs once more. The retry happens if either search (AI or cyber) fails. If news still cannot be fetched, the run notes say which search did not answer, not that nothing happened.
 
 Each run opens a **pull request**. Nothing is merged automatically, and nothing becomes a NETRA incident record by
 itself. The owner checks each item against its sources and deletes any that are wrong before merging. Promoting an
@@ -45,7 +45,8 @@ The rules work on headlines only, so they are simple and can be checked.
    and product news is never an item: an IPO, a valuation, shares, or a product launch or unveiling. "Launches a
    probe" still counts.
 2. **Cyber item:** the headline has a cyber term (for example *ransomware*, *data breach*, *phishing*), a link to India,
-   **no** AI term (OpenAI and GPT count as AI terms), and is not a product launch. Violence such as "hacked to death" is not counted. Cyber items are never counted as AI incidents
+   **no** AI term (OpenAI and GPT count as AI terms), and is not a product launch. The word *cybersecurity* alone does
+   not count: it names a topic, not an incident. Violence such as "hacked to death" is not counted. Cyber items are never counted as AI incidents
    and carry no risk area.
 3. Headlines about the same story are grouped together. They are grouped when they share most of their key words,
    including names and figures such as "3.75 lakh", or a specific three-word phrase such as "SBI data breach". A

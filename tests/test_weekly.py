@@ -193,6 +193,37 @@ class Tests(unittest.TestCase):
                          "Bank loses money in cyberattack")
         self.assertEqual(wk.strip_outlet("Man held for AI-generated ID card", "prokerala.com"), "Man held for AI-generated ID card")
 
+    def test_ai_search_failing_alone_is_not_reported_as_an_empty_week(self):
+        # 2026-11-14: the AI search got HTTP 429 while the cyber search worked; the week said "0 AI items met the rules"
+        def no_ai_search(url):
+            if "gdeltproject" in url and "deepfake" in url.lower():
+                raise wk.SourceError("HTTPError: HTTP Error 429: Too Many Requests")
+            return fake_get(url)
+        real = wk.DATA / "weekly.json"
+        had = real.read_text(encoding="utf-8") if real.exists() else None
+        try:
+            _, week = wk.run(date(2026, 10, 24), get=no_ai_search, sleep=lambda s: None)
+        finally:
+            if had is not None:
+                real.write_text(had, encoding="utf-8")
+        self.assertFalse(week["news_ok"])   # so the workflow waits and tries again
+        self.assertTrue(any("AI news search" in n and "did not answer" in n for n in week["notes"]))
+        self.assertFalse(any("does not pad" in n for n in week["notes"]))
+        # An AI story found by the cyber search is still listed; only the AI search's own results are missing
+        self.assertTrue(all(s["via"] == "GDELT" for t in week["top"] for s in t["sources"]))
+
+    def test_cybersecurity_as_a_topic_is_not_an_incident(self):
+        # Picked on 2026-11-14 (headlines as published): a press release and a marketing article
+        for dom, title in [("indianewengland.com", "Seceon Brings Cybersecurity Intelligence to Real-Time Financial Fraud Prevention"),
+                           ("infotechlead.com", "Why Indian Enterprises Are Switching IT Resellers and Managed Service Providers in 2026 – 2027: Pricing, Cybersecurity and Service Quality")]:
+            self.assertFalse(self.picked("cyber", dom, title), title)
+        self.assertTrue(self.picked("cyber", "rediff.com", "Kannur Cyber Fraud: Man Loses Rs 2.69 Lakh Via WhatsApp Video Call Hack"))
+        self.assertTrue(self.picked("cyber", "moneycontrol.com", "CERT-In flags critical Google Chrome vulnerabilities, users advised to update browser immediately"))
+
+    def test_reworded_headlines_of_one_story_are_grouped(self):
+        self.assertTrue(wk.same_story("CERT-In flags critical Google Chrome vulnerabilities, users advised to update browser immediately",
+                                      "CERT-In Warns of Serious Chrome Vulnerabilities, Advises Immediate Updates"))
+
     def test_old_feed_items_are_outside_the_window(self):
         urls = {s["url"] for c in self.week["cyber"] + self.week["top"] for s in c["sources"]}
         self.assertNotIn("https://pib.gov.in/PressReleasePage.aspx?PRID=2", urls)

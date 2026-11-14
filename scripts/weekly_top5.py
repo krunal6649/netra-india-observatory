@@ -44,7 +44,8 @@ HARM_TERMS = ["fraud", "scam", "scammed", "cheat", "cheated", "duped", "arrest",
               "nude", "morphing", "misused", "raid", "seized", "case registered", "cybercrime", "cyber fraud", "forged"]
 CYBER_TERMS = ["ransomware", "data breach", "breach", "cyber attack", "cyberattack", "cyber-attack", "phishing", "cert-in",
                "hacked", "hacker", "hackers", "hacking", "malware", "data leak", "data exposure", "dark web", "dark-web", "ddos",
-               "vulnerability", "spyware", "cyber fraud", "cyber security", "cybersecurity"]
+               "vulnerability", "vulnerabilities", "spyware", "cyber fraud", "zero-day", "zero day"]
+# 'cybersecurity' alone is a topic, not an incident: it let in a press release and a marketing article (2026-11-14)
 # 'Hacked to death' is violence, not a cyber attack
 NOT_CYBER = ["hacked to death", "hacking to death", "machete", "axe", "sickle", "sword", "witchcraft"]
 # A headline from an Indian outlet counts as about India unless it names another country first
@@ -106,8 +107,18 @@ def words(title):
     return [w for w in re.findall(r"\d+(?:[.,]\d+)*|[a-z₹]+", title.lower()) if w not in STOP and (len(w) > 2 or w[0].isdigit())]
 
 
+def stem(w):
+    """Crude word ending removal, used only to compare two headlines ('advised'/'advises', 'update'/'updates')."""
+    if w[0].isdigit() or len(w) < 5:
+        return w
+    for end in ("ies", "ing", "ely", "ed", "es", "ly", "s"):
+        if w.endswith(end) and len(w) - len(end) >= 4:
+            return w[: -len(end)]
+    return w[:-1] if w.endswith("e") else w
+
+
 def tokens(title):
-    return set(words(title))
+    return {stem(w) for w in words(title)}
 
 
 def trigrams(title):
@@ -361,10 +372,15 @@ def run(today, get=fetch, sleep=time.sleep):
         it["id"] = f"W-{start.isoformat()}-{k}"
     for k, it in enumerate(cyber, 1):
         it["id"] = f"C-{start.isoformat()}-{k}"
-    news_ok = any(r["status"] == "ok" for r in report if r["name"].startswith("GDELT"))
-    if not news_ok:
+    gd = {("ai" if "AI" in r["name"] else "cyber"): r["status"] == "ok" for r in report if r["name"].startswith("GDELT")}
+    news_ok = bool(gd) and all(gd.values())   # both searches must answer; the workflow retries when this is false
+    if not any(gd.values()):
         notes.append("The news source (GDELT) did not answer this week, so no news items could be picked. This does not mean nothing happened.")
-    elif len(top) < 5:
+    elif not gd.get("ai", True):
+        notes.append("The AI news search (GDELT) did not answer this week, so AI items may be missing. This does not mean nothing happened.")
+    elif not gd.get("cyber", True):
+        notes.append("The cyber news search (GDELT) did not answer this week, so cyber items may be missing.")
+    if gd.get("ai") and len(top) < 5:
         notes.append(f"Only {len(top)} AI item{'s' if len(top) != 1 else ''} met the selection rules this week; NETRA does not pad the list.")
     notes += [f"Not listed (already a NETRA record): {s}" for s in skipped_ai + skipped_cy]
     week = {"week_start": start.isoformat(), "week_end": end.isoformat(), "generated": today.isoformat(), "news_ok": news_ok, "sources": report,
