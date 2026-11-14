@@ -7,7 +7,9 @@ the Home page. Every item is labelled **Auto-selected, unreviewed**.
 ## When it runs
 
 `.github/workflows/weekly.yml` runs every **Saturday at 00:00 IST** (cron `30 18 * * 5`, which is 18:30 UTC on
-Friday). It can also be started by hand from *Actions › Weekly update (unreviewed) › Run workflow*. GitHub sometimes
+Friday). It can also be started by hand from *Actions › Weekly update (unreviewed) › Run workflow*. To redo an earlier week,
+enter the Saturday it should have run on in the *run_date* box (for example `2026-11-14`); the redone week replaces the
+old one. GitHub sometimes
 starts scheduled runs a few minutes late. If the repository has no activity for 60 days, GitHub pauses scheduled
 workflows. Re-enable it from the Actions tab.
 

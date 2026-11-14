@@ -388,7 +388,8 @@ def run(today, get=fetch, sleep=time.sleep):
     store["meta"] = {"title": "This week in India", "method": "docs/weekly-method.md",
                      "note": "Auto-selected from official feeds and APIs; unreviewed. NETRA's own summaries; headlines only as link titles.",
                      "credit": CONFIG["gdelt"]["credit"]}
-    store["weeks"] = [week] + [w for w in store["weeks"] if w["week_start"] != week["week_start"]]
+    store["weeks"] = sorted([week] + [w for w in store["weeks"] if w["week_start"] != week["week_start"]],
+                            key=lambda w: w["week_start"], reverse=True)   # newest first, even when an earlier week is redone
     store["weeks"] = store["weeks"][:CONFIG["keep_weeks"]]
     return store, week
 
@@ -396,8 +397,14 @@ def run(today, get=fetch, sleep=time.sleep):
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--date", help="run as if today were this date (YYYY-MM-DD); default today in IST")
+    ap.add_argument("--news-ok", action="store_true", help="only check whether that week's news was fetched (exit 0 if so)")
     a = ap.parse_args(argv)
     today = date.fromisoformat(a.date) if a.date else datetime.now(timezone(timedelta(hours=5, minutes=30))).date()
+    if a.news_ok:
+        start = (today - timedelta(days=CONFIG["window_days"])).isoformat()
+        path = DATA / "weekly.json"
+        weeks = json.loads(path.read_text(encoding="utf-8"))["weeks"] if path.exists() else []
+        return 0 if any(w["week_start"] == start and w.get("news_ok") for w in weeks) else 1
     store, week = run(today)
     (DATA / "weekly.json").write_text(json.dumps(store, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(f"Week {week['week_start']} to {week['week_end']}: {len(week['top'])} AI items, {len(week['cyber'])} cyber items, {len(week['models'])} model items.")

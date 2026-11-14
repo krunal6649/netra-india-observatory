@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- **Weekly: an earlier week can be redone (2026-11-15).** *Run workflow* now has an optional *run_date* box. Started
+  after midnight IST, a run without a date covers a different seven days, so a faulty week could not be replaced.
+  The redone week replaces the old one, weeks stay newest first, and the retry checks that week's own news status.
 - **Weekly: a failed AI news search is no longer reported as an empty week (2026-11-14).** In this week's run, GDELT
   refused the AI search ("too many requests") while the cyber search worked. The week then said "0 AI items met the
   selection rules", and the 10-minute retry did not run.
