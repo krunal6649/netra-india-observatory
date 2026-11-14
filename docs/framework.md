@@ -122,7 +122,7 @@ All data is open JSON in `data/`.
 | `global_evidence.json` | 3 METR reports mapped to 14 Indian provisions | `reports`, `instruments`, `mappings`, `classifications` |
 | `taxonomy.json` | The MIT taxonomies, NETRA's scales and the 14 stages | `domains`, `causal`, `mitigation`, `severity`, `harm_types`, `sectors`, `netra_stages` |
 | `check_terms.json` | Keyword lists for the in-browser report check | `risk_areas`, `instruments` |
-| `weekly.json` | The weekly update, last 12 weeks | `top`, `cyber`, `models`, `sources`, `notes` |
+| `weekly.json` | This week in India (checked daily), last 12 weeks | `top`, `cyber`, `models`, `official`, `sources`, `notes` |
 | `owasp_llm_top10.json` | OWASP Top 10 for LLM Applications, 2025 and 2026 editions (names only, CC BY-SA 4.0) | `editions` |
 | `atlas_techniques.json` | MITRE ATLAS technique IDs and names, release 2026.10 (Apache 2.0, © MITRE) | `techniques` |
 

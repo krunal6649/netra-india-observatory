@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+- **Daily check at 07:00 IST instead of weekly (2026-11-15).** The maintainer asked for every source to be checked each
+  morning, so that new items arrive a few at a time instead of all on Saturday.
+  - A week still runs Saturday to Friday; each morning fills the current week up to yesterday.
+  - Each week has one pull request. The first morning with something opens it; later mornings add only new items and a
+    comment listing them. A pull request the owner has edited is never overwritten, only commented on.
+  - **CERT-In is now checked** (owner's decision): its public advisory and guidelines lists, keeping items issued that
+    week whose own text mentions AI. They appear as **Official watch**, and items NETRA already holds are skipped.
+  - The workflow is renamed *Daily check (unreviewed)*.
 - **Home page: reviewed cases first, weekly news as a short strip (2026-11-15).** The maintainer found the home page
   repetitive and confusing: five large auto-selected cyber headlines sat above the reviewed cases.
   - "Latest incidents" is now **Recently added cases**, placed right under the risk wheel, with each card's review

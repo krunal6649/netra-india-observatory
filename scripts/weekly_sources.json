@@ -1,5 +1,5 @@
 {
-  "note": "Sources for scripts/weekly_top5.py. Official feeds and APIs only; no scraping. 'checked' says how each address was confirmed. The weekly workflow log reports whether each one answered.",
+  "note": "Sources for scripts/weekly_top5.py. Official feeds, APIs and, for CERT-In, its two public lists; no bulk scraping. 'checked' says how each address was confirmed. The weekly workflow log reports whether each one answered.",
   "window_days": 7,
   "keep_weeks": 12,
   "gdelt": {
@@ -35,14 +35,6 @@
       "checked": "Same feed with Lang=1, tried in case it is the English edition. Not confirmed; if it fails or repeats the other feed, the run report says so and it can be switched off. First workflow run on 2026-10-25: HTTP 403 (forbidden) from GitHub's servers. Switched off: NETRA does not work around a site that refuses automated access. PIB releases can still be added by hand."
     },
     {
-      "id": "certin",
-      "name": "CERT-In advisories",
-      "url": "",
-      "kind": "india_official",
-      "enabled": false,
-      "checked": "No official CERT-In RSS or API address could be confirmed. Left off until the owner confirms one; NETRA does not scrape the CERT-In site."
-    },
-    {
       "id": "metr",
       "name": "METR publications (RSS)",
       "url": "https://metr.org/feed.xml",
@@ -58,5 +50,13 @@
     "study_url": "https://atlas.mitre.org/studies/",
     "licence": "Apache 2.0, © MITRE",
     "checked": "Public GitHub repository mitre-atlas/atlas-data, read on 2026-10-25: ATLAS-latest.yaml points to ATLAS-2026.09.yaml; case studies carry created-date."
+  },
+  "certin": {
+    "name": "CERT-In advisories and guidelines (public lists)",
+    "advisory_list": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBADVLIST02&year={year}",
+    "advisory": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES02&VLCODE={code}",
+    "guidelines": "https://www.cert-in.org.in/s2cMainServlet?pageid=GUIDLNVIEW01",
+    "newest": 6,
+    "checked": "CERT-In publishes no RSS or API. Its public advisory and guidelines lists answer automated requests normally (checked 2026-11-09 and 2026-11-15). Switched on by the maintainer, Krunal Maheshwari, on 2026-11-15: the daily run reads the two lists and the newest few advisories, nothing else."
   }
 }

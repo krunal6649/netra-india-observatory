@@ -6,18 +6,30 @@ the Home page. Every item is labelled **Auto-selected, unreviewed**.
 
 ## When it runs
 
-`.github/workflows/weekly.yml` runs every **Saturday at 00:00 IST** (cron `30 18 * * 5`, which is 18:30 UTC on
-Friday). It can also be started by hand from *Actions › Weekly update (unreviewed) › Run workflow*. To redo an earlier week,
-enter the Saturday it should have run on in the *run_date* box (for example `2026-11-14`); the redone week replaces the
-old one. GitHub sometimes
-starts scheduled runs a few minutes late. If the repository has no activity for 60 days, GitHub pauses scheduled
-workflows. Re-enable it from the Actions tab.
+`.github/workflows/weekly.yml` runs **every morning at 07:00 IST** (cron `30 1 * * *`, 01:30 UTC). A NETRA week runs
+Saturday to Friday: each morning's run covers the current week up to yesterday, and Saturday's run completes the week
+just ended.
 
-GDELT limits requests per address, and GitHub's runners are shared, so GDELT sometimes answers "too many requests". The script retries after 20, 45 and 90 seconds. If GDELT is still busy, the workflow waits 10 minutes and runs once more. The retry happens if either search (AI or cyber) fails. If news still cannot be fetched, the run notes say which search did not answer, not that nothing happened.
+Each week has **one pull request**:
+- it is opened the first morning something turns up;
+- on later mornings, if anything new appears, the run updates the pull request and adds a comment listing only the new
+  items, so GitHub notifies the owner only when there is something to look at;
+- if the owner has already edited the pull request (for example deleted a wrong item), the run does not overwrite it;
+  it only comments with the new items;
+- quiet mornings change nothing.
 
-Each run opens a **pull request**. Nothing is merged automatically, and nothing becomes a NETRA incident record by
-itself. The owner checks each item against its sources and deletes any that are wrong before merging. Promoting an
-item to a full incident record is a separate, manual step that follows the normal review rules.
+It can also be started by hand from *Actions › Daily check (unreviewed) › Run workflow*. To redo an earlier week, enter a
+date in that week in the *run_date* box (for example `2026-11-14` for the week of 7 to 13 November); the redone week
+replaces the old one. GitHub sometimes starts scheduled runs a few minutes late, and pauses scheduled workflows after 60
+days without repository activity (re-enable them from the Actions tab).
+
+GDELT limits requests per address, and GitHub's runners are shared, so GDELT sometimes answers "too many requests". The
+script retries after 20, 45 and 90 seconds. If either GDELT search still fails, the workflow waits 10 minutes and runs
+once more. If news still cannot be fetched, the run notes say which search did not answer, not that nothing happened.
+
+Nothing is merged automatically, and nothing becomes a NETRA incident record by itself. The owner checks each item
+against its sources and deletes any that are wrong before merging. Promoting an item to a full incident record is a
+separate, manual step that follows the normal review rules.
 
 ## Sources
 
@@ -28,7 +40,7 @@ run reports whether each source answered.
 |---|---|---|
 | GDELT Project DOC 2.0 API | News articles from Indian outlets (English), past 7 days | Reached on the first run (2026-10-25) but answered "too many requests"; the script now waits and retries (20, 45, 90 s) |
 | PIB press-release RSS | Official Government of India releases | **Off.** Answered 403 (forbidden) to GitHub's servers on the first run; NETRA does not work around a refusal |
-| CERT-In | Advisories | **Off.** No official feed address could be confirmed |
+| CERT-In | Advisories and guidelines whose own text mentions AI (*Official watch*) | **On** since 2026-11-15, by the owner's decision. CERT-In has no feed, so the run reads its two public lists and the newest six advisories |
 | METR RSS | New METR publications (Model watch) | Working: 2 items on the first run (2026-10-25) |
 | MITRE ATLAS data (GitHub) | New case studies (Model watch) | Confirmed on 2026-10-25: release 2026.09, 73 case studies |
 

@@ -1,15 +1,16 @@
-# Weekly "This week in India": runs every Saturday at 00:00 IST and opens a pull request for the owner to review.
+# "This week in India": checks NETRA's sources every morning at 07:00 IST. A week runs Saturday to Friday; each week
+# has one pull request, opened the first time something turns up and commented on when something new appears.
 # Never merges anything. Uses no AI and no API key: GDELT, PIB, METR and MITRE ATLAS are free and need no sign-up.
 # Needs Settings > Actions > General > "Allow GitHub Actions to create and approve pull requests".
-name: Weekly update (unreviewed)
+name: Daily check (unreviewed)
 
 on:
   schedule:
-    - cron: "30 18 * * 5"   # 18:30 UTC Friday = 00:00 IST Saturday. GitHub may start scheduled runs a little late.
+    - cron: "30 1 * * *"   # 01:30 UTC = 07:00 IST every day. GitHub may start scheduled runs a little late.
   workflow_dispatch:
     inputs:
       run_date:
-        description: "Optional. Redo an earlier week: the Saturday it should have run on (YYYY-MM-DD). Leave empty for this week."
+        description: "Optional. Run as if today were this date (YYYY-MM-DD), to redo an earlier week. Leave empty for today."
         required: false
         default: ""
 
@@ -35,6 +36,7 @@ jobs:
             if ! [[ "$RUN_DATE" =~ ^20[0-9]{2}-[01][0-9]-[0-3][0-9]$ ]]; then echo "run_date must look like 2026-11-14"; exit 1; fi
             ARGS=(--date "$RUN_DATE")
           fi
+          cp data/weekly.json "$RUNNER_TEMP/main.json" 2>/dev/null || true   # what main already shows, to spot what is new
           python3 scripts/weekly_top5.py "${ARGS[@]}"
           # GDELT limits requests per address and GitHub's runners are shared: if it was busy, wait 10 minutes and try once more
           if ! python3 scripts/weekly_top5.py --news-ok "${ARGS[@]}"; then
@@ -46,22 +48,43 @@ jobs:
         run: |
           python3 scripts/build.py
           python3 -m unittest discover tests
-      - name: Open a pull request for review
+      - name: Open or update this week's pull request
         env:
           GH_TOKEN: ${{ github.token }}
+          RUN_DATE: ${{ inputs.run_date }}
         run: |
-          day=$(TZ=Asia/Kolkata date +%F)
-          branch="weekly/${day}-${GITHUB_RUN_ID}"
+          ARGS=()
+          if [ -n "$RUN_DATE" ]; then ARGS=(--date "$RUN_DATE"); fi
+          week=$(python3 scripts/weekly_top5.py --print-week "${ARGS[@]}")
+          branch="weekly/${week}"
+          today=$(TZ=Asia/Kolkata date +%F)
           git config user.name "netra-weekly"
           git config user.email "actions@users.noreply.github.com"
-          git checkout -b "$branch"
-          git add data/weekly.json dist/index.html index.html
-          if git diff --cached --quiet; then echo "Nothing changed"; exit 0; fi
-          git commit -m "Weekly update (unreviewed): week ending ${day}"
-          git push -u origin "$branch"
-          summary=$(python3 -c "import json; w=json.load(open('data/weekly.json'))['weeks'][0]; print(f\"{len(w['top'])} AI items, {len(w['cyber'])} cyber items, {len(w['models'])} model items for {w['week_start']} to {w['week_end']}.\"); [print(f\"- [{s['status']}] {s['name']}: {s['items']} items {s.get('error','')}\") for s in w['sources']]")
-          gh pr create --base main --head "$branch" \
-            --title "Weekly update (unreviewed): week ending ${day}" \
-            --body "Auto-selected by scripts/weekly_top5.py. Every item is labelled 'Auto-selected, unreviewed'. Check each one against its sources before merging; delete any that are wrong. Nothing is added to NETRA's incident records automatically.
-
-          ${summary}"
+          pr=$(gh pr list --head "$branch" --state open --json number --jq '.[0].number // empty')
+          prev="$RUNNER_TEMP/main.json"; edited=no
+          if [ -n "$pr" ] && git fetch -q origin "$branch"; then
+            # Compare with the bot's own last version, so items the owner deleted are not announced again
+            bot=$(git log -1 --author=netra-weekly --format=%H "origin/$branch" || true)
+            if [ -n "$bot" ]; then git show "$bot:data/weekly.json" > "$RUNNER_TEMP/prev.json"; prev="$RUNNER_TEMP/prev.json"; fi
+            if [ "$(git log -1 --format=%an "origin/$branch")" != "netra-weekly" ]; then edited=yes; fi
+          fi
+          if ! python3 scripts/weekly_top5.py --new-since "$prev" "${ARGS[@]}" > "$RUNNER_TEMP/new.md"; then
+            echo "Nothing new today"; exit 0
+          fi
+          status=$(python3 -c "import json,sys; w=next(x for x in json.load(open('data/weekly.json'))['weeks'] if x['week_start']==sys.argv[1]); print(f\"{len(w['top'])} AI, {len(w['cyber'])} cyber, {len(w['models'])} model and {len(w.get('official', []))} official items for {w['week_start']} to {w['week_end']}.\"); [print(f\"- [{s['status']}] {s['name']}: {s['items']} items {s.get('error','')}\") for s in w['sources']]" "$week")
+          if [ -z "$pr" ] || [ "$edited" = no ]; then
+            git checkout -B "$branch"
+            git add data/weekly.json dist/index.html index.html
+            git commit -q -m "This week in India (unreviewed): week of ${week}, checked ${today}"
+            git push -q -f origin "HEAD:${branch}"
+          fi
+          if [ -z "$pr" ]; then
+            printf '%s\n\n%s\n\n%s\n%s\n\n%s\n' "Picked automatically by scripts/weekly_top5.py; checked every morning at 07:00 IST. Every item is 'Auto-selected, unreviewed'. Check each against its sources and delete any that are wrong before merging. Nothing becomes a NETRA record automatically." "**Found so far:**" "$(cat "$RUNNER_TEMP/new.md")" "" "$status" > "$RUNNER_TEMP/body.md"
+            gh pr create --base main --head "$branch" --title "This week in India (unreviewed): week of ${week}" --body-file "$RUNNER_TEMP/body.md"
+          elif [ "$edited" = no ]; then
+            printf '%s\n\n%s\n' "**New on ${today}** (added to this pull request):" "$(cat "$RUNNER_TEMP/new.md")" > "$RUNNER_TEMP/c.md"
+            gh pr comment "$pr" --body-file "$RUNNER_TEMP/c.md"
+          else
+            printf '%s\n\n%s\n' "**New on ${today}.** Not added, because you have edited this pull request; add any you want by hand:" "$(cat "$RUNNER_TEMP/new.md")" > "$RUNNER_TEMP/c.md"
+            gh pr comment "$pr" --body-file "$RUNNER_TEMP/c.md"
+          fi

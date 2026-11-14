@@ -15,6 +15,7 @@ The GitHub workflow .github/workflows/weekly.yml runs it every Saturday at 00:00
 """
 import argparse
 import difflib
+import html
 import json
 import re
 import sys
@@ -308,9 +309,74 @@ def select(articles, kind, existing, seen_urls, states, terms, sub_names, limit=
     return picked[:limit], skipped
 
 
-def run(today, get=fetch, sleep=time.sleep):
+def week_window(today):
+    """The NETRA week runs Saturday to Friday. A run on any day covers the current week up to yesterday, so daily runs
+    fill the same week and the Saturday run completes it."""
     end = today - timedelta(days=1)
-    start = today - timedelta(days=CONFIG["window_days"])
+    return end - timedelta(days=(end.weekday() - 5) % 7), end
+
+
+AI_IN_TEXT = re.compile(r"\bAI\b|artificial intelligence|\bagentic\b|\bLLMs?\b|large language model|machine learning|deepfake|"
+                        r"generative|\bGenAI\b", re.I)
+
+
+def page_text(raw):
+    t = raw.decode("utf-8", "replace") if isinstance(raw, bytes) else raw
+    t = re.sub(r"(?is)<(script|style)[^>]*>.*?</\1>", " ", t)
+    return re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", t))).strip()
+
+
+def certin_items(get, start, end, known):
+    """CERT-In publishes no feed. Read its public advisory list and guidelines list (switched on by the owner on
+    2026-11-15) and keep items issued in the window whose own text mentions AI. Menus and reference lists are cut off,
+    so a link that merely contains 'ai' does not count."""
+    c = CONFIG["certin"]
+    items, report = [], []
+    try:
+        codes = sorted(set(re.findall(r"VLCODE=(CIAD-\d{4}-\d+)", page_text_raw(get(c["advisory_list"].format(year=end.year))))))
+        checked = 0
+        for code in reversed(codes[-c["newest"]:]):
+            if code in known:
+                continue
+            body = page_text(get(c["advisory"].format(code=code)))
+            a = body.find("CERT-In Advisory " + code)
+            body = body[a:] if a >= 0 else body
+            for stop in ("Disclaimer", "References"):
+                k = body.find(stop)
+                body = body[:k] if k > 0 else body
+            checked += 1
+            m = re.search(r"Original Issue Date:\s*([A-Z][a-z]+ \d{1,2}, \d{4})", body)
+            when = datetime.strptime(m.group(1), "%B %d, %Y").date() if m else None
+            if not when or not (start <= when <= end) or not AI_IN_TEXT.search(body):
+                continue
+            title = re.sub(r"^CERT-In Advisory " + code + r"\s*", "", body.split("Original Issue Date")[0]).strip()[:200]
+            items.append({"kind": "CERT-In advisory", "code": code, "title": f"{code} {title}".strip(), "url": c["advisory"].format(code=code),
+                          "date": when.isoformat(), "note": "Official advisory whose text mentions AI. Not yet read or mapped by NETRA.", "review": "unreviewed"})
+        report.append({"name": "CERT-In advisories (public list)", "url": c["advisory_list"].format(year=end.year), "status": "ok", "items": len(items)})
+    except (SourceError, ValueError) as e:
+        report.append({"name": "CERT-In advisories (public list)", "url": c["advisory_list"].format(year=end.year), "status": "failed", "items": 0, "error": str(e)[:200]})
+    try:
+        text = page_text(get(c["guidelines"]))
+        found = 0
+        for m in re.finditer(r"(CISG-\d{4}-\d+) \(([A-Z][a-z]+ \d{1,2}, \d{4})\) (.{5,220}?) CERT-In Security Guidelines", text):
+            code, when, title = m.group(1), datetime.strptime(m.group(2), "%B %d, %Y").date(), m.group(3).strip()
+            if code in known or not (start <= when <= end) or not AI_IN_TEXT.search(title):
+                continue
+            found += 1
+            items.append({"kind": "CERT-In guidelines", "code": code, "title": f"{code} {title}"[:200], "url": c["guidelines"], "date": when.isoformat(),
+                          "note": "Official guidelines with AI in the title. Not yet read or mapped by NETRA.", "review": "unreviewed"})
+        report.append({"name": "CERT-In guidelines (public list)", "url": c["guidelines"], "status": "ok", "items": found})
+    except (SourceError, ValueError) as e:
+        report.append({"name": "CERT-In guidelines (public list)", "url": c["guidelines"], "status": "failed", "items": 0, "error": str(e)[:200]})
+    return items, report
+
+
+def page_text_raw(raw):
+    return raw.decode("utf-8", "replace") if isinstance(raw, bytes) else raw
+
+
+def run(today, get=fetch, sleep=time.sleep):
+    start, end = week_window(today)
     india = json.loads((DATA / "india.json").read_text(encoding="utf-8"))
     terms = json.loads((DATA / "check_terms.json").read_text(encoding="utf-8"))
     tax = json.loads((DATA / "taxonomy.json").read_text(encoding="utf-8"))
@@ -365,6 +431,13 @@ def run(today, get=fetch, sleep=time.sleep):
     except SourceError as e:
         report.append({"name": CONFIG["atlas"]["name"], "url": CONFIG["atlas"]["pointer"], "status": "failed", "items": 0, "error": str(e)})
 
+    known = {i["id"].replace("G-", "", 1) for i in india["instruments"]} | {i.get("code") for w in store["weeks"]
+             if w["week_start"] != start.isoformat() for i in w.get("official", [])}
+    known |= {m for i in india["instruments"] for m in re.findall(r"CI[AS][DG]-\d{4}-\d+", i["title"])}   # codes NETRA already holds
+    known |= {m for i in india["incidents"] for x in i["sources"] for m in re.findall(r"CI[AS][DG]-\d{4}-\d+", x["title"] + x["url"])}
+    official, rep = certin_items(get, start, end, known)
+    report += rep
+
     pool = ai_items + [x for x in cyber_items if x not in ai_items]   # each pool's own rules decide what is AI and what is cyber
     top, skipped_ai = select(pool, "ai", india["incidents"], seen, states, terms, sub_names)
     cyber, skipped_cy = select(pool, "cyber", india["incidents"], seen | {s["url"] for t in top for s in t["sources"]}, states, terms, sub_names)
@@ -384,7 +457,7 @@ def run(today, get=fetch, sleep=time.sleep):
         notes.append(f"Only {len(top)} AI item{'s' if len(top) != 1 else ''} met the selection rules this week; NETRA does not pad the list.")
     notes += [f"Not listed (already a NETRA record): {s}" for s in skipped_ai + skipped_cy]
     week = {"week_start": start.isoformat(), "week_end": end.isoformat(), "generated": today.isoformat(), "news_ok": news_ok, "sources": report,
-            "top": top, "cyber": cyber, "models": model_items[:10], "notes": notes, "review": "unreviewed"}
+            "top": top, "cyber": cyber, "models": model_items[:10], "official": official[:10], "notes": notes, "review": "unreviewed"}
     store["meta"] = {"title": "This week in India", "method": "docs/weekly-method.md",
                      "note": "Auto-selected from official feeds and APIs; unreviewed. NETRA's own summaries; headlines only as link titles.",
                      "credit": CONFIG["gdelt"]["credit"]}
@@ -394,20 +467,50 @@ def run(today, get=fetch, sleep=time.sleep):
     return store, week
 
 
+def week_urls(w):
+    """Every item of a week as (section, title, url), for comparing two versions of the same week."""
+    out = [("AI", it["sources"][0]["title"], it["sources"][0]["url"]) for it in w.get("top", [])]
+    out += [("Cyber", it["sources"][0]["title"], it["sources"][0]["url"]) for it in w.get("cyber", [])]
+    out += [("Model", m["title"], m["url"]) for m in w.get("models", [])]
+    out += [("Official", o["title"], o["url"] + "#" + o.get("code", "")) for o in w.get("official", [])]
+    return out
+
+
+def print_new(today, earlier):
+    """Print one Markdown line per item of today's week that the earlier file did not have; exit 0 if any."""
+    start = week_window(today)[0].isoformat()
+    now = next((w for w in json.loads((DATA / "weekly.json").read_text(encoding="utf-8"))["weeks"] if w["week_start"] == start), None)
+    old = None
+    if earlier and Path(earlier).exists():
+        old = next((w for w in json.loads(Path(earlier).read_text(encoding="utf-8"))["weeks"] if w["week_start"] == start), None)
+    had = {u for _, _, u in week_urls(old)} if old else set()
+    new = [x for x in week_urls(now) if x[2] not in had] if now else []
+    for sec, title, url in new:
+        print(f"- **{sec}:** [{title}]({url.split('#')[0]})")
+    return 0 if new else 1
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--date", help="run as if today were this date (YYYY-MM-DD); default today in IST")
     ap.add_argument("--news-ok", action="store_true", help="only check whether that week's news was fetched (exit 0 if so)")
+    ap.add_argument("--print-week", action="store_true", help="print the start date of the week the date falls in")
+    ap.add_argument("--new-since", metavar="FILE", help="list this week's items that are not in FILE (an earlier weekly.json); '' = none")
     a = ap.parse_args(argv)
     today = date.fromisoformat(a.date) if a.date else datetime.now(timezone(timedelta(hours=5, minutes=30))).date()
+    if a.print_week:
+        print(week_window(today)[0].isoformat())
+        return 0
+    if a.new_since is not None:
+        return print_new(today, a.new_since)
     if a.news_ok:
-        start = (today - timedelta(days=CONFIG["window_days"])).isoformat()
+        start = week_window(today)[0].isoformat()
         path = DATA / "weekly.json"
         weeks = json.loads(path.read_text(encoding="utf-8"))["weeks"] if path.exists() else []
         return 0 if any(w["week_start"] == start and w.get("news_ok") for w in weeks) else 1
     store, week = run(today)
     (DATA / "weekly.json").write_text(json.dumps(store, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    print(f"Week {week['week_start']} to {week['week_end']}: {len(week['top'])} AI items, {len(week['cyber'])} cyber items, {len(week['models'])} model items.")
+    print(f"Week {week['week_start']} to {week['week_end']}: {len(week['top'])} AI items, {len(week['cyber'])} cyber items, {len(week['models'])} model items, {len(week.get('official', []))} official items.")
     for s in week["sources"]:
         print(f"  [{s['status']}] {s['name']}: {s['items']} items" + (f" ({s['error']})" if s.get("error") else ""))
     for n in week["notes"]:
