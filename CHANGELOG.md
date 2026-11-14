@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+- **Weekly: a failed AI news search is no longer reported as an empty week (2026-11-14).** In this week's run, GDELT
+  refused the AI search ("too many requests") while the cyber search worked. The week then said "0 AI items met the
+  selection rules", and the 10-minute retry did not run.
+  - Both searches must now answer for the news to count as fetched, so the workflow retries when either fails. The run
+    note says which search did not answer.
+  - *Cybersecurity* alone no longer makes a cyber item; it let in a press release and a marketing article.
+  - Reworded headlines of one story are grouped (the Chrome warning was listed twice).
 - **The 5 CERT-In AI documents are verified (2026-11-09).** The maintainer, Krunal Maheshwari, reviewed and confirmed
   G-CERTIN-AIAUD, G-CERTIN-BLUEPRINT, G-CERTIN-OEM, G-CIAD-2026-0020 and G-CIAD-2026-0058, with their force labels. Laws
   are now 22 verified and 11 partly verified.
