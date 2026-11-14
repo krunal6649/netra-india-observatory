@@ -224,6 +224,24 @@ class Tests(unittest.TestCase):
         self.assertTrue(wk.same_story("CERT-In flags critical Google Chrome vulnerabilities, users advised to update browser immediately",
                                       "CERT-In Warns of Serious Chrome Vulnerabilities, Advises Immediate Updates"))
 
+    def test_redoing_an_earlier_week_replaces_it_and_keeps_newest_first(self):
+        real = wk.DATA / "weekly.json"
+        had = real.read_text(encoding="utf-8") if real.exists() else None
+        try:
+            if real.exists():
+                real.unlink()
+            for day in (date(2026, 10, 24), date(2026, 10, 31), date(2026, 10, 24)):   # two weeks, then redo the earlier one
+                store, _ = wk.run(day, get=fake_get, sleep=lambda s: None)
+                real.write_text(json.dumps(store), encoding="utf-8")   # main() saves between runs; do the same here
+            self.assertEqual([w["week_start"] for w in store["weeks"]], ["2026-10-24", "2026-10-17"])
+            self.assertEqual(wk.main(["--news-ok", "--date", "2026-10-24"]), 0)
+            self.assertEqual(wk.main(["--news-ok", "--date", "2026-11-21"]), 1)   # a week that was never run
+        finally:
+            if had is not None:
+                real.write_text(had, encoding="utf-8")
+            elif real.exists():
+                real.unlink()
+
     def test_old_feed_items_are_outside_the_window(self):
         urls = {s["url"] for c in self.week["cyber"] + self.week["top"] for s in c["sources"]}
         self.assertNotIn("https://pib.gov.in/PressReleasePage.aspx?PRID=2", urls)
