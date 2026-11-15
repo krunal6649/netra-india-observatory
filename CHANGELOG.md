@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- **Daily check moved to 04:00 IST (2026-11-15)**, at the maintainer's request (cron `30 22 * * *`, 22:30 UTC).
 - **Daily check at 07:00 IST instead of weekly (2026-11-15).** The maintainer asked for every source to be checked each
   morning, so that new items arrive a few at a time instead of all on Saturday.
   - A week still runs Saturday to Friday; each morning fills the current week up to yesterday.
