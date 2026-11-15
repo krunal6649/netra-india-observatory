@@ -326,12 +326,25 @@ def page_text(raw):
     return re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", t))).strip()
 
 
+def patient(get, tries=2):
+    """CERT-In's server is sometimes slow from GitHub's machines: try each page once more before giving up."""
+    def g(url):
+        for k in range(tries):
+            try:
+                return get(url)
+            except SourceError:
+                if k == tries - 1:
+                    raise
+    return g
+
+
 def certin_items(get, start, end, known):
     """CERT-In publishes no feed. Read its public advisory list and guidelines list (switched on by the owner on
     2026-11-15) and keep items issued in the window whose own text mentions AI. Menus and reference lists are cut off,
     so a link that merely contains 'ai' does not count."""
     c = CONFIG["certin"]
     items, report = [], []
+    get = patient(get)
     try:
         codes = sorted(set(re.findall(r"VLCODE=(CIAD-\d{4}-\d+)", page_text_raw(get(c["advisory_list"].format(year=end.year))))))
         checked = 0
@@ -495,9 +508,20 @@ def main(argv=None):
     ap.add_argument("--date", help="run as if today were this date (YYYY-MM-DD); default today in IST")
     ap.add_argument("--news-ok", action="store_true", help="only check whether that week's news was fetched (exit 0 if so)")
     ap.add_argument("--print-week", action="store_true", help="print the start date of the week the date falls in")
+    ap.add_argument("--keep-better", metavar="FILE", help="after a retry: if FILE (the first attempt) found more for this week, restore it")
     ap.add_argument("--new-since", metavar="FILE", help="list this week's items that are not in FILE (an earlier weekly.json); '' = none")
     a = ap.parse_args(argv)
     today = date.fromisoformat(a.date) if a.date else datetime.now(timezone(timedelta(hours=5, minutes=30))).date()
+    if a.keep_better:
+        start = week_window(today)[0].isoformat()
+        def score(path):
+            w = next((x for x in json.loads(Path(path).read_text(encoding="utf-8"))["weeks"] if x["week_start"] == start), None)
+            return (sum(s["status"] == "ok" for s in w["sources"]), len(week_urls(w))) if w else (-1, -1)
+        first, second = score(a.keep_better), score(DATA / "weekly.json")
+        if first > second:
+            (DATA / "weekly.json").write_text(Path(a.keep_better).read_text(encoding="utf-8"), encoding="utf-8")
+            print(f"Kept the first attempt: {first} beats the retry's {second} (sources answered, items found)")
+        return 0
     if a.print_week:
         print(week_window(today)[0].isoformat())
         return 0

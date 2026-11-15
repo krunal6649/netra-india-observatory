@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+- **Daily check made sturdier (2026-11-15).** On its first live runs, GDELT kept refusing GitHub's servers ("too many
+  requests"), and CERT-In timed out once. The 10-minute retry then replaced a first attempt that had found 3 items with
+  one that found none.
+  - The retry now keeps whichever attempt answered better (`--keep-better`).
+  - GDELT waits longer before giving up (30, 90, 180, 300 seconds), and pauses 60 seconds between its two searches.
+  - Each CERT-In page is tried twice.
+  - The week of 7 to 13 November was corrected by hand: the press release and the marketing article were removed, the
+    two reports of the CERT-In Chrome warning were merged, and the false "0 AI items met the rules" note was replaced.
 - **Daily check at 07:00 IST instead of weekly (2026-11-15).** The maintainer asked for every source to be checked each
   morning, so that new items arrive a few at a time instead of all on Saturday.
   - A week still runs Saturday to Friday; each morning fills the current week up to yesterday.
