@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- **Daily check moved to 04:00 IST (2026-11-15)**, at the maintainer's request (cron `30 22 * * *`, 22:30 UTC).
 - **Daily check made sturdier (2026-11-15).** On its first live runs, GDELT kept refusing GitHub's servers ("too many
   requests"), and CERT-In timed out once. The 10-minute retry then replaced a first attempt that had found 3 items with
   one that found none.

@@ -76,7 +76,7 @@ results are labelled auto-matched, unreviewed and "possible only". **Send to NET
 
 ## This week in India (weekly update)
 
-Every morning at 07:00 IST, **Actions › Daily check (unreviewed)** runs `scripts/weekly_top5.py`. Each week (Saturday to
+Every morning at 04:00 IST, **Actions › Daily check (unreviewed)** runs `scripts/weekly_top5.py`. Each week (Saturday to
 Friday) has one pull request with up to five AI incidents in India, a Cyber watch, a Model watch and an Official watch
 (CERT-In items that mention AI); new items are added each morning with a comment. It uses
 free official feeds and APIs (GDELT, PIB, METR, MITRE ATLAS), no AI and no key. Every item is "Auto-selected,
