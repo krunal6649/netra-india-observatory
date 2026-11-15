@@ -149,7 +149,7 @@ The one-page version is in [docs/framework.md](docs/framework.md).
 | Risks (18), measures (28) | Quoted or summarised from the cited instruments, with location |
 | Directory (391 bodies) | 32 official links checked by the maintainer |
 | AI model cards (12) | Unreviewed |
-| Daily check (This week in India) | Auto-selected, unreviewed; checked every morning at 07:00 IST |
+| Daily check (This week in India) | Auto-selected, unreviewed; checked every morning at 04:00 IST |
 
 **Safeguards built into the build:** it refuses a risk without a verbatim quote, an incident without an overclaim check and a "what we do not know" list, a human review marked done on an unreviewed record, unknown risk areas or authorities, non-https sources, and possible duplicate cases. See [docs/maintainers.md](docs/maintainers.md) for the full list.
 

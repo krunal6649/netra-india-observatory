@@ -1,4 +1,4 @@
-# "This week in India": checks NETRA's sources every morning at 07:00 IST. A week runs Saturday to Friday; each week
+# "This week in India": checks NETRA's sources every morning at 04:00 IST. A week runs Saturday to Friday; each week
 # has one pull request, opened the first time something turns up and commented on when something new appears.
 # Never merges anything. Uses no AI and no API key: GDELT, PIB, METR and MITRE ATLAS are free and need no sign-up.
 # Needs Settings > Actions > General > "Allow GitHub Actions to create and approve pull requests".
@@ -6,7 +6,7 @@ name: Daily check (unreviewed)
 
 on:
   schedule:
-    - cron: "30 1 * * *"   # 01:30 UTC = 07:00 IST every day. GitHub may start scheduled runs a little late.
+    - cron: "30 22 * * *"   # 22:30 UTC = 04:00 IST the next day. GitHub may start scheduled runs late, or skip one when busy.
   workflow_dispatch:
     inputs:
       run_date:
@@ -79,7 +79,7 @@ jobs:
             git push -q -f origin "HEAD:${branch}"
           fi
           if [ -z "$pr" ]; then
-            printf '%s\n\n%s\n\n%s\n%s\n\n%s\n' "Picked automatically by scripts/weekly_top5.py; checked every morning at 07:00 IST. Every item is 'Auto-selected, unreviewed'. Check each against its sources and delete any that are wrong before merging. Nothing becomes a NETRA record automatically." "**Found so far:**" "$(cat "$RUNNER_TEMP/new.md")" "" "$status" > "$RUNNER_TEMP/body.md"
+            printf '%s\n\n%s\n\n%s\n%s\n\n%s\n' "Picked automatically by scripts/weekly_top5.py; checked every morning at 04:00 IST. Every item is 'Auto-selected, unreviewed'. Check each against its sources and delete any that are wrong before merging. Nothing becomes a NETRA record automatically." "**Found so far:**" "$(cat "$RUNNER_TEMP/new.md")" "" "$status" > "$RUNNER_TEMP/body.md"
             gh pr create --base main --head "$branch" --title "This week in India (unreviewed): week of ${week}" --body-file "$RUNNER_TEMP/body.md"
           elif [ "$edited" = no ]; then
             printf '%s\n\n%s\n' "**New on ${today}** (added to this pull request):" "$(cat "$RUNNER_TEMP/new.md")" > "$RUNNER_TEMP/c.md"

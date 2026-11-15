@@ -6,7 +6,7 @@ the Home page. Every item is labelled **Auto-selected, unreviewed**.
 
 ## When it runs
 
-`.github/workflows/weekly.yml` runs **every morning at 07:00 IST** (cron `30 1 * * *`, 01:30 UTC). A NETRA week runs
+`.github/workflows/weekly.yml` runs **every morning at 04:00 IST** (cron `30 22 * * *`, 22:30 UTC the evening before). A NETRA week runs
 Saturday to Friday: each morning's run covers the current week up to yesterday, and Saturday's run completes the week
 just ended.
 
