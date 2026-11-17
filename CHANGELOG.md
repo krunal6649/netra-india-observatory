@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- **Daily check clears its own conflicts (2026-11-17).** When another change is merged first, a week's pull request can
+  conflict (its page files are rebuilt from older code).
+  - The next morning's run now rebuilds a conflicting pull request from `main`, keeping that week's items, even if
+    nothing new turned up.
+  - A merge from `main` into the pull request no longer counts as the owner editing it; only real changes stop the bot
+    from updating it.
 - **Daily check moved to 04:00 IST (2026-11-15)**, at the maintainer's request (cron `30 22 * * *`, 22:30 UTC).
 - **Daily check made sturdier (2026-11-15).** On its first live runs, GDELT kept refusing GitHub's servers ("too many
   requests"), and CERT-In timed out once. The 10-minute retry then replaced a first attempt that had found 3 items with

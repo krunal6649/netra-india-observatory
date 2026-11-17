@@ -63,15 +63,31 @@ jobs:
           git config user.name "netra-weekly"
           git config user.email "actions@users.noreply.github.com"
           pr=$(gh pr list --head "$branch" --state open --json number --jq '.[0].number // empty')
-          prev="$RUNNER_TEMP/main.json"; edited=no
-          if [ -n "$pr" ] && git fetch -q origin "$branch"; then
+          prev="$RUNNER_TEMP/main.json"; edited=no; conflict=no
+          if [ -n "$pr" ]; then
+            git fetch -q --depth=50 origin "$branch" || true   # enough history to see who changed the pull request since the bot
             # Compare with the bot's own last version, so items the owner deleted are not announced again
             bot=$(git log -1 --author=netra-weekly --format=%H "origin/$branch" || true)
             if [ -n "$bot" ]; then git show "$bot:data/weekly.json" > "$RUNNER_TEMP/prev.json"; prev="$RUNNER_TEMP/prev.json"; fi
-            if [ "$(git log -1 --format=%an "origin/$branch")" != "netra-weekly" ]; then edited=yes; fi
+            # An edit is a non-merge commit by someone else after the bot's last one; merges from main only keep it up to date
+            if [ -n "$bot" ] && git log --no-merges --format=%an "$bot..origin/$branch" | grep -qv '^netra-weekly$'; then edited=yes; fi
+            if [ "$(gh pr view "$pr" --json mergeable --jq .mergeable)" = "CONFLICTING" ]; then conflict=yes; fi
           fi
           if ! python3 scripts/weekly_top5.py --new-since "$prev" "${ARGS[@]}" > "$RUNNER_TEMP/new.md"; then
-            echo "Nothing new today"; exit 0
+            if [ "$conflict" = yes ] && [ "$edited" = no ]; then
+              # Nothing new, but the pull request no longer merges cleanly: rebuild it from main so it can be merged
+              git show "origin/$branch:data/weekly.json" > "$RUNNER_TEMP/pr.json"
+              python3 scripts/weekly_top5.py --carry-week "$RUNNER_TEMP/pr.json" "${ARGS[@]}"
+              python3 scripts/build.py > /dev/null
+              git checkout -B "$branch"
+              git add data/weekly.json dist/index.html index.html
+              git commit -q -m "This week in India (unreviewed): week of ${week}, rebuilt on ${today} to clear a conflict"
+              git push -q -f origin "HEAD:${branch}"
+              echo "Rebuilt the pull request from main to clear a conflict"
+            else
+              echo "Nothing new today"
+            fi
+            exit 0
           fi
           status=$(python3 -c "import json,sys; w=next(x for x in json.load(open('data/weekly.json'))['weeks'] if x['week_start']==sys.argv[1]); print(f\"{len(w['top'])} AI, {len(w['cyber'])} cyber, {len(w['models'])} model and {len(w.get('official', []))} official items for {w['week_start']} to {w['week_end']}.\"); [print(f\"- [{s['status']}] {s['name']}: {s['items']} items {s.get('error','')}\") for s in w['sources']]" "$week")
           if [ -z "$pr" ] || [ "$edited" = no ]; then

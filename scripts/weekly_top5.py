@@ -508,10 +508,20 @@ def main(argv=None):
     ap.add_argument("--date", help="run as if today were this date (YYYY-MM-DD); default today in IST")
     ap.add_argument("--news-ok", action="store_true", help="only check whether that week's news was fetched (exit 0 if so)")
     ap.add_argument("--print-week", action="store_true", help="print the start date of the week the date falls in")
+    ap.add_argument("--carry-week", metavar="FILE", help="copy this week's entry from FILE (the open pull request) into data/weekly.json")
     ap.add_argument("--keep-better", metavar="FILE", help="after a retry: if FILE (the first attempt) found more for this week, restore it")
     ap.add_argument("--new-since", metavar="FILE", help="list this week's items that are not in FILE (an earlier weekly.json); '' = none")
     a = ap.parse_args(argv)
     today = date.fromisoformat(a.date) if a.date else datetime.now(timezone(timedelta(hours=5, minutes=30))).date()
+    if a.carry_week:
+        start = week_window(today)[0].isoformat()
+        src = next((w for w in json.loads(Path(a.carry_week).read_text(encoding="utf-8"))["weeks"] if w["week_start"] == start), None)
+        if src:
+            path = DATA / "weekly.json"
+            store = json.loads(path.read_text(encoding="utf-8"))
+            store["weeks"] = sorted([src] + [w for w in store["weeks"] if w["week_start"] != start], key=lambda w: w["week_start"], reverse=True)
+            path.write_text(json.dumps(store, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        return 0
     if a.keep_better:
         start = week_window(today)[0].isoformat()
         def score(path):
