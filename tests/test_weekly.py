@@ -292,6 +292,48 @@ class Tests(unittest.TestCase):
             elif real.exists():
                 real.unlink()
 
+    def test_a_worse_retry_does_not_replace_a_better_first_attempt(self):
+        # 2026-11-15: the first try found 3 cyber items; the 10-minute retry got nothing and overwrote them
+        real = wk.DATA / "weekly.json"
+        had = real.read_text(encoding="utf-8") if real.exists() else None
+        first = FIX.parent / "_first.json"
+        def gdelt_down(url):
+            if "gdeltproject" in url:
+                raise wk.SourceError("HTTPError: HTTP Error 429: Too Many Requests")
+            return fake_get(url)
+        try:
+            store, _ = wk.run(date(2026, 10, 24), get=fake_get, sleep=lambda s: None)
+            first.write_text(json.dumps(store), encoding="utf-8")
+            store2, _ = wk.run(date(2026, 10, 24), get=gdelt_down, sleep=lambda s: None)
+            real.write_text(json.dumps(store2), encoding="utf-8")
+            with contextlib.redirect_stdout(io.StringIO()):
+                wk.main(["--keep-better", str(first), "--date", "2026-10-24"])
+            kept = next(w for w in json.loads(real.read_text())["weeks"] if w["week_start"] == "2026-10-17")
+            self.assertTrue(kept["top"])                     # the first attempt's items are back
+            # and a better retry is kept as it is
+            real.write_text(json.dumps(store), encoding="utf-8")
+            first.write_text(json.dumps(store2), encoding="utf-8")
+            with contextlib.redirect_stdout(io.StringIO()):
+                wk.main(["--keep-better", str(first), "--date", "2026-10-24"])
+            self.assertTrue(next(w for w in json.loads(real.read_text())["weeks"] if w["week_start"] == "2026-10-17")["top"])
+        finally:
+            first.unlink(missing_ok=True)
+            if had is not None:
+                real.write_text(had, encoding="utf-8")
+            elif real.exists():
+                real.unlink()
+
+    def test_certin_page_is_tried_twice_before_failing(self):
+        calls = []
+        def slow_once(url):
+            calls.append(url)
+            if len(calls) == 1:
+                raise wk.SourceError("TimeoutError: The read operation timed out")
+            return fake_get(url)
+        items, rep = wk.certin_items(slow_once, date(2026, 10, 17), date(2026, 10, 23), set())
+        self.assertEqual(rep[0]["status"], "ok")
+        self.assertIn("CIAD-2026-0042", [i["code"] for i in items])
+
     def test_old_feed_items_are_outside_the_window(self):
         urls = {s["url"] for c in self.week["cyber"] + self.week["top"] for s in c["sources"]}
         self.assertNotIn("https://pib.gov.in/PressReleasePage.aspx?PRID=2", urls)
