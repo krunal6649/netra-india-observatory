@@ -7,6 +7,84 @@
   },
   "weeks": [
     {
+      "week_start": "2026-11-14",
+      "week_end": "2026-11-16",
+      "generated": "2026-11-17",
+      "news_ok": true,
+      "sources": [
+        {
+          "name": "GDELT: AI news",
+          "url": "https://api.gdeltproject.org/api/v2/doc/doc",
+          "status": "ok",
+          "items": 16
+        },
+        {
+          "name": "GDELT: cyber news",
+          "url": "https://api.gdeltproject.org/api/v2/doc/doc",
+          "status": "ok",
+          "items": 1
+        },
+        {
+          "name": "Press Information Bureau: press releases (RSS, as listed)",
+          "url": "https://pib.gov.in/RssMain.aspx?ModId=6&Lang=2&Regid=3",
+          "status": "off",
+          "items": 0,
+          "error": "Exact address listed on PIB's own RSS page (pib.gov.in/ViewRss.aspx). That page is in Hindi, so the language of this feed is to confirm on the first workflow run. First workflow run on 2026-10-25: HTTP 403 (forbidden) from GitHub's servers. Switched off: NETRA does not work around a site that refuses automated access. PIB releases can still be added by hand."
+        },
+        {
+          "name": "Press Information Bureau: press releases (RSS, Lang=1)",
+          "url": "https://pib.gov.in/RssMain.aspx?ModId=6&Lang=1&Regid=3",
+          "status": "off",
+          "items": 0,
+          "error": "Same feed with Lang=1, tried in case it is the English edition. Not confirmed; if it fails or repeats the other feed, the run report says so and it can be switched off. First workflow run on 2026-10-25: HTTP 403 (forbidden) from GitHub's servers. Switched off: NETRA does not work around a site that refuses automated access. PIB releases can still be added by hand."
+        },
+        {
+          "name": "METR publications (RSS)",
+          "url": "https://metr.org/feed.xml",
+          "status": "ok",
+          "items": 1
+        },
+        {
+          "name": "MITRE ATLAS case studies (release 2026.10)",
+          "url": "https://raw.githubusercontent.com/mitre-atlas/atlas-data/main/dist/v6/ATLAS-latest.yaml",
+          "status": "ok",
+          "items": 0
+        },
+        {
+          "name": "CERT-In advisories (public list)",
+          "url": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBADVLIST02&year=2026",
+          "status": "failed",
+          "items": 0,
+          "error": "TimeoutError: The read operation timed out"
+        },
+        {
+          "name": "CERT-In guidelines (public list)",
+          "url": "https://www.cert-in.org.in/s2cMainServlet?pageid=GUIDLNVIEW01",
+          "status": "failed",
+          "items": 0,
+          "error": "TimeoutError: The read operation timed out"
+        }
+      ],
+      "top": [],
+      "cyber": [],
+      "models": [
+        {
+          "kind": "METR publication",
+          "title": "Measuring alignment eval tells",
+          "url": "https://metr.org/notes/2026-11-16-measuring-alignment-eval-tells/",
+          "date": "2026-11-16",
+          "note": "New METR publication. Cite and summarise only; NETRA has not read or mapped it yet.",
+          "review": "unreviewed"
+        }
+      ],
+      "official": [],
+      "notes": [
+        "MITRE ATLAS release 2026.10: 77 case studies in total, 69 not yet in NETRA's model register.",
+        "Only 0 AI items met the selection rules this week; NETRA does not pad the list."
+      ],
+      "review": "unreviewed"
+    },
+    {
       "week_start": "2026-11-07",
       "week_end": "2026-11-13",
       "generated": "2026-11-14",
