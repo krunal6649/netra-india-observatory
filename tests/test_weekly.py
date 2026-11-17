@@ -334,6 +334,24 @@ class Tests(unittest.TestCase):
         self.assertEqual(rep[0]["status"], "ok")
         self.assertIn("CIAD-2026-0042", [i["code"] for i in items])
 
+    def test_a_conflicted_pull_request_keeps_its_week_when_rebuilt_from_main(self):
+        real = wk.DATA / "weekly.json"
+        had = real.read_text(encoding="utf-8") if real.exists() else None
+        pr = FIX.parent / "_pr.json"
+        try:
+            store, _ = wk.run(date(2026, 10, 24), get=fake_get, sleep=lambda s: None)   # the pull request's week
+            pr.write_text(json.dumps(store), encoding="utf-8")
+            real.write_text(json.dumps({"meta": {}, "weeks": [{**store["weeks"][0], "week_start": "2026-10-10", "week_end": "2026-10-16"}]}), encoding="utf-8")   # main moved on
+            self.assertEqual(wk.main(["--carry-week", str(pr), "--date", "2026-10-24"]), 0)
+            weeks = json.loads(real.read_text())["weeks"]
+            self.assertEqual([w["week_start"] for w in weeks], ["2026-10-17", "2026-10-10"])   # main's weeks kept, the PR's week added
+        finally:
+            pr.unlink(missing_ok=True)
+            if had is not None:
+                real.write_text(had, encoding="utf-8")
+            elif real.exists():
+                real.unlink()
+
     def test_old_feed_items_are_outside_the_window(self):
         urls = {s["url"] for c in self.week["cyber"] + self.week["top"] for s in c["sources"]}
         self.assertNotIn("https://pib.gov.in/PressReleasePage.aspx?PRID=2", urls)
