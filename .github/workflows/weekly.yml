@@ -41,8 +41,10 @@ jobs:
           # GDELT limits requests per address and GitHub's runners are shared: if it was busy, wait 10 minutes and try once more
           if ! python3 scripts/weekly_top5.py --news-ok "${ARGS[@]}"; then
             echo "GDELT did not answer; trying again in 10 minutes"
+            cp data/weekly.json "$RUNNER_TEMP/first.json"
             sleep 600
             python3 scripts/weekly_top5.py "${ARGS[@]}"
+            python3 scripts/weekly_top5.py --keep-better "$RUNNER_TEMP/first.json" "${ARGS[@]}"   # never let a worse retry replace a better first try
           fi
       - name: Validate and rebuild the site
         run: |
