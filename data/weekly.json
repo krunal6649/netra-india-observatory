@@ -8,21 +8,21 @@
   "weeks": [
     {
       "week_start": "2026-11-14",
-      "week_end": "2026-11-16",
-      "generated": "2026-11-17",
+      "week_end": "2026-11-20",
+      "generated": "2026-11-21",
       "news_ok": true,
       "sources": [
         {
           "name": "GDELT: AI news",
           "url": "https://api.gdeltproject.org/api/v2/doc/doc",
           "status": "ok",
-          "items": 16
+          "items": 101
         },
         {
           "name": "GDELT: cyber news",
           "url": "https://api.gdeltproject.org/api/v2/doc/doc",
           "status": "ok",
-          "items": 1
+          "items": 11
         },
         {
           "name": "Press Information Bureau: press releases (RSS, as listed)",
@@ -42,7 +42,7 @@
           "name": "METR publications (RSS)",
           "url": "https://metr.org/feed.xml",
           "status": "ok",
-          "items": 1
+          "items": 2
         },
         {
           "name": "MITRE ATLAS case studies (release 2026.10)",
@@ -60,14 +60,77 @@
         {
           "name": "CERT-In guidelines (public list)",
           "url": "https://www.cert-in.org.in/s2cMainServlet?pageid=GUIDLNVIEW01",
-          "status": "failed",
-          "items": 0,
-          "error": "TimeoutError: The read operation timed out"
+          "status": "ok",
+          "items": 0
         }
       ],
-      "top": [],
-      "cyber": [],
+      "top": [
+        {
+          "title": "SpaceX AI subsidiary rejects liability in united kingdom lawmaker lawsuit over sexualised Grok images",
+          "summary": "1 report from hindustantimes.com on 2026-11-20. No NETRA risk area matched the headlines. Open the sources for the facts.",
+          "risk_areas": [],
+          "sources": [
+            {
+              "title": "SpaceX AI subsidiary rejects liability in united kingdom lawmaker lawsuit over sexualised Grok images",
+              "url": "https://www.hindustantimes.com/world-news/spacexs-ai-subsidiary-rejects-liability-in-uk-lawmaker-s-lawsuit-over-sexualised-grok-images-101795133880446.html",
+              "domain": "hindustantimes.com",
+              "date": "2026-11-20",
+              "via": "GDELT"
+            }
+          ],
+          "score": 3,
+          "auto_selected": true,
+          "review": "unreviewed",
+          "id": "W-2026-11-14-1"
+        }
+      ],
+      "cyber": [
+        {
+          "title": "JPMorgan Says Third-Party Vendors Targeted In Cyberattack, Customer Data Potentially Accessed",
+          "summary": "1 report from deccanchronicle.com on 2026-11-20. Cyber security item, listed separately and not counted as an AI incident.",
+          "risk_areas": [],
+          "sources": [
+            {
+              "title": "JPMorgan Says Third-Party Vendors Targeted In Cyberattack, Customer Data Potentially Accessed",
+              "url": "https://www.deccanchronicle.com/world/jpmorgan-says-third-party-vendors-targeted-in-cyberattack-customer-data-potentially-accessed-2006117",
+              "domain": "deccanchronicle.com",
+              "date": "2026-11-20",
+              "via": "GDELT"
+            }
+          ],
+          "score": 1,
+          "auto_selected": true,
+          "review": "unreviewed",
+          "id": "C-2026-11-14-1"
+        },
+        {
+          "title": "Cyberattack leaks thousands of Chase customer emails, some phone numbers",
+          "summary": "1 report from business-standard.com on 2026-11-20. Cyber security item, listed separately and not counted as an AI incident.",
+          "risk_areas": [],
+          "sources": [
+            {
+              "title": "Cyberattack leaks thousands of Chase customer emails, some phone numbers",
+              "url": "https://www.business-standard.com/technology/tech-news/cyberattack-leaks-thousands-of-chase-customer-emails-some-phone-numbers-126112000035_1.html",
+              "domain": "business-standard.com",
+              "date": "2026-11-20",
+              "via": "GDELT"
+            }
+          ],
+          "score": 1,
+          "auto_selected": true,
+          "review": "unreviewed",
+          "id": "C-2026-11-14-2"
+        }
+      ],
       "models": [
+        {
+          "kind": "METR publication",
+          "title": "AI R&D-relevant model capabilities are improving rapidly and are getting harder to measure",
+          "url": "https://metr.org/blog/2026-11-20-q4-2026-capability-update/",
+          "date": "2026-11-20",
+          "note": "New METR publication. Cite and summarise only; NETRA has not read or mapped it yet.",
+          "review": "unreviewed"
+        },
         {
           "kind": "METR publication",
           "title": "Measuring alignment eval tells",
@@ -80,7 +143,8 @@
       "official": [],
       "notes": [
         "MITRE ATLAS release 2026.10: 77 case studies in total, 69 not yet in NETRA's model register.",
-        "Only 0 AI items met the selection rules this week; NETRA does not pad the list."
+        "Only 1 AI item met the selection rules this week; NETRA does not pad the list.",
+        "Not listed (already a NETRA record): MP High Court pulls up state government for using AI to cite non-existent Suprem: matches NETRA record IN-INC-19"
       ],
       "review": "unreviewed"
     },
