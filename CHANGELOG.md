@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- **Daily check skips more foreign stories (2026-11-21).** Headlines about the UK ("united kingdom", England, London), SpaceX or Grok, and JPMorgan, Chase, Citi, Goldman or Wells Fargo no longer count as Indian just because an Indian outlet carried them (week of 2026-11-14 picked a UK Grok lawsuit and two US bank breaches).
 - **Daily check clears its own conflicts (2026-11-17).** When another change is merged first, a week's pull request can
   conflict (its page files are rebuilt from older code).
   - The next morning's run now rebuilds a conflicting pull request from `main`, keeping that week's items, even if
