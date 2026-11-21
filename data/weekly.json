@@ -8,21 +8,21 @@
   "weeks": [
     {
       "week_start": "2026-11-14",
-      "week_end": "2026-11-16",
-      "generated": "2026-11-17",
+      "week_end": "2026-11-20",
+      "generated": "2026-11-21",
       "news_ok": true,
       "sources": [
         {
           "name": "GDELT: AI news",
           "url": "https://api.gdeltproject.org/api/v2/doc/doc",
           "status": "ok",
-          "items": 16
+          "items": 101
         },
         {
           "name": "GDELT: cyber news",
           "url": "https://api.gdeltproject.org/api/v2/doc/doc",
           "status": "ok",
-          "items": 1
+          "items": 11
         },
         {
           "name": "Press Information Bureau: press releases (RSS, as listed)",
@@ -42,7 +42,7 @@
           "name": "METR publications (RSS)",
           "url": "https://metr.org/feed.xml",
           "status": "ok",
-          "items": 1
+          "items": 2
         },
         {
           "name": "MITRE ATLAS case studies (release 2026.10)",
@@ -60,14 +60,21 @@
         {
           "name": "CERT-In guidelines (public list)",
           "url": "https://www.cert-in.org.in/s2cMainServlet?pageid=GUIDLNVIEW01",
-          "status": "failed",
-          "items": 0,
-          "error": "TimeoutError: The read operation timed out"
+          "status": "ok",
+          "items": 0
         }
       ],
       "top": [],
       "cyber": [],
       "models": [
+        {
+          "kind": "METR publication",
+          "title": "AI R&D-relevant model capabilities are improving rapidly and are getting harder to measure",
+          "url": "https://metr.org/blog/2026-11-20-q4-2026-capability-update/",
+          "date": "2026-11-20",
+          "note": "New METR publication. Cite and summarise only; NETRA has not read or mapped it yet.",
+          "review": "unreviewed"
+        },
         {
           "kind": "METR publication",
           "title": "Measuring alignment eval tells",
@@ -80,7 +87,8 @@
       "official": [],
       "notes": [
         "MITRE ATLAS release 2026.10: 77 case studies in total, 69 not yet in NETRA's model register.",
-        "Only 0 AI items met the selection rules this week; NETRA does not pad the list."
+        "Not listed (already a NETRA record): MP High Court pulls up state government for using AI to cite non-existent Suprem: matches NETRA record IN-INC-19",
+        "Removed by hand on 2026-11-21: three auto-selected stories that were not about India (a UK lawsuit over Grok images; cyber attacks on JPMorgan and Chase), picked only because Indian outlets carried them."
       ],
       "review": "unreviewed"
     },
