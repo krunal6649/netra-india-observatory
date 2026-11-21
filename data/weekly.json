@@ -64,64 +64,8 @@
           "items": 0
         }
       ],
-      "top": [
-        {
-          "title": "SpaceX AI subsidiary rejects liability in united kingdom lawmaker lawsuit over sexualised Grok images",
-          "summary": "1 report from hindustantimes.com on 2026-11-20. No NETRA risk area matched the headlines. Open the sources for the facts.",
-          "risk_areas": [],
-          "sources": [
-            {
-              "title": "SpaceX AI subsidiary rejects liability in united kingdom lawmaker lawsuit over sexualised Grok images",
-              "url": "https://www.hindustantimes.com/world-news/spacexs-ai-subsidiary-rejects-liability-in-uk-lawmaker-s-lawsuit-over-sexualised-grok-images-101795133880446.html",
-              "domain": "hindustantimes.com",
-              "date": "2026-11-20",
-              "via": "GDELT"
-            }
-          ],
-          "score": 3,
-          "auto_selected": true,
-          "review": "unreviewed",
-          "id": "W-2026-11-14-1"
-        }
-      ],
-      "cyber": [
-        {
-          "title": "JPMorgan Says Third-Party Vendors Targeted In Cyberattack, Customer Data Potentially Accessed",
-          "summary": "1 report from deccanchronicle.com on 2026-11-20. Cyber security item, listed separately and not counted as an AI incident.",
-          "risk_areas": [],
-          "sources": [
-            {
-              "title": "JPMorgan Says Third-Party Vendors Targeted In Cyberattack, Customer Data Potentially Accessed",
-              "url": "https://www.deccanchronicle.com/world/jpmorgan-says-third-party-vendors-targeted-in-cyberattack-customer-data-potentially-accessed-2006117",
-              "domain": "deccanchronicle.com",
-              "date": "2026-11-20",
-              "via": "GDELT"
-            }
-          ],
-          "score": 1,
-          "auto_selected": true,
-          "review": "unreviewed",
-          "id": "C-2026-11-14-1"
-        },
-        {
-          "title": "Cyberattack leaks thousands of Chase customer emails, some phone numbers",
-          "summary": "1 report from business-standard.com on 2026-11-20. Cyber security item, listed separately and not counted as an AI incident.",
-          "risk_areas": [],
-          "sources": [
-            {
-              "title": "Cyberattack leaks thousands of Chase customer emails, some phone numbers",
-              "url": "https://www.business-standard.com/technology/tech-news/cyberattack-leaks-thousands-of-chase-customer-emails-some-phone-numbers-126112000035_1.html",
-              "domain": "business-standard.com",
-              "date": "2026-11-20",
-              "via": "GDELT"
-            }
-          ],
-          "score": 1,
-          "auto_selected": true,
-          "review": "unreviewed",
-          "id": "C-2026-11-14-2"
-        }
-      ],
+      "top": [],
+      "cyber": [],
       "models": [
         {
           "kind": "METR publication",
@@ -143,8 +87,8 @@
       "official": [],
       "notes": [
         "MITRE ATLAS release 2026.10: 77 case studies in total, 69 not yet in NETRA's model register.",
-        "Only 1 AI item met the selection rules this week; NETRA does not pad the list.",
-        "Not listed (already a NETRA record): MP High Court pulls up state government for using AI to cite non-existent Suprem: matches NETRA record IN-INC-19"
+        "Not listed (already a NETRA record): MP High Court pulls up state government for using AI to cite non-existent Suprem: matches NETRA record IN-INC-19",
+        "Removed by hand on 2026-11-21: three auto-selected stories that were not about India (a UK lawsuit over Grok images; cyber attacks on JPMorgan and Chase), picked only because Indian outlets carried them."
       ],
       "review": "unreviewed"
     },
