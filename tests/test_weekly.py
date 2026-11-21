@@ -181,7 +181,11 @@ class Tests(unittest.TestCase):
                 ("ai", "livemint.com", "Anthropic largest IPO on record ambition on hold? AI backlash could threaten timing, $1.5 trillion valuation"),
                 ("cyber", "moneycontrol.com", "OpenAI launches GPT-6 Cyber with Critical cybersecurity rating: What it does"),
                 ("cyber", "trak.in", "French Bank Crédit Mutuel Arkéa Loses €100 Million in Cyberattack-Trak. in-Indian Business of Tech, Mobile & Startups"),
-                ("cyber", "business-standard.com", "Critical flaw affecting 70% of websites has cybersecurity world panicked")]
+                ("cyber", "business-standard.com", "Critical flaw affecting 70% of websites has cybersecurity world panicked"),
+                # week of 2026-11-14: foreign stories carried by Indian outlets
+                ("ai", "hindustantimes.com", "SpaceX AI subsidiary rejects liability in united kingdom lawmaker lawsuit over sexualised Grok images"),
+                ("cyber", "deccanchronicle.com", "JPMorgan Says Third-Party Vendors Targeted In Cyberattack, Customer Data Potentially Accessed"),
+                ("cyber", "business-standard.com", "Cyberattack leaks thousands of Chase customer emails, some phone numbers")]
         for kind, dom, title in drop:
             self.assertFalse(self.picked(kind, dom, title), title)
 

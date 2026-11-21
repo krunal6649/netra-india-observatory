@@ -50,7 +50,7 @@ CYBER_TERMS = ["ransomware", "data breach", "breach", "cyber attack", "cyberatta
 # 'Hacked to death' is violence, not a cyber attack
 NOT_CYBER = ["hacked to death", "hacking to death", "machete", "axe", "sickle", "sword", "witchcraft"]
 # A headline from an Indian outlet counts as about India unless it names another country first
-FOREIGN_TERMS = ["u.s.", "usa", "america", "american", "uk", "britain", "british", "china", "chinese", "pakistan",
+FOREIGN_TERMS = ["u.s.", "usa", "america", "american", "uk", "united kingdom", "britain", "british", "england", "london", "china", "chinese", "pakistan",
                  "europe", "european", "eu", "california", "new york", "washington", "canada", "australia", "japan",
                  "korea", "russia", "ukraine", "israel", "iran", "dubai", "uae", "singapore", "trump", "global", "french",
                  "france", "german", "germany", "spain", "spanish", "italy", "italian", "brazil", "mexico", "nigeria",
@@ -61,9 +61,11 @@ INDIA_TERMS = ["india", "indian", "delhi", "mumbai", "bengaluru", "bangalore", "
                "jammu", "kashmir", "ladakh", "arunachal", "bengal", "modi", "cbfc", "uidai", "aadhaar", "upi", "npci", "trai",
                "lok sabha", "rajya sabha"]
 # The Indian-outlet fallback (a headline with no Indian place) is not used for these: Indian papers carry global tech
-# and business news, which is not an Indian incident (week of 2026-10-31: a US lawsuit against Google, an IPO story)
+# and business news, which is not an Indian incident (week of 2026-10-31: a US lawsuit against Google, an IPO story;
+# week of 2026-11-14: a UK lawsuit over Grok images, and JPMorgan and Chase breaches)
 BIG_TECH = ["google", "openai", "anthropic", "meta", "microsoft", "apple", "amazon", "nvidia", "xai", "tesla", "samsung",
-            "ibm", "deepmind", "perplexity", "mistral"]
+            "ibm", "deepmind", "perplexity", "mistral", "spacex", "grok",
+            "jpmorgan", "chase", "citi", "goldman", "wells fargo"]
 BUSINESS = re.compile(r"\b(ipo|valuation|shares|stocks?|earnings|revenue|funding|investors|market cap|"
                       r"launch(?:es|ed)?|unveil(?:s|ed)?|rolls? out)\b(?! (?:a |an |the )?(?:probe|investigation|inquiry|"
                       r"crackdown|drive|campaign|case|fir))", re.I)
