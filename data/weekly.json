@@ -7,6 +7,146 @@
   },
   "weeks": [
     {
+      "week_start": "2026-11-21",
+      "week_end": "2026-11-24",
+      "generated": "2026-11-25",
+      "news_ok": false,
+      "sources": [
+        {
+          "name": "GDELT: AI news",
+          "url": "https://api.gdeltproject.org/api/v2/doc/doc",
+          "status": "failed",
+          "items": 0,
+          "error": "HTTPError: HTTP Error 429: Too Many Requests"
+        },
+        {
+          "name": "GDELT: cyber news",
+          "url": "https://api.gdeltproject.org/api/v2/doc/doc",
+          "status": "ok",
+          "items": 19
+        },
+        {
+          "name": "Press Information Bureau: press releases (RSS, as listed)",
+          "url": "https://pib.gov.in/RssMain.aspx?ModId=6&Lang=2&Regid=3",
+          "status": "off",
+          "items": 0,
+          "error": "Exact address listed on PIB's own RSS page (pib.gov.in/ViewRss.aspx). That page is in Hindi, so the language of this feed is to confirm on the first workflow run. First workflow run on 2026-10-25: HTTP 403 (forbidden) from GitHub's servers. Switched off: NETRA does not work around a site that refuses automated access. PIB releases can still be added by hand."
+        },
+        {
+          "name": "Press Information Bureau: press releases (RSS, Lang=1)",
+          "url": "https://pib.gov.in/RssMain.aspx?ModId=6&Lang=1&Regid=3",
+          "status": "off",
+          "items": 0,
+          "error": "Same feed with Lang=1, tried in case it is the English edition. Not confirmed; if it fails or repeats the other feed, the run report says so and it can be switched off. First workflow run on 2026-10-25: HTTP 403 (forbidden) from GitHub's servers. Switched off: NETRA does not work around a site that refuses automated access. PIB releases can still be added by hand."
+        },
+        {
+          "name": "METR publications (RSS)",
+          "url": "https://metr.org/feed.xml",
+          "status": "ok",
+          "items": 1
+        },
+        {
+          "name": "MITRE ATLAS case studies (release 2026.10)",
+          "url": "https://raw.githubusercontent.com/mitre-atlas/atlas-data/main/dist/v6/ATLAS-latest.yaml",
+          "status": "ok",
+          "items": 0
+        },
+        {
+          "name": "CERT-In advisories (public list)",
+          "url": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBADVLIST02&year=2026",
+          "status": "failed",
+          "items": 0,
+          "error": "TimeoutError: The read operation timed out"
+        },
+        {
+          "name": "CERT-In guidelines (public list)",
+          "url": "https://www.cert-in.org.in/s2cMainServlet?pageid=GUIDLNVIEW01",
+          "status": "ok",
+          "items": 0
+        }
+      ],
+      "top": [],
+      "cyber": [
+        {
+          "title": "14-Year-Old Hacker Held For Trying To Sell Private Data Of 4,000 Agniveers On Dark Web: Delhi Police",
+          "summary": "2 reports from dailyexcelsior.com, rediff.com on 2026-11-21. Cyber security item, listed separately and not counted as an AI incident.",
+          "risk_areas": [],
+          "sources": [
+            {
+              "title": "14-Year-Old Hacker Held For Trying To Sell Private Data Of 4,000 Agniveers On Dark Web: Delhi Police",
+              "url": "https://www.dailyexcelsior.com/14-year-old-hacker-held-for-trying-to-sell-private-data-of-4000-agniveers-on-dark-web-delhi-police/",
+              "domain": "dailyexcelsior.com",
+              "date": "2026-11-21",
+              "via": "GDELT"
+            },
+            {
+              "title": "14-year-old hacks test site, tries to sell Agniveer data on dark web",
+              "url": "https://www.rediff.com/news/report/14-year-old-hacker-held-for-selling-agniveer-data-on-dark-web/20261121.htm",
+              "domain": "rediff.com",
+              "date": "2026-11-21",
+              "via": "GDELT"
+            }
+          ],
+          "score": 4,
+          "auto_selected": true,
+          "review": "unreviewed",
+          "id": "C-2026-11-21-1"
+        },
+        {
+          "title": "CIA cyberattack breaches unclassified system handling open-source intelligence",
+          "summary": "1 report from thehindubusinessline.com on 2026-11-25. Cyber security item, listed separately and not counted as an AI incident.",
+          "risk_areas": [],
+          "sources": [
+            {
+              "title": "CIA cyberattack breaches unclassified system handling open-source intelligence",
+              "url": "https://www.thehindubusinessline.com/news/world/cias-open-source-intelligence-system-breached-in-cyberattack-no-classified-data-involved/article71740205.ece",
+              "domain": "thehindubusinessline.com",
+              "date": "2026-11-25",
+              "via": "GDELT"
+            }
+          ],
+          "score": 1,
+          "auto_selected": true,
+          "review": "unreviewed",
+          "id": "C-2026-11-21-2"
+        },
+        {
+          "title": "CERT-In flags unauthorised payments beyond financial sector",
+          "summary": "1 report from news.webindia123.com on 2026-11-21. Cyber security item, listed separately and not counted as an AI incident.",
+          "risk_areas": [],
+          "sources": [
+            {
+              "title": "CERT-In flags unauthorised payments beyond financial sector",
+              "url": "https://news.webindia123.com/news/Articles/Business/20261121/4522706.html",
+              "domain": "news.webindia123.com",
+              "date": "2026-11-21",
+              "via": "GDELT"
+            }
+          ],
+          "score": 1,
+          "auto_selected": true,
+          "review": "unreviewed",
+          "id": "C-2026-11-21-3"
+        }
+      ],
+      "models": [
+        {
+          "kind": "METR publication",
+          "title": "Interpreting a recent acceleration in pretraining loss",
+          "url": "https://metr.org/blog/2026-11-24-interpreting-a-recent-acceleration-in-pretraining-loss/",
+          "date": "2026-11-24",
+          "note": "New METR publication. Cite and summarise only; NETRA has not read or mapped it yet.",
+          "review": "unreviewed"
+        }
+      ],
+      "official": [],
+      "notes": [
+        "MITRE ATLAS release 2026.10: 77 case studies in total, 69 not yet in NETRA's model register.",
+        "The AI news search (GDELT) did not answer this week, so AI items may be missing. This does not mean nothing happened."
+      ],
+      "review": "unreviewed"
+    },
+    {
       "week_start": "2026-11-14",
       "week_end": "2026-11-20",
       "generated": "2026-11-21",
