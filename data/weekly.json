@@ -8,22 +8,21 @@
   "weeks": [
     {
       "week_start": "2026-11-21",
-      "week_end": "2026-11-24",
-      "generated": "2026-11-25",
-      "news_ok": false,
+      "week_end": "2026-11-26",
+      "generated": "2026-11-27",
+      "news_ok": true,
       "sources": [
         {
           "name": "GDELT: AI news",
           "url": "https://api.gdeltproject.org/api/v2/doc/doc",
-          "status": "failed",
-          "items": 0,
-          "error": "HTTPError: HTTP Error 429: Too Many Requests"
+          "status": "ok",
+          "items": 250
         },
         {
           "name": "GDELT: cyber news",
           "url": "https://api.gdeltproject.org/api/v2/doc/doc",
           "status": "ok",
-          "items": 19
+          "items": 30
         },
         {
           "name": "Press Information Bureau: press releases (RSS, as listed)",
@@ -65,17 +64,86 @@
           "items": 0
         }
       ],
-      "top": [],
+      "top": [
+        {
+          "title": "India stresses human oversight in AI use during conflicts, flags risks of misuse at UN",
+          "summary": "4 reports from aninews.in, economictimes.indiatimes.com, indiagazette.com, news.webindia123.com on 2026-11-25. NETRA's keyword match suggests risk area 6.5 (Governance failure). Open the sources for the facts.",
+          "risk_areas": [
+            "6.5"
+          ],
+          "sources": [
+            {
+              "title": "India stresses human oversight in AI use during conflicts, flags risks of misuse at UN",
+              "url": "http://www.indiagazette.com/news/279452898/india-stresses-human-oversight-in-ai-use-during-conflicts-flags-risks-of-misuse-at-un",
+              "domain": "indiagazette.com",
+              "date": "2026-11-25",
+              "via": "GDELT"
+            },
+            {
+              "title": "India stresses human oversight in AI use during conflicts, flags risks of misuse at UN",
+              "url": "https://economictimes.indiatimes.com/news/india/india-stresses-human-oversight-in-ai-use-during-conflicts-flags-risks-of-misuse-at-un/articleshow/136146544.cms",
+              "domain": "economictimes.indiatimes.com",
+              "date": "2026-11-25",
+              "via": "GDELT"
+            },
+            {
+              "title": "India stresses human oversight in AI use during conflicts, flags risks of misuse at UN",
+              "url": "https://aninews.in/news/world/us/india-stresses-human-oversight-in-ai-use-during-conflicts-flags-risks-of-misuse-at-un20261125064412/",
+              "domain": "aninews.in",
+              "date": "2026-11-25",
+              "via": "GDELT"
+            },
+            {
+              "title": "India stresses human oversight in AI use during conflicts, flags risks of misuse at UN",
+              "url": "https://news.webindia123.com/news/Articles/World/20261125/4524132.html",
+              "domain": "news.webindia123.com",
+              "date": "2026-11-25",
+              "via": "GDELT"
+            }
+          ],
+          "score": 8,
+          "auto_selected": true,
+          "review": "unreviewed",
+          "id": "W-2026-11-21-1"
+        },
+        {
+          "title": "AI-generated scams: Fake gifts, real losses as AI ads proliferate",
+          "summary": "1 report from economictimes.indiatimes.com on 2026-11-25. NETRA's keyword match suggests risk area 4.3 (Fraud, scams, and targeted manipulation). Open the sources for the facts.",
+          "risk_areas": [
+            "4.3"
+          ],
+          "sources": [
+            {
+              "title": "AI-generated scams: Fake gifts, real losses as AI ads proliferate",
+              "url": "https://economictimes.indiatimes.com/tech/artificial-intelligence/fake-gifts-real-losses-as-ai-ads-proliferate/articleshow/136146395.cms",
+              "domain": "economictimes.indiatimes.com",
+              "date": "2026-11-25",
+              "via": "GDELT"
+            }
+          ],
+          "score": 3,
+          "auto_selected": true,
+          "review": "unreviewed",
+          "id": "W-2026-11-21-2"
+        }
+      ],
       "cyber": [
         {
           "title": "14-Year-Old Hacker Held For Trying To Sell Private Data Of 4,000 Agniveers On Dark Web: Delhi Police",
-          "summary": "2 reports from dailyexcelsior.com, rediff.com on 2026-11-21. Cyber security item, listed separately and not counted as an AI incident.",
+          "summary": "3 reports from dailyexcelsior.com, rediff.com, tribuneindia.com on 2026-11-21. Cyber security item, listed separately and not counted as an AI incident.",
           "risk_areas": [],
           "sources": [
             {
               "title": "14-Year-Old Hacker Held For Trying To Sell Private Data Of 4,000 Agniveers On Dark Web: Delhi Police",
               "url": "https://www.dailyexcelsior.com/14-year-old-hacker-held-for-trying-to-sell-private-data-of-4000-agniveers-on-dark-web-delhi-police/",
               "domain": "dailyexcelsior.com",
+              "date": "2026-11-21",
+              "via": "GDELT"
+            },
+            {
+              "title": "Haryana teen detained for bid to sell Agniveer data on dark web",
+              "url": "https://www.tribuneindia.com/news/haryana/haryana-teen-detained-for-bid-to-sell-agniveer-data-on-dark-web/",
+              "domain": "tribuneindia.com",
               "date": "2026-11-21",
               "via": "GDELT"
             },
@@ -87,10 +155,28 @@
               "via": "GDELT"
             }
           ],
-          "score": 4,
+          "score": 6,
           "auto_selected": true,
           "review": "unreviewed",
           "id": "C-2026-11-21-1"
+        },
+        {
+          "title": "India warns against terrorists deploying emerging technologies; flags risks of hacking during conflicts",
+          "summary": "1 report from ianslive.in on 2026-11-25. Cyber security item, listed separately and not counted as an AI incident.",
+          "risk_areas": [],
+          "sources": [
+            {
+              "title": "India warns against terrorists deploying emerging technologies; flags risks of hacking during conflicts",
+              "url": "https://ianslive.in/india-warns-against-terrorists-deploying-emerging-technologies-calls-for-vigilance-against-hacking-during-conflicts--20261125083903",
+              "domain": "ianslive.in",
+              "date": "2026-11-25",
+              "via": "GDELT"
+            }
+          ],
+          "score": 1,
+          "auto_selected": true,
+          "review": "unreviewed",
+          "id": "C-2026-11-21-2"
         },
         {
           "title": "CIA cyberattack breaches unclassified system handling open-source intelligence",
@@ -108,7 +194,7 @@
           "score": 1,
           "auto_selected": true,
           "review": "unreviewed",
-          "id": "C-2026-11-21-2"
+          "id": "C-2026-11-21-3"
         },
         {
           "title": "CERT-In flags unauthorised payments beyond financial sector",
@@ -126,7 +212,7 @@
           "score": 1,
           "auto_selected": true,
           "review": "unreviewed",
-          "id": "C-2026-11-21-3"
+          "id": "C-2026-11-21-4"
         }
       ],
       "models": [
@@ -142,7 +228,7 @@
       "official": [],
       "notes": [
         "MITRE ATLAS release 2026.10: 77 case studies in total, 69 not yet in NETRA's model register.",
-        "The AI news search (GDELT) did not answer this week, so AI items may be missing. This does not mean nothing happened."
+        "Only 2 AI items met the selection rules this week; NETRA does not pad the list."
       ],
       "review": "unreviewed"
     },
